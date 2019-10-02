@@ -3,4 +3,7 @@ assets/*
 protected/runtime/*
 !protected/runtime/.gitignore
 protected/data/*.db
-themes/classic/views/
+protected/config/*
+images/imgs_listas_tmp/*
+images/items/*
+images/reg_imp/*
