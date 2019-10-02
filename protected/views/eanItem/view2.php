@@ -1,0 +1,52 @@
+<?php
+/* @var $this EanItemController */
+/* @var $model EanItem */
+
+?>
+
+<h3>Visualizando código de barras x item</h3>
+
+<div class="table-responsive">
+
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+		//'Id_Ean_Item',
+		array(
+            'name'=>'Id_Item',
+            'value'=>$model->DescItem($model->Id_Item),
+        ),
+		array(
+            'name'=>'Criterio',
+            'value'=>$model->DescCriterio($model->Criterio),
+        ),
+        //'Num_Und',
+		array(
+            'name'=>'Código',
+            'value'=>$model->EanDig($model->Id_Ean_Item),
+        ),
+        'Und_x_Caja',
+		array(
+            'name'=>'Id_Usuario_Creacion',
+            'value'=>$model->idusuariocre->Usuario,
+        ),
+        array(
+            'name'=>'Fecha_Creacion',
+            'value'=>UtilidadesVarias::textofechahora($model->Fecha_Creacion),
+        ),
+        array(
+            'name'=>'Id_Usuario_Actualizacion',
+            'value'=>$model->idusuarioact->Usuario,
+        ),
+        array(
+            'name'=>'Fecha_Actualizacion',
+            'value'=>UtilidadesVarias::textofechahora($model->Fecha_Actualizacion),
+        ),
+	),
+)); ?>
+
+</div>
+
+<div class="btn-group" style="padding-bottom: 2%">
+   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=eanItem/view&id='.$model->Id_Item; ?>';"><i class="fa fa-reply"></i> Volver </button>
+</div>
