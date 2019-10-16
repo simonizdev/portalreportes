@@ -58,6 +58,8 @@ class Reporte extends CFormModel
     public $c_o;
     public $opcion;
     public $proveedor;
+    public $periodo_inicial;
+    public $periodo_final;
     
     public function rules() {
         // NOTE: you should only define rules for those attributes that
@@ -162,6 +164,7 @@ class Reporte extends CFormModel
             array('fecha_inicial, fecha_final', 'required','on'=>'items_exentos_iva'),
             array('cons_inicial, cons_final', 'required','on'=>'desc_b2b'),
             array('des_ora', 'required','on'=>'logistica_comercial'),
+            array('periodo_inicial, periodo_final, opcion', 'required','on'=>'analisis_ventas'),
         );  
     }
 
@@ -229,6 +232,8 @@ class Reporte extends CFormModel
             'cons_final' => 'Consecutivo final',
             'c_o'=>'CO',
             'opcion' => 'Opción',
+            'periodo_inicial' => 'Periodo inicial',
+            'periodo_final' => 'Periodo final',
         );
     }
 
