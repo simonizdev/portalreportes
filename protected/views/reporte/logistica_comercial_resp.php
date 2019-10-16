@@ -130,6 +130,12 @@ foreach ($q1 as $reg1) {
         $H018_PESO_UND_EMPAQUE_CADENAS_KG = $reg1 ['H018_PESO_UND_EMPAQUE_CADENAS_KG'];
     }
 
+    if($reg1 ['H018_UND_VENTA_MINIMA'] == NULL){
+        $H018_UND_VENTA_MINIMA = '';
+    }else{
+        $H018_UND_VENTA_MINIMA = $reg1 ['H018_UND_VENTA_MINIMA'];
+    }
+
     $ORIGEN = $reg1 ['ORIGEN'];
     $TIPO = $reg1 ['TIPO'];
     $CLASIFICACION = $reg1 ['CLASIFICACION'];
@@ -142,7 +148,7 @@ foreach ($q1 as $reg1) {
     $CATEGORIA_ORACLE = $reg1 ['CATEGORIA_ORACLE'];
     $SUB_MARCA = $reg1 ['SUB_MARCA'];
 
-    $array_info[$Item]['info'] = array('UN' => $UN, 'Item' => $Item, 'Referencia' => $Referencia, 'Descripcion' => $Descripcion, 'Estado_Siesa' => $Estado_Siesa, 'Estado_Comercial' => $Estado_Comercial, 'IVA' => $IVA, 'Producto_exento' => $Producto_exento, 'Cant_Disponible' => $Cant_Disponible, 'TOTAL' => $TOTAL,'AUTOMOTRIZ' => $AUTOMOTRIZ, 'ELECTRICO' => $ELECTRICO, 'FERRETERO' => $FERRETERO, 'MIXTO' => $MIXTO, 'MIXTO_B_GA' => $MIXTO_B_GA, 'H018_LARGO_PRODUCTO_CMS' => $H018_LARGO_PRODUCTO_CMS, 'H018_ANCHO_PRODUCTO_CMS' => $H018_ANCHO_PRODUCTO_CMS, 'H018_ALTO_PRODUCTO_CMS' => $H018_ALTO_PRODUCTO_CMS, 'H018_PESO_PRODUCTO_KG' => $H018_PESO_PRODUCTO_KG, 'H018_LARGO_UND_EMPAQUE_PPAL_CMS' => $H018_LARGO_UND_EMPAQUE_PPAL_CMS, 'H018_ANCHO_UND_EMPAQUE_PPAL_CMS' => $H018_ANCHO_UND_EMPAQUE_PPAL_CMS, 'H018_ALTO_UND_EMPAQUE_PPAL_CMS' => $H018_ALTO_UND_EMPAQUE_PPAL_CMS, 'H018_PESO_UND_EMPAQUE_PPAL_KG' => $H018_PESO_UND_EMPAQUE_PPAL_KG, 'H018_LARGO_UND_EMPAQUE_CADENAS_CMS' => $H018_LARGO_UND_EMPAQUE_CADENAS_CMS, 'H018_ANCHO_UND_EMPAQUE_CADENAS_CMS' => $H018_ANCHO_UND_EMPAQUE_CADENAS_CMS, 'H018_ALTO_UND_EMPAQUE_CADENAS_CMS' => $H018_ALTO_UND_EMPAQUE_CADENAS_CMS, 'H018_PESO_UND_EMPAQUE_CADENAS_KG' => $H018_PESO_UND_EMPAQUE_CADENAS_KG, 'ORIGEN' => $ORIGEN, 'TIPO' => $TIPO, 'CLASIFICACION' => $CLASIFICACION, 'CLASE' => $CLASE, 'MARCA' => $MARCA, 'SEGMENTO' => $SEGMENTO, 'LINEA' => $LINEA, 'SUB_LINEA' => $SUB_LINEA, 'I_UNIDAD_NEGOCIO' => $I_UNIDAD_NEGOCIO, 'CATEGORIA_ORACLE' => $CATEGORIA_ORACLE, 'SUB_MARCA' => $SUB_MARCA);
+    $array_info[$Item]['info'] = array('UN' => $UN, 'Item' => $Item, 'Referencia' => $Referencia, 'Descripcion' => $Descripcion, 'Estado_Siesa' => $Estado_Siesa, 'Estado_Comercial' => $Estado_Comercial, 'IVA' => $IVA, 'Producto_exento' => $Producto_exento, 'Cant_Disponible' => $Cant_Disponible, 'TOTAL' => $TOTAL,'AUTOMOTRIZ' => $AUTOMOTRIZ, 'ELECTRICO' => $ELECTRICO, 'FERRETERO' => $FERRETERO, 'MIXTO' => $MIXTO, 'MIXTO_B_GA' => $MIXTO_B_GA, 'H018_LARGO_PRODUCTO_CMS' => $H018_LARGO_PRODUCTO_CMS, 'H018_ANCHO_PRODUCTO_CMS' => $H018_ANCHO_PRODUCTO_CMS, 'H018_ALTO_PRODUCTO_CMS' => $H018_ALTO_PRODUCTO_CMS, 'H018_PESO_PRODUCTO_KG' => $H018_PESO_PRODUCTO_KG, 'H018_LARGO_UND_EMPAQUE_PPAL_CMS' => $H018_LARGO_UND_EMPAQUE_PPAL_CMS, 'H018_ANCHO_UND_EMPAQUE_PPAL_CMS' => $H018_ANCHO_UND_EMPAQUE_PPAL_CMS, 'H018_ALTO_UND_EMPAQUE_PPAL_CMS' => $H018_ALTO_UND_EMPAQUE_PPAL_CMS, 'H018_PESO_UND_EMPAQUE_PPAL_KG' => $H018_PESO_UND_EMPAQUE_PPAL_KG, 'H018_LARGO_UND_EMPAQUE_CADENAS_CMS' => $H018_LARGO_UND_EMPAQUE_CADENAS_CMS, 'H018_ANCHO_UND_EMPAQUE_CADENAS_CMS' => $H018_ANCHO_UND_EMPAQUE_CADENAS_CMS, 'H018_ALTO_UND_EMPAQUE_CADENAS_CMS' => $H018_ALTO_UND_EMPAQUE_CADENAS_CMS, 'H018_PESO_UND_EMPAQUE_CADENAS_KG' => $H018_PESO_UND_EMPAQUE_CADENAS_KG, 'H018_UND_VENTA_MINIMA' => $H018_UND_VENTA_MINIMA, 'ORIGEN' => $ORIGEN, 'TIPO' => $TIPO, 'CLASIFICACION' => $CLASIFICACION, 'CLASE' => $CLASE, 'MARCA' => $MARCA, 'SEGMENTO' => $SEGMENTO, 'LINEA' => $LINEA, 'SUB_LINEA' => $SUB_LINEA, 'I_UNIDAD_NEGOCIO' => $I_UNIDAD_NEGOCIO, 'CATEGORIA_ORACLE' => $CATEGORIA_ORACLE, 'SUB_MARCA' => $SUB_MARCA);
     $array_info[$Item]['unds'][] = array('L001' => $L001, 'L860' => $L860, 'L111' => $L111, 'UND' => $UND, 'Factor' => $Factor, 'EAN' => $EAN);
 
 }
@@ -217,20 +223,21 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('AM1', 'Largo und. emp. cadena
 $objPHPExcel->setActiveSheetIndex()->setCellValue('AN1', 'Ancho und. emp. cadenas CMS');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('AO1', 'Alto und. emp. cadenas CMS');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('AP1', 'Peso und. emp. cadenas KG');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AQ1', 'Origen');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AR1', 'Tipo');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AS1', 'Clasificación');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AT1', 'Clase');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AU1', 'Marca');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AV1', 'Segmento');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AW1', 'Línea');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AX1', 'Sub-línea');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AY1', 'Unidad de negocio');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AZ1', 'Categoria oracle');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('BA1', 'Sub-marca');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AQ1', 'Und. venta mínimo');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AR1', 'Origen');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AS1', 'Tipo');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AT1', 'Clasificación');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AU1', 'Clase');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AV1', 'Marca');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AW1', 'Segmento');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AX1', 'Línea');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AY1', 'Sub-línea');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AZ1', 'Unidad de negocio');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('BA1', 'Categoria oracle');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('BB1', 'Sub-marca');
 
-$objPHPExcel->getActiveSheet()->getStyle('A1:BA1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-$objPHPExcel->getActiveSheet()->getStyle('A1:BA1')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A1:BB1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+$objPHPExcel->getActiveSheet()->getStyle('A1:BB1')->getFont()->setBold(true);
 
 /*Inicio contenido tabla*/
     
@@ -266,6 +273,7 @@ foreach ($array_info as $item => $data) {
     $H018_ANCHO_UND_EMPAQUE_CADENAS_CMS = $data['info']['H018_ANCHO_UND_EMPAQUE_CADENAS_CMS'];
     $H018_ALTO_UND_EMPAQUE_CADENAS_CMS = $data['info']['H018_ALTO_UND_EMPAQUE_CADENAS_CMS'];
     $H018_PESO_UND_EMPAQUE_CADENAS_KG = $data['info']['H018_PESO_UND_EMPAQUE_CADENAS_KG'];
+    $H018_UND_VENTA_MINIMA = $data['info']['H018_UND_VENTA_MINIMA'];
     $ORIGEN = $data['info']['ORIGEN'];
     $TIPO = $data['info']['TIPO'];
     $CLASIFICACION = $data['info']['CLASIFICACION'];
@@ -567,30 +575,32 @@ foreach ($array_info as $item => $data) {
     $objPHPExcel->setActiveSheetIndex()->setCellValue('AB'.$Fila, $FERRETERO);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('AC'.$Fila, $MIXTO);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('AD'.$Fila, $MIXTO_B_GA);
+    
     $objPHPExcel->setActiveSheetIndex()->setCellValue('AE'.$Fila, $H018_LARGO_PRODUCTO_CMS);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AO'.$Fila, $H018_ANCHO_PRODUCTO_CMS);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AP'.$Fila, $H018_ALTO_PRODUCTO_CMS);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AQ'.$Fila, $H018_PESO_PRODUCTO_KG);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AR'.$Fila, $H018_LARGO_UND_EMPAQUE_PPAL_CMS);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AS'.$Fila, $H018_ANCHO_UND_EMPAQUE_PPAL_CMS);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AT'.$Fila, $H018_ALTO_UND_EMPAQUE_PPAL_CMS);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AU'.$Fila, $H018_PESO_UND_EMPAQUE_PPAL_KG);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AV'.$Fila, $H018_LARGO_UND_EMPAQUE_CADENAS_CMS);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AW'.$Fila, $H018_ANCHO_UND_EMPAQUE_CADENAS_CMS);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AX'.$Fila, $H018_ALTO_UND_EMPAQUE_CADENAS_CMS);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AF'.$Fila, $H018_ANCHO_PRODUCTO_CMS);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AG'.$Fila, $H018_ALTO_PRODUCTO_CMS);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AH'.$Fila, $H018_PESO_PRODUCTO_KG);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AI'.$Fila, $H018_LARGO_UND_EMPAQUE_PPAL_CMS);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AJ'.$Fila, $H018_ANCHO_UND_EMPAQUE_PPAL_CMS);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AK'.$Fila, $H018_ALTO_UND_EMPAQUE_PPAL_CMS);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AL'.$Fila, $H018_PESO_UND_EMPAQUE_PPAL_KG);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AM'.$Fila, $H018_LARGO_UND_EMPAQUE_CADENAS_CMS);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AN'.$Fila, $H018_ANCHO_UND_EMPAQUE_CADENAS_CMS);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AO'.$Fila, $H018_ALTO_UND_EMPAQUE_CADENAS_CMS);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('AP'.$Fila, $H018_PESO_UND_EMPAQUE_CADENAS_KG);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AQ'.$Fila, $ORIGEN);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AR'.$Fila, $TIPO);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AS'.$Fila, $CLASIFICACION);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AT'.$Fila, $CLASE);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AU'.$Fila, $MARCA);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AV'.$Fila, $SEGMENTO);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AW'.$Fila, $LINEA);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AX'.$Fila, $SUB_LINEA);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AY'.$Fila, $I_UNIDAD_NEGOCIO);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('AZ'.$Fila, $CATEGORIA_ORACLE);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('BA'.$Fila, $SUB_MARCA);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AQ'.$Fila, $H018_UND_VENTA_MINIMA);
 
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AR'.$Fila, $ORIGEN);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AS'.$Fila, $TIPO);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AT'.$Fila, $CLASIFICACION);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AU'.$Fila, $CLASE);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AV'.$Fila, $MARCA);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AW'.$Fila, $SEGMENTO);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AX'.$Fila, $LINEA);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AY'.$Fila, $SUB_LINEA);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AZ'.$Fila, $I_UNIDAD_NEGOCIO);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('BA'.$Fila, $CATEGORIA_ORACLE);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('BB'.$Fila, $SUB_MARCA);
 
     $objPHPExcel->getActiveSheet()->getStyle('V'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
     $objPHPExcel->getActiveSheet()->getStyle('V'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
@@ -599,8 +609,13 @@ foreach ($array_info as $item => $data) {
     $objPHPExcel->getActiveSheet()->getStyle('X'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
     $objPHPExcel->getActiveSheet()->getStyle('Y'.$Fila.':AD'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
     $objPHPExcel->getActiveSheet()->getStyle('AE'.$Fila.':AP'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-    $objPHPExcel->getActiveSheet()->getStyle('AE'.$Fila.':AP'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-    $objPHPExcel->getActiveSheet()->getStyle('AQ'.$Fila.':BA'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+    if($H018_UND_VENTA_MINIMA != ''){
+        $objPHPExcel->getActiveSheet()->getStyle('AQ'.$Fila)->getNumberFormat()->setFormatCode('0');
+    }
+
+    $objPHPExcel->getActiveSheet()->getStyle('AE'.$Fila.':AQ'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet()->getStyle('AR'.$Fila.':BB'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
     $Fila = $Fila + 1; 
       
