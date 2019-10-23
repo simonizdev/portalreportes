@@ -773,13 +773,11 @@ foreach ($array_ev as $ev => $reg) {
   $variacion_c = ($c_b - $c_a);
 
   if($c_a == 0){
-    $por_variacion_v = 0;
+    $por_variacion_c = 0;
   }else{
-    $por_variacion_v = ($variacion_v / $v_a) * 100;
+    $por_variacion_c = ($variacion_c / $c_a) * 100;
   }
-
-  $por_variacion_c = ($variacion_c / $c_a) * 100;
-    
+   
   if($reg['v_'.$anio_inicial] == '-'){
     $v_a = 0;
   }else{
