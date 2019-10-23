@@ -206,10 +206,6 @@ foreach ($q3 as $reg3) {
 
 }
 
-/*echo '<pre>';
-print_r($array_ev);die;
-echo '</pre>';*/
-
 /****** fin array ev ******/
 
 /****** inicio array oracle ******/
@@ -287,21 +283,28 @@ $Fila = 2;
 
 foreach ($array_items as $i => $reg) {
 
-
   $item = $i;
   $desc = $reg['desc'];
   $c_a = $reg['c_'.$anio_inicial];
   $c_b = $reg['c_'.$anio_final];
 
   if($c_a == '-' && $c_b != '-'){
+
+    $c_a = 0;
     $variacion_c = $c_b;
-    $por_variacion_c = '';
+    $por_variacion_c = 0;
+  
   }else{
+  
     if($c_a != '-' && $c_b == '-'){
+      
+      $c_b = 0;
       $variacion_c = $c_a;
-      $por_variacion_c = '';
+      $por_variacion_c = 0;
+
     }else{
-      $variacion_c = abs($c_a - $c_b);
+      
+      $variacion_c = ($c_b - $c_a);
 
       if($c_a == 0){
         $c_a = 0.0000001;
@@ -309,20 +312,30 @@ foreach ($array_items as $i => $reg) {
 
       $por_variacion_c = ($variacion_c / $c_a) * 100;
     }
+
   }
+
 
   $v_a = $reg['v_'.$anio_inicial];
   $v_b = $reg['v_'.$anio_final];
 
   if($v_a == '-' && $v_b != '-'){
+    
+    $v_a = 0;
     $variacion_v = $v_b;
-    $por_variacion_v = '';
+    $por_variacion_v = 0;
+
   }else{
+    
     if($v_a != '-' && $v_b == '-'){
+    
+      $v_b = 0;
       $variacion_v = $v_a;
-      $por_variacion_v = '';
+      $por_variacion_v = 0;
+    
     }else{
-      $variacion_v = abs($v_a - $v_b);
+    
+      $variacion_v = ($v_b - $v_a);
 
       if($v_a == 0){
         $v_a = 0.0000001;
@@ -440,8 +453,6 @@ foreach ($array_meses as $m => $reg) {
 
   $mes = $m;
   
-  //$c_a = $reg['c_'.$anio_inicial];
-
   if($reg['c_'.$anio_inicial] == '-'){
     $c_a = 0;
   }else{
@@ -449,8 +460,6 @@ foreach ($array_meses as $m => $reg) {
   } 
 
   $s_c_a = $s_c_a + $c_a;
-
-  //$c_b = $reg['c_'.$anio_final];
 
   if($reg['c_'.$anio_final] == '-'){
     $c_b = 0;
@@ -460,16 +469,14 @@ foreach ($array_meses as $m => $reg) {
 
   $s_c_b = $s_c_b + $c_b;
 
-  $variacion_c = abs($c_a - $c_b);
+  $variacion_c = ($c_b - $c_a);
 
   if($c_a == 0){
-    $c_a = 0.0000001;
+    $por_variacion_c = 0;
+  }else{
+    $por_variacion_c = ($variacion_c / $c_a) * 100;
   }
-
-  $por_variacion_c = ($variacion_c / $c_a) * 100;
     
-  //$v_a = $reg['v_'.$anio_inicial];
-
   if($reg['v_'.$anio_inicial] == '-'){
     $v_a = 0;
   }else{
@@ -477,8 +484,6 @@ foreach ($array_meses as $m => $reg) {
   } 
 
   $s_v_a = $s_v_a + $v_a;
-
-  //$v_b = $reg['v_'.$anio_final];
 
   if($reg['v_'.$anio_final] == '-'){
     $v_b = 0;
@@ -488,13 +493,13 @@ foreach ($array_meses as $m => $reg) {
 
   $s_v_b = $s_v_b + $v_b;
 
-  $variacion_v = abs($v_a - $v_b);
+  $variacion_v = ($v_b - $v_a);
 
   if($v_a == 0){
-    $v_a = 0.0000001;
+    $por_variacion_v = 0;
+  }else{
+    $por_variacion_v = ($variacion_v / $v_a) * 100; 
   }
-
-  $por_variacion_v = ($variacion_v / $v_a) * 100;
       
   $objPHPExcel->setActiveSheetIndex(1)->setCellValue('A'.$Fila, $mes);
   $objPHPExcel->setActiveSheetIndex(1)->setCellValue('B'.$Fila, $c_a);
@@ -528,10 +533,10 @@ foreach ($array_meses as $m => $reg) {
 
 }
 
-$s_variacion_c = abs($s_c_a - $s_c_b);
+$s_variacion_c = ($s_c_b - $s_c_a);
 $s_por_variacion_c = ($s_variacion_c / $s_c_a) * 100;
 
-$s_variacion_v = abs($s_v_a - $s_v_b);
+$s_variacion_v = ($s_v_b - $s_v_a);
 $s_por_variacion_v = ($s_variacion_v / $s_v_a) * 100;
 
 $objPHPExcel->setActiveSheetIndex(1)->setCellValue('A'.$Fila, 'TOTAL GENERAL');
@@ -598,8 +603,6 @@ foreach ($array_clases as $c => $reg) {
 
   $clase = $c;
   
-  //$c_a = $reg['c_'.$anio_inicial];
-
   if($reg['c_'.$anio_inicial] == '-'){
     $c_a = 0;
   }else{
@@ -607,8 +610,6 @@ foreach ($array_clases as $c => $reg) {
   } 
 
   $s_c_a = $s_c_a + $c_a;
-
-  //$c_b = $reg['c_'.$anio_final];
 
   if($reg['c_'.$anio_final] == '-'){
     $c_b = 0;
@@ -618,16 +619,15 @@ foreach ($array_clases as $c => $reg) {
 
   $s_c_b = $s_c_b + $c_b;
 
-  $variacion_c = abs($c_a - $c_b);
+  $variacion_c = ($c_b - $c_a);
 
   if($c_a == 0){
-    $c_a = 0.0000001;
+   $por_variacion_c = 0; 
+  }else{
+   $por_variacion_c = ($variacion_c / $c_a) * 100; 
   }
 
-  $por_variacion_c = ($variacion_c / $c_a) * 100;
     
-  //$v_a = $reg['v_'.$anio_inicial];
-
   if($reg['v_'.$anio_inicial] == '-'){
     $v_a = 0;
   }else{
@@ -635,8 +635,6 @@ foreach ($array_clases as $c => $reg) {
   } 
 
   $s_v_a = $s_v_a + $v_a;
-
-  //$v_b = $reg['v_'.$anio_final];
 
   if($reg['v_'.$anio_final] == '-'){
     $v_b = 0;
@@ -646,13 +644,13 @@ foreach ($array_clases as $c => $reg) {
 
   $s_v_b = $s_v_b + $v_b;
 
-  $variacion_v = abs($v_a - $v_b);
+  $variacion_v = ($v_b - $v_a);
 
   if($v_a == 0){
-    $v_a = 0.0000001;
+    $por_variacion_v = 0;
+  }else{
+    $por_variacion_v = ($variacion_v / $v_a) * 100;
   }
-
-  $por_variacion_v = ($variacion_v / $v_a) * 100;
       
   $objPHPExcel->setActiveSheetIndex(2)->setCellValue('A'.$Fila, $clase);
   $objPHPExcel->setActiveSheetIndex(2)->setCellValue('B'.$Fila, $c_a);
@@ -686,10 +684,10 @@ foreach ($array_clases as $c => $reg) {
 
 }
 
-$s_variacion_c = abs($s_c_a - $s_c_b);
+$s_variacion_c = ($s_c_b - $s_c_a);
 $s_por_variacion_c = ($s_variacion_c / $s_c_a) * 100;
 
-$s_variacion_v = abs($s_v_a - $s_v_b);
+$s_variacion_v = ($s_v_b - $s_v_a);
 $s_por_variacion_v = ($s_variacion_v / $s_v_a) * 100;
 
 $objPHPExcel->setActiveSheetIndex(2)->setCellValue('A'.$Fila, 'TOTAL GENERAL');
@@ -756,8 +754,6 @@ foreach ($array_ev as $ev => $reg) {
 
   $est_v = $ev;
 
-  //$c_a = $reg['c_'.$anio_inicial];
-
   if($reg['c_'.$anio_inicial] == '-'){
     $c_a = 0;
   }else{
@@ -765,8 +761,6 @@ foreach ($array_ev as $ev => $reg) {
   } 
 
   $s_c_a = $s_c_a + $c_a;
-
-  //$c_b = $reg['c_'.$anio_final];
 
   if($reg['c_'.$anio_final] == '-'){
     $c_b = 0;
@@ -776,16 +770,16 @@ foreach ($array_ev as $ev => $reg) {
 
   $s_c_b = $s_c_b + $c_b;
 
-  $variacion_c = abs($c_a - $c_b);
+  $variacion_c = ($c_b - $c_a);
 
   if($c_a == 0){
-    $c_a = 0.0000001;
+    $por_variacion_v = 0;
+  }else{
+    $por_variacion_v = ($variacion_v / $v_a) * 100;
   }
 
   $por_variacion_c = ($variacion_c / $c_a) * 100;
     
-  //$v_a = $reg['v_'.$anio_inicial];
-
   if($reg['v_'.$anio_inicial] == '-'){
     $v_a = 0;
   }else{
@@ -793,8 +787,6 @@ foreach ($array_ev as $ev => $reg) {
   } 
 
   $s_v_a = $s_v_a + $v_a;
-
-  //$v_b = $reg['v_'.$anio_final];
 
   if($reg['v_'.$anio_final] == '-'){
     $v_b = 0;
@@ -804,13 +796,13 @@ foreach ($array_ev as $ev => $reg) {
 
   $s_v_b = $s_v_b + $v_b;
 
-  $variacion_v = abs($v_a - $v_b);
+  $variacion_v = ($v_b - $v_a);
 
   if($v_a == 0){
-    $v_a = 0.0000001;
+    $por_variacion_v = 0;
+  }else{
+    $por_variacion_v = ($variacion_v / $v_a) * 100;
   }
-
-  $por_variacion_v = ($variacion_v / $v_a) * 100;
       
   $objPHPExcel->setActiveSheetIndex(3)->setCellValue('A'.$Fila, $est_v);
   $objPHPExcel->setActiveSheetIndex(3)->setCellValue('B'.$Fila, $c_a);
@@ -844,10 +836,10 @@ foreach ($array_ev as $ev => $reg) {
 
 }
 
-$s_variacion_c = abs($s_c_a - $s_c_b);
+$s_variacion_c = ($s_c_b - $s_c_a);
 $s_por_variacion_c = ($s_variacion_c / $s_c_a) * 100;
 
-$s_variacion_v = abs($s_v_a - $s_v_b);
+$s_variacion_v = ($s_v_b - $s_v_a);
 $s_por_variacion_v = ($s_variacion_v / $s_v_a) * 100;
 
 $objPHPExcel->setActiveSheetIndex(3)->setCellValue('A'.$Fila, 'TOTAL GENERAL');
@@ -914,8 +906,6 @@ foreach ($array_oracle as $or => $reg) {
 
   $oracle = $or;
   
-  //$c_a = $reg['c_'.$anio_inicial];
-
   if($reg['c_'.$anio_inicial] == '-'){
     $c_a = 0;
   }else{
@@ -923,8 +913,6 @@ foreach ($array_oracle as $or => $reg) {
   } 
 
   $s_c_a = $s_c_a + $c_a;
-
-  //$c_b = $reg['c_'.$anio_final];
 
   if($reg['c_'.$anio_final] == '-'){
     $c_b = 0;
@@ -934,16 +922,14 @@ foreach ($array_oracle as $or => $reg) {
 
   $s_c_b = $s_c_b + $c_b;
 
-  $variacion_c = abs($c_a - $c_b);
+  $variacion_c = ($c_b - $c_a);
 
   if($c_a == 0){
-    $c_a = 0.0000001;
+    $por_variacion_c = 0;
+  }else{
+    $por_variacion_c = ($variacion_c / $c_a) * 100; 
   }
-
-  $por_variacion_c = ($variacion_c / $c_a) * 100;
-    
-  //$v_a = $reg['v_'.$anio_inicial];
-
+ 
   if($reg['v_'.$anio_inicial] == '-'){
     $v_a = 0;
   }else{
@@ -951,8 +937,6 @@ foreach ($array_oracle as $or => $reg) {
   } 
 
   $s_v_a = $s_v_a + $v_a;
-
-  //$v_b = $reg['v_'.$anio_final];
 
   if($reg['v_'.$anio_final] == '-'){
     $v_b = 0;
@@ -962,13 +946,13 @@ foreach ($array_oracle as $or => $reg) {
 
   $s_v_b = $s_v_b + $v_b;
 
-  $variacion_v = abs($v_a - $v_b);
+  $variacion_v = ($v_b - $v_a);
 
   if($v_a == 0){
-    $v_a = 0.0000001;
+    $por_variacion_v = 0;
+  }else{
+    $por_variacion_v = ($variacion_v / $v_a) * 100;
   }
-
-  $por_variacion_v = ($variacion_v / $v_a) * 100;
       
   $objPHPExcel->setActiveSheetIndex(4)->setCellValue('A'.$Fila, $oracle);
   $objPHPExcel->setActiveSheetIndex(4)->setCellValue('B'.$Fila, $c_a);
@@ -1002,10 +986,10 @@ foreach ($array_oracle as $or => $reg) {
 
 }
 
-$s_variacion_c = abs($s_c_a - $s_c_b);
+$s_variacion_c = ($s_c_b - $s_c_a);
 $s_por_variacion_c = ($s_variacion_c / $s_c_a) * 100;
 
-$s_variacion_v = abs($s_v_a - $s_v_b);
+$s_variacion_v = ($s_v_b - $s_v_a);
 $s_por_variacion_v = ($s_variacion_v / $s_v_a) * 100;
 
 $objPHPExcel->setActiveSheetIndex(4)->setCellValue('A'.$Fila, 'TOTAL GENERAL');

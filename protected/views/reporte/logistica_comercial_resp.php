@@ -4,7 +4,8 @@
 
 //se reciben los parametros para el reporte
 
-$des_ora = $model['des_ora'];
+$des_ora_ini = $model['des_ora_ini'];
+$des_ora_fin = $model['des_ora_fin'];
 
 set_time_limit(0);
 
@@ -12,7 +13,11 @@ set_time_limit(0);
 
 //EXCEL
 
-$query ="SET NOCOUNT ON EXEC [dbo].[COM_CONS_ITEMS_COMER] @ORACLE = N'".$des_ora."'";
+$query ="SET NOCOUNT ON 
+        EXEC [dbo].[COM_CONS_ITEMS_COMER] 
+        @ORACLE = N'".$des_ora_ini."',
+        @ORACLE2 = N'".$des_ora_fin."'
+        ";
 
 $q1 = Yii::app()->db->createCommand($query)->queryAll();
 

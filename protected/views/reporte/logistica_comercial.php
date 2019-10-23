@@ -19,14 +19,32 @@
 )); ?>
 
 <div class="row">
-  <div class="col-sm-8">
+  <div class="col-sm-6">
       <div class="form-group">
-          <?php echo $form->error($model,'des_ora', array('class' => 'pull-right badge bg-red')); ?>
-          <?php echo $form->label($model,'des_ora'); ?>
+          <?php echo $form->error($model,'des_ora_ini', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->label($model,'des_ora_ini'); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
-                  'name'=>'Reporte[des_ora]',
-                  'id'=>'Reporte_des_ora',
+                  'name'=>'Reporte[des_ora_ini]',
+                  'id'=>'Reporte_des_ora_ini',
+                  'data'=> $lista_oracle,
+                  'options'=>array(
+                      'placeholder'=>'Seleccione...',
+                      'width'=> '100%',
+                      'allowClear'=>true,
+                  ),
+              ));
+          ?>
+      </div>
+  </div>
+  <div class="col-sm-6">
+      <div class="form-group">
+          <?php echo $form->error($model,'des_ora_fin', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->label($model,'des_ora_fin'); ?>
+          <?php
+              $this->widget('ext.select2.ESelect2',array(
+                  'name'=>'Reporte[des_ora_fin]',
+                  'id'=>'Reporte_des_ora_fin',
                   'data'=> $lista_oracle,
                   'options'=>array(
                       'placeholder'=>'Seleccione...',
@@ -80,7 +98,8 @@ $(function() {
 });
 
 function resetfields(){
-  $('#Reporte_des_ora').val('').trigger('change');
+  $('#Reporte_des_ora_ini').val('').trigger('change');
+  $('#Reporte_des_ora_fin').val('').trigger('change');
 }
 
 </script>
