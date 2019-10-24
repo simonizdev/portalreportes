@@ -291,26 +291,32 @@ foreach ($array_items as $i => $reg) {
   if($c_a == '-' && $c_b != '-'){
 
     $c_a = 0;
-    $variacion_c = $c_b;
+    $variacion_c = ($c_b - $c_a);
     $por_variacion_c = 0;
   
   }else{
   
     if($c_a != '-' && $c_b == '-'){
-      
+
       $c_b = 0;
-      $variacion_c = $c_a;
-      $por_variacion_c = 0;
+      $variacion_c = ($c_b - $c_a);
+      
+      if($c_a == 0){
+        $por_variacion_c = 0;
+      }else{
+        $por_variacion_c = ($variacion_c / $c_a) * 100; 
+      }
 
     }else{
       
       $variacion_c = ($c_b - $c_a);
 
       if($c_a == 0){
-        $c_a = 0.0000001;
+        $por_variacion_c = 0;
+      }else{
+        $por_variacion_c = ($variacion_c / $c_a) * 100; 
       }
 
-      $por_variacion_c = ($variacion_c / $c_a) * 100;
     }
 
   }
@@ -322,7 +328,7 @@ foreach ($array_items as $i => $reg) {
   if($v_a == '-' && $v_b != '-'){
     
     $v_a = 0;
-    $variacion_v = $v_b;
+    $variacion_v = ($v_b - $v_a);
     $por_variacion_v = 0;
 
   }else{
@@ -330,18 +336,24 @@ foreach ($array_items as $i => $reg) {
     if($v_a != '-' && $v_b == '-'){
     
       $v_b = 0;
-      $variacion_v = $v_a;
-      $por_variacion_v = 0;
+      $variacion_v = ($v_b - $v_a);
+      
+      if($v_a == 0){
+        $por_variacion_v = 0;
+      }else{
+        $por_variacion_v = ($variacion_v / $v_a) * 100; 
+      }  
     
     }else{
     
       $variacion_v = ($v_b - $v_a);
 
       if($v_a == 0){
-        $v_a = 0.0000001;
+        $por_variacion_v = 0;
+      }else{
+        $por_variacion_v = ($variacion_v / $v_a) * 100; 
       }
-      
-      $por_variacion_v = ($variacion_v / $v_a) * 100;
+       
     }
   }
       
