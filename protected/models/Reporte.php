@@ -163,8 +163,9 @@ class Reporte extends CFormModel
             array('fecha_inicial, fecha_final', 'required','on'=>'hist_lib_ped'),
             array('fecha_inicial, fecha_final', 'required','on'=>'items_exentos_iva'),
             array('cons_inicial, cons_final', 'required','on'=>'desc_b2b'),
-            array('des_ora', 'required','on'=>'logistica_comercial'),
+            array('des_ora_ini, des_ora_fin', 'required','on'=>'logistica_comercial'),
             array('periodo_inicial, periodo_final, opcion', 'required','on'=>'analisis_ventas'),
+            array('fecha_inicial, fecha_final, opcion_exp', 'required','on'=>'pedidos_pend_des_req_top'),
         );  
     }
 
