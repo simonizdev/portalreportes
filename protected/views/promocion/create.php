@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Creación de item para promoción</h3>
+<h3>Creación de item(s) para promoción</h3>
 
 <?php $this->renderPartial('_form_cre', array('model'=>$model)); ?>  
 
