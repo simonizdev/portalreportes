@@ -279,143 +279,147 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:J1')->getFont()->setBold(true);
 
 /*Inicio contenido tabla*/
  
-$Fila = 2;  
+$Fila = 2; 
 
-foreach ($array_items as $i => $reg) {
+if(!empty($array_items)){
 
-  $item = $i;
-  $desc = $reg['desc'];
-  $c_a = $reg['c_'.$anio_inicial];
-  $c_b = $reg['c_'.$anio_final];
+  foreach ($array_items as $i => $reg) {
 
-  if($c_a == '-' && $c_b != '-'){
+    $item = $i;
+    $desc = $reg['desc'];
+    $c_a = $reg['c_'.$anio_inicial];
+    $c_b = $reg['c_'.$anio_final];
 
-    $c_a = 0;
-    $variacion_c = ($c_b - $c_a);
-    $por_variacion_c = 0;
-  
-  }else{
-  
-    if($c_a != '-' && $c_b == '-'){
+    if($c_a == '-' && $c_b != '-'){
 
-      $c_b = 0;
+      $c_a = 0;
       $variacion_c = ($c_b - $c_a);
-      
-      if($c_a == 0){
-        $por_variacion_c = 0;
-      }else{
-        $por_variacion_c = ($variacion_c / $c_a) * 100; 
-      }
-
+      $por_variacion_c = 0;
+    
     }else{
-      
-      $variacion_c = ($c_b - $c_a);
+    
+      if($c_a != '-' && $c_b == '-'){
 
-      if($c_a == 0){
-        $por_variacion_c = 0;
+        $c_b = 0;
+        $variacion_c = ($c_b - $c_a);
+        
+        if($c_a == 0){
+          $por_variacion_c = 0;
+        }else{
+          $por_variacion_c = ($variacion_c / $c_a) * 100; 
+        }
+
       }else{
-        $por_variacion_c = ($variacion_c / $c_a) * 100; 
+        
+        $variacion_c = ($c_b - $c_a);
+
+        if($c_a == 0){
+          $por_variacion_c = 0;
+        }else{
+          $por_variacion_c = ($variacion_c / $c_a) * 100; 
+        }
+
       }
 
     }
 
-  }
 
+    $v_a = $reg['v_'.$anio_inicial];
+    $v_b = $reg['v_'.$anio_final];
 
-  $v_a = $reg['v_'.$anio_inicial];
-  $v_b = $reg['v_'.$anio_final];
-
-  if($v_a == '-' && $v_b != '-'){
-    
-    $v_a = 0;
-    $variacion_v = ($v_b - $v_a);
-    $por_variacion_v = 0;
-
-  }else{
-    
-    if($v_a != '-' && $v_b == '-'){
-    
-      $v_b = 0;
-      $variacion_v = ($v_b - $v_a);
+    if($v_a == '-' && $v_b != '-'){
       
-      if($v_a == 0){
-        $por_variacion_v = 0;
-      }else{
-        $por_variacion_v = ($variacion_v / $v_a) * 100; 
-      }  
-    
+      $v_a = 0;
+      $variacion_v = ($v_b - $v_a);
+      $por_variacion_v = 0;
+
     }else{
-    
-      $variacion_v = ($v_b - $v_a);
-
-      if($v_a == 0){
-        $por_variacion_v = 0;
-      }else{
-        $por_variacion_v = ($variacion_v / $v_a) * 100; 
-      }
-       
-    }
-  }
       
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, $item);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, $desc);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, $c_a);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, $c_b);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $variacion_c);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $por_variacion_c);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $v_a);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $v_b);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, $variacion_v);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, $por_variacion_v);
+      if($v_a != '-' && $v_b == '-'){
+      
+        $v_b = 0;
+        $variacion_v = ($v_b - $v_a);
+        
+        if($v_a == 0){
+          $por_variacion_v = 0;
+        }else{
+          $por_variacion_v = ($variacion_v / $v_a) * 100; 
+        }  
+      
+      }else{
+      
+        $variacion_v = ($v_b - $v_a);
+
+        if($v_a == 0){
+          $por_variacion_v = 0;
+        }else{
+          $por_variacion_v = ($variacion_v / $v_a) * 100; 
+        }
+         
+      }
+    }
+        
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, $item);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, $desc);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, $c_a);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, $c_b);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $variacion_c);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $por_variacion_c);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $v_a);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $v_b);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, $variacion_v);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, $por_variacion_v);
 
 
-  $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':B'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':B'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
-  if($c_a == '-'){
-    $objPHPExcel->getActiveSheet()->getStyle('C'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  }else{
-    $objPHPExcel->getActiveSheet()->getStyle('C'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-    $objPHPExcel->getActiveSheet()->getStyle('C'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    if($c_a == '-'){
+      $objPHPExcel->getActiveSheet()->getStyle('C'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    }else{
+      $objPHPExcel->getActiveSheet()->getStyle('C'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+      $objPHPExcel->getActiveSheet()->getStyle('C'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    }
+
+    if($c_b == '-'){
+      $objPHPExcel->getActiveSheet()->getStyle('D'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    }else{
+      $objPHPExcel->getActiveSheet()->getStyle('D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+      $objPHPExcel->getActiveSheet()->getStyle('D'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    }
+
+    $objPHPExcel->getActiveSheet()->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet()->getStyle('E'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+    if($por_variacion_c != ''){
+      $objPHPExcel->getActiveSheet()->getStyle('F'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+      $objPHPExcel->getActiveSheet()->getStyle('F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    }
+
+    if($v_a == '-'){
+      $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    }else{
+      $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+      $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    }
+
+    if($v_b == '-'){
+      $objPHPExcel->getActiveSheet()->getStyle('H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    }else{
+      $objPHPExcel->getActiveSheet()->getStyle('H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+      $objPHPExcel->getActiveSheet()->getStyle('H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    }
+
+    $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+    if($por_variacion_v != ''){
+      $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+      $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    }
+
+    $Fila = $Fila + 1;
+
   }
-
-  if($c_b == '-'){
-    $objPHPExcel->getActiveSheet()->getStyle('D'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  }else{
-    $objPHPExcel->getActiveSheet()->getStyle('D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-    $objPHPExcel->getActiveSheet()->getStyle('D'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  }
-
-  $objPHPExcel->getActiveSheet()->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet()->getStyle('E'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-
-  if($por_variacion_c != ''){
-    $objPHPExcel->getActiveSheet()->getStyle('F'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-    $objPHPExcel->getActiveSheet()->getStyle('F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  }
-
-  if($v_a == '-'){
-    $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  }else{
-    $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-    $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  }
-
-  if($v_b == '-'){
-    $objPHPExcel->getActiveSheet()->getStyle('H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  }else{
-    $objPHPExcel->getActiveSheet()->getStyle('H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-    $objPHPExcel->getActiveSheet()->getStyle('H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  }
-
-  $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-
-  if($por_variacion_v != ''){
-    $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-    $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  }
-
-  $Fila = $Fila + 1;
 
 }
 
@@ -433,6 +437,8 @@ foreach($objPHPExcel->getWorksheetIterator() as $worksheet) {
         $sheet->getColumnDimension($cell->getColumn())->setAutoSize(true);
     }
 }
+
+
 
 $objPHPExcel->createSheet();
 
@@ -459,115 +465,119 @@ $Fila = 2;
 $s_c_a = 0;
 $s_c_b = 0;
 $s_v_a = 0;
-$s_v_b = 0; 
+$s_v_b = 0;
 
-foreach ($array_meses as $m => $reg) {
+if(!empty($array_meses)){ 
 
-  $mes = $m;
-  
-  if($reg['c_'.$anio_inicial] == '-'){
-    $c_a = 0;
-  }else{
-    $c_a = $reg['c_'.$anio_inicial];
-  } 
+  foreach ($array_meses as $m => $reg) {
 
-  $s_c_a = $s_c_a + $c_a;
-
-  if($reg['c_'.$anio_final] == '-'){
-    $c_b = 0;
-  }else{
-    $c_b = $reg['c_'.$anio_final];
-  } 
-
-  $s_c_b = $s_c_b + $c_b;
-
-  $variacion_c = ($c_b - $c_a);
-
-  if($c_a == 0){
-    $por_variacion_c = 0;
-  }else{
-    $por_variacion_c = ($variacion_c / $c_a) * 100;
-  }
+    $mes = $m;
     
-  if($reg['v_'.$anio_inicial] == '-'){
-    $v_a = 0;
-  }else{
-    $v_a = $reg['v_'.$anio_inicial];
-  } 
+    if($reg['c_'.$anio_inicial] == '-'){
+      $c_a = 0;
+    }else{
+      $c_a = $reg['c_'.$anio_inicial];
+    } 
 
-  $s_v_a = $s_v_a + $v_a;
+    $s_c_a = $s_c_a + $c_a;
 
-  if($reg['v_'.$anio_final] == '-'){
-    $v_b = 0;
-  }else{
-    $v_b = $reg['v_'.$anio_final];
-  } 
+    if($reg['c_'.$anio_final] == '-'){
+      $c_b = 0;
+    }else{
+      $c_b = $reg['c_'.$anio_final];
+    } 
 
-  $s_v_b = $s_v_b + $v_b;
+    $s_c_b = $s_c_b + $c_b;
 
-  $variacion_v = ($v_b - $v_a);
+    $variacion_c = ($c_b - $c_a);
 
-  if($v_a == 0){
-    $por_variacion_v = 0;
-  }else{
-    $por_variacion_v = ($variacion_v / $v_a) * 100; 
-  }
+    if($c_a == 0){
+      $por_variacion_c = 0;
+    }else{
+      $por_variacion_c = ($variacion_c / $c_a) * 100;
+    }
       
-  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('A'.$Fila, $mes);
-  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('B'.$Fila, $c_a);
-  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('C'.$Fila, $c_b);
-  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('D'.$Fila, $variacion_c);
-  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('E'.$Fila, $por_variacion_c);
-  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('F'.$Fila, $v_a);
-  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('G'.$Fila, $v_b);
-  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('H'.$Fila, $variacion_v);
-  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('I'.$Fila, $por_variacion_v);
+    if($reg['v_'.$anio_inicial] == '-'){
+      $v_a = 0;
+    }else{
+      $v_a = $reg['v_'.$anio_inicial];
+    } 
 
+    $s_v_a = $s_v_a + $v_a;
+
+    if($reg['v_'.$anio_final] == '-'){
+      $v_b = 0;
+    }else{
+      $v_b = $reg['v_'.$anio_final];
+    } 
+
+    $s_v_b = $s_v_b + $v_b;
+
+    $variacion_v = ($v_b - $v_a);
+
+    if($v_a == 0){
+      $por_variacion_v = 0;
+    }else{
+      $por_variacion_v = ($variacion_v / $v_a) * 100; 
+    }
+        
+    $objPHPExcel->setActiveSheetIndex(1)->setCellValue('A'.$Fila, $mes);
+    $objPHPExcel->setActiveSheetIndex(1)->setCellValue('B'.$Fila, $c_a);
+    $objPHPExcel->setActiveSheetIndex(1)->setCellValue('C'.$Fila, $c_b);
+    $objPHPExcel->setActiveSheetIndex(1)->setCellValue('D'.$Fila, $variacion_c);
+    $objPHPExcel->setActiveSheetIndex(1)->setCellValue('E'.$Fila, $por_variacion_c);
+    $objPHPExcel->setActiveSheetIndex(1)->setCellValue('F'.$Fila, $v_a);
+    $objPHPExcel->setActiveSheetIndex(1)->setCellValue('G'.$Fila, $v_b);
+    $objPHPExcel->setActiveSheetIndex(1)->setCellValue('H'.$Fila, $variacion_v);
+    $objPHPExcel->setActiveSheetIndex(1)->setCellValue('I'.$Fila, $por_variacion_v);
+
+    $objPHPExcel->getActiveSheet(1)->getStyle('A'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $objPHPExcel->getActiveSheet(1)->getStyle('B'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(1)->getStyle('B'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(1)->getStyle('C'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(1)->getStyle('C'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(1)->getStyle('D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(1)->getStyle('D'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(1)->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+    $objPHPExcel->getActiveSheet(1)->getStyle('E'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(1)->getStyle('F'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(1)->getStyle('F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(1)->getStyle('G'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(1)->getStyle('G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(1)->getStyle('H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(1)->getStyle('H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(1)->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+    $objPHPExcel->getActiveSheet(1)->getStyle('I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+    $Fila = $Fila + 1;
+
+  }
+
+  $s_variacion_c = ($s_c_b - $s_c_a);
+  $s_por_variacion_c = ($s_variacion_c / $s_c_a) * 100;
+
+  $s_variacion_v = ($s_v_b - $s_v_a);
+  $s_por_variacion_v = ($s_variacion_v / $s_v_a) * 100;
+
+  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('A'.$Fila, 'TOTAL GENERAL');
+  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('B'.$Fila, $s_c_a);
+  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('C'.$Fila, $s_c_b);
+  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('D'.$Fila, $s_variacion_c);
+  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('E'.$Fila, $s_por_variacion_c);
+  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('F'.$Fila, $s_v_a);
+  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('G'.$Fila, $s_v_b);
+  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('H'.$Fila, $s_variacion_v);
+  $objPHPExcel->setActiveSheetIndex(1)->setCellValue('I'.$Fila, $s_por_variacion_v);
+
+  $objPHPExcel->getActiveSheet(1)->getStyle('A'.$Fila.':I'.$Fila)->getFont()->setBold(true);
   $objPHPExcel->getActiveSheet(1)->getStyle('A'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-  $objPHPExcel->getActiveSheet(1)->getStyle('B'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(1)->getStyle('B'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(1)->getStyle('C'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(1)->getStyle('C'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(1)->getStyle('D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(1)->getStyle('D'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet(1)->getStyle('B'.$Fila.':I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet(1)->getStyle('B'.$Fila.':D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
   $objPHPExcel->getActiveSheet(1)->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-  $objPHPExcel->getActiveSheet(1)->getStyle('E'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(1)->getStyle('F'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(1)->getStyle('F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(1)->getStyle('G'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(1)->getStyle('G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(1)->getStyle('H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(1)->getStyle('H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet(1)->getStyle('F'.$Fila.':H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
   $objPHPExcel->getActiveSheet(1)->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-  $objPHPExcel->getActiveSheet(1)->getStyle('I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-
-  $Fila = $Fila + 1;
 
 }
-
-$s_variacion_c = ($s_c_b - $s_c_a);
-$s_por_variacion_c = ($s_variacion_c / $s_c_a) * 100;
-
-$s_variacion_v = ($s_v_b - $s_v_a);
-$s_por_variacion_v = ($s_variacion_v / $s_v_a) * 100;
-
-$objPHPExcel->setActiveSheetIndex(1)->setCellValue('A'.$Fila, 'TOTAL GENERAL');
-$objPHPExcel->setActiveSheetIndex(1)->setCellValue('B'.$Fila, $s_c_a);
-$objPHPExcel->setActiveSheetIndex(1)->setCellValue('C'.$Fila, $s_c_b);
-$objPHPExcel->setActiveSheetIndex(1)->setCellValue('D'.$Fila, $s_variacion_c);
-$objPHPExcel->setActiveSheetIndex(1)->setCellValue('E'.$Fila, $s_por_variacion_c);
-$objPHPExcel->setActiveSheetIndex(1)->setCellValue('F'.$Fila, $s_v_a);
-$objPHPExcel->setActiveSheetIndex(1)->setCellValue('G'.$Fila, $s_v_b);
-$objPHPExcel->setActiveSheetIndex(1)->setCellValue('H'.$Fila, $s_variacion_v);
-$objPHPExcel->setActiveSheetIndex(1)->setCellValue('I'.$Fila, $s_por_variacion_v);
-
-$objPHPExcel->getActiveSheet(1)->getStyle('A'.$Fila.':I'.$Fila)->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet(1)->getStyle('A'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-$objPHPExcel->getActiveSheet(1)->getStyle('B'.$Fila.':I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-$objPHPExcel->getActiveSheet(1)->getStyle('B'.$Fila.':D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-$objPHPExcel->getActiveSheet(1)->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-$objPHPExcel->getActiveSheet(1)->getStyle('F'.$Fila.':H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-$objPHPExcel->getActiveSheet(1)->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
 
 /*fin contenido tabla*/
 
@@ -609,116 +619,120 @@ $Fila = 2;
 $s_c_a = 0;
 $s_c_b = 0;
 $s_v_a = 0;
-$s_v_b = 0; 
+$s_v_b = 0;
 
-foreach ($array_clases as $c => $reg) {
+if(!empty($array_clases)){ 
 
-  $clase = $c;
-  
-  if($reg['c_'.$anio_inicial] == '-'){
-    $c_a = 0;
-  }else{
-    $c_a = $reg['c_'.$anio_inicial];
-  } 
+  foreach ($array_clases as $c => $reg) {
 
-  $s_c_a = $s_c_a + $c_a;
-
-  if($reg['c_'.$anio_final] == '-'){
-    $c_b = 0;
-  }else{
-    $c_b = $reg['c_'.$anio_final];
-  } 
-
-  $s_c_b = $s_c_b + $c_b;
-
-  $variacion_c = ($c_b - $c_a);
-
-  if($c_a == 0){
-   $por_variacion_c = 0; 
-  }else{
-   $por_variacion_c = ($variacion_c / $c_a) * 100; 
-  }
-
+    $clase = $c;
     
-  if($reg['v_'.$anio_inicial] == '-'){
-    $v_a = 0;
-  }else{
-    $v_a = $reg['v_'.$anio_inicial];
-  } 
+    if($reg['c_'.$anio_inicial] == '-'){
+      $c_a = 0;
+    }else{
+      $c_a = $reg['c_'.$anio_inicial];
+    } 
 
-  $s_v_a = $s_v_a + $v_a;
+    $s_c_a = $s_c_a + $c_a;
 
-  if($reg['v_'.$anio_final] == '-'){
-    $v_b = 0;
-  }else{
-    $v_b = $reg['v_'.$anio_final];
-  } 
+    if($reg['c_'.$anio_final] == '-'){
+      $c_b = 0;
+    }else{
+      $c_b = $reg['c_'.$anio_final];
+    } 
 
-  $s_v_b = $s_v_b + $v_b;
+    $s_c_b = $s_c_b + $c_b;
 
-  $variacion_v = ($v_b - $v_a);
+    $variacion_c = ($c_b - $c_a);
 
-  if($v_a == 0){
-    $por_variacion_v = 0;
-  }else{
-    $por_variacion_v = ($variacion_v / $v_a) * 100;
-  }
+    if($c_a == 0){
+     $por_variacion_c = 0; 
+    }else{
+     $por_variacion_c = ($variacion_c / $c_a) * 100; 
+    }
+
       
-  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('A'.$Fila, $clase);
-  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('B'.$Fila, $c_a);
-  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('C'.$Fila, $c_b);
-  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('D'.$Fila, $variacion_c);
-  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('E'.$Fila, $por_variacion_c);
-  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('F'.$Fila, $v_a);
-  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('G'.$Fila, $v_b);
-  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('H'.$Fila, $variacion_v);
-  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('I'.$Fila, $por_variacion_v);
+    if($reg['v_'.$anio_inicial] == '-'){
+      $v_a = 0;
+    }else{
+      $v_a = $reg['v_'.$anio_inicial];
+    } 
 
+    $s_v_a = $s_v_a + $v_a;
+
+    if($reg['v_'.$anio_final] == '-'){
+      $v_b = 0;
+    }else{
+      $v_b = $reg['v_'.$anio_final];
+    } 
+
+    $s_v_b = $s_v_b + $v_b;
+
+    $variacion_v = ($v_b - $v_a);
+
+    if($v_a == 0){
+      $por_variacion_v = 0;
+    }else{
+      $por_variacion_v = ($variacion_v / $v_a) * 100;
+    }
+        
+    $objPHPExcel->setActiveSheetIndex(2)->setCellValue('A'.$Fila, $clase);
+    $objPHPExcel->setActiveSheetIndex(2)->setCellValue('B'.$Fila, $c_a);
+    $objPHPExcel->setActiveSheetIndex(2)->setCellValue('C'.$Fila, $c_b);
+    $objPHPExcel->setActiveSheetIndex(2)->setCellValue('D'.$Fila, $variacion_c);
+    $objPHPExcel->setActiveSheetIndex(2)->setCellValue('E'.$Fila, $por_variacion_c);
+    $objPHPExcel->setActiveSheetIndex(2)->setCellValue('F'.$Fila, $v_a);
+    $objPHPExcel->setActiveSheetIndex(2)->setCellValue('G'.$Fila, $v_b);
+    $objPHPExcel->setActiveSheetIndex(2)->setCellValue('H'.$Fila, $variacion_v);
+    $objPHPExcel->setActiveSheetIndex(2)->setCellValue('I'.$Fila, $por_variacion_v);
+
+    $objPHPExcel->getActiveSheet(2)->getStyle('A'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $objPHPExcel->getActiveSheet(2)->getStyle('B'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(2)->getStyle('B'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(2)->getStyle('C'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(2)->getStyle('C'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(2)->getStyle('D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(2)->getStyle('D'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(2)->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+    $objPHPExcel->getActiveSheet(2)->getStyle('E'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(2)->getStyle('F'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(2)->getStyle('F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(2)->getStyle('G'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(2)->getStyle('G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(2)->getStyle('H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(2)->getStyle('H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(2)->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+    $objPHPExcel->getActiveSheet(2)->getStyle('I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+    $Fila = $Fila + 1;
+
+  }
+
+  $s_variacion_c = ($s_c_b - $s_c_a);
+  $s_por_variacion_c = ($s_variacion_c / $s_c_a) * 100;
+
+  $s_variacion_v = ($s_v_b - $s_v_a);
+  $s_por_variacion_v = ($s_variacion_v / $s_v_a) * 100;
+
+  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('A'.$Fila, 'TOTAL GENERAL');
+  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('B'.$Fila, $s_c_a);
+  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('C'.$Fila, $s_c_b);
+  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('D'.$Fila, $s_variacion_c);
+  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('E'.$Fila, $s_por_variacion_c);
+  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('F'.$Fila, $s_v_a);
+  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('G'.$Fila, $s_v_b);
+  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('H'.$Fila, $s_variacion_v);
+  $objPHPExcel->setActiveSheetIndex(2)->setCellValue('I'.$Fila, $s_por_variacion_v);
+
+  $objPHPExcel->getActiveSheet(2)->getStyle('A'.$Fila.':I'.$Fila)->getFont()->setBold(true);
   $objPHPExcel->getActiveSheet(2)->getStyle('A'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-  $objPHPExcel->getActiveSheet(2)->getStyle('B'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(2)->getStyle('B'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(2)->getStyle('C'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(2)->getStyle('C'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(2)->getStyle('D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(2)->getStyle('D'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet(2)->getStyle('B'.$Fila.':I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet(2)->getStyle('B'.$Fila.':D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
   $objPHPExcel->getActiveSheet(2)->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-  $objPHPExcel->getActiveSheet(2)->getStyle('E'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(2)->getStyle('F'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(2)->getStyle('F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(2)->getStyle('G'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(2)->getStyle('G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(2)->getStyle('H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(2)->getStyle('H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet(2)->getStyle('F'.$Fila.':H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
   $objPHPExcel->getActiveSheet(2)->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-  $objPHPExcel->getActiveSheet(2)->getStyle('I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-
-  $Fila = $Fila + 1;
 
 }
-
-$s_variacion_c = ($s_c_b - $s_c_a);
-$s_por_variacion_c = ($s_variacion_c / $s_c_a) * 100;
-
-$s_variacion_v = ($s_v_b - $s_v_a);
-$s_por_variacion_v = ($s_variacion_v / $s_v_a) * 100;
-
-$objPHPExcel->setActiveSheetIndex(2)->setCellValue('A'.$Fila, 'TOTAL GENERAL');
-$objPHPExcel->setActiveSheetIndex(2)->setCellValue('B'.$Fila, $s_c_a);
-$objPHPExcel->setActiveSheetIndex(2)->setCellValue('C'.$Fila, $s_c_b);
-$objPHPExcel->setActiveSheetIndex(2)->setCellValue('D'.$Fila, $s_variacion_c);
-$objPHPExcel->setActiveSheetIndex(2)->setCellValue('E'.$Fila, $s_por_variacion_c);
-$objPHPExcel->setActiveSheetIndex(2)->setCellValue('F'.$Fila, $s_v_a);
-$objPHPExcel->setActiveSheetIndex(2)->setCellValue('G'.$Fila, $s_v_b);
-$objPHPExcel->setActiveSheetIndex(2)->setCellValue('H'.$Fila, $s_variacion_v);
-$objPHPExcel->setActiveSheetIndex(2)->setCellValue('I'.$Fila, $s_por_variacion_v);
-
-$objPHPExcel->getActiveSheet(2)->getStyle('A'.$Fila.':I'.$Fila)->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet(2)->getStyle('A'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-$objPHPExcel->getActiveSheet(2)->getStyle('B'.$Fila.':I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-$objPHPExcel->getActiveSheet(2)->getStyle('B'.$Fila.':D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-$objPHPExcel->getActiveSheet(2)->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-$objPHPExcel->getActiveSheet(2)->getStyle('F'.$Fila.':H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-$objPHPExcel->getActiveSheet(2)->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
 
 /*fin contenido tabla*/
 
@@ -762,113 +776,117 @@ $s_c_b = 0;
 $s_v_a = 0;
 $s_v_b = 0; 
 
-foreach ($array_ev as $ev => $reg) {
+if(!empty($array_ev)){ 
 
-  $est_v = $ev;
+  foreach ($array_ev as $ev => $reg) {
 
-  if($reg['c_'.$anio_inicial] == '-'){
-    $c_a = 0;
-  }else{
-    $c_a = $reg['c_'.$anio_inicial];
-  } 
+    $est_v = $ev;
 
-  $s_c_a = $s_c_a + $c_a;
+    if($reg['c_'.$anio_inicial] == '-'){
+      $c_a = 0;
+    }else{
+      $c_a = $reg['c_'.$anio_inicial];
+    } 
 
-  if($reg['c_'.$anio_final] == '-'){
-    $c_b = 0;
-  }else{
-    $c_b = $reg['c_'.$anio_final];
-  } 
+    $s_c_a = $s_c_a + $c_a;
 
-  $s_c_b = $s_c_b + $c_b;
+    if($reg['c_'.$anio_final] == '-'){
+      $c_b = 0;
+    }else{
+      $c_b = $reg['c_'.$anio_final];
+    } 
 
-  $variacion_c = ($c_b - $c_a);
+    $s_c_b = $s_c_b + $c_b;
 
-  if($c_a == 0){
-    $por_variacion_c = 0;
-  }else{
-    $por_variacion_c = ($variacion_c / $c_a) * 100;
+    $variacion_c = ($c_b - $c_a);
+
+    if($c_a == 0){
+      $por_variacion_c = 0;
+    }else{
+      $por_variacion_c = ($variacion_c / $c_a) * 100;
+    }
+     
+    if($reg['v_'.$anio_inicial] == '-'){
+      $v_a = 0;
+    }else{
+      $v_a = $reg['v_'.$anio_inicial];
+    } 
+
+    $s_v_a = $s_v_a + $v_a;
+
+    if($reg['v_'.$anio_final] == '-'){
+      $v_b = 0;
+    }else{
+      $v_b = $reg['v_'.$anio_final];
+    } 
+
+    $s_v_b = $s_v_b + $v_b;
+
+    $variacion_v = ($v_b - $v_a);
+
+    if($v_a == 0){
+      $por_variacion_v = 0;
+    }else{
+      $por_variacion_v = ($variacion_v / $v_a) * 100;
+    }
+        
+    $objPHPExcel->setActiveSheetIndex(3)->setCellValue('A'.$Fila, $est_v);
+    $objPHPExcel->setActiveSheetIndex(3)->setCellValue('B'.$Fila, $c_a);
+    $objPHPExcel->setActiveSheetIndex(3)->setCellValue('C'.$Fila, $c_b);
+    $objPHPExcel->setActiveSheetIndex(3)->setCellValue('D'.$Fila, $variacion_c);
+    $objPHPExcel->setActiveSheetIndex(3)->setCellValue('E'.$Fila, $por_variacion_c);
+    $objPHPExcel->setActiveSheetIndex(3)->setCellValue('F'.$Fila, $v_a);
+    $objPHPExcel->setActiveSheetIndex(3)->setCellValue('G'.$Fila, $v_b);
+    $objPHPExcel->setActiveSheetIndex(3)->setCellValue('H'.$Fila, $variacion_v);
+    $objPHPExcel->setActiveSheetIndex(3)->setCellValue('I'.$Fila, $por_variacion_v);
+
+    $objPHPExcel->getActiveSheet(3)->getStyle('A'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $objPHPExcel->getActiveSheet(3)->getStyle('B'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(3)->getStyle('B'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(3)->getStyle('C'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(3)->getStyle('C'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(3)->getStyle('D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(3)->getStyle('D'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(3)->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+    $objPHPExcel->getActiveSheet(3)->getStyle('E'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(3)->getStyle('F'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(3)->getStyle('F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(3)->getStyle('G'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(3)->getStyle('G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(3)->getStyle('H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(3)->getStyle('H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(3)->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+    $objPHPExcel->getActiveSheet(3)->getStyle('I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+    $Fila = $Fila + 1;
+
   }
-   
-  if($reg['v_'.$anio_inicial] == '-'){
-    $v_a = 0;
-  }else{
-    $v_a = $reg['v_'.$anio_inicial];
-  } 
 
-  $s_v_a = $s_v_a + $v_a;
+  $s_variacion_c = ($s_c_b - $s_c_a);
+  $s_por_variacion_c = ($s_variacion_c / $s_c_a) * 100;
 
-  if($reg['v_'.$anio_final] == '-'){
-    $v_b = 0;
-  }else{
-    $v_b = $reg['v_'.$anio_final];
-  } 
+  $s_variacion_v = ($s_v_b - $s_v_a);
+  $s_por_variacion_v = ($s_variacion_v / $s_v_a) * 100;
 
-  $s_v_b = $s_v_b + $v_b;
+  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('A'.$Fila, 'TOTAL GENERAL');
+  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('B'.$Fila, $s_c_a);
+  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('C'.$Fila, $s_c_b);
+  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('D'.$Fila, $s_variacion_c);
+  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('E'.$Fila, $s_por_variacion_c);
+  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('F'.$Fila, $s_v_a);
+  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('G'.$Fila, $s_v_b);
+  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('H'.$Fila, $s_variacion_v);
+  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('I'.$Fila, $s_por_variacion_v);
 
-  $variacion_v = ($v_b - $v_a);
-
-  if($v_a == 0){
-    $por_variacion_v = 0;
-  }else{
-    $por_variacion_v = ($variacion_v / $v_a) * 100;
-  }
-      
-  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('A'.$Fila, $est_v);
-  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('B'.$Fila, $c_a);
-  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('C'.$Fila, $c_b);
-  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('D'.$Fila, $variacion_c);
-  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('E'.$Fila, $por_variacion_c);
-  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('F'.$Fila, $v_a);
-  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('G'.$Fila, $v_b);
-  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('H'.$Fila, $variacion_v);
-  $objPHPExcel->setActiveSheetIndex(3)->setCellValue('I'.$Fila, $por_variacion_v);
-
+  $objPHPExcel->getActiveSheet(3)->getStyle('A'.$Fila.':I'.$Fila)->getFont()->setBold(true);
   $objPHPExcel->getActiveSheet(3)->getStyle('A'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-  $objPHPExcel->getActiveSheet(3)->getStyle('B'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(3)->getStyle('B'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(3)->getStyle('C'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(3)->getStyle('C'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(3)->getStyle('D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(3)->getStyle('D'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet(3)->getStyle('B'.$Fila.':I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet(3)->getStyle('B'.$Fila.':D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
   $objPHPExcel->getActiveSheet(3)->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-  $objPHPExcel->getActiveSheet(3)->getStyle('E'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(3)->getStyle('F'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(3)->getStyle('F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(3)->getStyle('G'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(3)->getStyle('G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(3)->getStyle('H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(3)->getStyle('H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet(3)->getStyle('F'.$Fila.':H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
   $objPHPExcel->getActiveSheet(3)->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-  $objPHPExcel->getActiveSheet(3)->getStyle('I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-
-  $Fila = $Fila + 1;
 
 }
-
-$s_variacion_c = ($s_c_b - $s_c_a);
-$s_por_variacion_c = ($s_variacion_c / $s_c_a) * 100;
-
-$s_variacion_v = ($s_v_b - $s_v_a);
-$s_por_variacion_v = ($s_variacion_v / $s_v_a) * 100;
-
-$objPHPExcel->setActiveSheetIndex(3)->setCellValue('A'.$Fila, 'TOTAL GENERAL');
-$objPHPExcel->setActiveSheetIndex(3)->setCellValue('B'.$Fila, $s_c_a);
-$objPHPExcel->setActiveSheetIndex(3)->setCellValue('C'.$Fila, $s_c_b);
-$objPHPExcel->setActiveSheetIndex(3)->setCellValue('D'.$Fila, $s_variacion_c);
-$objPHPExcel->setActiveSheetIndex(3)->setCellValue('E'.$Fila, $s_por_variacion_c);
-$objPHPExcel->setActiveSheetIndex(3)->setCellValue('F'.$Fila, $s_v_a);
-$objPHPExcel->setActiveSheetIndex(3)->setCellValue('G'.$Fila, $s_v_b);
-$objPHPExcel->setActiveSheetIndex(3)->setCellValue('H'.$Fila, $s_variacion_v);
-$objPHPExcel->setActiveSheetIndex(3)->setCellValue('I'.$Fila, $s_por_variacion_v);
-
-$objPHPExcel->getActiveSheet(3)->getStyle('A'.$Fila.':I'.$Fila)->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet(3)->getStyle('A'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-$objPHPExcel->getActiveSheet(3)->getStyle('B'.$Fila.':I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-$objPHPExcel->getActiveSheet(3)->getStyle('B'.$Fila.':D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-$objPHPExcel->getActiveSheet(3)->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-$objPHPExcel->getActiveSheet(3)->getStyle('F'.$Fila.':H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-$objPHPExcel->getActiveSheet(3)->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
 
 /*fin contenido tabla*/
 
@@ -910,115 +928,119 @@ $Fila = 2;
 $s_c_a = 0;
 $s_c_b = 0;
 $s_v_a = 0;
-$s_v_b = 0; 
+$s_v_b = 0;
 
-foreach ($array_oracle as $or => $reg) {
+if(!empty($array_oracle)){  
 
-  $oracle = $or;
-  
-  if($reg['c_'.$anio_inicial] == '-'){
-    $c_a = 0;
-  }else{
-    $c_a = $reg['c_'.$anio_inicial];
-  } 
+  foreach ($array_oracle as $or => $reg) {
 
-  $s_c_a = $s_c_a + $c_a;
+    $oracle = $or;
+    
+    if($reg['c_'.$anio_inicial] == '-'){
+      $c_a = 0;
+    }else{
+      $c_a = $reg['c_'.$anio_inicial];
+    } 
 
-  if($reg['c_'.$anio_final] == '-'){
-    $c_b = 0;
-  }else{
-    $c_b = $reg['c_'.$anio_final];
-  } 
+    $s_c_a = $s_c_a + $c_a;
 
-  $s_c_b = $s_c_b + $c_b;
+    if($reg['c_'.$anio_final] == '-'){
+      $c_b = 0;
+    }else{
+      $c_b = $reg['c_'.$anio_final];
+    } 
 
-  $variacion_c = ($c_b - $c_a);
+    $s_c_b = $s_c_b + $c_b;
 
-  if($c_a == 0){
-    $por_variacion_c = 0;
-  }else{
-    $por_variacion_c = ($variacion_c / $c_a) * 100; 
+    $variacion_c = ($c_b - $c_a);
+
+    if($c_a == 0){
+      $por_variacion_c = 0;
+    }else{
+      $por_variacion_c = ($variacion_c / $c_a) * 100; 
+    }
+   
+    if($reg['v_'.$anio_inicial] == '-'){
+      $v_a = 0;
+    }else{
+      $v_a = $reg['v_'.$anio_inicial];
+    } 
+
+    $s_v_a = $s_v_a + $v_a;
+
+    if($reg['v_'.$anio_final] == '-'){
+      $v_b = 0;
+    }else{
+      $v_b = $reg['v_'.$anio_final];
+    } 
+
+    $s_v_b = $s_v_b + $v_b;
+
+    $variacion_v = ($v_b - $v_a);
+
+    if($v_a == 0){
+      $por_variacion_v = 0;
+    }else{
+      $por_variacion_v = ($variacion_v / $v_a) * 100;
+    }
+        
+    $objPHPExcel->setActiveSheetIndex(4)->setCellValue('A'.$Fila, $oracle);
+    $objPHPExcel->setActiveSheetIndex(4)->setCellValue('B'.$Fila, $c_a);
+    $objPHPExcel->setActiveSheetIndex(4)->setCellValue('C'.$Fila, $c_b);
+    $objPHPExcel->setActiveSheetIndex(4)->setCellValue('D'.$Fila, $variacion_c);
+    $objPHPExcel->setActiveSheetIndex(4)->setCellValue('E'.$Fila, $por_variacion_c);
+    $objPHPExcel->setActiveSheetIndex(4)->setCellValue('F'.$Fila, $v_a);
+    $objPHPExcel->setActiveSheetIndex(4)->setCellValue('G'.$Fila, $v_b);
+    $objPHPExcel->setActiveSheetIndex(4)->setCellValue('H'.$Fila, $variacion_v);
+    $objPHPExcel->setActiveSheetIndex(4)->setCellValue('I'.$Fila, $por_variacion_v);
+
+    $objPHPExcel->getActiveSheet(4)->getStyle('A'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $objPHPExcel->getActiveSheet(4)->getStyle('B'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(4)->getStyle('B'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(4)->getStyle('C'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(4)->getStyle('C'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(4)->getStyle('D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(4)->getStyle('D'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(4)->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+    $objPHPExcel->getActiveSheet(4)->getStyle('E'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(4)->getStyle('F'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(4)->getStyle('F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(4)->getStyle('G'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(4)->getStyle('G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(4)->getStyle('H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet(4)->getStyle('H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet(4)->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+    $objPHPExcel->getActiveSheet(4)->getStyle('I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+    $Fila = $Fila + 1;
+
   }
- 
-  if($reg['v_'.$anio_inicial] == '-'){
-    $v_a = 0;
-  }else{
-    $v_a = $reg['v_'.$anio_inicial];
-  } 
 
-  $s_v_a = $s_v_a + $v_a;
+  $s_variacion_c = ($s_c_b - $s_c_a);
+  $s_por_variacion_c = ($s_variacion_c / $s_c_a) * 100;
 
-  if($reg['v_'.$anio_final] == '-'){
-    $v_b = 0;
-  }else{
-    $v_b = $reg['v_'.$anio_final];
-  } 
+  $s_variacion_v = ($s_v_b - $s_v_a);
+  $s_por_variacion_v = ($s_variacion_v / $s_v_a) * 100;
 
-  $s_v_b = $s_v_b + $v_b;
+  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('A'.$Fila, 'TOTAL GENERAL');
+  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('B'.$Fila, $s_c_a);
+  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('C'.$Fila, $s_c_b);
+  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('D'.$Fila, $s_variacion_c);
+  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('E'.$Fila, $s_por_variacion_c);
+  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('F'.$Fila, $s_v_a);
+  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('G'.$Fila, $s_v_b);
+  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('H'.$Fila, $s_variacion_v);
+  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('I'.$Fila, $s_por_variacion_v);
 
-  $variacion_v = ($v_b - $v_a);
-
-  if($v_a == 0){
-    $por_variacion_v = 0;
-  }else{
-    $por_variacion_v = ($variacion_v / $v_a) * 100;
-  }
-      
-  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('A'.$Fila, $oracle);
-  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('B'.$Fila, $c_a);
-  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('C'.$Fila, $c_b);
-  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('D'.$Fila, $variacion_c);
-  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('E'.$Fila, $por_variacion_c);
-  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('F'.$Fila, $v_a);
-  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('G'.$Fila, $v_b);
-  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('H'.$Fila, $variacion_v);
-  $objPHPExcel->setActiveSheetIndex(4)->setCellValue('I'.$Fila, $por_variacion_v);
-
+  $objPHPExcel->getActiveSheet(4)->getStyle('A'.$Fila.':I'.$Fila)->getFont()->setBold(true);
   $objPHPExcel->getActiveSheet(4)->getStyle('A'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-  $objPHPExcel->getActiveSheet(4)->getStyle('B'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(4)->getStyle('B'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(4)->getStyle('C'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(4)->getStyle('C'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(4)->getStyle('D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(4)->getStyle('D'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet(4)->getStyle('B'.$Fila.':I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet(4)->getStyle('B'.$Fila.':D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
   $objPHPExcel->getActiveSheet(4)->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-  $objPHPExcel->getActiveSheet(4)->getStyle('E'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(4)->getStyle('F'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(4)->getStyle('F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(4)->getStyle('G'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(4)->getStyle('G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet(4)->getStyle('H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-  $objPHPExcel->getActiveSheet(4)->getStyle('H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet(4)->getStyle('F'.$Fila.':H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
   $objPHPExcel->getActiveSheet(4)->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-  $objPHPExcel->getActiveSheet(4)->getStyle('I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-
-  $Fila = $Fila + 1;
 
 }
-
-$s_variacion_c = ($s_c_b - $s_c_a);
-$s_por_variacion_c = ($s_variacion_c / $s_c_a) * 100;
-
-$s_variacion_v = ($s_v_b - $s_v_a);
-$s_por_variacion_v = ($s_variacion_v / $s_v_a) * 100;
-
-$objPHPExcel->setActiveSheetIndex(4)->setCellValue('A'.$Fila, 'TOTAL GENERAL');
-$objPHPExcel->setActiveSheetIndex(4)->setCellValue('B'.$Fila, $s_c_a);
-$objPHPExcel->setActiveSheetIndex(4)->setCellValue('C'.$Fila, $s_c_b);
-$objPHPExcel->setActiveSheetIndex(4)->setCellValue('D'.$Fila, $s_variacion_c);
-$objPHPExcel->setActiveSheetIndex(4)->setCellValue('E'.$Fila, $s_por_variacion_c);
-$objPHPExcel->setActiveSheetIndex(4)->setCellValue('F'.$Fila, $s_v_a);
-$objPHPExcel->setActiveSheetIndex(4)->setCellValue('G'.$Fila, $s_v_b);
-$objPHPExcel->setActiveSheetIndex(4)->setCellValue('H'.$Fila, $s_variacion_v);
-$objPHPExcel->setActiveSheetIndex(4)->setCellValue('I'.$Fila, $s_por_variacion_v);
-
-$objPHPExcel->getActiveSheet(4)->getStyle('A'.$Fila.':I'.$Fila)->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet(4)->getStyle('A'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-$objPHPExcel->getActiveSheet(4)->getStyle('B'.$Fila.':I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-$objPHPExcel->getActiveSheet(4)->getStyle('B'.$Fila.':D'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-$objPHPExcel->getActiveSheet(4)->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-$objPHPExcel->getActiveSheet(4)->getStyle('F'.$Fila.':H'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
-$objPHPExcel->getActiveSheet(4)->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
 
 /*fin contenido tabla*/
 
