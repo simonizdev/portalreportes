@@ -66,7 +66,7 @@ if($opcion == 1){
 
     function Header(){
       $this->SetFont('Arial','B',9);
-      $this->Cell(200,5,utf8_decode('PEDIDOS PENDIENTES POR DESPACHO Y REQUISICIONES (TOP 10)'),0,0,'L');
+      $this->Cell(200,5,utf8_decode('PEDIDOS PENDIENTES POR DESPACHO Y REQUISICIONES (TOP)'),0,0,'L');
       $this->SetFont('Arial','',7);
       $this->Cell(80,5,utf8_decode($this->fecha_actual),0,0,'R');
       $this->Ln();
@@ -88,36 +88,39 @@ if($opcion == 1){
       $this->Cell(10,2,utf8_decode('ITEM'),0,0,'L');
       $this->Cell(20,2,utf8_decode('REFERENCIA'),0,0,'L');
       $this->Cell(50,2,utf8_decode('DESCRIPCIÓN'),0,0,'L');
-      $this->Cell(30,2,utf8_decode('MARCA'),0,0,'L');
-      $this->Cell(35,2,utf8_decode('LINEA'),0,0,'L');
-      $this->Cell(13,2,utf8_decode('ESTADO'),0,0,'L');
-      $this->Cell(13,2,utf8_decode('CANT.'),0,0,'R');
-      $this->Cell(13,2,utf8_decode('CANT.'),0,0,'R');
-      $this->Cell(13,2,utf8_decode('CANT.'),0,0,'R');
-      $this->Cell(13,2,utf8_decode('CANT.'),0,0,'R');
-      $this->Cell(13,2,utf8_decode('CANT.'),0,0,'R');
-      $this->Cell(20,2,utf8_decode('VALOR'),0,0,'R');
-      $this->Cell(14,2,utf8_decode('PEND. POR'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('ESTADO'),0,0,'L');
+      $this->Cell(14,2,utf8_decode('CANT.'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('CANT.'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('CANT.'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('CANT.'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('CANT.'),0,0,'R');
+      $this->Cell(24,2,utf8_decode('VALOR'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('PROMEDIO'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('STOCK'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('BASE'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('OC.'),0,0,'R');
       $this->Cell(14,2,utf8_decode('EN'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('DIAS'),0,0,'R');
+
       $this->Ln(3);   
       
-      $this->Cell(8,2,utf8_decode('POS.'),0,0,'L');
+      $this->Cell(8,2,utf8_decode(''),0,0,'L');
       $this->Cell(10,2,utf8_decode(''),0,0,'L');
       $this->Cell(20,2,utf8_decode(''),0,0,'L');
       $this->Cell(50,2,utf8_decode(''),0,0,'L');
-      $this->Cell(30,2,utf8_decode(''),0,0,'L');
-      $this->Cell(35,2,utf8_decode(''),0,0,'L');
-      $this->Cell(13,2,utf8_decode(''),0,0,'L');
-      $this->Cell(13,2,utf8_decode('PEDIDA'),0,0,'R');
-      $this->Cell(13,2,utf8_decode('ENVIADA'),0,0,'R');
-      $this->Cell(13,2,utf8_decode('REDESP.'),0,0,'R');
-      $this->Cell(13,2,utf8_decode('PEND.'),0,0,'R');
-      $this->Cell(13,2,utf8_decode('PEND. RQM'),0,0,'R');
-      $this->Cell(20,2,utf8_decode('PEDIDO'),0,0,'R');
-      $this->Cell(14,2,utf8_decode('ENTRAR'),0,0,'R');
+      $this->Cell(14,2,utf8_decode(''),0,0,'L');
+      $this->Cell(14,2,utf8_decode('PEDIDA'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('ENVIADA'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('REDESP.'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('PEND.'),0,0,'R');
+      $this->Cell(14,2,utf8_decode('PEND. RQM'),0,0,'R');
+      $this->Cell(24,2,utf8_decode('PEDIDO'),0,0,'R');      
+      $this->Cell(14,2,utf8_decode(''),0,0,'R');
+      $this->Cell(14,2,utf8_decode(''),0,0,'R');
+      $this->Cell(14,2,utf8_decode(''),0,0,'R');
+      $this->Cell(14,2,utf8_decode('PEND.'),0,0,'R');
       $this->Cell(14,2,utf8_decode('EXIST.'),0,0,'R');
-      
-
+      $this->Cell(14,2,utf8_decode(''),0,0,'R');
 
       $this->Ln(3);
       
@@ -127,7 +130,6 @@ if($opcion == 1){
       $this->SetFillColor(224,235,255);
       $this->SetTextColor(0);
       
-
       $this->Ln();
     }
 
@@ -135,59 +137,50 @@ if($opcion == 1){
 
       $query1 = Yii::app()->db->createCommand($this->sql)->queryAll();
 
-      $Cant_Ped_st = 0;
-      $Cant_Env_st = 0;
-      $Cant_Redes_st = 0;
-      $Cant_Pend_st = 0;
       $Vlr_Pedido_st = 0;
-      $P_Entrar_st = 0;
-      $Existencia_st = 0;
-      $Cant_Pend_RQM_st = 0;
 
       foreach ($query1 as $reg1) {
         
-        $POS               = $reg1 ['POSICION_PARETO'];
+        $POS                = $reg1 ['POSICION_PARETO'];
         $ITEM               = $reg1 ['ITEM'];
-        $REFERENCIA        = $reg1 ['REFERENCIA'];    
+        $REFERENCIA         = $reg1 ['REFERENCIA'];    
         $DESCRIPCION        = $reg1 ['DESCRIPCION'];
         $MARCA              = $reg1 ['MARCA'];    
         $LINEA              = $reg1 ['LINEA'];    
         $ESTADO             = $reg1 ['ESTADO'];
-
         $Cant_Ped           = $reg1 ['Cant_Ped'];    
         $Cant_Env           = $reg1 ['Cant_Env'];    
         $Cant_Redes         = $reg1 ['Cant_Redes'];    
         $Cant_Pend          = $reg1 ['Cant_Pend'];    
-        $Vlr_Pedido         = $reg1 ['Vlr_Pedido'];    
-        $P_Entrar           = $reg1 ['P_Entrar'];    
-        $Existencia         = $reg1 ['Existencia'];
+        $Vlr_Pedido         = $reg1 ['Vlr_Pedido'];       
         $Cant_Pend_RQM      = $reg1 ['Cant_Pend_RQM'];
+        $CI_PROMEDIO        = $reg1 ['CI_PROMEDIO'];
+        $CI_STOCK           = $reg1 ['CI_STOCK'];
+        $CI_BASE            = $reg1 ['CI_BASE'];
+        $OC_PEND            = $reg1 ['OC_PEND'];
+        $Existencia         = $reg1 ['EXISTENCIA'];
+        $DIAS               = $reg1 ['DIAS'];
 
         $this->SetFont('Arial','',6);
         $this->Cell(8,3,$POS,0,0,'L');
         $this->Cell(10,3,$ITEM,0,0,'L');
         $this->Cell(20,3,substr(utf8_decode($REFERENCIA),0, 20) ,0,0,'L');
         $this->Cell(50,3,substr(utf8_decode($DESCRIPCION), 0, 30),0,0,'L');
-        $this->Cell(30,3,substr(utf8_decode($MARCA), 0, 20),0,0,'L');
-        $this->Cell(35,3,substr(utf8_decode($LINEA), 0, 25),0,0,'L');
-        $this->Cell(13,3,substr(utf8_decode($ESTADO), 0, 8),0,0,'L');
-        $this->Cell(13,3,number_format(($Cant_Ped),0,".",","),0,0,'R');
-        $this->Cell(13,3,number_format(($Cant_Env),0,".",","),0,0,'R');
-        $this->Cell(13,3,number_format(($Cant_Redes),0,".",","),0,0,'R');
-        $this->Cell(13,3,number_format(($Cant_Pend),0,".",","),0,0,'R');
-        $this->Cell(13,3,number_format(($Cant_Pend_RQM),0,".",","),0,0,'R');
-        $this->Cell(20,3,number_format(($Vlr_Pedido),2,".",","),0,0,'R');
-        $this->Cell(14,3,number_format(($P_Entrar),0,".",","),0,0,'R');
+        $this->Cell(14,3,substr(utf8_decode($ESTADO), 0, 8),0,0,'L');
+        $this->Cell(14,3,number_format(($Cant_Ped),0,".",","),0,0,'R');
+        $this->Cell(14,3,number_format(($Cant_Env),0,".",","),0,0,'R');
+        $this->Cell(14,3,number_format(($Cant_Redes),0,".",","),0,0,'R');
+        $this->Cell(14,3,number_format(($Cant_Pend),0,".",","),0,0,'R');
+        $this->Cell(14,3,number_format(($Cant_Pend_RQM),0,".",","),0,0,'R');
+        $this->Cell(24,3,number_format(($Vlr_Pedido),2,".",","),0,0,'R');
+        $this->Cell(14,3,number_format(($CI_PROMEDIO),2,".",","),0,0,'R');
+        $this->Cell(14,3,number_format(($CI_STOCK),2,".",","),0,0,'R');
+        $this->Cell(14,3,number_format(($CI_BASE),2,".",","),0,0,'R');
+        $this->Cell(14,3,number_format(($OC_PEND),0,".",","),0,0,'R');
         $this->Cell(14,3,number_format(($Existencia),0,".",","),0,0,'R');
-        
-        $Cant_Ped_st += $Cant_Ped;
-        $Cant_Env_st += $Cant_Env;
-        $Cant_Redes_st += $Cant_Redes;
-        $Cant_Pend_st += $Cant_Pend;
-        $Cant_Pend_RQM_st += $Cant_Pend_RQM;
+        $this->Cell(14,3,number_format(($DIAS),2,".",","),0,0,'R');
+
         $Vlr_Pedido_st += $Vlr_Pedido;
-        $P_Entrar_st += $P_Entrar;
-        $Existencia_st += $Existencia;
         
         $this->Ln();
 
@@ -201,16 +194,9 @@ if($opcion == 1){
       $this->Ln();
 
       $this->SetFont('Arial','B',5);
-      $this->Cell(166,3,'TOTAL GENERAL',0,0,'R');
+      $this->Cell(172,3,'TOTAL GENERAL',0,0,'R');
       $this->SetFont('Arial','B',6);
-      $this->Cell(13,3,number_format(($Cant_Ped_st),0,".",","),0,0,'R');
-      $this->Cell(13,3,number_format(($Cant_Env_st),0,".",","),0,0,'R');
-      $this->Cell(13,3,number_format(($Cant_Redes_st),0,".",","),0,0,'R');
-      $this->Cell(13,3,number_format(($Cant_Pend_st),0,".",","),0,0,'R');
-      $this->Cell(13,3,number_format(($Cant_Pend_RQM_st),0,".",","),0,0,'R');
-      $this->Cell(20,3,number_format(($Vlr_Pedido_st),2,".",","),0,0,'R');
-      $this->Cell(14,3,number_format(($P_Entrar_st),0,".",","),0,0,'R');
-      $this->Cell(14,3,number_format(($Existencia_st),0,".",","),0,0,'R');
+      $this->Cell(24,3,number_format(($Vlr_Pedido_st),2,".",","),0,0,'R');
 
       $this->Ln();
       $this->SetDrawColor(0,0,0);
@@ -262,24 +248,27 @@ if($opcion == 2){
 
   /*Cabecera tabla*/
 
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('A3', '# POS.');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('A3', '#');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('B3', 'ITEM');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('C3', 'REFERENCIA');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('D3', 'DESCRIPCIÓN');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('E3', 'MARCA');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('F3', 'LÍNEA');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('G3', 'ESTADO');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('H3', 'CANT. PEDIDA');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('I3', 'CANT. ENVIADA');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('J3', 'CANT. REDESP.');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('K3', 'CANT. PEND.');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('L3', 'CANT. PEND. RQM');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('M3', 'VALOR PEDIDO');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('N3', 'PEND. POR ENTRAR');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('O3', 'EN EXIST.');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('E3', 'ESTADO');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('F3', 'CANT. PEDIDA');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('G3', 'CANT. ENVIADA');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('H3', 'CANT. REDESP.');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('I3', 'CANT. PEND.');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('J3', 'CANT. PEND. RQM');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('K3', 'VALOR PEDIDO');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('L3', 'PROMEDIO');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('M3', 'STOCK');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('N3', 'BASE');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('O3', 'OC. PEND.'); 
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('P3', 'EN EXIST.'); 
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('Q3', 'DIAS'); 
 
-  $objPHPExcel->getActiveSheet()->getStyle('A3:O3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-  $objPHPExcel->getActiveSheet()->getStyle('A3:O3')->getFont()->setBold(true);
+
+  $objPHPExcel->getActiveSheet()->getStyle('A3:Q3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet()->getStyle('A3:Q3')->getFont()->setBold(true);
 
   /*Inicio contenido tabla*/
 
@@ -288,84 +277,66 @@ if($opcion == 2){
   $Fila = 4;  
   $linea = "";
 
-  $Cant_Ped_st = 0;
-  $Cant_Env_st = 0;
-  $Cant_Redes_st = 0;
-  $Cant_Pend_st = 0;
-  $Cant_Pend_RQM_st = 0;
   $Vlr_Pedido_st = 0;
-  $P_Entrar_st = 0;
-  $Existencia_st = 0;
 
   foreach ($query1 as $reg1) {
     
-    $POS               = $reg1 ['POSICION_PARETO'];
+    $POS                = $reg1 ['POSICION_PARETO'];
     $ITEM               = $reg1 ['ITEM'];
-    $REFERENCIA        = $reg1 ['REFERENCIA'];    
+    $REFERENCIA         = $reg1 ['REFERENCIA'];    
     $DESCRIPCION        = $reg1 ['DESCRIPCION'];
     $MARCA              = $reg1 ['MARCA'];    
     $LINEA              = $reg1 ['LINEA'];    
     $ESTADO             = $reg1 ['ESTADO'];
-
     $Cant_Ped           = $reg1 ['Cant_Ped'];    
     $Cant_Env           = $reg1 ['Cant_Env'];    
     $Cant_Redes         = $reg1 ['Cant_Redes'];    
     $Cant_Pend          = $reg1 ['Cant_Pend'];    
-    $Vlr_Pedido         = $reg1 ['Vlr_Pedido'];    
-    $P_Entrar           = $reg1 ['P_Entrar'];    
-    $Existencia         = $reg1 ['Existencia'];
+    $Vlr_Pedido         = $reg1 ['Vlr_Pedido'];       
     $Cant_Pend_RQM      = $reg1 ['Cant_Pend_RQM'];
+    $CI_PROMEDIO        = $reg1 ['CI_PROMEDIO'];
+    $CI_STOCK           = $reg1 ['CI_STOCK'];
+    $CI_BASE            = $reg1 ['CI_BASE'];
+    $OC_PEND            = $reg1 ['OC_PEND'];
+    $Existencia         = $reg1 ['EXISTENCIA'];
+    $DIAS               = $reg1 ['DIAS'];
 
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, $POS);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, $ITEM);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, substr($REFERENCIA,0,20));
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, substr($DESCRIPCION,0,30));
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, substr($MARCA,0,20));
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, substr($LINEA,0,25));
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, substr($ESTADO, 0, 8));
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $Cant_Ped);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, $Cant_Env);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, $Cant_Redes);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $Cant_Pend);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $Cant_Pend_RQM);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, $Vlr_Pedido);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$Fila, $P_Entrar);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$Fila, $Existencia);
-    
-    $objPHPExcel->getActiveSheet()->getStyle('H'.$Fila.':L'.$Fila)->getNumberFormat()->setFormatCode('0');        
-    $objPHPExcel->getActiveSheet()->getStyle('M'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-    $objPHPExcel->getActiveSheet()->getStyle('N'.$Fila.':O'.$Fila)->getNumberFormat()->setFormatCode('0');
-    $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-    $objPHPExcel->getActiveSheet()->getStyle('H'.$Fila.':O'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, substr($ESTADO, 0, 8));
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $Cant_Ped);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $Cant_Env);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $Cant_Redes);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, $Cant_Pend);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, $Cant_Pend_RQM);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $Vlr_Pedido);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $CI_PROMEDIO);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, $CI_STOCK);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$Fila, $CI_BASE);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$Fila, $OC_PEND);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('P'.$Fila, $Existencia);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('Q'.$Fila, $DIAS);
+
+    $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':E'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$Fila.':J'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet()->getStyle('K'.$Fila.':N'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+    $objPHPExcel->getActiveSheet()->getStyle('O'.$Fila.':P'.$Fila)->getNumberFormat()->setFormatCode('#,##0');
+    $objPHPExcel->getActiveSheet()->getStyle('Q'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$Fila.':Q'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
     $Fila = $Fila + 1;
-  
-    $Cant_Ped_st += $Cant_Ped;
-    $Cant_Env_st += $Cant_Env;
-    $Cant_Redes_st += $Cant_Redes;
-    $Cant_Pend_st += $Cant_Pend;
-    $Cant_Pend_RQM_st += $Cant_Pend_RQM;
     $Vlr_Pedido_st += $Vlr_Pedido;
-    $P_Entrar_st += $P_Entrar;
-    $Existencia_st += $Existencia;
 
   }
 
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, 'TOTAL GENERAL');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $Cant_Ped_st);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, $Cant_Env_st);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, $Cant_Redes_st);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $Cant_Pend_st);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $Cant_Pend_RQM_st);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, $Vlr_Pedido_st);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$Fila, $P_Entrar_st);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$Fila, $Existencia_st);
-  
-  $objPHPExcel->getActiveSheet()->getStyle('H'.$Fila.':L'.$Fila)->getNumberFormat()->setFormatCode('0');        
-  $objPHPExcel->getActiveSheet()->getStyle('M'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-  $objPHPExcel->getActiveSheet()->getStyle('N'.$Fila.':O'.$Fila)->getNumberFormat()->setFormatCode('0');
-  $objPHPExcel->getActiveSheet()->getStyle('H'.$Fila.':O'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila.':O'.$Fila)->getFont()->setBold(true);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, 'TOTAL GENERAL');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $Vlr_Pedido_st);
+
+  $objPHPExcel->getActiveSheet()->getStyle('K'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+  $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila.':K'.$Fila)->getFont()->setBold(true);
+  $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila.':K'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
   $Fila = $Fila + 1;
 
