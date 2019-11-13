@@ -3459,7 +3459,7 @@ class ReporteController extends Controller
 						//se valida si el estado es valido
 						$estado = $param2;
 
-						if($estado != 1 && $estado != 2){
+						if($estado != 0 && $estado != 1 && $estado != 2){
 							$fila_error = $i + 1;
 							$msj .= 'Error en la fila # '.$fila_error.', el estado no es valido.<br>'; 
 						}else{
