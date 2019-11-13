@@ -3435,7 +3435,7 @@ class ReporteController extends Controller
         		$param1 = $dataExcel[$i][0];
         		$param2 = $dataExcel[$i][1];
 
-        		if($param1 == '' || $param2 == ''){
+        		if($param1 === '' || $param2 === ''){
     				$fila_error = $i + 1;
         			$msj .= 'Error en la fila # '.$fila_error.', hay columnas vacias.<br>'; 
         			$valid = 0;
