@@ -69,8 +69,9 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('AC1', 'Coordinador');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('AD1', 'Ruta');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('AE1', 'Descripción de ruta');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('AF1', 'Fecha de nacimiento');
-$objPHPExcel->getActiveSheet()->getStyle('A1:AF1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-$objPHPExcel->getActiveSheet()->getStyle('A1:AF1')->getFont()->setBold(true);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AG1', 'E-mail');
+$objPHPExcel->getActiveSheet()->getStyle('A1:AG1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+$objPHPExcel->getActiveSheet()->getStyle('A1:AG1')->getFont()->setBold(true);
 
 /*Inicio contenido tabla*/
     
@@ -115,6 +116,7 @@ if(!empty($q1)){
     $AF = $reg1 ['C_FECHA_NAC'];
     $f = new DateTime($AF);
     $fecha = $f->format('Y-m-d');
+    $AG = $reg1 ['CORREO'];
 
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, $A);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, $B);
@@ -148,9 +150,10 @@ if(!empty($q1)){
     $objPHPExcel->setActiveSheetIndex()->setCellValueExplicit('AD'.$Fila, $AD);
     $objPHPExcel->setActiveSheetIndex()->setCellValueExplicit('AE'.$Fila, $AE);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('AF'.$Fila, $fecha);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('AG'.$Fila, $AG);
 
     $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-    $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':AF'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':AG'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
     $Fila = $Fila + 1; 
       
