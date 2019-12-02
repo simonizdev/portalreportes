@@ -1905,4 +1905,84 @@ class UtilidadesReportes {
 
   }
 
+  public static function consultafactelectpantalla($tipo, $cons_inicial, $cons_final) {
+
+    $query ="
+      SELECT * FROM TH_FACTURA_ELECTRONICA WHERE FE_TIPO_DOCTO = '".$tipo."' AND FE_CONSECUTIVO BETWEEN ".$cons_inicial." AND ".$cons_final." ORDER BY 12
+    ";
+
+    $tabla = '
+      <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                <th>Cia</th>
+                <th>CO</th>
+                <th>Tipo de docto</th>
+                <th>Desc. tipo</th>
+                <th>Consecutivo</th>
+                <th>Fecha de factura</th>
+                <th>Fecha de creación</th>
+                </tr>
+              </thead>
+          <tbody>';
+
+    $q1 = Yii::app()->db->createCommand($query)->queryAll();
+
+    $i = 1; 
+
+    if(!empty($q1)){
+      foreach ($q1 as $reg1) {
+
+        $cia  = $reg1 ['FE_CIA']; 
+        $co  = $reg1 ['FE_CO']; 
+        $tipo_docto  = $reg1 ['FE_TIPO_DOCTO']; 
+        $consecutivo  = $reg1 ['FE_CONSECUTIVO'];
+
+        if($tipo_docto == "FVN") {
+          $tipo = 'Factura de Venta Nacional';
+        }
+
+        if($tipo_docto == "FVX") {
+          $tipo = 'Factura de Exportación';
+        }
+
+        if($tipo_docto == "FEC") {
+          $tipo = 'Factura de Contingencia Facturador';
+        }
+
+        $fecha_factura  = $reg1 ['FE_FECHA_FACTURA']; 
+        $fecha_creacion  = $reg1 ['CREACION'];  
+
+        if ($i % 2 == 0){
+          $clase = 'odd'; 
+        }else{
+          $clase = 'even'; 
+        }
+
+        $tabla .= '    
+        <tr class="'.$clase.'">
+            <td>'.$cia.'</td>
+            <td>'.$co.'</td>
+            <td>'.$tipo_docto.'</td>
+            <td>'.$tipo.'</td>
+            <td>'.$consecutivo.'</td>
+            <td>'.$fecha_factura.'</td>
+            <td>'.$fecha_creacion.'</td>
+        </tr>';
+
+        $i++; 
+
+      }
+    }else{
+      $tabla .= ' 
+        <tr><td colspan="7" class="empty"><span class="empty">No se encontraron resultados.</span></td></tr>
+      ';
+    }
+
+    $tabla .= '  </tbody>
+        </table>';
+
+    return $tabla;
+  }
+
 }

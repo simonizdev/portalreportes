@@ -166,6 +166,7 @@ class Reporte extends CFormModel
             array('des_ora_ini, des_ora_fin', 'required','on'=>'logistica_comercial'),
             array('periodo_inicial, periodo_final, opcion', 'required','on'=>'analisis_ventas'),
             array('fecha_inicial, fecha_final, opcion_exp', 'required','on'=>'pedidos_pend_des_req_top'),
+            array('tipo, cons_inicial, cons_final, opcion_exp', 'required','on'=>'consulta_fact_elect'),
         );  
     }
 
