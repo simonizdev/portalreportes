@@ -66,7 +66,8 @@
 </div>
     
 <div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-bar-chart"></i> Generar</button>
+  <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+  <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-bar-chart"></i> Generar</button>
 </div>
 
 
@@ -133,6 +134,13 @@ function reporte_pantalla(){
     }
   });
 
+}
+
+function resetfields(){
+  $("#resultados").html(''); 
+  $('#Reporte_tipo').val('');
+  $('#Reporte_cons_inicial').val('');
+  $('#Reporte_cons_final').val('');
 }
 
 </script>
