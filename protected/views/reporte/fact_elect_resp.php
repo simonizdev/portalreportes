@@ -13,10 +13,8 @@ $cons_final = $model['cons_final'];
 //EXCEL
 
 $query ="
-  SELECT * FROM TH_FACTURA_ELECTRONICA WHERE FE_TIPO_DOCTO = '".$tipo."' AND FE_CONSECUTIVO BETWEEN ".$cons_inicial." AND ".$cons_final." ORDER BY 12
+  SELECT * FROM TH_FACTURA_ELECTRONICA WHERE FE_TIPO_DOCTO = '".$tipo."' AND FE_CONSECUTIVO BETWEEN ".$cons_inicial." AND ".$cons_final." ORDER BY FE_CONSECUTIVO
 ";
-
-//echo $query;die;
 
 // Se inactiva el autoloader de yii
 spl_autoload_unregister(array('YiiBase','autoload'));   
@@ -38,11 +36,12 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('B1', 'CO');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('C1', 'Tipo de docto');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('D1', 'Desc. tipo');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('E1', 'Consecutivo');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('F1', 'Fecha de factura');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('G1', 'Fecha de creación');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('F1', 'Cufe');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('G1', 'Fecha de factura');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('H1', 'Fecha de creación');
 
-$objPHPExcel->getActiveSheet()->getStyle('A1:G1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-$objPHPExcel->getActiveSheet()->getStyle('A1:G1')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getFont()->setBold(true);
 
 /*Inicio contenido tabla*/
     
@@ -56,7 +55,7 @@ if(!empty($q1)){
     $cia  = $reg1 ['FE_CIA']; 
     $co  = $reg1 ['FE_CO']; 
     $tipo_docto  = $reg1 ['FE_TIPO_DOCTO']; 
-    $consecutivo  = $reg1 ['FE_CONSECUTIVO']; 
+    
     
     if($tipo_docto == "FVN") {
       $tipo = 'Factura de Venta Nacional';
@@ -70,6 +69,8 @@ if(!empty($q1)){
       $tipo = 'Factura de Contingencia Facturador';
     }
 
+    $consecutivo  = $reg1 ['FE_CONSECUTIVO']; 
+    $cufe  = $reg1 ['FE_CUFE']; 
     $fecha_factura  = $reg1 ['FE_FECHA_FACTURA'];
     $fecha_creacion  = $reg1 ['CREACION']; 
 
@@ -78,8 +79,9 @@ if(!empty($q1)){
     $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, $tipo_docto);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, $tipo);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $consecutivo); 
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $fecha_factura);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $fecha_creacion);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $cufe);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $fecha_factura);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $fecha_creacion);
         
     $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
     $Fila = $Fila + 1; 

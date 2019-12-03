@@ -1920,6 +1920,7 @@ class UtilidadesReportes {
                 <th>Tipo de docto</th>
                 <th>Desc. tipo</th>
                 <th>Consecutivo</th>
+                <th>Cufe</th>
                 <th>Fecha de factura</th>
                 <th>Fecha de creación</th>
                 </tr>
@@ -1936,7 +1937,6 @@ class UtilidadesReportes {
         $cia  = $reg1 ['FE_CIA']; 
         $co  = $reg1 ['FE_CO']; 
         $tipo_docto  = $reg1 ['FE_TIPO_DOCTO']; 
-        $consecutivo  = $reg1 ['FE_CONSECUTIVO'];
 
         if($tipo_docto == "FVN") {
           $tipo = 'Factura de Venta Nacional';
@@ -1950,6 +1950,8 @@ class UtilidadesReportes {
           $tipo = 'Factura de Contingencia Facturador';
         }
 
+        $consecutivo  = $reg1 ['FE_CONSECUTIVO'];
+        $cufe  = $reg1 ['FE_CUFE'];
         $fecha_factura  = $reg1 ['FE_FECHA_FACTURA']; 
         $fecha_creacion  = $reg1 ['CREACION'];  
 
@@ -1966,6 +1968,7 @@ class UtilidadesReportes {
             <td>'.$tipo_docto.'</td>
             <td>'.$tipo.'</td>
             <td>'.$consecutivo.'</td>
+            <td>'.$cufe.'</td>
             <td>'.$fecha_factura.'</td>
             <td>'.$fecha_creacion.'</td>
         </tr>';
@@ -1975,7 +1978,7 @@ class UtilidadesReportes {
       }
     }else{
       $tabla .= ' 
-        <tr><td colspan="7" class="empty"><span class="empty">No se encontraron resultados.</span></td></tr>
+        <tr><td colspan="8" class="empty"><span class="empty">No se encontraron resultados.</span></td></tr>
       ';
     }
 
