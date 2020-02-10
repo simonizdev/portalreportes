@@ -30,7 +30,7 @@ if($opcion == 1){
   /*ESTADO*/
 
   $array_estados =  $model['estado'];
-  $estados = "";
+  $estados = "";  
   foreach ($array_estados as $a_estados => $valor) {
     $estados .= "".$valor.",";
   }
@@ -473,8 +473,8 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('Z3', 'CANT. TOTAL INV. DISP. 
 $objPHPExcel->setActiveSheetIndex()->setCellValue('AA3', 'CUB. MESES INV. DISP.');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('AB3', 'CUB. MESES TOTAL INV. DISP. + OC');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('AC3', 'A.D PEDIR');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AD3', 'FORECAST ULT. 6 MESES 2019 (SUM)');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AE3', 'FORECAST MENSUAL 2019');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AD3', 'FORECAST PROX. 6 MESES '.date('Y').' (SUM)');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AE3', 'FORECAST MENSUAL '.date('Y'));
 $objPHPExcel->setActiveSheetIndex()->setCellValue('AF3', 'A PEDIR FINAL');
 
 $objPHPExcel->getActiveSheet()->getStyle('A3:AF3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
