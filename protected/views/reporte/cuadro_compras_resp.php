@@ -469,13 +469,15 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('V3', 'PROM. MAX. * MESES STOC
 $objPHPExcel->setActiveSheetIndex()->setCellValue('W3', 'EXIST. A LA FECHA');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('X3', 'IMPORT');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('Y3', 'O.C PEND.');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('Z3', 'CANT. TOTAL INV. DISP. + INV. PROC. + OC');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AA3', 'CUB. MESES INV. DISP.');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AB3', 'CUB. MESES TOTAL INV. DISP. + OC');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AC3', 'A.D PEDIR');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AD3', 'FORECAST PROX. 6 MESES '.date('Y').' (SUM)');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AE3', 'FORECAST MENSUAL '.date('Y'));
-$objPHPExcel->setActiveSheetIndex()->setCellValue('AF3', 'A PEDIR FINAL');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('Z3', 'FECHA ULT. O.C');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AA3', 'CANT. ULT. O.C');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AB3', 'CANT. TOTAL INV. DISP. + INV. PROC. + OC');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AC3', 'CUB. MESES INV. DISP.');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AD3', 'CUB. MESES TOTAL INV. DISP. + OC');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AE3', 'A.D PEDIR');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AF3', 'FORECAST PROX. 6 MESES '.date('Y').' (SUM)');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AG3', 'FORECAST MENSUAL '.date('Y'));
+$objPHPExcel->setActiveSheetIndex()->setCellValue('AH3', 'A PEDIR FINAL');
 
 $objPHPExcel->getActiveSheet()->getStyle('A3:AF3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 $objPHPExcel->getActiveSheet()->getStyle('A3:AF3')->getFont()->setBold(true);
@@ -620,6 +622,9 @@ foreach ($query1 as $reg1) {
     $O_C_PEND = $reg1 ['CI_ENTRAR'];
   }
 
+  $FECHA_ULT_COMP = $reg1 ['CI_FECHA_ULT_COMP'];
+  $CANT_ULT_COMP = $reg1 ['CI_CANT_ULT_COMP'];
+
   if($reg1 ['CI_TOTAL'] == NULL){
     $CANTIDAD_TOTAL_INV_DISP_INV_PROC_OC = 0;
   }else{
@@ -687,18 +692,25 @@ foreach ($query1 as $reg1) {
   $objPHPExcel->setActiveSheetIndex()->setCellValue('W'.$Fila, $EXIST_FECHA);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('X'.$Fila, $IMP);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('Y'.$Fila, $O_C_PEND);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('Z'.$Fila, $CANTIDAD_TOTAL_INV_DISP_INV_PROC_OC);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('AA'.$Fila, $CUBRI_MESES_INV_DISPONIBLE);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('AB'.$Fila, $CUBRI_MESES_TOTAL_INV_DISPON_OC);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('AC'.$Fila, $AD_PEDIR);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('AD'.$Fila, $FORECAST);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('AE'.$Fila, $FORECAST_MES);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('AF'.$Fila, $A_PEDIR_TOTAL);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('Z'.$Fila, $FECHA_ULT_COMP);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('AA'.$Fila, $CANT_ULT_COMP);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('AB'.$Fila, $CANTIDAD_TOTAL_INV_DISP_INV_PROC_OC);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('AC'.$Fila, $CUBRI_MESES_INV_DISPONIBLE);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('AD'.$Fila, $CUBRI_MESES_TOTAL_INV_DISPON_OC);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('AE'.$Fila, $AD_PEDIR);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('AF'.$Fila, $FORECAST);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('AG'.$Fila, $FORECAST_MES);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('AH'.$Fila, $A_PEDIR_TOTAL);
 
   $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
   $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila.':S'.$Fila)->getNumberFormat()->setFormatCode('0'); 
-  $objPHPExcel->getActiveSheet()->getStyle('T'.$Fila.':AG'.$Fila)->getNumberFormat()->setFormatCode('#,#0.0');
-  $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila.':AG'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet()->getStyle('T'.$Fila.':Y'.$Fila)->getNumberFormat()->setFormatCode('#,#0.0');
+  $objPHPExcel->getActiveSheet()->getStyle('AA'.$Fila)->getNumberFormat()->setFormatCode('0'); 
+  $objPHPExcel->getActiveSheet()->getStyle('AB'.$Fila.':AH'.$Fila)->getNumberFormat()->setFormatCode('#,#0.0');
+  $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila.':Y'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet()->getStyle('Z'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet()->getStyle('AA'.$Fila.':AH'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
 
   $Fila = $Fila + 1;
 
