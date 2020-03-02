@@ -192,9 +192,7 @@ $(function() {
         language: 'es',
         autoclose: true,
         orientation: "right bottom",
-    });
-
-    
+    });  
 
 });
 
