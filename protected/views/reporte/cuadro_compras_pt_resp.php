@@ -739,7 +739,7 @@ foreach($objPHPExcel->getWorksheetIterator() as $worksheet) {
     }
 }
 
-$n = 'Cuadro_compras_'.date('Y-m-d H_i_s');
+$n = 'Cuadro_compras_pt_'.date('Y-m-d H_i_s');
 
 header('Content-Type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="'.$n.'.xlsx"');

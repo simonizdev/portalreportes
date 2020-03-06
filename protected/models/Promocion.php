@@ -41,7 +41,7 @@ class Promocion extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_Item_Padre, Id_Item_Hijo, Cantidad', 'required'),
-			array('Id_Item_Padre, Id_Item_Hijo', 'ECompositeUniqueValidator', 'attributesToAddError'=>'Id_Item_Hijo','message'=>'Prom. - item ya existe en el sistema '),
+			array('Id_Item_Padre, Id_Item_Hijo', 'ECompositeUniqueValidator', 'attributesToAddError'=>'Id_Item_Hijo','message'=>'Prom. - item ya existe en el sistema.'),
 			array('Id_Usuario_Creacion, Id_Usuario_Actualizacion, Id_Item_Padre, Id_Item_Hijo', 'numerical', 'integerOnly'=>true),
 			array('Cantidad', 'length', 'max'=>18),
 			array('Fecha_Creacion, Fecha_Actualizacion', 'safe'),

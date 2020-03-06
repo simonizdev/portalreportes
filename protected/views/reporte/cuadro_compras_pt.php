@@ -3,7 +3,7 @@
 /* @var $model Reporte */
 ?>
 
-<h3>Cuadro de compras</h3>
+<h3>Cuadro de compras PT</h3>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',

@@ -159,7 +159,7 @@ class Reporte extends CFormModel
             array('fecha_inicial, fecha_final, opcion_exp', 'required','on'=>'rent_criterios_560'),
             array('fecha_inicial, fecha_final', 'required','on'=>'fee_terpel_det'),
             array('fecha_inicial, fecha_final', 'required','on'=>'fee_terpel_cons'),
-            array('opcion', 'required','on'=>'cuadro_compras'),
+            array('opcion', 'required','on'=>'cuadro_compras_pt'),
             array('fecha_inicial, fecha_final', 'required','on'=>'hist_lib_ped'),
             array('fecha_inicial, fecha_final', 'required','on'=>'items_exentos_iva'),
             array('cons_inicial, cons_final', 'required','on'=>'desc_b2b'),
