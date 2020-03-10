@@ -394,7 +394,7 @@ if($opcion == 17){
 
 }
 
-echo $query;die;
+//echo $query;die;
 
 //array con titulos de meses
 
