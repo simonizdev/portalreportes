@@ -394,7 +394,7 @@ if($opcion == 17){
 
 }
 
-//echo $query;die;
+echo $query;die;
 
 //array con titulos de meses
 
@@ -675,10 +675,10 @@ foreach ($query1 as $reg1) {
   }
       
   $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, $ITEM);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, substr($PROVEEDOR, 0, 15));
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, substr($REFERENCIA,0,20));
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, substr($DESCRIPCION,0,35 ));
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, substr($ESTADO, 0, 8));
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, $PROVEEDOR);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, $REFERENCIA);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, $DESCRIPCION);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $ESTADO);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $UND_EMP_P);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $UND_COMPRA);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $MES12);
