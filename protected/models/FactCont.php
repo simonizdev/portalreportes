@@ -9,27 +9,32 @@
  * @property string $Fecha_Radicado
  * @property integer $Proveedor
  * @property string $Fecha_Factura
- * @property string $Entregada_A
  * @property string $Valor
  * @property integer $Moneda
  * @property integer $Empresa
+ * @property integer $Area
  * @property string $Observaciones
  * @property integer $Estado
  * @property integer $Id_Usuario_Creacion
  * @property integer $Id_Usuario_Actualizacion
+ * @property integer $Id_Usuario_Revision
  * @property string $Fecha_Creacion
  * @property string $Fecha_Actualizacion
+ * @property string $Fecha_Revision
  *
  * The followings are the available model relations:
  * @property THUSUARIOS $idUsuarioCreacion
  * @property THUSUARIOS $idUsuarioActualizacion
+ * @property THUSUARIOS $idUsuarioRevision
  * @property THPROVEEDORCONT $proveedor
  */
 class FactCont extends CActiveRecord
 {
 	public $usuario_creacion;
 	public $usuario_actualizacion;
+	public $usuario_revision;
 	public $orderby;
+	public $periodo_radicado;
 
 	/**
 	 * @return string the associated database table name
@@ -47,15 +52,15 @@ class FactCont extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Num_Factura, Fecha_Radicado, Proveedor, Fecha_Factura, Entregada_A, Valor, Moneda, Empresa, Estado', 'required'),
+			array('Num_Factura, Fecha_Radicado, Proveedor, Fecha_Factura, Valor, Moneda, Empresa, Area', 'required'),
 			array('Num_Factura, Proveedor', 'ECompositeUniqueValidator', 'attributesToAddError'=>'Num_Factura','message'=>'# de fact - proveedor ya existe en el sistema.'),
-			array('Proveedor, Moneda, Empresa, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
+			array('Proveedor, Moneda, Empresa, Area, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
 			array('Num_Factura', 'length', 'max'=>20),
-			array('Entregada_A', 'length', 'max'=>200),
 			array('Valor', 'length', 'max'=>18),
+			array('Fecha_Creacion, Fecha_Actualizacion, Observaciones', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id_Fact, Num_Factura, Fecha_Radicado, Proveedor, Fecha_Factura, Entregada_A, Valor, Moneda, Empresa, Observaciones, Estado, usuario_creacion, usuario_actualizacion, Fecha_Creacion, Fecha_Actualizacion, orderby', 'safe', 'on'=>'search'),
+			array('Id_Fact, Num_Factura, Fecha_Radicado, Proveedor, Fecha_Factura, Valor, Moneda, Empresa, Area, Observaciones, Estado, usuario_creacion, usuario_actualizacion, usuario_revision, Fecha_Creacion, Fecha_Actualizacion, Fecha_Revision, orderby, periodo_factura', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -100,6 +105,8 @@ class FactCont extends CActiveRecord
 		    case 0:
 		        return "ANULADA";
 		    case 1:
+		        return "CARGADA";
+		    case 2:
 		        return "RECIBIDA";
 		}
 
@@ -117,6 +124,7 @@ class FactCont extends CActiveRecord
 		return array(
 			'idusuariocre' => array(self::BELONGS_TO, 'Usuario', 'Id_Usuario_Creacion'),
 			'idusuarioact' => array(self::BELONGS_TO, 'Usuario', 'Id_Usuario_Actualizacion'),
+			'idusuariorev' => array(self::BELONGS_TO, 'Usuario', 'Id_Usuario_Revision'),
 			'proveedor' => array(self::BELONGS_TO, 'ProveedorCont', 'Proveedor'),
 		);
 	}
@@ -132,19 +140,23 @@ class FactCont extends CActiveRecord
 			'Fecha_Radicado' => 'Fecha de radicado',
 			'Proveedor' => 'Proveedor',
 			'Fecha_Factura' => 'Fecha de factura',
-			'Entregada_A' => 'Entregada a',
 			'Valor' => 'Valor',
 			'Moneda' => 'Moneda',
 			'Empresa' => 'Empresa',
+			'Area' => 'Área',
 			'Observaciones' => 'Observaciones',
 			'Estado' => 'Estado',
 			'Id_Usuario_Creacion' => 'Usuario que creo',
 			'Id_Usuario_Actualizacion' => 'Usuario que actualizó',
+			'Id_Usuario_Revision' => 'Usuario que revisó',
 			'Fecha_Creacion' => 'Fecha de creación',
 			'Fecha_Actualizacion' => 'Fecha de actualización',
+			'Fecha_Revision' => 'Fecha de Revisión',
 			'usuario_creacion' => 'Usuario que creo',
 			'usuario_actualizacion' => 'Usuario que actualizó',
+			'usuario_revision' => 'Usuario que revisó',
 			'orderby' => 'Orden de resultados',
+			'periodo_radicado' => 'Periodo de radicado',
 		);
 	}
 
@@ -168,15 +180,16 @@ class FactCont extends CActiveRecord
 
 		$criteria->together  =  true;
 
-	   	$criteria->with=array('proveedor','idusuariocre','idusuarioact');
+	   	$criteria->with=array('proveedor','idusuariocre','idusuarioact','idusuariorev');
+	   	$criteria->join = "INNER JOIN Nomina_Real..TH_AREA a ON t.Area = a.Id_Area";
 
 		$criteria->compare('t.Id_Fact',$this->Id_Fact);
 		$criteria->compare('t.Num_Factura',$this->Num_Factura,true);
 		$criteria->compare('t.Proveedor',$this->Proveedor);
-		$criteria->compare('t.Entregada_A',$this->Entregada_A,true);
 		$criteria->compare('t.Valor',$this->Valor,true);
 		$criteria->compare('t.Moneda',$this->Moneda);
 		$criteria->compare('t.Empresa',$this->Empresa);
+		$criteria->compare('t.Area',$this->Area);
 		$criteria->compare('t.Observaciones',$this->Observaciones,true);
 		$criteria->compare('t.Estado',$this->Estado);
 
@@ -185,6 +198,17 @@ class FactCont extends CActiveRecord
       		$fcf = $this->Fecha_Radicado." 23:59:59";
 
       		$criteria->addBetweenCondition('t.Fecha_Radicado', $fci, $fcf);
+    	}
+
+    	if($this->periodo_radicado != ""){
+      		$ffi = $this->periodo_radicado."-01";
+      	
+			$smff = strtotime ( '+1 month' , strtotime($ffi)) ;
+			$nff = strtotime ( '-1 day' , $smff);
+			
+			$fff = date ( 'Y-m-d' , $nff );
+
+      		$criteria->addBetweenCondition('t.Fecha_Radicado', $ffi, $fff);
     	}
 
     	if($this->Fecha_Factura != ""){
@@ -208,12 +232,23 @@ class FactCont extends CActiveRecord
       		$criteria->addBetweenCondition('t.Fecha_Actualizacion', $fai, $faf);
     	}
 
+    	if($this->Fecha_Revision != ""){
+      		$fri = $this->Fecha_Revision." 00:00:00";
+      		$frf = $this->Fecha_Revision." 23:59:59";
+
+      		$criteria->addBetweenCondition('t.Fecha_Revision', $fri, $frf);
+    	}
+
 		if($this->usuario_creacion != ""){
 			$criteria->AddCondition("idusuariocre.Usuario = '".$this->usuario_creacion."'"); 
 	    }
 
     	if($this->usuario_actualizacion != ""){
 			$criteria->AddCondition("idusuarioact.Usuario = '".$this->usuario_actualizacion."'"); 
+	    }
+
+	    if($this->usuario_revision != ""){
+			$criteria->AddCondition("idusuariorev.Usuario = '".$this->usuario_revision."'"); 
 	    }
 
 	    if(empty($this->orderby)){
@@ -233,22 +268,22 @@ class FactCont extends CActiveRecord
 			        $criteria->order = 't.Empresa DESC'; 
 			        break;
 			    case 5:
-			        $criteria->order = 't.Num_Factura ASC'; 
+			        $criteria->order = 'a.Area ASC'; 
 			        break;
 			    case 6:
-			        $criteria->order = 't.Num_Factura DESC'; 
+			        $criteria->order = 'a.Area DESC'; 
 			        break;
 			    case 7:
-			        $criteria->order = 't.Fecha_Factura ASC'; 
+			        $criteria->order = 't.Num_Factura ASC'; 
 			        break;
 			    case 8:
-			        $criteria->order = 't.Fecha_Factura DESC'; 
+			        $criteria->order = 't.Num_Factura DESC'; 
 			        break;
 		        case 9:
-			        $criteria->order = 'proveedor.Razon_Social ASC'; 
+			        $criteria->order = 't.Fecha_Factura ASC'; 
 			        break;
 			    case 10:
-			        $criteria->order = 'proveedor.Razon_Social DESC'; 
+			        $criteria->order = 't.Fecha_Factura DESC'; 
 			        break;
 			    case 11:
 			        $criteria->order = 't.Fecha_Radicado ASC'; 
@@ -257,10 +292,10 @@ class FactCont extends CActiveRecord
 			        $criteria->order = 't.Fecha_Radicado DESC'; 
 			        break;
 			    case 13:
-			        $criteria->order = 't.Entregada_A ASC'; 
+			        $criteria->order = 'proveedor.Razon_Social ASC'; 
 			        break;
 			    case 14:
-			        $criteria->order = 't.Entregada_A DESC'; 
+			        $criteria->order = 'proveedor.Razon_Social DESC'; 
 			        break;
 		        case 15:
 			        $criteria->order = 'idusuariocre.Usuario ASC'; 
@@ -287,9 +322,21 @@ class FactCont extends CActiveRecord
 			        $criteria->order = 't.Fecha_Actualizacion DESC'; 
 			        break;
 			    case 23:
-			        $criteria->order = 't.Estado DESC'; 
+			        $criteria->order = 'idusuariorev.Usuario ASC'; 
 			        break;
 			    case 24:
+			        $criteria->order = 'idusuariorev.Usuario DESC'; 
+			        break;
+				case 25:
+			        $criteria->order = 't.Fecha_Revision ASC'; 
+			        break;
+			    case 26:
+			        $criteria->order = 't.Fecha_Revision DESC'; 
+			        break;
+			    case 27:
+			        $criteria->order = 't.Estado DESC'; 
+			        break;
+			    case 28:
 			        $criteria->order = 't.Estado ASC'; 
 			        break;
 			}

@@ -99,4 +99,22 @@ class UtilidadesVarias {
 
 	}
 
+	public static function listaareas() {
+
+		$areas = Yii::app()->db->createCommand("SELECT Id_Area, Area FROM Nomina_Real..TH_AREA WHERE Estado = 1 ORDER BY Area")->queryAll();
+
+		$lista_areas = array();
+		foreach ($areas as $ar) {
+			$lista_areas[$ar['Id_Area']] = $ar['Area'];
+		}
+
+		return $lista_areas;
+	}
+
+	public static function descarea($id_area) {
+
+		$area = Yii::app()->db->createCommand("SELECT Area FROM Nomina_Real..TH_AREA WHERE Id_Area = ".$id_area)->queryRow();
+		return $area['Area'];
+	}
+
 }

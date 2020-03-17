@@ -28,15 +28,15 @@ class FactContController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','view2'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'export', 'exportexcel'),
+				'actions'=>array('create','update', 'export', 'exportexcel','recidoc','rechdoc'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','admin2'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -52,6 +52,13 @@ class FactContController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
+
+	public function actionView2($id)
+	{
+		$this->render('view2',array(
 			'model'=>$this->loadModel($id),
 		));
 	}
@@ -74,6 +81,7 @@ class FactContController extends Controller
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Creacion = date('Y-m-d H:i:s');
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
+			$model->Estado = 1;
 			if($model->save())	
 				$this->redirect(array('admin'));
 		}
@@ -158,6 +166,27 @@ class FactContController extends Controller
 		));
 	}
 
+	public function actionAdmin2()
+	{
+		
+		if(Yii::app()->request->getParam('export')) {
+    		$this->actionExport();
+    		Yii::app()->end();
+		}
+
+		$model=new FactCont('search');
+		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario'));
+
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['FactCont']))
+			$model->attributes=$_GET['FactCont'];
+
+		$this->render('admin2',array(
+			'model'=>$model,
+			'usuarios'=>$usuarios,
+		));
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -207,5 +236,43 @@ class FactContController extends Controller
 	{
 		$data = Yii::app()->user->getState('fact-cont-export');
 		$this->renderPartial('fact_cont_export_excel',array('data' => $data));	
+	}
+
+	public function actionReciDoc($id)
+	{
+		
+		$model=$this->loadModel($id);
+
+		$model->Estado = 2;
+		$model->Id_Usuario_Revision = Yii::app()->user->getState('id_user');
+		$model->Fecha_Revision = date('Y-m-d H:i:s');
+
+		if($model->save()){
+			Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue recibida correctamente.");
+			$this->redirect(array('admin2'));
+		}else{
+			Yii::app()->user->setFlash('warning', "Error al recibir la factura (".$model->Num_Factura.").");
+			$this->redirect(array('admin2'));	
+		}
+		
+	}
+
+	public function actionRechDoc($id)
+	{
+		
+		$model=$this->loadModel($id);
+
+		$model->Estado = 0;
+		$model->Id_Usuario_Revision = Yii::app()->user->getState('id_user');
+		$model->Fecha_Revision = date('Y-m-d H:i:s');
+
+		if($model->save()){
+			Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue rechazada correctamente.");
+			$this->redirect(array('admin2'));
+		}else{
+			Yii::app()->user->setFlash('warning', "Error al rechazar la factura (".$model->Num_Factura.").");
+			$this->redirect(array('admin2'));	
+		}
+		
 	}
 }

@@ -3,19 +3,6 @@
 /* @var $model FactCont */
 
 Yii::app()->clientScript->registerScript('search', "
-$('#export-excel').on('click',function() {
-    $.fn.yiiGridView.export();
-});
-$.fn.yiiGridView.export = function() {
-    $.fn.yiiGridView.update('fact-cont-grid',{ 
-        success: function() {
-            window.location = '". $this->createUrl('exportexcel')  . "';
-            $(\".ajax-loader\").fadeIn('fast');
-            setTimeout(function(){ $(\".ajax-loader\").fadeOut('fast'); }, 20000);
-        },
-        data: $('.search-form form').serialize() + '&export=true'
-    });
-}
 $('.search-button').click(function(){
 	$('.search-form').toggle('fast');
 	return false;
@@ -31,12 +18,26 @@ $('.search-form form').submit(function(){
 $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario'); 
 ?>
 
-<h3>Control de facturas contables</h3>
+<h3>Recepción / rechazo de facturas contables</h3>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+    <div class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <h4><i class="icon fa fa-check"></i>Realizado</h4>
+      <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?> 
+
+<?php if(Yii::app()->user->hasFlash('warning')):?>
+    <div class="alert alert-warning alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <h4><i class="icon fa fa-info"></i>Info</h4>
+      <?php echo Yii::app()->user->getFlash('warning'); ?>
+    </div>
+<?php endif; ?>
 
 <div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
     <button type="button" class="btn btn-success search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
-    <button type="button" class="btn btn-success" id="export-excel"><i class="fa fa-file-excel-o"></i> Exportar a excel</button>
 </div>
 
 <div class="search-form" style="display:none;">
@@ -53,7 +54,7 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
     'enableSorting' => false,
 	'columns'=>array(
 		'Id_Fact',
-		array(
+        array(
             'name' => 'Empresa',
             'value' => '$data->DescEmpresa($data->Empresa)',
         ),
@@ -61,8 +62,8 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
             'name' => 'Area',
             'value' => 'UtilidadesVarias::descarea($data->Area)',
         ),
-		'Num_Factura',
-		array(
+        'Num_Factura',
+        array(
             'name'=>'Fecha_Factura',
             'value'=>'UtilidadesVarias::textofecha($data->Fecha_Factura)',
         ),
@@ -74,14 +75,14 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
             'name' => 'Proveedor',
             'value' => '$data->DescProveedor($data->Proveedor)',
         ),
-		array(
+        array(
             'name'=>'Valor',
             'value'=>function($data){
                 return number_format($data->Valor, 2);
             },
             'htmlOptions'=>array('style' => 'text-align: right;'),
         ),
-		array(
+        array(
             'name' => 'Moneda',
             'value' => '$data->DescMoneda($data->Moneda)',
         ),
@@ -91,18 +92,29 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
         ),
 		array(
             'class'=>'CButtonColumn',
-            'template'=>'{view}{update}',
+            'template'=>'{view}{reci}{rech}',
             'buttons'=>array(
                 'view'=>array(
                     'label'=>'<i class="fa fa-eye actions text-black"></i>',
                     'imageUrl'=>false,
+                    'url'=>'Yii::app()->createUrl("factCont/view2", array("id"=>$data->Id_Fact))',
                     'options'=>array('title'=>'Visualizar'),
                 ),
-                'update'=>array(
-                    'label'=>'<i class="fa fa-pencil actions text-black"></i>',
+                'reci'=>array(
+                    'label'=>'<i class="fa fa-check actions text-black"></i>',
                     'imageUrl'=>false,
-                    'options'=>array('title'=>'Actualizar'),
+                    'url'=>'Yii::app()->createUrl("factCont/recidoc", array("id"=>$data->Id_Fact))',
                     'visible'=> '(Yii::app()->user->getState("permiso_act") == true && $data->Estado == 1)',
+                    'options'=>array('title'=>'Recibir', 'confirm'=>'Esta seguro de recibir esta factura ?'),
+
+                ),
+                'rech'=>array(
+                    'label'=>'<i class="fa fa-close actions text-black"></i>',
+                    'imageUrl'=>false,
+                    'url'=>'Yii::app()->createUrl("factCont/rechdoc", array("id"=>$data->Id_Fact))',
+                    'visible'=> '(Yii::app()->user->getState("permiso_act") == true && $data->Estado == 1)',
+                    'options'=>array('title'=>'Rechazar', 'confirm'=>'Esta seguro de rechazar esta factura ?'),
+
                 ),
             )
         ),

@@ -39,6 +39,26 @@
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
+	        <div class="form-group">  
+	            <?php echo $form->label($model,'Area'); ?>
+	            <?php
+	              $this->widget('ext.select2.ESelect2',array(
+	                'name'=>'FactCont[Area]',
+	                'id'=>'FactCont_Area',
+	                'data'=>UtilidadesVarias::listaareas(),
+	                'value' => $model->Area,
+	                'options'=>array(
+	                    'placeholder'=>'Seleccione...',
+	                    'width'=> '100%',
+	                    'allowClear'=>true,
+	                ),
+	              ));
+	            ?>
+	        </div>
+	    </div>
+	</div>
+	<div class="row"> 
+	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Num_Factura'); ?>
 			    <?php echo $form->textField($model,'Num_Factura', array('class' => 'form-control', 'autocomplete' => 'off')); ?>
@@ -48,6 +68,19 @@
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Factura'); ?>
 			    <?php echo $form->textField($model,'Fecha_Factura', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+	        </div>
+	    </div>
+	    <div class="col-sm-3">
+	    	<div class="form-group">
+	          	<?php echo $form->label($model,'Fecha_Radicado'); ?>
+			    <?php echo $form->textField($model,'Fecha_Radicado', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+	        </div>
+	    </div>
+	    <div class="col-sm-3">
+	        <div class="form-group">
+	          <?php echo $form->error($model,'periodo_radicado', array('class' => 'pull-right badge bg-red')); ?>
+	          <?php echo $form->label($model,'periodo_radicado'); ?>
+	          <?php echo $form->textField($model,'periodo_radicado', array('class' => 'form-control', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	</div>
@@ -78,18 +111,6 @@
 
 		      	));
 			    ?>
-	        </div>
-	    </div>
-	    <div class="col-sm-3">
-	    	<div class="form-group">
-	          	<?php echo $form->label($model,'Fecha_Radicado'); ?>
-			    <?php echo $form->textField($model,'Fecha_Radicado', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
-	        </div>
-	    </div>
-	    <div class="col-sm-3">
-	    	<div class="form-group">
-	          	<?php echo $form->label($model,'Entregada_A'); ?>
-			    <?php echo $form->textField($model,'Entregada_A', array('class' => 'form-control', 'autocomplete' => 'off')); ?>
 	        </div>
 	    </div>
 	</div>
@@ -146,10 +167,35 @@
 	    </div>
 	</div>
 	<div class="row">
+		<div class="col-sm-3">
+	    	<div class="form-group">
+	          	<?php echo $form->label($model,'usuario_revision'); ?>
+            	<?php
+            		$this->widget('ext.select2.ESelect2',array(
+						'name'=>'FactCont[usuario_revision]',
+						'id'=>'FactCont_usuario_revision',
+						'data'=>$lista_usuarios,
+						'htmlOptions'=>array(),
+					  	'options'=>array(
+    						'placeholder'=>'Seleccione...',
+    						'width'=> '100%',
+    						'allowClear'=>true,
+						),
+					));
+
+				?>
+	        </div>
+	    </div>
+	    <div class="col-sm-3">
+	    	<div class="form-group">
+	          	<?php echo $form->label($model,'Fecha_Revision'); ?>
+			    <?php echo $form->textField($model,'Fecha_Revision', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+	        </div>
+	    </div>
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Estado'); ?>
-			    <?php $estados = Yii::app()->params->estados; ?>
+			    <?php $estados = array(0 => 'ANULADA', 1 => 'CARGADA', 2 => 'RECIBIDA') ?>
             	<?php
             		$this->widget('ext.select2.ESelect2',array(
 						'name'=>'FactCont[Estado]',
@@ -169,7 +215,7 @@
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'orderby'); ?>
 			    <?php 
-                	$array_orden = array(1 => 'ID ASC', 2 => 'ID DESC', 3 => 'Empresa ASC', 4 => 'Empresa DESC', 5 => '# de factura ASC', 6 => '# de factura DESC', 7 => 'Fecha de factura ASC', 8 => 'Fecha de factura DESC', 9 => 'Proveedor ASC', 10 => 'Proveedor DESC', 11 => 'Fecha de radicado ASC', 12 => 'Fecha de radicado DESC', 13 => 'Entregada a ASC', 14 => 'Entregada a DESC', 15 => 'Usuario que creo ASC', 16 => 'Usuario que creo DESC', 17 => 'Fecha de creación ASC', 18 => 'Fecha de creación DESC', 19 => 'Usuario que actualizó ASC', 20 => 'Usuario que actualizó DESC', 21 => 'Fecha de actualización ASC', 22 => 'Fecha de actualización DESC', 23 => 'Estado ASC', 24 => 'Estado DESC'
+                	$array_orden = array(1 => 'ID ASC', 2 => 'ID DESC', 3 => 'Empresa ASC', 4 => 'Empresa DESC', 5 => 'Área ASC', 6 => 'Área DESC', 7 => '# de factura ASC', 8 => '# de factura DESC', 9 => 'Fecha de factura ASC', 10 => 'Fecha de factura DESC', 11 => 'Fecha de radicado ASC', 12 => 'Fecha de radicado DESC', 13 => 'Proveedor ASC', 14 => 'Proveedor DESC', 15 => 'Usuario que creo ASC', 16 => 'Usuario que creo DESC', 17 => 'Fecha de creación ASC', 18 => 'Fecha de creación DESC', 19 => 'Usuario que actualizó ASC', 20 => 'Usuario que actualizó DESC', 21 => 'Fecha de actualización ASC', 22 => 'Fecha de actualización DESC', 23 => 'Usuario que revisó ASC', 24 => 'Usuario que revisó DESC', 25 => 'Fecha de revisión ASC', 26 => 'Fecha de revisión DESC', 27 => 'Estado ASC', 28 => 'Estado DESC'
 					);
             	?>
             	<?php
@@ -187,6 +233,8 @@
 				?>
 	        </div>
 	    </div>
+	</div>
+	<div class="row">
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php 
@@ -202,6 +250,7 @@
 	</div>
 	<div class="btn-group" style="padding-bottom: 2%">
 		<button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+		<?php echo CHtml::submitButton('', array('style' => 'display:none;', 'id' => 'yt0')); ?>
 		<button type="submit" class="btn btn-success" id="yt0"><i class="fa fa-search"></i> Buscar</button>
 	</div>
 
@@ -209,23 +258,55 @@
 
 <script type="text/javascript">
 
+$(function() {
+
+	//variables para el lenguaje del datepicker
+  $.fn.datepicker.dates['es'] = {
+      days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+      daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+      daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"],
+      months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+      monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+      today: "Hoy",
+      clear: "Limpiar",
+      format : 'yyyy-mm',
+      titleFormat: "MM yyyy",
+  };
+
+  $("#FactCont_periodo_radicado").datepicker({
+      language: 'es',
+      autoclose: true,
+      orientation: "right bottom",
+      format: "yyyy-mm",
+      startView: "year", 
+      minViewMode: "months",
+  });
+
+});
+
 function clear_select2_ajax(id){
 	$('#'+id+'').val('').trigger('change');
 	$('#s2id_'+id+' span').html("");
 }
 
 function resetfields(){
-	$('#Promocion_Id_Item_Padre').val('').trigger('change');
-	$('#s2id_Promocion_Id_Item_Padre span').html("");
-	$('#Promocion_Id_Item_Hijo').val('').trigger('change');
-	$('#s2id_Promocion_Id_Item_Hijo span').html("");
-	$('#Promocion_Cantidad').val('');
-	$('#Promocion_usuario_creacion').val('').trigger('change');
-	$('#Promocion_Fecha_Creacion').val('');
-	$('#Promocion_usuario_actualizacion').val('').trigger('change');
-	$('#Promocion_Fecha_Actualizacion').val('');
-	$('#Promocion_Estado').val('').trigger('change');
-	$('#Promocion_orderby').val('').trigger('change');
+	$('#FactCont_Id_Fact').val('');
+	$('#FactCont_Empresa').val('').trigger('change');
+	$('#FactCont_Area').val('').trigger('change');
+	$('#FactCont_Num_Factura').val('');
+	$('#FactCont_Fecha_Factura').val('');
+	$('#FactCont_Fecha_Radicado').val('');
+	$('#FactCont_periodo_radicado').val('');
+	$('#FactCont_Proveedor').val('').trigger('change');
+	$('#s2id_FactCont_Proveedor span').html("");
+	$('#FactCont_usuario_creacion').val('').trigger('change');
+	$('#FactCont_Fecha_Creacion').val('');
+	$('#FactCont_usuario_actualizacion').val('').trigger('change');
+	$('#FactCont_Fecha_Actualizacion').val('');
+	$('#FactCont_usuario_revision').val('').trigger('change');
+	$('#FactCont_Fecha_Revision').val('');
+	$('#FactCont_Estado').val('').trigger('change');
+	$('#FactCont_orderby').val('').trigger('change');
 	$('#yt0').click();
 }
 

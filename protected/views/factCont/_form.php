@@ -39,6 +39,27 @@
         </div>
     </div>
     <div class="col-sm-4">
+        <div class="form-group">  
+            <?php echo $form->error($model,'Area', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->label($model,'Area'); ?>
+            <?php
+              $this->widget('ext.select2.ESelect2',array(
+                'name'=>'FactCont[Area]',
+                'id'=>'FactCont_Area',
+                'data'=>UtilidadesVarias::listaareas(),
+                'value' => $model->Area,
+                'options'=>array(
+                    'placeholder'=>'Seleccione...',
+                    'width'=> '100%',
+                    'allowClear'=>true,
+                ),
+              ));
+            ?>
+        </div>
+    </div> 
+</div>
+<div class="row">
+    <div class="col-sm-4">
     	<div class="form-group">
     		<?php echo $form->error($model,'Num_Factura', array('class' => 'pull-right badge bg-red')); ?>
           	<?php echo $form->label($model,'Num_Factura'); ?>
@@ -52,7 +73,13 @@
 		    <?php echo $form->textField($model,'Fecha_Factura', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
         </div>
     </div>
-    
+    <div class="col-sm-4">
+        <div class="form-group">
+            <?php echo $form->error($model,'Fecha_Radicado', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->label($model,'Fecha_Radicado'); ?>
+            <?php echo $form->textField($model,'Fecha_Radicado', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+        </div>
+    </div>
 </div>
 <div class="row">
 	<div class="col-sm-6">
@@ -91,7 +118,13 @@
 		    ?>
         </div>
     </div>
-	
+	<div class="col-sm-8">
+        <div class="form-group">
+            <?php echo $form->error($model,'Observaciones', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->label($model,'Observaciones'); ?>
+            <?php echo $form->textArea($model,'Observaciones',array('class' => 'form-control', 'rows'=>2, 'cols'=>50, 'onkeyup' => 'convert_may(this)', 'maxlength' => '200')); ?>
+        </div>
+    </div>
 </div>
 <div class="row">
 	<div class="col-sm-4">
@@ -121,51 +154,7 @@
                 ));
             ?>
         </div>
-    </div>
-    <div class="col-sm-4">
-    	<div class="form-group">
-    		<?php echo $form->error($model,'Fecha_Radicado', array('class' => 'pull-right badge bg-red')); ?>
-          	<?php echo $form->label($model,'Fecha_Radicado'); ?>
-		    <?php echo $form->textField($model,'Fecha_Radicado', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
-        </div>
-    </div>
-	<div class="col-sm-4">
-    	<div class="form-group">
-    		<?php echo $form->error($model,'Entregada_A', array('class' => 'pull-right badge bg-red')); ?>
-          	<?php echo $form->label($model,'Entregada_A'); ?>
-		    <?php echo $form->textField($model,'Entregada_A', array('class' => 'form-control', 'maxlength' => '200', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
-        </div>
     </div>	
-</div>
-<div class="row">
-	<div class="col-sm-8">
-	    <div class="form-group">
-	        <?php echo $form->error($model,'Observaciones', array('class' => 'pull-right badge bg-red')); ?>
-	        <?php echo $form->label($model,'Observaciones'); ?>
-	        <?php echo $form->textArea($model,'Observaciones',array('class' => 'form-control', 'rows'=>2, 'cols'=>50, 'onkeyup' => 'convert_may(this)', 'maxlength' => '200')); ?>
-	    </div>
-    </div>	
-	<div class="col-sm-4">
-        <div class="form-group">
-            <?php echo $form->error($model,'Estado', array('class' => 'pull-right badge bg-red')); ?>
-            <?php echo $form->label($model,'Estado'); ?>
-            <?php $lista_estados = array(0 => 'ANULADA', 1 => 'RECIBIDA'); ?>
-            <?php
-                $this->widget('ext.select2.ESelect2',array(
-                    'name'=>'FactCont[Estado]',
-                    'id'=>'FactCont_Estado',
-                    'data'=>$lista_estados,
-                    'value' => $model->Estado,
-                    'htmlOptions'=>array(),
-                    'options'=>array(
-                        'placeholder'=>'Seleccione...',
-                        'width'=> '100%',
-                        'allowClear'=>true,
-                    ),
-                ));
-            ?>
-        </div>
-    </div>
 </div>
 
 <div class="btn-group" style="padding-bottom: 2%">
