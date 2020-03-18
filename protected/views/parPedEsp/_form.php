@@ -328,7 +328,7 @@ function add_item(){
             var cant_f = $(".tr_items").length;
 
             if(cant_f == 0){
-                div_contenido.append('<table class="table" id="table_items" style="font-size:11px !important;"><thead><tr><th>Código</th><th>Descripción</th><th>Marca</th><th>Vlr. unit.</th><th>Cant.</th><th>Nota(s)</th><th>Subtotal</th><th></th></tr></thead><tbody></tbody></table>');
+                div_contenido.append('<table class="table" id="table_items" style="font-size:11px !important;"><thead><tr><th>Código</th><th>Descripción</th><th>Marca</th><th>Oracle</th><th>Vlr. unit.</th><th>Cant.</th><th>Nota(s)</th><th>Subtotal</th><th></th></tr></thead><tbody></tbody></table>');
             }
 
             var data = {item: item, cant: cant, nit: nit, suc: suc , pe: pe, desc_adic: desc_adic}
@@ -342,6 +342,7 @@ function add_item(){
 				  var i = response.codigo;
 				  var desc_item = response.desc;
 				  var marca = response.marca;
+				  var oracle = response.oracle;
 				  var vlr_unit = response.vlr_unit;
 				  var iva = response.iva;
 				  var vlr_subtotal = response.vlr_subtotal;
@@ -352,7 +353,9 @@ function add_item(){
 
 				  var tabla = $('#table_items');
 
-				  tabla.append('<tr class="tr_items" id="tr_'+i+'"><td><input type="hidden" class="items" value="'+i+'"><p id="codigo_'+i+'">'+i+'</p></td><td><p id="desc_'+i+'">'+desc_item+'</p></td><td><p id="marca_'+i+'">'+marca+'</p></td><td><input type="hidden" id="vu_'+i+'" value="'+vlr_unit+'"><p>'+formatNumber(vlr_unit)+'</p></td><td><input type="hidden" id="cant_'+i+'" value="'+cant+'"><p>'+cant+'</p></td><td><input type="hidden" id="nota_'+i+'" value="'+nota+'"><p>'+nota+'</p></td><td><input type="hidden" id="iva_'+i+'" value="'+iva+'"><p>'+formatNumber(vlr_subtotal)+'</p></td><td><button type="button" class="btn btn-danger btn-xs delete"><i class="fa fa-trash" aria-hidden="true"></i> </button></td></tr>');
+				  tabla.append('<tr class="tr_items" id="tr_'+i+'"><td><input type="hidden" class="items" value="'+i+'"><p id="codigo_'+i+'">'+i+'</p></td><td><p id="desc_'+i+'">'+desc_item+'</p></td><td><p id="marca_'+i+'">'+marca+'</p></td><td><p id="oracle_'+i+'">'+oracle+'</p></td><td align="right"><input type="hidden" id="vu_'+i+'" value="'+vlr_unit+'"><p>'+formatNumber(vlr_unit)+'</p></td><td align="right"><input type="hidden" id="cant_'+i+'" value="'+cant+'"><p>'+cant+'</p></td><td><input type="hidden" id="nota_'+i+'" value="'+nota+'"><p>'+nota+'</p></td><td align="right"><input type="hidden" id="iva_'+i+'" value="'+iva+'"><p>'+formatNumber(vlr_subtotal)+'</p></td><td><button type="button" class="btn btn-danger btn-xs delete"><i class="fa fa-trash" aria-hidden="true"></i> </button></td></tr>');
+
+				  $(".ajax-loader").fadeOut('fast');
 
 				}
 			});
@@ -363,14 +366,14 @@ function add_item(){
 	    	$('#s2id_ParPedEsp_item span').html("");
 	    	$("#ParPedEsp_cant").val('');
 	  		$("#ParPedEsp_nota").val('');
+	  		
 
         }else{
             $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
             $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h4><i class="icon fa fa-info-circle"></i>Cuidado</h4><p>Este item ya esta registrado.</p>');
             $("#div_mensaje").fadeIn('fast');
+            $(".ajax-loader").fadeOut('fast');
         }
-
-        $(".ajax-loader").fadeOut('fast');
                 
     }else{
 

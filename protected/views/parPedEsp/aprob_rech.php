@@ -67,7 +67,6 @@ $('.search-form form').submit(function(){
 			'class'=>'CButtonColumn',
             'template'=>'{apro}{rech}',
             'buttons'=>array(
-
                 'apro'=>array(
                     'label'=>'<i class="fa fa-check actions text-black"></i>',
                     'imageUrl'=>false,

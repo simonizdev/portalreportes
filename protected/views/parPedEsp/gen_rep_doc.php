@@ -51,6 +51,7 @@ foreach ($modelo_det as $det) {
     'codigo' =>  $det->Codigo,
     'descripcion' => $det->Descripcion,
     'marca' =>  $det->Marca,
+    'cat_oracle' =>  $det->Cat_Oracle,
     'vlr_unit' =>  $det->Vlr_Unit,
     'cant' =>  $det->Cant,
     'iva' =>  $det->Iva,
@@ -202,8 +203,9 @@ class PDF extends FPDF{
       $this->SetDrawColor(0,0,0);
       $this->SetTextColor(0);
       $this->Cell(15,5,utf8_decode('CÓDIGO'),1,0,'C',TRUE);
-      $this->Cell(70,5,utf8_decode('DESCRIPCIÓN'),1,0,'C',TRUE);
-      $this->Cell(40,5,utf8_decode('MARCA'),1,0,'C',TRUE);
+      $this->Cell(60,5,utf8_decode('DESCRIPCIÓN'),1,0,'C',TRUE);
+      $this->Cell(25,5,utf8_decode('MARCA'),1,0,'C',TRUE);
+      $this->Cell(25,5,utf8_decode('ORACLE'),1,0,'C',TRUE);
       $this->Cell(20,5,utf8_decode('VALOR UNIT.'),1,0,'C',TRUE);
       $this->Cell(100,5,utf8_decode('NOTA'),1,0,'C',TRUE);
       $this->Cell(15,5,utf8_decode('CANT.'),1,0,'C',TRUE);
@@ -229,10 +231,11 @@ class PDF extends FPDF{
 
       foreach ($data as $reg) {
 
-        $this->SetFont('Arial','',6);
+        $this->SetFont('Arial','',5);
         $this->Cell(15,5,substr(utf8_decode($reg['codigo']),0, 50),'LR',0,'L');
-        $this->Cell(70,5,substr(utf8_decode($reg['descripcion']),0, 50),'LR',0,'L');
-        $this->Cell(40,5,substr(utf8_decode($reg['marca']),0, 30),'R',0,'L');
+        $this->Cell(60,5,substr(utf8_decode($reg['descripcion']),0, 50),'LR',0,'L');
+        $this->Cell(25,5,substr(utf8_decode($reg['marca']),0, 20),'R',0,'L');
+        $this->Cell(25,5,substr(utf8_decode($reg['cat_oracle']),0, 20),'R',0,'L');
         $this->Cell(20,5,number_format(($reg['vlr_unit']),2,".",","),'R',0,'R');
         $this->Cell(100,5,substr(utf8_decode($reg['nota']),0, 70),'LR',0,'L');
         $this->Cell(15,5,number_format(($reg['cant']),0,".",","),'R',0,'R');
@@ -250,8 +253,9 @@ class PDF extends FPDF{
 
         for ($i=$cont; $i < $nr; $i++) {
           $this->Cell(15,5,'','LR',0,'L');
-          $this->Cell(70,5,'','LR',0,'L');
-          $this->Cell(40,5,'','R',0,'L');
+          $this->Cell(60,5,'','LR',0,'L');
+          $this->Cell(25,5,'','R',0,'L');
+          $this->Cell(25,5,'','R',0,'L');
           $this->Cell(20,5,'','R',0,'R');
           $this->Cell(100,5,'','LR',0,'L');
           $this->Cell(15,5,'','R',0,'R');

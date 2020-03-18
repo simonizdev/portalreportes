@@ -9,6 +9,7 @@
  * @property string $Codigo
  * @property string $Descripcion
  * @property string $Marca
+ * @property string $Cat_Oracle
  * @property string $Vlr_Unit
  * @property integer $Cant
  * @property integer $Iva
@@ -38,9 +39,9 @@ class DetParPedEsp extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_Par_Ped_Esp, Codigo, Descripcion, Marca, Vlr_Unit, Cant, Iva, Nota, Id_Usuario_Creacion, Fecha_Creacion', 'required'),
+			array('Id_Par_Ped_Esp, Codigo, Descripcion, Marca, Cat_Oracle, Vlr_Unit, Cant, Iva, Nota, Id_Usuario_Creacion, Fecha_Creacion', 'required'),
 			array('Id_Par_Ped_Esp, Cant, Iva, Id_Usuario_Creacion', 'numerical', 'integerOnly'=>true),
-			array('Codigo, Descripcion, Marca', 'length', 'max'=>200),
+			array('Codigo, Descripcion, Marca, Cat_Oracle', 'length', 'max'=>200),
 			array('Vlr_Unit', 'length', 'max'=>18),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -72,6 +73,7 @@ class DetParPedEsp extends CActiveRecord
 			'Codigo' => 'Codigo',
 			'Descripcion' => 'Descripcion',
 			'Marca' => 'Marca',
+			'Cat_Oracle' => 'Cat Oracle',
 			'Vlr_Unit' => 'Vlr Unit',
 			'Cant' => 'Cant',
 			'Iva' => 'Iva',
@@ -104,6 +106,7 @@ class DetParPedEsp extends CActiveRecord
 		$criteria->compare('Codigo',$this->Codigo,true);
 		$criteria->compare('Descripcion',$this->Descripcion,true);
 		$criteria->compare('Marca',$this->Marca,true);
+		$criteria->compare('Cat_Oracle',$this->Cat_Oracle,true);
 		$criteria->compare('Vlr_Unit',$this->Vlr_Unit,true);
 		$criteria->compare('Cant',$this->Cant);
 		$criteria->compare('Iva',$this->Iva);

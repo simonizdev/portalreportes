@@ -155,8 +155,10 @@ class ParPedEspController extends Controller
 						SELECT DISTINCT
 						t120.f120_id AS codigo,
 						t120.f120_descripcion AS descripcion,
-						t106_1.f106_descripcion AS marca
+						t106_1.f106_descripcion AS marca,
+						I_CRI_ORACLE AS Cat_Oracle
 						FROM UnoEE1..t120_mc_items AS t120 WITH (NOLOCK) 
+						INNER JOIN Portal_Reportes..TH_ITEMS ON I_CIA=f120_id_cia AND I_ROWID_ITEM=f120_rowid
 						INNER JOIN UnoEE1..t125_mc_items_criterios AS t125_1 WITH (NOLOCK) ON t125_1.f125_id_cia=t120.f120_id_cia AND t125_1.f125_rowid_item=t120.f120_rowid 
 						INNER JOIN UnoEE1..t106_mc_criterios_item_mayores AS t106_1 WITH (NOLOCK) ON t106_1.f106_id_cia=t125_1.f125_id_cia AND t106_1.f106_id_plan=t125_1.f125_id_plan AND t106_1.f106_id=t125_1.f125_id_criterio_mayor AND t106_1.f106_id_plan=500 
 						where f120_id_cia=2 AND f120_id=".$array_item[$i]
@@ -167,6 +169,7 @@ class ParPedEspController extends Controller
 						$nuevo_det->Codigo = $info_i['codigo'];
 						$nuevo_det->Descripcion = $info_i['descripcion'];
 						$nuevo_det->Marca = $info_i['marca'];
+						$nuevo_det->Cat_Oracle = $info_i['Cat_Oracle'];
 						$nuevo_det->Vlr_Unit = $array_vlr_u[$i];
 						$nuevo_det->Cant = $array_cant[$i];
 						$nuevo_det->Iva = $array_iva[$i];
@@ -431,6 +434,7 @@ class ParPedEspController extends Controller
 		$codigo = $resp['F_CODIGO'];
 		$desc = $resp['F_DESCRIPCION'];
 		$marca = $resp['F_MARCA'];
+		$oracle = $resp['I_CRI_ORACLE'];
 		$vlr_unit = floatval($resp['F_PRECIO']);
 		$iva = floatval($resp['F_IVA']);
 
@@ -439,6 +443,7 @@ class ParPedEspController extends Controller
 		$array_info['codigo'] = $codigo;
 		$array_info['desc'] = $desc;
 		$array_info['marca'] = $marca;
+		$array_info['oracle'] = $oracle;
 		$array_info['vlr_unit'] = $vlr_unit;
         $array_info['iva'] = $iva;
 		$array_info['vlr_subtotal'] = $vlr_unit * $cant;
