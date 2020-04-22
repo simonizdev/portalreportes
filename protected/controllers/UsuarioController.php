@@ -88,6 +88,13 @@ class UsuarioController extends Controller
 				//se administran los perfiles relacionadas al usuario
 				UtilidadesUsuario::adminperfilusuario($model->Id_Usuario, $model->perfiles);
 
+				if(isset($_POST['Usuario']['areas'])){
+					//se administran las areas relacionadas al usuario
+					UtilidadesUsuario::adminareausuario($model->Id_Usuario, $_POST['Usuario']['areas']);
+				}else{
+					UtilidadesUsuario::adminareausuario($model->Id_Usuario, array());	
+				}
+
 				if(isset($_POST['Usuario']['bodegas'])){
 					if(!empty($model->bodegas)){
 						//se administran las bodegas con las que puede trabajar el usuario
@@ -142,6 +149,9 @@ class UsuarioController extends Controller
 		//opciones activas en el combo tipos de docto
 		$json_td_activos = UtilidadesUsuario::tiposdoctoactivos($id);
 
+		//opciones activas en el combo áreas
+		$json_areas_activas = UtilidadesUsuario::areasactivas($id);
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -185,6 +195,13 @@ class UsuarioController extends Controller
 					UtilidadesUsuario::admintipodoctousuario($model->Id_Usuario, array());	
 				}
 
+				if(isset($_POST['Usuario']['areas'])){
+					//se administran las areas relacionadas al usuario
+					UtilidadesUsuario::adminareausuario($model->Id_Usuario, $_POST['Usuario']['areas']);
+				}else{
+					UtilidadesUsuario::adminareausuario($model->Id_Usuario, array());	
+				}
+
 				$this->redirect(array('admin'));
 			}
 		}
@@ -197,6 +214,7 @@ class UsuarioController extends Controller
 			'json_perfiles_activos'=>$json_perfiles_activos,
 			'json_bodegas_activas'=>$json_bodegas_activas,
 			'json_td_activos'=>$json_td_activos,
+			'json_areas_activas'=>$json_areas_activas,
 		));
 	}
 

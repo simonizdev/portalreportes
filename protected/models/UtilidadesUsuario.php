@@ -258,4 +258,95 @@ class UtilidadesUsuario {
 		return json_encode($array_td_activos);
 	}
 
+	public static function adminareausuario($id_user, $array) {
+		$array_areas_selec = array();
+		if(!empty($array)){
+
+			foreach ($array as $clave => $valor) {
+			    
+			    //se busca el registro para saber si tiene que ser creado 
+			    $criteria=new CDbCriteria;
+				$criteria->condition='Id_Usuario=:Id_Usuario AND Id_Area=:Id_Area';
+				$criteria->params=array(':Id_Usuario'=>$id_user,':Id_Area'=>$valor);
+				$modelo_area_usuario=AreaUsuario::model()->find($criteria);
+
+				if(!is_null($modelo_area_usuario)){
+					//si el estado es inactivo se cambia a activo, si ya esta activo no se realiza ninguna acción
+					if($modelo_area_usuario->Estado == 0){
+						$modelo_area_usuario->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+						$modelo_area_usuario->Fecha_Actualizacion = date('Y-m-d H:i:s');
+						$modelo_area_usuario->Estado = 1;
+						if($modelo_area_usuario->save()){
+							array_push($array_areas_selec, intval($valor));
+						}	
+					}else{
+						array_push($array_areas_selec, intval($valor));	
+					}
+				}else{
+					//se debe insertar un nuevo registro en la tabla
+					$nueva_area_usuario = new AreaUsuario;
+				    $nueva_area_usuario->Id_Usuario = $id_user;
+				    $nueva_area_usuario->Id_Area = $valor;
+					$nueva_area_usuario->Id_Usuario_Creacion = Yii::app()->user->getState('id_user');
+					$nueva_area_usuario->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+					$nueva_area_usuario->Fecha_Creacion = date('Y-m-d H:i:s');
+					$nueva_area_usuario->Fecha_Actualizacion = date('Y-m-d H:i:s');
+					$nueva_area_usuario->Estado = 1;
+					if($nueva_area_usuario->save()){
+						array_push($array_areas_selec, intval($valor));
+					}
+				}
+			}
+
+			//se inactivan las areas que no vienen en el array
+			$areas_excluidas = implode(",",$array_areas_selec);
+			$ae = str_replace("'", "", $areas_excluidas);
+
+			$criteria=new CDbCriteria;
+			$criteria->condition='Id_Usuario=:Id_Usuario AND Id_Area NOT IN ('.$ae.')';
+			$criteria->params=array(':Id_Usuario'=>$id_user);
+			$modelo_area_usuario_inactivar=AreaUsuario::model()->findAll($criteria);
+			if(!is_null($modelo_area_usuario_inactivar)){
+				foreach ($modelo_area_usuario_inactivar as $areas_inactivar) {
+					//si el estado es activo se cambia a inactivo, si ya esta inactivo no se realiza ninguna acción
+					if($areas_inactivar->Estado == 1){
+						$areas_inactivar->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+						$areas_inactivar->Fecha_Actualizacion = date('Y-m-d H:i:s');
+						$areas_inactivar->Estado = 0;
+						$areas_inactivar->save();
+					}	
+				}
+			}
+		}else{
+			//si el array llega vacio se inactivan todos los registros que esten activos 
+		    $criteria=new CDbCriteria;
+			$criteria->condition='Id_Usuario=:Id_Usuario AND Estado = 1';
+			$criteria->params=array(':Id_Usuario'=>$id_user);
+			$modelo_area_usuario=AreaUsuario::model()->findAll($criteria);
+			if(!is_null($modelo_area_usuario)){
+				foreach ($modelo_area_usuario as $areas_act) {
+					$areas_act->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+					$areas_act->Fecha_Actualizacion = date('Y-m-d H:i:s');
+					$areas_act->Estado = 0;
+					$areas_act->save();
+		
+				}
+			}
+		}
+	}
+
+	public static function areasactivas($id_user) {
+		//opciones activas en el combo áreas
+		$criteria=new CDbCriteria;
+		$criteria->condition='Id_Usuario=:Id_Usuario AND Estado=:Estado';
+		$criteria->params=array(':Id_Usuario'=>$id_user,':Estado'=> 1);
+		$array_ar_activas = array();
+		$areas_activas=AreaUsuario::model()->findAll($criteria);
+		foreach ($areas_activas as $area_act) {
+			array_push($array_ar_activas, $area_act->Id_Area);
+		}
+
+		return json_encode($array_ar_activas);
+	}
+
 }

@@ -136,6 +136,29 @@
         </div>
     </div>  
 </div>
+<div class="row">
+    <div class="col-sm-8">
+        <div class="form-group">
+            <?php echo $form->error($model,'areas', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->label($model,'areas'); ?>
+            <?php
+                $this->widget('ext.select2.ESelect2',array(
+                    'name'=>'Usuario[areas]',
+                    'id'=>'Usuario_areas',
+                    'data'=>UtilidadesVarias::listaareas(),
+                    'htmlOptions'=>array(
+                        'multiple'=>'multiple',
+                    ),
+                    'options'=>array(
+                        'placeholder'=>'Seleccione...',
+                        'width'=> '100%',
+                        'allowClear'=>true,
+                    ),
+                ));
+            ?>
+        </div>
+    </div>
+</div>
 
 <div class="btn-group" style="padding-bottom: 2%">
     <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=usuario/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>

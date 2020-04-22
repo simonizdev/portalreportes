@@ -111,10 +111,97 @@ class UtilidadesVarias {
 		return $lista_areas;
 	}
 
+	public static function listaareasusuario() {
+
+		$array_areas_usuario = Yii::app()->user->getState('array_areas');
+		$lista_areas = array();
+
+		if(!empty($array_areas_usuario)){
+
+			$areas_usuario = implode(",", $array_areas_usuario);
+			$areas = Yii::app()->db->createCommand("SELECT Id_Area, Area FROM Nomina_Real..TH_AREA WHERE Estado = 1 AND Id_Area IN (".$areas_usuario.") ORDER BY Area")->queryAll();
+			foreach ($areas as $ar) {
+				$lista_areas[$ar['Id_Area']] = $ar['Area'];
+			}
+
+		}
+
+		return $lista_areas;
+	}
+
 	public static function descarea($id_area) {
 
 		$area = Yii::app()->db->createCommand("SELECT Area FROM Nomina_Real..TH_AREA WHERE Id_Area = ".$id_area)->queryRow();
 		return $area['Area'];
+	}
+
+
+	public static function listaplanescliente() {
+
+		$planes_cliente = Yii::app()->db->createCommand("SELECT DISTINCT Id_Plan, Plan_Descripcion FROM TH_CRITERIOS_CLIENTES ORDER BY Id_Plan")->queryAll();
+
+		$lista_planes = array();
+		foreach ($planes_cliente as $pc) {
+			$lista_planes[trim($pc['Id_Plan'])] = trim($pc['Plan_Descripcion']);
+		}
+
+		return $lista_planes;
+	}
+
+	public static function descplancliente($id_plan) {
+
+		$plan = Yii::app()->db->createCommand("SELECT Plan_Descripcion FROM TH_CRITERIOS_CLIENTES WHERE Id_Plan = ".$id_plan)->queryRow();
+		return $plan['Plan_Descripcion'];
+	}
+
+	public static function listaplanesitem() {
+
+		$planes_item = Yii::app()->db->createCommand("SELECT DISTINCT Id_Plan, Plan_Descripcion FROM TH_CRITERIOS_ITEMS ORDER BY Id_Plan")->queryAll();
+
+		$lista_planes = array();
+		foreach ($planes_item as $pc) {
+			$lista_planes[trim($pc['Id_Plan'])] = trim($pc['Plan_Descripcion']);
+		}
+
+		return $lista_planes;
+	}
+
+	public static function descplanitem($id_plan) {
+
+		$plan = Yii::app()->db->createCommand("SELECT Plan_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = ".$id_plan)->queryRow();
+		return $plan['Plan_Descripcion'];
+	}
+
+	public static function desccricliente($id_plan, $criterios) {
+
+		$array_criterios = explode(",", $criterios);
+
+		$texto_criterios = "";
+
+		foreach ($array_criterios as $key => $value) {
+			$q_criterio = Yii::app()->db->createCommand("SELECT Criterio_Descripcion FROM TH_CRITERIOS_CLIENTES WHERE Id_Plan = ".$id_plan." AND Id_Criterio = '".$value."'")->queryRow();
+			$texto_criterios .= $q_criterio['Criterio_Descripcion'].", ";
+		}
+
+		$texto_criterios = substr ($texto_criterios, 0, -2);
+
+		return $texto_criterios;
+	}
+
+	public static function desccriitem($id_plan, $criterios) {
+
+		$array_criterios = explode(",", $criterios);
+
+		$texto_criterios = "";
+
+		foreach ($array_criterios as $key => $value) {
+			$q_criterio = Yii::app()->db->createCommand("SELECT Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = ".$id_plan." AND Id_Criterio = '".$value."'")->queryRow();
+			$texto_criterios .= $q_criterio['Criterio_Descripcion'].", ";
+		}
+
+		$texto_criterios = substr ($texto_criterios, 0, -2);
+
+		return $texto_criterios;
 	}
 
 }

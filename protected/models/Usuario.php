@@ -40,6 +40,7 @@ class Usuario extends CActiveRecord
 	public $usuario_creacion;
 	public $usuario_actualizacion;
 	public $perfiles;
+	public $areas;
 	public $bodegas;
 	public $tipos_docto;
 	public $old_password;
@@ -162,6 +163,7 @@ class Usuario extends CActiveRecord
 			'orderby' => 'Orden de resultados',
 			'tipos_docto' => 'Tipos de docto asociados',
 			'bodegas' => 'Bodegas asociadas',
+			'areas' => 'Áreas asociadas',
 		);
 	}
 

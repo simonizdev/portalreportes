@@ -31,7 +31,23 @@ $('.search-form form').submit(function(){
 $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario'); 
 ?>
 
-<h3>Control de facturas contables</h3>
+<h3>Control de facturas</h3>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+    <div class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <h4><i class="icon fa fa-check"></i>Realizado</h4>
+      <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?> 
+
+<?php if(Yii::app()->user->hasFlash('warning')):?>
+    <div class="alert alert-warning alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <h4><i class="icon fa fa-info"></i>Info</h4>
+      <?php echo Yii::app()->user->getFlash('warning'); ?>
+    </div>
+<?php endif; ?> 
 
 <div class="btn-group" style="padding-bottom: 2%">
    <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
@@ -43,6 +59,7 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
     'lista_usuarios' => $lista_usuarios,
+    'lista_areas' => $lista_areas,
 )); ?>
 </div><!-- search-form -->
 
@@ -91,13 +108,8 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
         ),
 		array(
             'class'=>'CButtonColumn',
-            'template'=>'{view}{update}',
+            'template'=>'{update}',
             'buttons'=>array(
-                'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
-                    'imageUrl'=>false,
-                    'options'=>array('title'=>'Visualizar'),
-                ),
                 'update'=>array(
                     'label'=>'<i class="fa fa-pencil actions text-black"></i>',
                     'imageUrl'=>false,

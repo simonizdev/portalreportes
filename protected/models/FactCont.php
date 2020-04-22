@@ -13,6 +13,7 @@
  * @property integer $Moneda
  * @property integer $Empresa
  * @property integer $Area
+ * @property string $Doc_Soporte
  * @property string $Observaciones
  * @property integer $Estado
  * @property integer $Id_Usuario_Creacion
@@ -35,6 +36,7 @@ class FactCont extends CActiveRecord
 	public $usuario_revision;
 	public $orderby;
 	public $periodo_radicado;
+	public $sop;
 
 	/**
 	 * @return string the associated database table name
@@ -53,10 +55,11 @@ class FactCont extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Num_Factura, Fecha_Radicado, Proveedor, Fecha_Factura, Valor, Moneda, Empresa, Area', 'required'),
-			array('Num_Factura, Proveedor', 'ECompositeUniqueValidator', 'attributesToAddError'=>'Num_Factura','message'=>'# de fact - proveedor ya existe en el sistema.'),
+			array('Num_Factura, Proveedor, Estado', 'ECompositeUniqueValidator', 'attributesToAddError'=>'Num_Factura','message'=>'# Factura - prov. ya existe en el sistema.'),
 			array('Proveedor, Moneda, Empresa, Area, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
 			array('Num_Factura', 'length', 'max'=>20),
 			array('Valor', 'length', 'max'=>18),
+			array('Doc_Soporte', 'length', 'max'=>200),
 			array('Fecha_Creacion, Fecha_Actualizacion, Observaciones', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -136,7 +139,7 @@ class FactCont extends CActiveRecord
 	{
 		return array(
 			'Id_Fact' => 'ID',
-			'Num_Factura' => '# de factura',
+			'Num_Factura' => '# Factura',
 			'Fecha_Radicado' => 'Fecha de radicado',
 			'Proveedor' => 'Proveedor',
 			'Fecha_Factura' => 'Fecha de factura',
@@ -157,6 +160,7 @@ class FactCont extends CActiveRecord
 			'usuario_revision' => 'Usuario que revisó',
 			'orderby' => 'Orden de resultados',
 			'periodo_radicado' => 'Periodo de radicado',
+			'sop' => 'Soporte',
 		);
 	}
 
@@ -182,6 +186,191 @@ class FactCont extends CActiveRecord
 
 	   	$criteria->with=array('proveedor','idusuariocre','idusuarioact','idusuariorev');
 	   	$criteria->join = "INNER JOIN Nomina_Real..TH_AREA a ON t.Area = a.Id_Area";
+
+		$criteria->compare('t.Id_Fact',$this->Id_Fact);
+		$criteria->compare('t.Num_Factura',$this->Num_Factura,true);
+		$criteria->compare('t.Proveedor',$this->Proveedor);
+		$criteria->compare('t.Valor',$this->Valor,true);
+		$criteria->compare('t.Moneda',$this->Moneda);
+		$criteria->compare('t.Empresa',$this->Empresa);
+		$criteria->compare('t.Area',$this->Area);
+		$criteria->compare('t.Observaciones',$this->Observaciones,true);
+		$criteria->compare('t.Estado',$this->Estado);
+
+		if($this->Fecha_Radicado != ""){
+      		$fci = $this->Fecha_Radicado." 00:00:00";
+      		$fcf = $this->Fecha_Radicado." 23:59:59";
+
+      		$criteria->addBetweenCondition('t.Fecha_Radicado', $fci, $fcf);
+    	}
+
+    	if($this->periodo_radicado != ""){
+      		$ffi = $this->periodo_radicado."-01";
+      	
+			$smff = strtotime ( '+1 month' , strtotime($ffi)) ;
+			$nff = strtotime ( '-1 day' , $smff);
+			
+			$fff = date ( 'Y-m-d' , $nff );
+
+      		$criteria->addBetweenCondition('t.Fecha_Radicado', $ffi, $fff);
+    	}
+
+    	if($this->Fecha_Factura != ""){
+      		$fci = $this->Fecha_Factura." 00:00:00";
+      		$fcf = $this->Fecha_Factura." 23:59:59";
+
+      		$criteria->addBetweenCondition('t.Fecha_Factura', $fci, $fcf);
+    	}
+
+		if($this->Fecha_Creacion != ""){
+      		$fci = $this->Fecha_Creacion." 00:00:00";
+      		$fcf = $this->Fecha_Creacion." 23:59:59";
+
+      		$criteria->addBetweenCondition('t.Fecha_Creacion', $fci, $fcf);
+    	}
+
+    	if($this->Fecha_Actualizacion != ""){
+      		$fai = $this->Fecha_Actualizacion." 00:00:00";
+      		$faf = $this->Fecha_Actualizacion." 23:59:59";
+
+      		$criteria->addBetweenCondition('t.Fecha_Actualizacion', $fai, $faf);
+    	}
+
+    	if($this->Fecha_Revision != ""){
+      		$fri = $this->Fecha_Revision." 00:00:00";
+      		$frf = $this->Fecha_Revision." 23:59:59";
+
+      		$criteria->addBetweenCondition('t.Fecha_Revision', $fri, $frf);
+    	}
+
+		if($this->usuario_creacion != ""){
+			$criteria->AddCondition("idusuariocre.Usuario = '".$this->usuario_creacion."'"); 
+	    }
+
+    	if($this->usuario_actualizacion != ""){
+			$criteria->AddCondition("idusuarioact.Usuario = '".$this->usuario_actualizacion."'"); 
+	    }
+
+	    if($this->usuario_revision != ""){
+			$criteria->AddCondition("idusuariorev.Usuario = '".$this->usuario_revision."'"); 
+	    }
+
+	    if(empty($this->orderby)){
+			$criteria->order = 't.Id_Fact DESC'; 	
+		}else{
+			switch ($this->orderby) {
+			    case 1:
+			        $criteria->order = 't.Id_Fact ASC'; 
+			        break;
+			    case 2:
+			        $criteria->order = 't.Id_Fact DESC'; 
+			        break;
+			    case 3:
+			        $criteria->order = 't.Empresa ASC'; 
+			        break;
+			    case 4:
+			        $criteria->order = 't.Empresa DESC'; 
+			        break;
+			    case 5:
+			        $criteria->order = 'a.Area ASC'; 
+			        break;
+			    case 6:
+			        $criteria->order = 'a.Area DESC'; 
+			        break;
+			    case 7:
+			        $criteria->order = 't.Num_Factura ASC'; 
+			        break;
+			    case 8:
+			        $criteria->order = 't.Num_Factura DESC'; 
+			        break;
+		        case 9:
+			        $criteria->order = 't.Fecha_Factura ASC'; 
+			        break;
+			    case 10:
+			        $criteria->order = 't.Fecha_Factura DESC'; 
+			        break;
+			    case 11:
+			        $criteria->order = 't.Fecha_Radicado ASC'; 
+			        break;
+			    case 12:
+			        $criteria->order = 't.Fecha_Radicado DESC'; 
+			        break;
+			    case 13:
+			        $criteria->order = 'proveedor.Razon_Social ASC'; 
+			        break;
+			    case 14:
+			        $criteria->order = 'proveedor.Razon_Social DESC'; 
+			        break;
+		        case 15:
+			        $criteria->order = 'idusuariocre.Usuario ASC'; 
+			        break;
+			    case 16:
+			        $criteria->order = 'idusuariocre.Usuario DESC'; 
+			        break;
+			    case 17:
+			        $criteria->order = 't.Fecha_Creacion ASC'; 
+			        break;
+			    case 18:
+			        $criteria->order = 't.Fecha_Creacion DESC'; 
+			        break;
+			    case 19:
+			        $criteria->order = 'idusuarioact.Usuario ASC'; 
+			        break;
+			    case 20:
+			        $criteria->order = 'idusuarioact.Usuario DESC'; 
+			        break;
+				case 21:
+			        $criteria->order = 't.Fecha_Actualizacion ASC'; 
+			        break;
+			    case 22:
+			        $criteria->order = 't.Fecha_Actualizacion DESC'; 
+			        break;
+			    case 23:
+			        $criteria->order = 'idusuariorev.Usuario ASC'; 
+			        break;
+			    case 24:
+			        $criteria->order = 'idusuariorev.Usuario DESC'; 
+			        break;
+				case 25:
+			        $criteria->order = 't.Fecha_Revision ASC'; 
+			        break;
+			    case 26:
+			        $criteria->order = 't.Fecha_Revision DESC'; 
+			        break;
+			    case 27:
+			        $criteria->order = 't.Estado DESC'; 
+			        break;
+			    case 28:
+			        $criteria->order = 't.Estado ASC'; 
+			        break;
+			}
+		}
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination' => array('pageSize'=>Yii::app()->user->getState('pageSize',Yii::app()->params['defaultPageSize'])),		
+		));
+	}
+
+	public function search2()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$array_areas_usuario = Yii::app()->user->getState('array_areas');
+
+		$criteria=new CDbCriteria;
+
+		$criteria->together  =  true;
+
+	   	$criteria->with=array('proveedor','idusuariocre','idusuarioact','idusuariorev');
+	   	$criteria->join = "INNER JOIN Nomina_Real..TH_AREA a ON t.Area = a.Id_Area";
+
+	   	if(!empty($array_areas_usuario)){
+			$areas_usuario = implode(",", $array_areas_usuario);
+			$criteria->AddCondition("t.Area IN (".$areas_usuario.")"); 
+	    }else{
+	    	$criteria->AddCondition("t.Id_Fact = 0");
+	    }
 
 		$criteria->compare('t.Id_Fact',$this->Id_Fact);
 		$criteria->compare('t.Num_Factura',$this->Num_Factura,true);

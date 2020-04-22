@@ -71,6 +71,14 @@ class UserIdentity extends CUserIdentity
       $criteria->order = 'td.Descripcion';
       $criteria->params = array(":Id_Usuario" => $modelousuario->Id_Usuario, ":Estado" => 1);
       $td_usuario=TipoDoctoUsuario::model()->findAll($criteria);
+
+      //se verifica cuantas areas tiene asociado el usuario
+      $criteria = new CDbCriteria;
+      $criteria->join ='LEFT JOIN Nomina_Real..TH_AREA a ON t.Id_Area = a.Id_Area';
+      $criteria->condition = 't.Id_Usuario = :Id_Usuario AND t.Estado = :Estado';
+      $criteria->order = 'a.Area';
+      $criteria->params = array(":Id_Usuario" => $modelousuario->Id_Usuario, ":Estado" => 1);
+      $areas_usuario=AreaUsuario::model()->findAll($criteria);
       
       if ($num_perf == 0){
         //usuario sin perfiles asociados o perfiles asociados inactivos
@@ -101,6 +109,17 @@ class UserIdentity extends CUserIdentity
           } 
         }
 
+        $array_areas = array();
+        foreach ($areas_usuario as $a) {
+
+          $est_area = Yii::app()->db->createCommand("SELECT Estado FROM Nomina_Real..TH_AREA WHERE Id_Area = ".$a->Id_Area)->queryRow();
+          $estado = $est_area['Estado'];
+
+          if($estado != 0){
+              array_push($array_areas, $a->Id_Area);
+          } 
+        }
+
         $this->setState('id_user', $modelousuario->Id_Usuario);
         $this->setState('name_user', $modelousuario->Nombres);
         $this->setState('username_user', $modelousuario->Usuario);
@@ -108,6 +127,7 @@ class UserIdentity extends CUserIdentity
         $this->setState('array_perfiles', $array_perfiles);
         $this->setState('array_bodegas', $array_bodegas);
         $this->setState('array_td', $array_td);
+        $this->setState('array_areas', $array_areas);
         $this->setState('permiso_act', $permiso_act);
         $this->errorCode=self::ERROR_NONE;
 

@@ -45,8 +45,7 @@
 	              $this->widget('ext.select2.ESelect2',array(
 	                'name'=>'FactCont[Area]',
 	                'id'=>'FactCont_Area',
-	                'data'=>UtilidadesVarias::listaareas(),
-	                'value' => $model->Area,
+	                'data'=>$lista_areas,
 	                'options'=>array(
 	                    'placeholder'=>'Seleccione...',
 	                    'width'=> '100%',

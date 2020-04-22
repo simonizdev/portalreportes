@@ -19,6 +19,7 @@ $(function() {
 	$('#Usuario_perfiles').val(<?php echo $json_perfiles_activos ?>).trigger('change');
 	$('#Usuario_bodegas').val(<?php echo $json_bodegas_activas ?>).trigger('change');
 	$('#Usuario_tipos_docto').val(<?php echo $json_td_activos ?>).trigger('change');
+	$('#Usuario_areas').val(<?php echo $json_areas_activas ?>).trigger('change');
 });
 </script>
 
