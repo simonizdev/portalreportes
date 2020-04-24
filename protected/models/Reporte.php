@@ -60,6 +60,7 @@ class Reporte extends CFormModel
     public $proveedor;
     public $periodo_inicial;
     public $periodo_final;
+    public $cia;
     
     public function rules() {
         // NOTE: you should only define rules for those attributes that
@@ -167,8 +168,8 @@ class Reporte extends CFormModel
             array('periodo_inicial, periodo_final, opcion', 'required','on'=>'analisis_ventas'),
             array('fecha_inicial, fecha_final, opcion_exp', 'required','on'=>'pedidos_pend_des_req_top'),
             array('tipo, cons_inicial, cons_final, opcion_exp', 'required','on'=>'consulta_fact_elect'),
-            array('c_o, tipo, consecutivo, firma', 'required','on'=>'print_cheq'),
-            array('c_o, tipo, consecutivo', 'required','on'=>'r_print_cheq'),
+            array('cia, c_o, tipo, consecutivo, firma', 'required','on'=>'print_cheq'),
+            array('cia, c_o, tipo, consecutivo', 'required','on'=>'r_print_cheq'),
         );  
     }
 
@@ -238,6 +239,7 @@ class Reporte extends CFormModel
             'opcion' => 'Opción',
             'periodo_inicial' => 'Periodo inicial',
             'periodo_final' => 'Periodo final',
+            'cia'=>'Compañia',
         );
     }
 

@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'TH_IMP_CHEQ':
  * @property integer $Id
+ * @property string $Cia
  * @property string $Co
  * @property string $Tipo_Docto
  * @property integer $Consecutivo
@@ -40,15 +41,15 @@ class ImpCheq extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Co, Tipo_Docto, Consecutivo, Firma, Soporte, Usuario_Impresion, Fecha_Hora_Impresion', 'required'),
+			array('Cia, Co, Tipo_Docto, Consecutivo, Firma, Soporte, Usuario_Impresion, Fecha_Hora_Impresion', 'required'),
 			array('Consecutivo, Usuario_Impresion, Usuario_Reimpresion1, Usuario_Reimpresion2', 'numerical', 'integerOnly'=>true),
-			array('Co, Tipo_Docto', 'length', 'max'=>10),
+			array('Cia, Co, Tipo_Docto', 'length', 'max'=>10),
 			array('Firma', 'length', 'max'=>20),
 			array('Soporte', 'length', 'max'=>200),
 			array('Fecha_Hora_Reimpresion1, Fecha_Hora_Reimpresion2', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, Co, Tipo_Docto, Consecutivo, Firma, Soporte, Usuario_Impresion, Fecha_Hora_Impresion, Usuario_Reimpresion1, Fecha_Hora_Reimpresion1, Usuario_Reimpresion2, Fecha_Hora_Reimpresion2', 'safe', 'on'=>'search'),
+			array('Id, Cia, Co, Tipo_Docto, Consecutivo, Firma, Soporte, Usuario_Impresion, Fecha_Hora_Impresion, Usuario_Reimpresion1, Fecha_Hora_Reimpresion1, Usuario_Reimpresion2, Fecha_Hora_Reimpresion2', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,6 +74,7 @@ class ImpCheq extends CActiveRecord
 	{
 		return array(
 			'Id' => 'ID',
+			'Cia' => 'Cia',
 			'Co' => 'Co',
 			'Tipo_Docto' => 'Tipo Docto',
 			'Consecutivo' => 'Consecutivo',
@@ -106,6 +108,7 @@ class ImpCheq extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('Id',$this->Id);
+		$criteria->compare('Cia',$this->Cia,true);
 		$criteria->compare('Co',$this->Co,true);
 		$criteria->compare('Tipo_Docto',$this->Tipo_Docto,true);
 		$criteria->compare('Consecutivo',$this->Consecutivo);

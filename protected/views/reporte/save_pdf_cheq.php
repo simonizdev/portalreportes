@@ -7,6 +7,7 @@ set_time_limit(0);
 $query ="
   SET NOCOUNT ON
   EXEC [dbo].[FIN_CH1]
+  @CIA = '".$cia."',
   @CO = '".$co."',
   @DOCTO = '".$tipo."',
   @NUM_INI = ".$consecutivo.",
@@ -194,7 +195,7 @@ $pdf->setData($array_info);
 $pdf->AddPage();
 $pdf->Tabla();
 ob_end_clean();
-$name_file = $co.'_'.$tipo.'_'.$consecutivo.'.pdf';
+$name_file = $cia.'_'.$co.'_'.$tipo.'_'.$consecutivo.'.pdf';
 $ruta = Yii::app()->basePath.'/../images/cheq/'.$name_file;
 $pdf->Output($ruta,'F');
 

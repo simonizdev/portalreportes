@@ -23,6 +23,25 @@
 <div class="row">
   <div class="col-sm-4">
     <div class="form-group">
+      <?php echo $form->error($model,'cia', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->label($model,'cia'); ?>
+      <?php
+          $this->widget('ext.select2.ESelect2',array(
+              'name'=>'Reporte[cia]',
+              'id'=>'Reporte_cia',
+              'data'=> array(2 => 2, 3 => 3, 4 => 4, 5 => 5),
+              'htmlOptions'=>array(),
+              'options'=>array(
+                'placeholder'=>'Seleccione...',
+                'width'=> '100%',
+                'allowClear'=>true,
+              ),
+          ));
+      ?>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="form-group">
       <?php echo $form->error($model,'c_o', array('class' => 'pull-right badge bg-red')); ?>
       <?php echo $form->label($model,'c_o'); ?>
       <?php
@@ -59,6 +78,8 @@
       ?>
     </div>
   </div>
+</div>
+<div class="row">
   <div class="col-sm-4">
     <div class="form-group">
         <?php echo $form->error($model,'consecutivo', array('class' => 'pull-right badge bg-red')); ?>
@@ -85,6 +106,12 @@
 <script>
 
 $(function() {
+
+  $("#Reporte_cia").change(function() {
+    $('#valida_form').show();
+    $('#print').hide();
+    limp_div_msg();
+  });
 
   $("#Reporte_c_o").change(function() {
     $('#valida_form').show();
@@ -117,11 +144,13 @@ $(function() {
                  $.fn.yiiactiveform.updateInput(this,messages,form); 
               });
 
+              var cia = $('#Reporte_cia').val();
               var co = $('#Reporte_c_o').val();
               var tipo = $('#Reporte_tipo').val();
               var consecutivo = $('#Reporte_consecutivo').val();
 
               var data = {
+                cia: cia,
                 co: co, 
                 tipo: tipo,
                 consecutivo: consecutivo
@@ -151,7 +180,7 @@ $(function() {
                         $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h4><i class="icon fa fa-info-circle"></i>Realizado</h4><p>Por favor oprima el botón imprimir.</p>');
 
                         
-                        var name_file = co+"_"+tipo+"_"+consecutivo+".pdf";
+                        var name_file = cia+"_"+co+"_"+tipo+"_"+consecutivo+".pdf";
                         var iframe = $("#viewer");
 
                         var url = "<?php echo Yii::app()->getBaseUrl(true).'/images/cheq/'; ?>"+name_file;
@@ -179,11 +208,13 @@ $(function() {
   });
 
   $("#print").click(function() {
+    var cia = $('#Reporte_cia').val();
     var co = $('#Reporte_c_o').val();
     var tipo = $('#Reporte_tipo').val();
     var consecutivo = $('#Reporte_consecutivo').val();
 
     var data = {
+      cia: cia,
       co: co, 
       tipo: tipo,
       consecutivo: consecutivo
@@ -200,6 +231,7 @@ $(function() {
 
             if(resp == 0){
 
+              $('#Reporte_cia').val('').trigger('change');
               $('#Reporte_c_o').val('').trigger('change');
               $('#Reporte_tipo').val('').trigger('change');
               $('#Reporte_consecutivo').val('');
@@ -207,7 +239,7 @@ $(function() {
               $('#valida_form').show();
 
               $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
-              $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h4><i class="icon fa fa-info-circle"></i>Cuidado</h4><p>No se registro la reimpresión del cheque '+co+'-'+tipo+'-'+consecutivo+' en el sistema.</p>');
+              $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h4><i class="icon fa fa-info-circle"></i>Cuidado</h4><p>No se registro la reimpresión del cheque '+cia+'-'+co+'-'+tipo+'-'+consecutivo+' en el sistema.</p>');
 
               $("#div_mensaje").fadeIn('fast');
               $(".ajax-loader").fadeOut('fast');
@@ -219,6 +251,7 @@ $(function() {
 
             if(resp == 1){
 
+              $('#Reporte_cia').val('').trigger('change');
               $('#Reporte_c_o').val('').trigger('change');
               $('#Reporte_tipo').val('').trigger('change');
               $('#Reporte_consecutivo').val('');
@@ -226,7 +259,7 @@ $(function() {
               $('#valida_form').show();
 
               $("#div_mensaje").addClass("alert alert-success alert-dismissible");
-              $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h4><i class="icon fa fa-info-circle"></i>Realizado</h4><p>Se registro la reimpresión del cheque '+co+'-'+tipo+'-'+consecutivo+' en el sistema.</p>');
+              $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h4><i class="icon fa fa-info-circle"></i>Realizado</h4><p>Se registro la reimpresión del cheque '+cia+'-'+co+'-'+tipo+'-'+consecutivo+' en el sistema.</p>');
 
               $("#div_mensaje").fadeIn('fast');
               $(".ajax-loader").fadeOut('fast');
@@ -245,6 +278,7 @@ $(function() {
 });
 
 function resetfields(){
+  $('#Reporte_cia').val('').trigger('change');
   $('#Reporte_c_o').val('').trigger('change');
   $('#Reporte_tipo').val('').trigger('change');
   $('#Reporte_consecutivo').val('');

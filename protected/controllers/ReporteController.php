@@ -3693,13 +3693,14 @@ class ReporteController extends Controller
 
 	public function actionExistCheq()
 	{
+		$cia = $_POST['cia'];
 		$co = $_POST['co'];
 		$tipo = $_POST['tipo'];
 		$consecutivo = $_POST['consecutivo'];
 		$firma = $_POST['firma'];
 
 		//se verifica si el cheque ya fue impreso
-		$modelocheque = ImpCheq::model()->findByAttributes(array('Co'=>$co, "Tipo_Docto"=>$tipo, "Consecutivo"=>$consecutivo));
+		$modelocheque = ImpCheq::model()->findByAttributes(array('Cia'=>$cia, 'Co'=>$co, "Tipo_Docto"=>$tipo, "Consecutivo"=>$consecutivo));
 
 		if(!empty($modelocheque)){
 			$opc = 1;
@@ -3708,6 +3709,7 @@ class ReporteController extends Controller
 			$query ="
 			  SET NOCOUNT ON
 			  EXEC [dbo].[FIN_CH1]
+			  @CIA = '".$cia."',
 			  @CO = '".$co."',
 			  @DOCTO = '".$tipo."',
 			  @NUM_INI = ".$consecutivo.",
@@ -3717,7 +3719,7 @@ class ReporteController extends Controller
 			$data = Yii::app()->db->createCommand($query)->queryAll();
 
 			if(!empty($data)){
-				$this->renderPartial('save_pdf_cheq',array('co' => $co, 'tipo' => $tipo, 'consecutivo' => $consecutivo, 'firma' => $firma));	
+				$this->renderPartial('save_pdf_cheq',array('cia' => $cia, 'co' => $co, 'tipo' => $tipo, 'consecutivo' => $consecutivo, 'firma' => $firma));	
 				$opc = 2;
 			}else{
 				$opc = 0;
@@ -3730,6 +3732,7 @@ class ReporteController extends Controller
 
 	public function actionRegImpCheq()
 	{
+		$cia = $_POST['cia'];
 		$co = $_POST['co'];
 		$tipo = $_POST['tipo'];
 		$consecutivo = $_POST['consecutivo'];
@@ -3737,11 +3740,12 @@ class ReporteController extends Controller
 
 		//se guarda el registro de impresión del cheque
 		$modelocheque = new ImpCheq;
+		$modelocheque->Cia = $cia;
 		$modelocheque->Co = $co;
 		$modelocheque->Tipo_Docto = $tipo;
 		$modelocheque->Consecutivo = $consecutivo;
 		$modelocheque->Firma = $firma;
-		$modelocheque->Soporte = $co.'_'.$tipo.'_'.$consecutivo.'.pdf';
+		$modelocheque->Soporte = $cia.'_'.$co.'_'.$tipo.'_'.$consecutivo.'.pdf';
 		$modelocheque->Usuario_Impresion = Yii::app()->user->getState('id_user');
 		$modelocheque->Fecha_Hora_Impresion = date('Y-m-d H:i:s');
 		if($modelocheque->save()){
@@ -3782,12 +3786,13 @@ class ReporteController extends Controller
 
 	public function actionVerifCheq()
 	{
+		$cia = $_POST['cia'];
 		$co = $_POST['co'];
 		$tipo = $_POST['tipo'];
 		$consecutivo = $_POST['consecutivo'];
 
 		//se verifica si el cheque ya fue impreso
-		$modelocheque = ImpCheq::model()->findByAttributes(array('Co'=>$co, "Tipo_Docto"=>$tipo, "Consecutivo"=>$consecutivo));
+		$modelocheque = ImpCheq::model()->findByAttributes(array('Cia'=>$cia, 'Co'=>$co, "Tipo_Docto"=>$tipo, "Consecutivo"=>$consecutivo));
 
 		if(!empty($modelocheque)){
 			if($modelocheque->Usuario_Reimpresion1 != ""){
@@ -3817,12 +3822,13 @@ class ReporteController extends Controller
 
 	public function actionRegRImpCheq()
 	{
+		$cia = $_POST['cia'];
 		$co = $_POST['co'];
 		$tipo = $_POST['tipo'];
 		$consecutivo = $_POST['consecutivo'];
 
 		//se guarda el registro de reimpresión del cheque
-		$modelocheque = ImpCheq::model()->findByAttributes(array('Co'=>$co, "Tipo_Docto"=>$tipo, "Consecutivo"=>$consecutivo));
+		$modelocheque = ImpCheq::model()->findByAttributes(array('Cia'=>$cia, 'Co'=>$co, "Tipo_Docto"=>$tipo, "Consecutivo"=>$consecutivo));
 		
 		if($modelocheque->Usuario_Reimpresion1 == ""){
 			$modelocheque->Usuario_Reimpresion1 = Yii::app()->user->getState('id_user');
