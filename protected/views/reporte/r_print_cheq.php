@@ -29,7 +29,7 @@
           $this->widget('ext.select2.ESelect2',array(
               'name'=>'Reporte[cia]',
               'id'=>'Reporte_cia',
-              'data'=> array(2 => 2, 3 => 3, 4 => 4, 5 => 5),
+              'data'=> array(2 => '2 - SIMONIZ', 3 => '3 - TITAN', 4 => '4 - COMSTAR', 5 => '5 - PANSELL'),
               'htmlOptions'=>array(),
               'options'=>array(
                 'placeholder'=>'Seleccione...',
