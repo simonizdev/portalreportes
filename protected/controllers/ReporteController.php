@@ -3583,70 +3583,77 @@ class ReporteController extends Controller
         	$direccion_cliente = $data[26];
         	$celular_cliente = $data[27];
 
-        	$connection = Yii::app()->db;
-			$command = $connection->createCommand("
-			INSERT INTO Pagos_Inteligentes..T_PAGOS
-			([n_trans_interno]
-			,[forma_pago]
-			,[ambiente]
-			,[tipo_trans]
-			,[tipo_tarjeta]
-			,[fran_tarjeta]
-			,[ult_dig_tarjeta]
-			,[cuotas]
-			,[valor]
-			,[impuesto]
-			,[descripcion]
-			,[n_autorizacion]
-			,[msg_red]
-			,[n_recibo]
-			,[ref_1]
-			,[ref_2]
-			,[ref_3]
-			,[cod_pse]
-			,[fecha_tr]
-			,[canal]
-			,[tipo_docto_cliente]
-			,[n_docto_cliente]
-			,[nombre_completo_cliente]
-			,[email_cliente]
-			,[telefono_cliente]
-			,[ciudad_cliente]
-			,[direccion_cliente]
-			,[celular_cliente])
-			VALUES
-			(".$n_trans_interno."
-			,'".$forma_pago."'
-			,'".$ambiente."'
-			,'".$tipo_trans."'
-			,'".$tipo_tarjeta."'
-			,'".$fran_tarjeta."'
-			,'".$ult_dig_tarjeta."'
-			,'".$cuotas."'
-			,".$valor."
-			,".$impuesto."
-			,'".$descripcion."'
-			,'".$n_autorizacion."'
-			,'".$msg_red."'
-			,'".$n_recibo."'
-			,'".$ref_1."'
-			,'".$ref_2."'
-			,'".$ref_3."'
-			,'".$cod_pse."'
-			,'".$fecha_tr."'
-			,'".$canal."'
-			,'".$tipo_docto_cliente."'
-			,'".$n_docto_cliente."'
-			,'".$nombre_completo_cliente."'
-			,'".$email_cliente."'
-			,'".$telefono_cliente."'
-			,'".$ciudad_cliente."'
-			,'".$direccion_cliente."'
-			,'".$celular_cliente."'
-			)");
+        	$exist = Yii::app()->db->createCommand("SELECT n_trans_interno FROM Pagos_Inteligentes..T_PAGOS WHERE n_trans_interno = ".$n_trans_interno)->queryRow();
 
-			$command->execute();
-			$i++;
+        	if(empty($exist)){
+
+        		$connection = Yii::app()->db;
+				$command = $connection->createCommand("
+				INSERT INTO Pagos_Inteligentes..T_PAGOS
+				([n_trans_interno]
+				,[forma_pago]
+				,[ambiente]
+				,[tipo_trans]
+				,[tipo_tarjeta]
+				,[fran_tarjeta]
+				,[ult_dig_tarjeta]
+				,[cuotas]
+				,[valor]
+				,[impuesto]
+				,[descripcion]
+				,[n_autorizacion]
+				,[msg_red]
+				,[n_recibo]
+				,[ref_1]
+				,[ref_2]
+				,[ref_3]
+				,[cod_pse]
+				,[fecha_tr]
+				,[canal]
+				,[tipo_docto_cliente]
+				,[n_docto_cliente]
+				,[nombre_completo_cliente]
+				,[email_cliente]
+				,[telefono_cliente]
+				,[ciudad_cliente]
+				,[direccion_cliente]
+				,[celular_cliente])
+				VALUES
+				(".$n_trans_interno."
+				,'".$forma_pago."'
+				,'".$ambiente."'
+				,'".$tipo_trans."'
+				,'".$tipo_tarjeta."'
+				,'".$fran_tarjeta."'
+				,'".$ult_dig_tarjeta."'
+				,'".$cuotas."'
+				,".$valor."
+				,".$impuesto."
+				,'".$descripcion."'
+				,'".$n_autorizacion."'
+				,'".$msg_red."'
+				,'".$n_recibo."'
+				,'".$ref_1."'
+				,'".$ref_2."'
+				,'".$ref_3."'
+				,'".$cod_pse."'
+				,'".$fecha_tr."'
+				,'".$canal."'
+				,'".$tipo_docto_cliente."'
+				,'".$n_docto_cliente."'
+				,'".$nombre_completo_cliente."'
+				,'".$email_cliente."'
+				,'".$telefono_cliente."'
+				,'".$ciudad_cliente."'
+				,'".$direccion_cliente."'
+				,'".$celular_cliente."'
+				)");
+
+				$command->execute();
+				$i++;
+
+        	}
+
 		}
 		
         $msj .= $i.' Registro(s) insertados correctamente.<br>'; 	

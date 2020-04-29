@@ -73,7 +73,7 @@ $(function() {
         var message = ""; 
         //hacemos la petición ajax  
         $.ajax({
-            url: "<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=reporte/uploadpagoskitsano'; ?>",  
+            url: "<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=reporte/uploadpagostiendabinner'; ?>",  
             type: 'POST',
             // Form data
             //datos del formulario
