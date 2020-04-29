@@ -30,7 +30,7 @@ class ReporteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform actions
-				'actions'=>array('rentmarca','rentmarcaitem','rentcliente','nivelserviciomarca','nivelserviciopedido','ventasperiodoprom', 'searchcliente','rentoracle', 'rentoracleitem','rentcriterios','saldocarteraruta','saldocarteravendedor','saldocarteracliente','searchclientecart','logmobile','logmobilepant','saldocarteraco','saldocarteraco999','saldocarteracototal','saldocarteracolitigio','clientexfecha','vendedores','vendedorespant','diferenciasrutas','diferenciasrutaspant','diferenciasun','diferenciasunpant','notascredito','rentitem','registroguia','uploadguia','rentiteml560','histcliente','searchclientecartnit','seguimientodoc','uploadseguimientodoc','saldocliente','cambioasesor','facturacomstar','facturapansell','controlpedidoslinea','controlpedidosmarca','controlpedidosoracle','controlpedidossegmento','controlpedidosorigen','pedidosacumlinea','pedidosacummarca','pedidosacumoracle','listasvs560','itemscostos','pqrsdetalle','docsclientespotenciales','clientescrmsiesa','ventaempleado','analisisxproducto','nivelserviciolinea','recaudosvendedor','cobroprejuridico','actualizaciondatos','controlpedidoslinealista','controlpedidosmarcalista','rentinvmarca','rentinvlinea','rentinvoracle','notasdevolucion','notasanulacion','cruceantcli','crucenotcon','errorept','erroreptpant','errortal','errortalpant','errorconectores','errorconectorespant','pedidospenddesreqmarca','docsasesor','pedidospenddesreqlinea','rentxcliente','acttal','acttalpant','actualizartal','rentxcliente560','rentmarcap','rentmarcae','invperu','invperupant','invecuador','invecuadorpant','invcosperu','invcosperupant','invcosecuador','invcosecuadorpant','rentinvmarcap','rentinvmarcae','pedidospenddesmarcap','pedidospenddesmarcae','pedidosacummarcap','pedidosacummarcae','rentmarcaiteml560','listamateriales','listamaterialesdet','listamaterialespant','searchitem','crucenotcar','actualizaciondatossaldo','revisioncomercial','rentxestructura560','uncomercial','clientespot', 'loadcriterios', 'getopcionplan', 'indpqrs','actept','acteptpant','actualizarept','actualizarbod','logisticaexterior', 'naf','saldocarteraev','fleteguia','uploadfleteguia','cambiofecpedxml','actreca','actrecapant','actualizarreca','consultapagos','consultapagospant','elimrecibo','pedidosacumlineatot','auditoriapedidos','auditoriapedidospant','listap','venposfalt','venposfaltpant','venposentr','venposentrpant','costoxitempos','facturaproforma','elimpedido','fotocart','recxwebservice','facturatitan','rentcriterios560','feeterpeldet','feeterpelcons','cuadrocompraspt','histlibped','itemsexentosiva','descb2b', 'logisticacomercial','analisisventas','pedidospenddesreqtop','estadoitems','uploadestadoitems','consultafactelect','consultafactelectpant','cuadrocomprasmp','pagoskitsano','uploadpagoskitsano','printcheq','existcheq','regimpcheq','rprintcheq','verifcheq','regrimpcheq'),
+				'actions'=>array('rentmarca','rentmarcaitem','rentcliente','nivelserviciomarca','nivelserviciopedido','ventasperiodoprom', 'searchcliente','rentoracle', 'rentoracleitem','rentcriterios','saldocarteraruta','saldocarteravendedor','saldocarteracliente','searchclientecart','logmobile','logmobilepant','saldocarteraco','saldocarteraco999','saldocarteracototal','saldocarteracolitigio','clientexfecha','vendedores','vendedorespant','diferenciasrutas','diferenciasrutaspant','diferenciasun','diferenciasunpant','notascredito','rentitem','registroguia','uploadguia','rentiteml560','histcliente','searchclientecartnit','seguimientodoc','uploadseguimientodoc','saldocliente','cambioasesor','facturacomstar','facturapansell','controlpedidoslinea','controlpedidosmarca','controlpedidosoracle','controlpedidossegmento','controlpedidosorigen','pedidosacumlinea','pedidosacummarca','pedidosacumoracle','listasvs560','itemscostos','pqrsdetalle','docsclientespotenciales','clientescrmsiesa','ventaempleado','analisisxproducto','nivelserviciolinea','recaudosvendedor','cobroprejuridico','actualizaciondatos','controlpedidoslinealista','controlpedidosmarcalista','rentinvmarca','rentinvlinea','rentinvoracle','notasdevolucion','notasanulacion','cruceantcli','crucenotcon','errorept','erroreptpant','errortal','errortalpant','errorconectores','errorconectorespant','pedidospenddesreqmarca','docsasesor','pedidospenddesreqlinea','rentxcliente','acttal','acttalpant','actualizartal','rentxcliente560','rentmarcap','rentmarcae','invperu','invperupant','invecuador','invecuadorpant','invcosperu','invcosperupant','invcosecuador','invcosecuadorpant','rentinvmarcap','rentinvmarcae','pedidospenddesmarcap','pedidospenddesmarcae','pedidosacummarcap','pedidosacummarcae','rentmarcaiteml560','listamateriales','listamaterialesdet','listamaterialespant','searchitem','crucenotcar','actualizaciondatossaldo','revisioncomercial','rentxestructura560','uncomercial','clientespot', 'loadcriterios', 'getopcionplan', 'indpqrs','actept','acteptpant','actualizarept','actualizarbod','logisticaexterior', 'naf','saldocarteraev','fleteguia','uploadfleteguia','cambiofecpedxml','actreca','actrecapant','actualizarreca','consultapagos','consultapagospant','elimrecibo','pedidosacumlineatot','auditoriapedidos','auditoriapedidospant','listap','venposfalt','venposfaltpant','venposentr','venposentrpant','costoxitempos','facturaproforma','elimpedido','fotocart','recxwebservice','facturatitan','rentcriterios560','feeterpeldet','feeterpelcons','cuadrocompraspt','histlibped','itemsexentosiva','descb2b', 'logisticacomercial','analisisventas','pedidospenddesreqtop','estadoitems','uploadestadoitems','consultafactelect','consultafactelectpant','cuadrocomprasmp','pagostiendabinner','uploadpagostiendabinner','printcheq','existcheq','regimpcheq','rprintcheq','verifcheq','regrimpcheq'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -3529,16 +3529,16 @@ class ReporteController extends Controller
 	
 	}
 
-	public function actionPagosKitSano()
+	public function actionPagosTiendaBinner()
 	{		
 		$model=new Reporte;
 
-		$this->render('pagos_kit_sano',array(
+		$this->render('pagos_tienda_binner',array(
 			'model'=>$model,
 		));
 	}
 
-	public function actionUploadPagosKitSano()
+	public function actionUploadPagosTiendaBinner()
 	{		
 		$opc = '';
        	$msj = '';
@@ -3547,116 +3547,108 @@ class ReporteController extends Controller
         
         set_time_limit(0);
 
-        $archivo = fopen($file_tmp,'r');
+		$lineas = file($file_tmp);
+		$num_lineas = count($lineas) - 1;
 
-        $r = 0;
-        $i = 0;
-        
+		$i=0;
 
-        while (( $data = fgetcsv ( $archivo , 2048, ";","\"" )) !== false ) {
+		for ($c=1; $c < $num_lineas; $c++) { 
+			$data = explode(";",$lineas[$c]);
+			$n_trans_interno = $data[0];
+        	$forma_pago = $data[1];
+        	$ambiente = $data[2];
+        	$tipo_trans = $data[3];
+        	$tipo_tarjeta = $data[4];
+        	$fran_tarjeta = $data[5];
+        	$ult_dig_tarjeta = $data[6];
+        	$cuotas = $data[7];
+        	$valor = $data[8];
+        	$impuesto = $data[9];
+        	$descripcion = $data[10];
+        	$n_autorizacion = $data[11];
+        	$msg_red = $data[12];
+        	$n_recibo = $data[13];
+        	$ref_1 = $data[14];
+        	$ref_2 = $data[15];
+        	$ref_3 = $data[16];
+        	$cod_pse = $data[17];
+        	$fecha_tr = $data[18];
+        	$canal = $data[19];
+        	$tipo_docto_cliente = $data[20];
+        	$n_docto_cliente = $data[21];
+        	$nombre_completo_cliente = $data[22];
+        	$email_cliente = $data[23];
+        	$telefono_cliente = $data[24];
+        	$ciudad_cliente = $data[25];
+        	$direccion_cliente = $data[26];
+        	$celular_cliente = $data[27];
 
-        	if($r == 0){
-        		$r++;
-        	}else{
-        		$n_trans_interno = $data[0];
-	        	$forma_pago = $data[1];
-	        	$ambiente = $data[2];
-	        	$tipo_trans = $data[3];
-	        	$tipo_tarjeta = $data[4];
-	        	$fran_tarjeta = $data[5];
-	        	$ult_dig_tarjeta = $data[6];
-	        	$cuotas = $data[7];
-	        	$valor = $data[8];
-	        	$impuesto = $data[9];
-	        	$descripcion = $data[10];
-	        	$n_autorizacion = $data[11];
-	        	$msg_red = $data[12];
-	        	$n_recibo = $data[13];
-	        	$ref_1 = $data[14];
-	        	$ref_2 = $data[15];
-	        	$ref_3 = $data[16];
-	        	$cod_pse = $data[17];
-	        	$fecha_tr = $data[18];
-	        	$canal = $data[19];
-	        	$tipo_docto_cliente = $data[20];
-	        	$n_docto_cliente = $data[21];
-	        	$nombre_completo_cliente = $data[22];
-	        	$email_cliente = $data[23];
-	        	$telefono_cliente = $data[24];
-	        	$ciudad_cliente = $data[25];
-	        	$direccion_cliente = $data[26];
-	        	$celular_cliente = $data[27];
+        	$connection = Yii::app()->db;
+			$command = $connection->createCommand("
+			INSERT INTO Pagos_Inteligentes..T_PAGOS
+			([n_trans_interno]
+			,[forma_pago]
+			,[ambiente]
+			,[tipo_trans]
+			,[tipo_tarjeta]
+			,[fran_tarjeta]
+			,[ult_dig_tarjeta]
+			,[cuotas]
+			,[valor]
+			,[impuesto]
+			,[descripcion]
+			,[n_autorizacion]
+			,[msg_red]
+			,[n_recibo]
+			,[ref_1]
+			,[ref_2]
+			,[ref_3]
+			,[cod_pse]
+			,[fecha_tr]
+			,[canal]
+			,[tipo_docto_cliente]
+			,[n_docto_cliente]
+			,[nombre_completo_cliente]
+			,[email_cliente]
+			,[telefono_cliente]
+			,[ciudad_cliente]
+			,[direccion_cliente]
+			,[celular_cliente])
+			VALUES
+			(".$n_trans_interno."
+			,'".$forma_pago."'
+			,'".$ambiente."'
+			,'".$tipo_trans."'
+			,'".$tipo_tarjeta."'
+			,'".$fran_tarjeta."'
+			,'".$ult_dig_tarjeta."'
+			,'".$cuotas."'
+			,".$valor."
+			,".$impuesto."
+			,'".$descripcion."'
+			,'".$n_autorizacion."'
+			,'".$msg_red."'
+			,'".$n_recibo."'
+			,'".$ref_1."'
+			,'".$ref_2."'
+			,'".$ref_3."'
+			,'".$cod_pse."'
+			,'".$fecha_tr."'
+			,'".$canal."'
+			,'".$tipo_docto_cliente."'
+			,'".$n_docto_cliente."'
+			,'".$nombre_completo_cliente."'
+			,'".$email_cliente."'
+			,'".$telefono_cliente."'
+			,'".$ciudad_cliente."'
+			,'".$direccion_cliente."'
+			,'".$celular_cliente."'
+			)");
 
-	        	$connection = Yii::app()->db;
-				$command = $connection->createCommand("
-				INSERT INTO Pagos_Inteligentes..T_PAGOS
-				([n_trans_interno]
-				,[forma_pago]
-				,[ambiente]
-				,[tipo_trans]
-				,[tipo_tarjeta]
-				,[fran_tarjeta]
-				,[ult_dig_tarjeta]
-				,[cuotas]
-				,[valor]
-				,[impuesto]
-				,[descripcion]
-				,[n_autorizacion]
-				,[msg_red]
-				,[n_recibo]
-				,[ref_1]
-				,[ref_2]
-				,[ref_3]
-				,[cod_pse]
-				,[fecha_tr]
-				,[canal]
-				,[tipo_docto_cliente]
-				,[n_docto_cliente]
-				,[nombre_completo_cliente]
-				,[email_cliente]
-				,[telefono_cliente]
-				,[ciudad_cliente]
-				,[direccion_cliente]
-				,[celular_cliente])
-				VALUES
-				(".$n_trans_interno."
-				,'".$forma_pago."'
-				,'".$ambiente."'
-				,'".$tipo_trans."'
-				,'".$tipo_tarjeta."'
-				,'".$fran_tarjeta."'
-				,'".$ult_dig_tarjeta."'
-				,".$cuotas."
-				,".$valor."
-				,".$impuesto."
-				,'".$descripcion."'
-				,".$n_autorizacion."
-				,'".$msg_red."'
-				,".$n_recibo."
-				,'".$ref_1."'
-				,'".$ref_2."'
-				,'".$ref_3."'
-				,'".$cod_pse."'
-				,'".$fecha_tr."'
-				,'".$canal."'
-				,'".$tipo_docto_cliente."'
-				,'".$n_docto_cliente."'
-				,'".$nombre_completo_cliente."'
-				,'".$email_cliente."'
-				,'".$telefono_cliente."'
-				,'".$ciudad_cliente."'
-				,'".$direccion_cliente."'
-				,'".$celular_cliente."'
-				)");
-
-				$command->execute();
-				$i++;
-        	}
-
+			$command->execute();
+			$i++;
 		}
-
-		fclose ($archivo);
-
+		
         $msj .= $i.' Registro(s) insertados correctamente.<br>'; 	
 
         $resp = array('msj' => $msj);
