@@ -30,7 +30,7 @@ class ReporteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform actions
-				'actions'=>array('rentmarca','rentmarcaitem','rentcliente','nivelserviciomarca','nivelserviciopedido','ventasperiodoprom', 'searchcliente','rentoracle', 'rentoracleitem','rentcriterios','saldocarteraruta','saldocarteravendedor','saldocarteracliente','searchclientecart','logmobile','logmobilepant','saldocarteraco','saldocarteraco999','saldocarteracototal','saldocarteracolitigio','clientexfecha','vendedores','vendedorespant','diferenciasrutas','diferenciasrutaspant','diferenciasun','diferenciasunpant','notascredito','rentitem','registroguia','uploadguia','rentiteml560','histcliente','searchclientecartnit','seguimientodoc','uploadseguimientodoc','saldocliente','cambioasesor','facturacomstar','facturapansell','controlpedidoslinea','controlpedidosmarca','controlpedidosoracle','controlpedidossegmento','controlpedidosorigen','pedidosacumlinea','pedidosacummarca','pedidosacumoracle','listasvs560','itemscostos','pqrsdetalle','docsclientespotenciales','clientescrmsiesa','ventaempleado','analisisxproducto','nivelserviciolinea','recaudosvendedor','cobroprejuridico','actualizaciondatos','controlpedidoslinealista','controlpedidosmarcalista','rentinvmarca','rentinvlinea','rentinvoracle','notasdevolucion','notasanulacion','cruceantcli','crucenotcon','errorept','erroreptpant','errortal','errortalpant','errorconectores','errorconectorespant','pedidospenddesreqmarca','docsasesor','pedidospenddesreqlinea','rentxcliente','acttal','acttalpant','actualizartal','rentxcliente560','rentmarcap','rentmarcae','invperu','invperupant','invecuador','invecuadorpant','invcosperu','invcosperupant','invcosecuador','invcosecuadorpant','rentinvmarcap','rentinvmarcae','pedidospenddesmarcap','pedidospenddesmarcae','pedidosacummarcap','pedidosacummarcae','rentmarcaiteml560','listamateriales','listamaterialesdet','listamaterialespant','searchitem','crucenotcar','actualizaciondatossaldo','revisioncomercial','rentxestructura560','uncomercial','clientespot', 'loadcriterios', 'getopcionplan', 'indpqrs','actept','acteptpant','actualizarept','actualizarbod','logisticaexterior', 'naf','saldocarteraev','fleteguia','uploadfleteguia','cambiofecpedxml','actreca','actrecapant','actualizarreca','consultapagos','consultapagospant','elimrecibo','pedidosacumlineatot','auditoriapedidos','auditoriapedidospant','listap','venposfalt','venposfaltpant','venposentr','venposentrpant','costoxitempos','facturaproforma','elimpedido','fotocart','recxwebservice','facturatitan','rentcriterios560','feeterpeldet','feeterpelcons','cuadrocompraspt','histlibped','itemsexentosiva','descb2b', 'logisticacomercial','analisisventas','pedidospenddesreqtop','estadoitems','uploadestadoitems','consultafactelect','consultafactelectpant','cuadrocomprasmp','pagostiendabinner','uploadpagostiendabinner','printcheq','existcheq','regimpcheq','rprintcheq','verifcheq','regrimpcheq'),
+				'actions'=>array('rentmarca','rentmarcaitem','rentcliente','nivelserviciomarca','nivelserviciopedido','ventasperiodoprom', 'searchcliente','rentoracle', 'rentoracleitem','rentcriterios','saldocarteraruta','saldocarteravendedor','saldocarteracliente','searchclientecart','logmobile','logmobilepant','saldocarteraco','saldocarteraco999','saldocarteracototal','saldocarteracolitigio','clientexfecha','vendedores','vendedorespant','diferenciasrutas','diferenciasrutaspant','diferenciasun','diferenciasunpant','notascredito','rentitem','registroguia','uploadguia','rentiteml560','histcliente','searchclientecartnit','seguimientodoc','uploadseguimientodoc','saldocliente','cambioasesor','facturacomstar','facturapansell','controlpedidoslinea','controlpedidosmarca','controlpedidosoracle','controlpedidossegmento','controlpedidosorigen','pedidosacumlinea','pedidosacummarca','pedidosacumoracle','listasvs560','itemscostos','pqrsdetalle','docsclientespotenciales','clientescrmsiesa','ventaempleado','analisisxproducto','nivelserviciolinea','recaudosvendedor','cobroprejuridico','actualizaciondatos','controlpedidoslinealista','controlpedidosmarcalista','rentinvmarca','rentinvlinea','rentinvoracle','notasdevolucion','notasanulacion','cruceantcli','crucenotcon','errorept','erroreptpant','errortal','errortalpant','errorconectores','errorconectorespant','pedidospenddesreqmarca','docsasesor','pedidospenddesreqlinea','rentxcliente','acttal','acttalpant','actualizartal','rentxcliente560','rentmarcap','rentmarcae','invperu','invperupant','invecuador','invecuadorpant','invcosperu','invcosperupant','invcosecuador','invcosecuadorpant','rentinvmarcap','rentinvmarcae','pedidospenddesmarcap','pedidospenddesmarcae','pedidosacummarcap','pedidosacummarcae','rentmarcaiteml560','listamateriales','listamaterialesdet','listamaterialespant','searchitem','crucenotcar','actualizaciondatossaldo','revisioncomercial','rentxestructura560','uncomercial','clientespot', 'loadcriterios', 'getopcionplan', 'indpqrs','actept','acteptpant','actualizarept','actualizarbod','logisticaexterior', 'naf','saldocarteraev','fleteguia','uploadfleteguia','cambiofecpedxml','actreca','actrecapant','actualizarreca','consultapagos','consultapagospant','elimrecibo','pedidosacumlineatot','auditoriapedidos','auditoriapedidospant','listap','venposfalt','venposfaltpant','venposentr','venposentrpant','costoxitempos','facturaproforma','elimpedido','fotocart','recxwebservice','facturatitan','rentcriterios560','feeterpeldet','feeterpelcons','cuadrocompraspt','histlibped','itemsexentosiva','descb2b', 'logisticacomercial','analisisventas','pedidospenddesreqtop','estadoitems','uploadestadoitems','consultafactelect','consultafactelectpant','cuadrocomprasmp','pagostiendabinner','uploadpagostiendabinner','printcheq','existcheq','regimpcheq','rprintcheq','verifcheq','regrimpcheq','ingresoswebbinner','uploadingresoswebbinner'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -3553,7 +3553,7 @@ class ReporteController extends Controller
 		$i=0;
 
 		for ($c=1; $c < $num_lineas; $c++) { 
-			$data = explode(";",$lineas[$c]);
+			$data = explode(";",str_replace("'", "", $lineas[$c]));
 			$n_trans_interno = $data[0];
         	$forma_pago = $data[1];
         	$ambiente = $data[2];
@@ -3845,6 +3845,121 @@ class ReporteController extends Controller
 		
         echo $resp;
 		
+	}
+
+	public function actionIngresosWebBinner()
+	{		
+		$model=new Reporte;
+
+		$this->render('ingresos_web_binner',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionUploadIngresosWebBinner()
+	{		
+		$opc = '';
+       	$msj = '';
+
+		$file_tmp = $_FILES['Reporte']['tmp_name']['archivo'];
+        
+        set_time_limit(0);
+
+        // Se inactiva el autoloader de yii
+		spl_autoload_unregister(array('YiiBase','autoload'));   
+
+		require_once Yii::app()->basePath . '/extensions/PHPExcel/Classes/PHPExcel.php';
+		require_once Yii::app()->basePath . '/extensions/PHPExcel/Classes/PHPExcel/Reader/Excel2007.php';
+		require_once Yii::app()->basePath . '/extensions/PHPExcel/Classes/PHPExcel/IOFactory.php';
+
+		//cuando se termina la accion relacionada con la libreria se activa el autoloader de yii
+		spl_autoload_register(array('YiiBase','autoload'));
+
+		$objPHPExcel = PHPExcel_IOFactory::load($file_tmp); 
+        $objPHPExcel->setActiveSheetIndex(0);
+
+        //Convierto la data de la Hoja en un arreglo
+        $dataExcel = $objPHPExcel->getActiveSheet()->toArray();
+
+        $filas = count($dataExcel);
+
+        $cont = 0;
+
+        if($filas < 2){
+
+        	$opc = 0;
+        	$msj = '<h4><i class="icon fa fa-info-circle"></i> Error</h4> El archivo esta vacio.';
+
+        }else{
+
+    		$opc = 1;
+    	
+    		//se ejecuta el sp por cada fila en el archivo
+
+    		$msj = '<h4><i class="icon fa fa-info-circle"></i> Info</h4>';
+
+    		for($i = 1; $i <= $filas -1 ; $i++){
+        		$param1 = $dataExcel[$i][0];
+        		$param2 = $dataExcel[$i][1];
+
+        		if($param1 === '' || $param2 === ''){
+    				$fila_error = $i + 1;
+        			$msj .= 'Error en la fila # '.$fila_error.', hay columnas vacias.<br>'; 
+        			$valid = 0;
+        		}else{
+
+        			//se valida si el item existe
+
+        			$codigo    = $param1;
+
+        			$query_exist_item = "SELECT f120_id FROM UnoEE1..t120_mc_items WHERE f120_id = ".$param1;
+
+    				$row_exist_item =  Yii::app()->db->createCommand($query_exist_item)->queryRow();
+
+					$id_item = $row_exist_item['f120_id'];
+
+					if(is_null($id_item)){
+						$fila_error = $i + 1;
+						$msj .= 'Error en la fila # '.$fila_error.', el item no existe.<br>'; 
+					}else{
+
+						//se valida si el estado es valido
+						$estado = $param2;
+
+						if($estado != 0 && $estado != 1 && $estado != 2){
+							$fila_error = $i + 1;
+							$msj .= 'Error en la fila # '.$fila_error.', el estado no es valido.<br>'; 
+						}else{
+
+						 	$connection = Yii::app()->db;
+							$command = $connection->createCommand("
+								UPDATE t1
+								SET t1.f121_ind_estado = ".$estado."
+								FROM UnoEE1..t121_mc_items_extensiones AS t1
+								INNER JOIN UnoEE1..t120_mc_items ON f121_rowid_item=f120_rowid
+								WHERE f120_id = ".$id_item." AND f120_id_cia=2
+							");
+
+							$command->execute();
+
+							$cont = $cont + 1;
+
+						}	
+					}
+					
+        		}		        		
+        	}
+        }
+
+        $f = $filas -1;
+
+        if($f == $cont && $opc == 1){
+        	$msj .= $f.' Item(s) actualizado(s) correctamente.<br>'; 	
+        }
+
+        $resp = array('opc' => $opc, 'msj' => $msj);
+
+        echo json_encode($resp);
 	}
 
 }
