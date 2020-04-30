@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Ingresos web binner</h3>
+<h3>Carga de datos pagina web</h3>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
   'id'=>'reporte-form',
