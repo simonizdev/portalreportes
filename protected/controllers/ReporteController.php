@@ -3883,83 +3883,191 @@ class ReporteController extends Controller
 
         $filas = count($dataExcel);
 
-        $cont = 0;
+        if($filas > 2){
 
-        if($filas < 2){
-
-        	$opc = 0;
-        	$msj = '<h4><i class="icon fa fa-info-circle"></i> Error</h4> El archivo esta vacio.';
-
-        }else{
-
-    		$opc = 1;
+       		$c = 0;
     	
     		//se ejecuta el sp por cada fila en el archivo
 
     		$msj = '<h4><i class="icon fa fa-info-circle"></i> Info</h4>';
 
     		for($i = 1; $i <= $filas -1 ; $i++){
-        		$param1 = $dataExcel[$i][0];
-        		$param2 = $dataExcel[$i][1];
+        		$param1 = intval($dataExcel[$i][0]); //Número de pedido
+        		$param2 = str_replace("'", "", $dataExcel[$i][1]); //Estado del pedido
+        		$param3 = str_replace("'", "", $dataExcel[$i][2]);  //Fecha del pedido
+        		$param4 = str_replace("'", "", $dataExcel[$i][3]);  //Nota del cliente
+        		$param5 = str_replace("'", "", $dataExcel[$i][4]);  //Nombre (facturación)
+        		$param6 = str_replace("'", "", $dataExcel[$i][5]);  //Apellidos (facturación)
+        		$param7 = str_replace("'", "", $dataExcel[$i][6]);  //Identificacion
+        		$param8 = str_replace("'", "", $dataExcel[$i][7]); //Empresa (facturación)
+        		$param9 = str_replace("'", "", $dataExcel[$i][8]); //Dirección lineas 1 y 2 (facturación)
+        		$param10 = str_replace("'", "", $dataExcel[$i][9]); //Ciudad (facturación)
+        		$param11 = str_replace("'", "", $dataExcel[$i][10]); //Código de provincia (facturación)
+        		$param12 = str_replace("'", "", $dataExcel[$i][11]); //Código postal (facturación)
+        		$param13 = str_replace("'", "", $dataExcel[$i][12]); //Código del país (facturación)
+        		$param14 = str_replace("'", "", $dataExcel[$i][13]); //Correo electrónico (facturación)
+        		$param15 = str_replace("'", "", $dataExcel[$i][14]); //Teléfono (facturación)
+        		$param16 = str_replace("'", "", $dataExcel[$i][15]); //Nombre (envío)
+        		$param17 = str_replace("'", "", $dataExcel[$i][16]); //Apellidos (envío)
+        		$param18 = str_replace("'", "", $dataExcel[$i][17]); //Dirección lineas 1 y 2 (envío)
+        		$param19 = str_replace("'", "", $dataExcel[$i][18]); //Ciudad (envío)
+        		$param20 = str_replace("'", "", $dataExcel[$i][19]); //Código de provincia (envío)
+        		$param21 = str_replace("'", "", $dataExcel[$i][20]); //Código postal (envío)
+        		$param22 = str_replace("'", "", $dataExcel[$i][21]); //Código del país (envío)
+        		$param23 = str_replace("'", "", $dataExcel[$i][22]); //Título del método de pago
+        		$param24 = str_replace("'", "", $dataExcel[$i][23]); //Importe de descuento del carrito
+        		$param25 = str_replace("'", "", $dataExcel[$i][24]); //Importe de subtotal del pedido
+        		$param26 = str_replace("'", "", $dataExcel[$i][25]); //Título del método de envío
+        		$param27 = str_replace("'", "", $dataExcel[$i][26]); //Importe de envío del pedido
+        		$param28 = str_replace("'", "", $dataExcel[$i][27]); //Importe reembolsado del pedido
+        		$param29 = str_replace("'", "", $dataExcel[$i][28]); //Importe total del pedido
+        		$param30 = str_replace("'", "", $dataExcel[$i][29]); //Importe total de impuestos del pedido
+        		$param31 = str_replace("'", "", $dataExcel[$i][30]); //SKU
+        		$param32 = str_replace("'", "", $dataExcel[$i][31]); //Artículo #
+        		$param33 = str_replace("'", "", $dataExcel[$i][32]); //Item Name
+        		$param34 = str_replace("'", "", $dataExcel[$i][33]); //Cantidad
+        		$param35 = str_replace("'", "", $dataExcel[$i][34]); //Coste de artículo
+        		$param36 = str_replace("'", "", $dataExcel[$i][35]); //Código de cupón
+        		$param37 = str_replace("'", "", $dataExcel[$i][36]); //Importe de descuento
+        		$param38 = str_replace("'", "", $dataExcel[$i][37]); //Importe de impuestos del descuento
 
-        		if($param1 === '' || $param2 === ''){
-    				$fila_error = $i + 1;
-        			$msj .= 'Error en la fila # '.$fila_error.', hay columnas vacias.<br>'; 
-        			$valid = 0;
-        		}else{
+        		$query_exist_cab = "SELECT Order_Number FROM Tiendabinner..Web_Orders WHERE Order_Number = ".$param1;
 
-        			//se valida si el item existe
+				$row_exist_cab =  Yii::app()->db->createCommand($query_exist_cab)->queryRow();
 
-        			$codigo    = $param1;
+				if(empty($row_exist_cab)){
+					//no existe la cabecera
+				
+					$command = Yii::app()->db->createCommand("
+					INSERT INTO Tiendabinner..Web_Orders
+					([Order_Number]
+		           ,[Order_Status]
+		           ,[Order_Date]
+		           ,[Customer_Note]
+		           ,[Billing_First_Name]
+		           ,[Billing_Last_Name]
+		           ,[Plain_Orders__Billing_Ident]
+		           ,[Billing_Company]
+		           ,[Billing_Address]
+		           ,[Billing_City]
+		           ,[Billing_State]
+		           ,[Billing_Postcode]
+		           ,[Billing_Country]
+		           ,[Billing_Email]
+		           ,[Billing_Phone]
+		           ,[Shipping_First_Name]
+		           ,[Shipping_Last_Name]
+		           ,[Shipping_Address]
+		           ,[Shipping_City]
+		           ,[Shipping_State]
+		           ,[Shipping_Postcode]
+		           ,[Shipping_Country]
+		           ,[Payment_Method_Title]
+		           ,[Cart_Discount]
+		           ,[Order_Subtotal]
+		           ,[Shipping_Method_Title]
+		           ,[Order_Shipping]
+		           ,[Order_Refund]
+		           ,[Order_Total]
+		           ,[Order_Total_Tax]
+		           ,[Coupons]
+		           ,[Fecha]
+		           )
+					VALUES
+					(".$param1."
+		           ,'".$param2."'
+		           ,'".$param3."'
+		           ,'".$param4."'
+		           ,'".$param5."'
+		           ,'".$param6."'
+		           ,'".$param7."'
+		           ,'".$param8."'
+		           ,'".$param9."'
+		           ,'".$param10."'
+		           ,'".$param11."'
+		           ,'".$param12."'
+		           ,'".$param13."'
+		           ,'".$param14."'
+		           ,'".$param15."'
+		           ,'".$param16."'
+		           ,'".$param17."'
+		           ,'".$param18."'
+		           ,'".$param19."'
+		           ,'".$param20."'
+		           ,'".$param21."'
+		           ,'".$param22."'
+		           ,'".$param23."'
+		           ,".$param24."
+		           ,".$param25."
+		           ,'".$param26."'
+		           ,".$param27."
+		           ,".$param28."
+		           ,".$param29."
+		           ,".$param30."
+		           ,'".$param36."'
+		           ,'".date('Y-m-d H:i:s')."'
+					)");
 
-        			$query_exist_item = "SELECT f120_id FROM UnoEE1..t120_mc_items WHERE f120_id = ".$param1;
+					$command->execute();
+					$c++;
 
-    				$row_exist_item =  Yii::app()->db->createCommand($query_exist_item)->queryRow();
+					$command2 = Yii::app()->db->createCommand("
+					INSERT INTO Tiendabinner..Web_Orders_Details
+		           ([Order_Number]
+		           ,[Sku]
+		           ,[Line_Id]
+		           ,[Name]
+		           ,[Qty]
+		           ,[Item_Price]
+		           ,[Fecha])
+		     		VALUES
+		           (".$param1."
+		           ,".$param31."
+		           ,".$param32."
+		           ,'".$param33."'
+		           ,".$param34."
+		           ,".$param35."
+		           ,'".date('Y-m-d H:i:s')."'
+					)");
 
-					$id_item = $row_exist_item['f120_id'];
+					$command2->execute();
+					$c++;
 
-					if(is_null($id_item)){
-						$fila_error = $i + 1;
-						$msj .= 'Error en la fila # '.$fila_error.', el item no existe.<br>'; 
-					}else{
+				}else{
 
-						//se valida si el estado es valido
-						$estado = $param2;
+					$command2 = Yii::app()->db->createCommand("
+					INSERT INTO Tiendabinner..Web_Orders_Details
+		           ([Order_Number]
+		           ,[Sku]
+		           ,[Line_Id]
+		           ,[Name]
+		           ,[Qty]
+		           ,[Item_Price]
+		           ,[Fecha])
+		     		VALUES
+		           (".$param1."
+		           ,".$param31."
+		           ,".$param32."
+		           ,'".$param33."'
+		           ,".$param34."
+		           ,".$param35."
+		           ,'".date('Y-m-d H:i:s')."'
+					)");
 
-						if($estado != 0 && $estado != 1 && $estado != 2){
-							$fila_error = $i + 1;
-							$msj .= 'Error en la fila # '.$fila_error.', el estado no es valido.<br>'; 
-						}else{
+					$command2->execute();
+					$c++;
 
-						 	$connection = Yii::app()->db;
-							$command = $connection->createCommand("
-								UPDATE t1
-								SET t1.f121_ind_estado = ".$estado."
-								FROM UnoEE1..t121_mc_items_extensiones AS t1
-								INNER JOIN UnoEE1..t120_mc_items ON f121_rowid_item=f120_rowid
-								WHERE f120_id = ".$id_item." AND f120_id_cia=2
-							");
+				}
+			}
 
-							$command->execute();
+			$msj .= $c.' Registro(s) insertados correctamente.<br>'; 	
 
-							$cont = $cont + 1;
+        	$resp = array('msj' => $msj);
 
-						}	
-					}
-					
-        		}		        		
-        	}
-        }
+        	echo json_encode($resp);
 
-        $f = $filas -1;
+		}
 
-        if($f == $cont && $opc == 1){
-        	$msj .= $f.' Item(s) actualizado(s) correctamente.<br>'; 	
-        }
-
-        $resp = array('opc' => $opc, 'msj' => $msj);
-
-        echo json_encode($resp);
 	}
 
 }
