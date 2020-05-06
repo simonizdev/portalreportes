@@ -187,6 +187,20 @@ class Reporte extends CFormModel
         
     }
 
+    public function searchById($filtro) {
+ 
+        $resp = Yii::app()->db->createCommand("
+
+            SELECT
+            f120_id AS ID,
+            CONCAT(f120_id,' - ',f120_descripcion) AS DESCR
+            FROM UnoEE1..t120_mc_items
+            INNER JOIN UnoEE1..t121_mc_items_extensiones ON f120_rowid = f121_rowid_item
+            WHERE f120_id_cia = 2 AND f120_id = '".$filtro."'")->queryAll();
+        return $resp;
+
+    }
+
     /**
      * Declares attribute labels.
      */

@@ -204,4 +204,18 @@ class UtilidadesVarias {
 		return $texto_criterios;
 	}
 
+	public function DescItem($Id_Item){
+
+        $desc= Yii::app()->db->createCommand("
+        	SELECT
+            CONCAT(f120_id,' - ',f120_descripcion) AS DESCR
+            FROM UnoEE1..t120_mc_items
+            INNER JOIN UnoEE1..t121_mc_items_extensiones ON f120_rowid = f121_rowid_item
+            WHERE f120_id_cia = 2 AND f120_id = '".$Id_Item."'"
+        )->queryRow();
+
+		return $desc['DESCR'];
+
+    }
+
 }
