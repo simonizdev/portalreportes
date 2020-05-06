@@ -4035,27 +4035,36 @@ class ReporteController extends Controller
 
 				}else{
 
-					$command2 = Yii::app()->db->createCommand("
-					INSERT INTO Tiendabinner..Web_Orders_Details
-		           ([Order_Number]
-		           ,[Sku]
-		           ,[Line_Id]
-		           ,[Name]
-		           ,[Qty]
-		           ,[Item_Price]
-		           ,[Fecha])
-		     		VALUES
-		           (".$param1."
-		           ,".$param31."
-		           ,".$param32."
-		           ,'".$param33."'
-		           ,".$param34."
-		           ,".$param35."
-		           ,'".date('Y-m-d H:i:s')."'
-					)");
+					$query_exist_det = "SELECT Order_Number FROM Tiendabinner..Web_Orders_Details WHERE Order_Number = ".$param1." AND Line_Id = ".$param32;
 
-					$command2->execute();
-					$c++;
+					$row_exist_det =  Yii::app()->db->createCommand($query_exist_det)->queryRow();
+
+					if(empty($row_exist_det)){
+						//no existe el detalle
+
+						$command2 = Yii::app()->db->createCommand("
+						INSERT INTO Tiendabinner..Web_Orders_Details
+			           ([Order_Number]
+			           ,[Sku]
+			           ,[Line_Id]
+			           ,[Name]
+			           ,[Qty]
+			           ,[Item_Price]
+			           ,[Fecha])
+			     		VALUES
+			           (".$param1."
+			           ,".$param31."
+			           ,".$param32."
+			           ,'".$param33."'
+			           ,".$param34."
+			           ,".$param35."
+			           ,'".date('Y-m-d H:i:s')."'
+						)");
+
+						$command2->execute();
+						$c++;
+
+					}
 
 				}
 			}
