@@ -59,6 +59,29 @@
             <?php echo $form->numberField($model,'Porcentaje', array('class' => 'form-control', 'autocomplete' => 'off' , 'step' => '0.01')); ?>
         </div>
     </div>
+</div>
+<div class="row">
+     <div class="col-sm-4">
+        <div class="form-group">
+            <?php echo $form->error($model,'Iva', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->label($model,'Iva'); ?>
+            <?php $data = array(0 => 'No', 1 => 'Si'); ?>
+            <?php
+                $this->widget('ext.select2.ESelect2',array(
+                    'name'=>'ItemFee[Iva]',
+                    'id'=>'ItemFee_Iva',
+                    'data'=>$data,
+                    'value' => $model->Iva,
+                    'htmlOptions'=>array(),
+                    'options'=>array(
+                        'placeholder'=>'Seleccione...',
+                        'width'=> '100%',
+                        'allowClear'=>true,
+                    ),
+                ));
+            ?>
+        </div>
+    </div>
     <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->error($model,'Estado', array('class' => 'pull-right badge bg-red')); ?>

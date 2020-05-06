@@ -98,8 +98,10 @@ class ItemFeeController extends Controller
 		if(isset($_POST['ItemFee']))
 		{
 			$model->attributes=$_POST['ItemFee'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->Id_Fee_Item));
+			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
+            if($model->save())
+                $this->redirect(array('admin'));
 		}
 
 		$this->render('update',array(

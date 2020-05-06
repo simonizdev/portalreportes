@@ -70,6 +70,11 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
             'value'=>'UtilidadesVarias::textofechahora($data->Fecha_Actualizacion)',
         ),*/
         array(
+            'name' => 'Iva',
+            'type' => 'raw',
+            'value' => '($data->Iva == "1") ? "Si" : "No"',
+        ),
+        array(
             'name' => 'Estado',
             'type' => 'raw',
             'value' => '($data->Estado == "1") ? "Activo" : "Inactivo"',

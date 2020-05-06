@@ -7,6 +7,7 @@
  * @property integer $Id_Fee_Item
  * @property integer $Rowid_Item
  * @property string $Porcentaje
+ * @property integer $Iva
  * @property integer $Estado
  * @property integer $Id_Usuario_Creacion
  * @property string $Fecha_Creacion
@@ -40,13 +41,13 @@ class ItemFee extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Rowid_Item, Porcentaje, Estado', 'required'),
+			array('Rowid_Item, Porcentaje, Iva, Estado', 'required'),
 			array('Rowid_Item', 'unique', 'message' => 'Este item ya esta registrado.'),
-			array('Rowid_Item, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
+			array('Rowid_Item, Iva, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
 			array('Porcentaje', 'length', 'max'=>18),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id_Fee_Item, Rowid_Item, Porcentaje, Estado, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, usuario_creacion, usuario_actualizacion, orderby', 'safe', 'on'=>'search'),
+			array('Id_Fee_Item, Rowid_Item, Porcentaje, Iva, Estado, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, usuario_creacion, usuario_actualizacion, orderby', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,6 +73,7 @@ class ItemFee extends CActiveRecord
 			'Id_Fee_Item' => 'ID',
 			'Rowid_Item' => 'Item',
 			'Porcentaje' => 'Porcentaje',
+			'Iva' => 'Iva',
 			'Estado' => 'Estado',
 			'Id_Usuario_Creacion' => 'Usuario que creo',
 			'Id_Usuario_Actualizacion' => 'Usuario que actualizó',
@@ -107,6 +109,7 @@ class ItemFee extends CActiveRecord
 		$criteria->compare('Id_Fee_Item',$this->Id_Fee_Item);
 		$criteria->compare('Rowid_Item',$this->Rowid_Item);
 		$criteria->compare('Porcentaje',$this->Porcentaje,true);
+		$criteria->compare('Iva',$this->Iva);
 		$criteria->compare('Estado',$this->Estado);
 
 		if($this->Fecha_Creacion != ""){

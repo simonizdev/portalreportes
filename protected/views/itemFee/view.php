@@ -21,6 +21,11 @@
                 return number_format($model->Porcentaje, 2);
             },
         ),
+        array(
+            'name' => 'Iva',
+            'type' => 'raw',
+            'value' => ($model->Iva == 1) ? "Si" : "No",
+        ),
 		array(
             'name'=>'Id_Usuario_Creacion',
             'value'=>$model->idusuariocre->Usuario,

@@ -44,6 +44,27 @@
 	            ?>
 	        </div>
 	    </div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+	    	<div class="form-group">
+	          	<?php echo $form->label($model,'Iva'); ?>
+			    <?php $data = array(0 => 'No', 1 => 'Si'); ?>
+            	<?php
+            		$this->widget('ext.select2.ESelect2',array(
+						'name'=>'ItemFee[Iva]',
+						'id'=>'ItemFee_Iva',
+						'data'=>$data,
+						'htmlOptions'=>array(),
+					  	'options'=>array(
+    						'placeholder'=>'Seleccione...',
+    						'width'=> '100%',
+    						'allowClear'=>true,
+						),
+					));
+				?>	
+	        </div>
+	    </div>
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Porcentaje'); ?>
@@ -171,6 +192,7 @@
 		$('#ItemFee_Rowid_Item').val('').trigger('change');
     	$('#s2id_ItemFee_Rowid_Item span').html("");
 		$('#ItemFee_Porcentaje').val('');
+		$('#ItemFee_Iva').val('').trigger('change');
 		$('#ItemFee_usuario_creacion').val('').trigger('change');
 		$('#ItemFee_Fecha_Creacion').val('');
 		$('#ItemFee_usuario_actualizacion').val('').trigger('change');
