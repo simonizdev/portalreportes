@@ -108,8 +108,14 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
         ),
 		array(
             'class'=>'CButtonColumn',
-            'template'=>'{update}',
+            'template'=>'{view}{update}',
             'buttons'=>array(
+                'view'=>array(
+                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+                    'imageUrl'=>false,
+                    'options'=>array('title'=>'Visualizar'),
+                    'url'=>'Yii::app()->createUrl("factCont/view", array("id"=>$data->Id_Fact, "opc"=> 1))',
+                ),
                 'update'=>array(
                     'label'=>'<i class="fa fa-pencil actions text-black"></i>',
                     'imageUrl'=>false,

@@ -547,4 +547,5 @@ class FactCont extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
 }

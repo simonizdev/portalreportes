@@ -56,7 +56,7 @@ $array_areas_usuario = Yii::app()->user->getState('array_areas');
 
     <?php $this->widget('zii.widgets.grid.CGridView', array(
     	'id'=>'fact-cont-grid',
-    	'dataProvider'=>$model->search2(),
+    	'dataProvider'=>$model->search(),
     	//'filter'=>$model,
         'enableSorting' => false,
     	'columns'=>array(
@@ -97,22 +97,30 @@ $array_areas_usuario = Yii::app()->user->getState('array_areas');
                 'name' => 'Estado',
                 'value' => '$data->DescEstado($data->Estado)',
             ),
-    		array(
+
+            array(
                 'class'=>'CButtonColumn',
-                'template'=>'{view}{update}',
+                'template'=>'{view}{update}{update2}',
                 'buttons'=>array(
                     'view'=>array(
                         'label'=>'<i class="fa fa-eye actions text-black"></i>',
                         'imageUrl'=>false,
                         'options'=>array('title'=>'Visualizar'),
-                        'url'=>'Yii::app()->createUrl("factCont/view", array("id"=>$data->Id_Fact, "opc"=> 2))',
+                        'url'=>'Yii::app()->createUrl("factCont/view", array("id"=>$data->Id_Fact, "opc"=> 3))',
                     ),
                     'update'=>array(
                         'label'=>'<i class="fa fa-pencil actions text-black"></i>',
                         'imageUrl'=>false,
-                        'url'=>'Yii::app()->createUrl("factCont/updateest", array("id"=>$data->Id_Fact, "opc"=> 2))',
+                        'url'=>'Yii::app()->createUrl("factCont/updateest", array("id"=>$data->Id_Fact, "opc"=> 3))',
                         'options'=>array('title'=>'Actualizar'),
                         'visible'=> '($data->Estado == 1)',
+                    ),
+                    'update2'=>array(
+                        'label'=>'<i class="fa fa-pencil actions text-black"></i>',
+                        'imageUrl'=>false,
+                        'url'=>'Yii::app()->createUrl("factCont/updateest2", array("id"=>$data->Id_Fact))',
+                        'options'=>array('title'=>'Actualizar'),
+                        'visible'=> '($data->Estado != 1)',
                     ),
                 )
             ),

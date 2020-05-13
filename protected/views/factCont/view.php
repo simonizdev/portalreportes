@@ -4,6 +4,66 @@
 /* @var $form CActiveForm */
 ?>
 
+<script type="text/javascript" src="<?php echo Yii::app()->getBaseUrl(true).'/components/pdf.js/pdf.js'; ?>"></script>
+<script type="text/javascript">
+
+    $(function() {
+
+        $('.ajax-loader').fadeIn('fast');
+        setTimeout(function(){ $('.ajax-loader').fadeOut('fast'); }, 3000);
+
+        $('#toogle_button').click(function(){
+            
+            var archivo =  "<?php echo $model->Doc_Soporte; ?>"; 
+            var ext = archivo.split('.').pop();
+
+            if($.trim(ext) == "pdf"){
+                $('#viewer').toggle('fast');
+            }else{
+                $('#viewer_img').toggle('fast');
+            }
+            
+            return false;
+
+        });
+
+    });
+
+    function renderPDF(url, canvasContainer, options) {
+
+        var options = options || { scale: 1.5 };
+            
+        function renderPage(page) {
+            var viewport = page.getViewport(options.scale);
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+            var renderContext = {
+              canvasContext: ctx,
+              viewport: viewport
+            };
+            
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            canvasContainer.appendChild(canvas);
+            
+            page.render(renderContext);
+        }
+        
+        function renderPages(pdfDoc) {
+            for(var num = 1; num <= pdfDoc.numPages; num++)
+                pdfDoc.getPage(num).then(renderPage);
+        }
+
+        PDFJS.disableWorker = true;
+        PDFJS.getDocument(url).then(renderPages);
+
+    }
+   
+</script> 
+
+<h3>Visualizando facturas</h3>
+
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'fact-pend-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
@@ -130,20 +190,17 @@
 </div>
 
 <div class="btn-group" style="padding-bottom: 2%">
-    <?php if($opc == 2){ ?>
-    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/admin2'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-    <?php }else{ ?>
-    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/admin3'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+    <?php 
+        if($opc == 1){ ?>
+    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>   
+   <?php } 
+        if($opc == 2){ ?>
+    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/admin2'; ?>';"><i class="fa fa-reply"></i> Volver</button>   
+   <?php }
+        if($opc == 3){ ?>
+    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/admin3'; ?>';"><i class="fa fa-reply"></i> Volver</button>   
    <?php } ?>
-
-    <?php if($model->Estado == 1){ ?>
-    <button type="button" class="btn btn-success" id="toogle_button"><i class="fa fa-low-vision"></i> Ver / ocultar soporte </button>
-    <button type="button" class="btn btn-success" id="recibir"><i class="fa fa-check"></i> Recibir factura</button>
-    <button type="button" class="btn btn-success" id="rechazar"><i class="fa fa-close"></i> Rechazar factura</button>    
-   <?php }else{ ?>
-    <button type="button" class="btn btn-success" id="toogle_button"><i class="fa fa-low-vision"></i> Ver / ocultar soporte </button>
-    <button type="button" class="btn btn-success" id="revertir"><i class="fa fa-arrow-left"></i> Revertir estado de factura</button>   
-   <?php } ?>
+   <button type="button" class="btn btn-success" id="toogle_button"><i class="fa fa-low-vision"></i> Ver / ocultar soporte </button>
 </div>
 
 <div class="row">
@@ -165,34 +222,5 @@ function clear_select2_ajax(id){
 	$('#'+id+'').val('').trigger('change');
 	$('#s2id_'+id+' span').html("");
 }
-
-
-$("#recibir").click(function() {
-  var opcion = confirm("Esta seguro de recibir esta factura ?");
-    if (opcion == true) {
-        $(".ajax-loader").fadeIn('fast');
-        $("#FactCont_Estado").val(2);
-        form.submit();
-    }   
-});
-
-$("#rechazar").click(function() {
-  var opcion = confirm("Esta seguro de rechazar esta factura ?");
-    if (opcion == true) {
-        $(".ajax-loader").fadeIn('fast');
-        $("#FactCont_Estado").val(0);
-        form.submit();
-    }   
-});
-
-$("#revertir").click(function() {
-  var opcion = confirm("Esta seguro de revertir el estado ?");
-    if (opcion == true) {
-        $(".ajax-loader").fadeIn('fast');
-        $("#FactCont_Estado").val(1);
-        form.submit();
-    }  
-
-});
 
 </script>

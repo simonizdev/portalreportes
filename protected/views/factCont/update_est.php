@@ -64,4 +64,4 @@
 
 <h3>Visualizando factura</h3>
 
-<?php $this->renderPartial('_form3', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form3', array('model'=>$model, 'opc'=>$opc)); ?>

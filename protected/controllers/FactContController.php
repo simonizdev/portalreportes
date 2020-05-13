@@ -28,15 +28,15 @@ class FactContController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index'),
+				'actions'=>array('index','view'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'export', 'exportexcel','updateest'),
+				'actions'=>array('create','update', 'export', 'exportexcel','updateest','updateest2'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','admin2'),
+				'actions'=>array('admin','delete','admin2','admin3'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -44,6 +44,19 @@ class FactContController extends Controller
 			),
 		);
 	}
+
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView($id,$opc)
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+			'opc'=>$opc,
+		));
+	}
+
 
 	/**
 	 * Creates a new model.
@@ -115,7 +128,7 @@ class FactContController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdateEst($id)
+	public function actionUpdateEst($id, $opc)
 	{
 		$model=$this->loadModel($id);
 
@@ -141,19 +154,29 @@ class FactContController extends Controller
 					Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue rechazada correctamente.");
 					$this->redirect(array('admin2'));
 				}
+
+				if($opc == 2){
+					$this->redirect(array('admin2'));
+				}else{
+					$this->redirect(array('admin3'));	
+				}
 				
 			}else{
 
 				if($model->Estado == 2){
 					//recibir
 					Yii::app()->user->setFlash('warning', "Error al recibir la factura (".$model->Num_Factura.").");
-					$this->redirect(array('admin2'));
 				}
 
 				if($model->Estado == 0){
 					//rechazar
 					Yii::app()->user->setFlash('warning', "Error al rechazar la factura (".$model->Num_Factura.").");
+				}
+
+				if($opc == 2){
 					$this->redirect(array('admin2'));
+				}else{
+					$this->redirect(array('admin3'));	
 				}
 
 					
@@ -163,6 +186,40 @@ class FactContController extends Controller
 
 		$this->render('update_est',array(
 			'model'=>$model,
+			'opc'=>$opc,
+		));
+	}
+
+	public function actionUpdateEst2($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['FactCont']))
+		{
+			$model->attributes=$_POST['FactCont'];
+			$model->Id_Usuario_Revision = NULL;
+			$model->Fecha_Revision = NULL;
+			
+			if($model->save()){
+
+				Yii::app()->user->setFlash('success', "La estado de la factura (".$model->Num_Factura.") fue revertido correctamente.");
+				$this->redirect(array('admin3'));
+				
+			}else{
+
+				Yii::app()->user->setFlash('warning', "Error al revertir el estado de la factura (".$model->Num_Factura.").");
+				$this->redirect(array('admin3'));
+				
+			}
+
+		}
+
+		$this->render('update_est',array(
+			'model'=>$model,
+			'opc'=>3,
 		));
 	}
 
@@ -219,13 +276,7 @@ class FactContController extends Controller
 
 	public function actionAdmin2()
 	{
-		
-		if(Yii::app()->request->getParam('export')) {
-    		$this->actionExport();
-    		Yii::app()->end();
-		}
-
-		$model=new FactCont('search');
+		$model=new FactCont('search2');
 		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario'));
 		$lista_areas = UtilidadesVarias::listaareasusuario();
 
@@ -234,6 +285,26 @@ class FactContController extends Controller
 			$model->attributes=$_GET['FactCont'];
 
 		$this->render('admin2',array(
+			'model'=>$model,
+			'usuarios'=>$usuarios,
+			'lista_areas'=>$lista_areas,
+		));
+	}
+
+	/**
+	 * Manages all models.
+	 */
+	public function actionAdmin3()
+	{
+		$model=new FactCont('search');
+		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario'));
+		$lista_areas = UtilidadesVarias::listaareas();
+
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['FactCont']))
+			$model->attributes=$_GET['FactCont'];
+
+		$this->render('admin3',array(
 			'model'=>$model,
 			'usuarios'=>$usuarios,
 			'lista_areas'=>$lista_areas,
@@ -380,4 +451,5 @@ class FactContController extends Controller
 		}
 
 	}
+
 }
