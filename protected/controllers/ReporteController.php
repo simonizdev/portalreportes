@@ -30,7 +30,7 @@ class ReporteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform actions
-				'actions'=>array('rentmarca','rentmarcaitem','rentcliente','nivelserviciomarca','nivelserviciopedido','ventasperiodoprom', 'searchcliente','rentoracle', 'rentoracleitem','rentcriterios','saldocarteraruta','saldocarteravendedor','saldocarteracliente','searchclientecart','logmobile','logmobilepant','saldocarteraco','saldocarteraco999','saldocarteracototal','saldocarteracolitigio','clientexfecha','vendedores','vendedorespant','diferenciasrutas','diferenciasrutaspant','diferenciasun','diferenciasunpant','notascredito','rentitem','registroguia','uploadguia','rentiteml560','histcliente','searchclientecartnit','seguimientodoc','uploadseguimientodoc','saldocliente','cambioasesor','facturacomstar','facturapansell','controlpedidoslinea','controlpedidosmarca','controlpedidosoracle','controlpedidossegmento','controlpedidosorigen','pedidosacumlinea','pedidosacummarca','pedidosacumoracle','listasvs560','itemscostos','pqrsdetalle','docsclientespotenciales','clientescrmsiesa','ventaempleado','analisisxproducto','nivelserviciolinea','recaudosvendedor','cobroprejuridico','actualizaciondatos','controlpedidoslinealista','controlpedidosmarcalista','rentinvmarca','rentinvlinea','rentinvoracle','notasdevolucion','notasanulacion','cruceantcli','crucenotcon','errorept','erroreptpant','errortal','errortalpant','errorconectores','errorconectorespant','pedidospenddesreqmarca','docsasesor','pedidospenddesreqlinea','rentxcliente','acttal','acttalpant','actualizartal','rentxcliente560','rentmarcap','rentmarcae','invperu','invperupant','invecuador','invecuadorpant','invcosperu','invcosperupant','invcosecuador','invcosecuadorpant','rentinvmarcap','rentinvmarcae','pedidospenddesmarcap','pedidospenddesmarcae','pedidosacummarcap','pedidosacummarcae','rentmarcaiteml560','listamateriales','listamaterialesdet','listamaterialespant','searchitem','searchitembyid','crucenotcar','actualizaciondatossaldo','revisioncomercial','rentxestructura560','uncomercial','clientespot', 'loadcriterios', 'getopcionplan', 'indpqrs','actept','acteptpant','actualizarept','actualizarbod','logisticaexterior', 'naf','saldocarteraev','fleteguia','uploadfleteguia','cambiofecpedxml','actreca','actrecapant','actualizarreca','consultapagos','consultapagospant','elimrecibo','pedidosacumlineatot','auditoriapedidos','auditoriapedidospant','listap','venposfalt','venposfaltpant','venposentr','venposentrpant','costoxitempos','facturaproforma','elimpedido','fotocart','recxwebservice','facturatitan','rentcriterios560','feeterpeldet','feeterpelcons','cuadrocompraspt','histlibped','itemsexentosiva','descb2b', 'logisticacomercial','analisisventas','pedidospenddesreqtop','estadoitems','uploadestadoitems','consultafactelect','consultafactelectpant','cuadrocomprasmp','pagostiendabinner','uploadpagostiendabinner','printcheq','existcheq','regimpcheq','rprintcheq','verifcheq','regrimpcheq','ingresoswebbinner','uploadingresoswebbinner'),
+				'actions'=>array('rentmarca','rentmarcaitem','rentcliente','nivelserviciomarca','nivelserviciopedido','ventasperiodoprom', 'searchcliente','rentoracle', 'rentoracleitem','rentcriterios','saldocarteraruta','saldocarteravendedor','saldocarteracliente','searchclientecart','logmobile','logmobilepant','saldocarteraco','saldocarteraco999','saldocarteracototal','saldocarteracolitigio','clientexfecha','vendedores','vendedorespant','diferenciasrutas','diferenciasrutaspant','diferenciasun','diferenciasunpant','notascredito','rentitem','registroguia','uploadguia','rentiteml560','histcliente','searchclientecartnit','seguimientodoc','uploadseguimientodoc','saldocliente','cambioasesor','facturacomstar','facturapansell','controlpedidoslinea','controlpedidosmarca','controlpedidosoracle','controlpedidossegmento','controlpedidosorigen','pedidosacumlinea','pedidosacummarca','pedidosacumoracle','listasvs560','itemscostos','pqrsdetalle','docsclientespotenciales','clientescrmsiesa','ventaempleado','analisisxproducto','nivelserviciolinea','recaudosvendedor','cobroprejuridico','actualizaciondatos','controlpedidoslinealista','controlpedidosmarcalista','rentinvmarca','rentinvlinea','rentinvoracle','notasdevolucion','notasanulacion','cruceantcli','crucenotcon','errorept','erroreptpant','errortal','errortalpant','errorconectores','errorconectorespant','pedidospenddesreqmarca','docsasesor','pedidospenddesreqlinea','rentxcliente','acttal','acttalpant','actualizartal','rentxcliente560','rentmarcap','rentmarcae','invperu','invperupant','invecuador','invecuadorpant','invcosperu','invcosperupant','invcosecuador','invcosecuadorpant','rentinvmarcap','rentinvmarcae','pedidospenddesmarcap','pedidospenddesmarcae','pedidosacummarcap','pedidosacummarcae','rentmarcaiteml560','listamateriales','listamaterialesdet','listamaterialespant','searchitem','searchitembyid','crucenotcar','actualizaciondatossaldo','revisioncomercial','rentxestructura560','uncomercial','clientespot', 'loadcriterios', 'getopcionplan', 'indpqrs','actept','acteptpant','actualizarept','actualizarbod','logisticaexterior', 'naf','saldocarteraev','fleteguia','uploadfleteguia','cambiofecpedxml','actreca','actrecapant','actualizarreca','consultapagos','consultapagospant','elimrecibo','pedidosacumlineatot','auditoriapedidos','auditoriapedidospant','listap','venposfalt','venposfaltpant','venposentr','venposentrpant','costoxitempos','facturaproforma','elimpedido','fotocart','recxwebservice','facturatitan','rentcriterios560','feeterpeldet','feeterpelcons','cuadrocompraspt','histlibped','itemsexentosiva','descb2b', 'logisticacomercial','analisisventas','pedidospenddesreqtop','estadoitems','uploadestadoitems','consultafactelect','consultafactelectpant','cuadrocomprasmp','pagostiendabinner','uploadpagostiendabinner','printcheq','existcheq','regimpcheq','rprintcheq','verifcheq','regrimpcheq','ingresoswebbinner','uploadingresoswebbinner','facttiendasweb','desptiendasweb','facturapos','confirmacionpagos','uploadconfirmacionpagos'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -4083,6 +4083,206 @@ class ReporteController extends Controller
 						$c++;
 
 					}
+
+				}
+			}
+
+			$msj .= $c.' Registro(s) insertados correctamente.<br>'; 	
+
+        	$resp = array('msj' => $msj);
+
+        	echo json_encode($resp);
+
+		}
+
+	}
+
+	public function actionFactTiendasWeb()
+	{		
+		$model=new Reporte;
+		$model->scenario = 'fact_tiendas_web';
+
+		if(isset($_POST['Reporte']))
+		{
+			$model->attributes=$_POST['Reporte'];
+			$this->renderPartial('fact_tiendas_web_resp',array('model' => $model));	
+		}
+
+		$this->render('fact_tiendas_web',array(
+			'model'=>$model,		
+		));
+	}
+
+	public function actionDespTiendasWeb()
+	{		
+		$model=new Reporte;
+		$model->scenario = 'desp_tiendas_web';
+
+		if(isset($_POST['Reporte']))
+		{
+			$model->attributes=$_POST['Reporte'];
+			$this->renderPartial('desp_tiendas_web_resp',array('model' => $model));	
+		}
+
+		$this->render('desp_tiendas_web',array(
+			'model'=>$model,		
+		));
+	}
+
+	public function actionFacturaPos()
+	{		
+		$model=new Reporte;
+		$model->scenario = 'factura_pos';
+
+		if(isset($_POST['Reporte']))
+		{
+			$this->renderPartial('factura_pos_resp',array('model' => $_POST['Reporte']));
+		}
+
+		$this->render('factura_pos',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionConfirmacionPagos()
+	{		
+		$model=new Reporte;
+
+		$this->render('confirmacion_pagos',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionUploadConfirmacionPagos()
+	{		
+		$opc = '';
+       	$msj = '';
+
+		$file_tmp = $_FILES['Reporte']['tmp_name']['archivo'];
+        
+        set_time_limit(0);
+
+        // Se inactiva el autoloader de yii
+		spl_autoload_unregister(array('YiiBase','autoload'));   
+
+		require_once Yii::app()->basePath . '/extensions/PHPExcel/Classes/PHPExcel.php';
+		require_once Yii::app()->basePath . '/extensions/PHPExcel/Classes/PHPExcel/Reader/Excel2007.php';
+		require_once Yii::app()->basePath . '/extensions/PHPExcel/Classes/PHPExcel/IOFactory.php';
+
+		//cuando se termina la accion relacionada con la libreria se activa el autoloader de yii
+		spl_autoload_register(array('YiiBase','autoload'));
+
+		$objPHPExcel = PHPExcel_IOFactory::load($file_tmp); 
+        $objPHPExcel->setActiveSheetIndex(0);
+
+        //Convierto la data de la Hoja en un arreglo
+        $dataExcel = $objPHPExcel->getActiveSheet()->toArray();
+
+        $filas = count($dataExcel);
+
+        if($filas > 2){
+
+       		$c = 0;
+    	
+    		//se ejecuta el sp por cada fila en el archivo
+
+    		$msj = '<h4><i class="icon fa fa-info-circle"></i> Info</h4>';
+
+    		$clean_number_caract = array("$", ",");
+
+    		for($i = 1; $i <= $filas -1 ; $i++){
+
+        		$param1 = $dataExcel[$i][0]; //TypeStatus
+        		$param2 = $dataExcel[$i][1]; //Status_Details
+        		$param3 = $dataExcel[$i][2];  //Id_Transaccion
+        		$param4 = $dataExcel[$i][3];  //Autorizacion
+        		$param5 = str_replace($clean_number_caract, "", $dataExcel[$i][4]);  //Valor_Venta
+        		$param6 = $dataExcel[$i][5];  //Fecha_Venta
+        		$param7 = $dataExcel[$i][6];  //Medio_Pago
+        		$param8 = $dataExcel[$i][7]; //Franquicia
+        		$param9 = $dataExcel[$i][8]; //N_Identif
+        		$param10 = $dataExcel[$i][9]; //Ref1
+        		$param11 = $dataExcel[$i][10]; //Ref2
+        		$param12 = $dataExcel[$i][11]; //Ref3
+        		$param13 = $dataExcel[$i][12]; //Descripcion
+        		$param14 = str_replace($clean_number_caract, "", $dataExcel[$i][13]); //Comision
+        		$param15 = $dataExcel[$i][14]; //Porcentaje
+        		$param16 = str_replace($clean_number_caract, "", $dataExcel[$i][15]); //Iva_Comision
+        		$param17 = str_replace($clean_number_caract, "", $dataExcel[$i][16]); //Fee
+        		$param18 = str_replace($clean_number_caract, "", $dataExcel[$i][17]); //IvaFee
+        		$param19 = str_replace($clean_number_caract, "", $dataExcel[$i][18]); //ReteIca
+        		$param20 = str_replace($clean_number_caract, "", $dataExcel[$i][19]); //ReteIva
+        		$param21 = str_replace($clean_number_caract, "", $dataExcel[$i][20]); //ReteFTE
+        		$param22 = str_replace($clean_number_caract, "", $dataExcel[$i][21]); //Gravamen
+        		$param23 = str_replace($clean_number_caract, "", $dataExcel[$i][22]); //Valor_Desembolsar
+        		$param24 = $dataExcel[$i][23]; //Desembolso
+        		$param25 = $dataExcel[$i][24]; //Fecha_Desembolso
+
+        		$query_exist = "SELECT Id_Transaccion FROM Tiendabinner..Confirmacion_Pagos WHERE Id_Transaccion = ".$param3;
+
+				$row_exist =  Yii::app()->db->createCommand($query_exist)->queryRow();
+
+				if(empty($row_exist)){
+					//no existe la cabecera
+				
+					$command = Yii::app()->db->createCommand("
+					INSERT INTO Tiendabinner..Confirmacion_Pagos
+					([TypeStatus]
+		           ,[Status_Details]
+		           ,[Id_Transaccion]
+		           ,[Autorizacion]
+		           ,[Valor_Venta]
+		           ,[Fecha_Venta]
+		           ,[Medio_Pago]
+		           ,[Franquicia]
+		           ,[N_Identif]
+		           ,[Ref1]
+		           ,[Ref2]
+		           ,[Ref3]
+		           ,[Descripcion]
+		           ,[Comision]
+		           ,[Porcentaje]
+		           ,[Iva_Comision]
+		           ,[Fee]
+		           ,[IvaFee]
+		           ,[ReteIca]
+		           ,[ReteIva]
+		           ,[ReteFTE]
+		           ,[Gravamen]
+		           ,[Valor_Desembolsar]
+		           ,[Desembolso]
+		           ,[Fecha_Desembolso]
+		           )
+					VALUES
+					('".$param1."'
+		           ,'".$param2."'
+		           ,".$param3."
+		           ,'".$param4."'
+		           ,".$param5."
+		           ,'".$param6."'
+		           ,'".$param7."'
+		           ,'".$param8."'
+		           ,'".$param9."'
+		           ,'".$param10."'
+		           ,'".$param11."'
+		           ,'".$param12."'
+		           ,'".$param13."'
+		           ,".$param14."
+		           ,'".$param15."'
+		           ,".$param16."
+		           ,".$param17."
+		           ,".$param18."
+		           ,".$param19."
+		           ,".$param20."
+		           ,".$param21."
+		           ,".$param22."
+		           ,".$param23."
+		           ,'".$param24."'
+		           ,'".$param25."'
+					)");
+
+					$command->execute();
+					$c++;
 
 				}
 			}
