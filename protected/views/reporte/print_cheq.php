@@ -147,8 +147,7 @@ $(function() {
   $("#valida_form").click(function() {
 
       var form = $("#reporte-form");
-      va
-      r settings = form.data('settings') ;
+      var settings = form.data('settings') ;
       settings.submitting = true ;
       limp_div_msg();
 
