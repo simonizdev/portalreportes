@@ -58,7 +58,6 @@
   			<input type="hidden" id="valid_doc" value="0">
   			<?php echo $form->label($model,'sop'); ?>
 	    	<?php echo $form->fileField($model, 'sop'); ?>
-	    	<?php echo $form->hiddenField($model, 'ext_sop'); ?>
     	</div>
   	</div>
   	<div class="col-sm-4">
@@ -96,7 +95,7 @@
 
 $(function() {
 
-	var extensionesValidas = ".xlsx, .xls";
+	var extensionesValidas = ".zip, .ZIP";
 	var pesoPermitido = 30720;
 
 	$("#valida_form").click(function() {
@@ -165,14 +164,11 @@ $(function() {
 
 		if(extensionValida < 0) {
 
-		 	$('#error_sop').html('La extensión no es válida (.'+ extension+'), Solo se admite (.xlsx, .xls)');
+		 	$('#error_sop').html('La extensión no es válida (.'+ extension+'), Solo se admite (.zip)');
 		 	$('#error_sop').show();
 		 	$('#valid_doc').val(0);
-		 	$('#ResOCR_ext_sop').val('');
 		 	return false;
-
 		} else {
-			$('#ResOCR_ext_sop').val(extension);
 			return true;
 
 		}

@@ -22,6 +22,14 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 
 <h3>Resumen ordenes de compra / remisiones</h3>
 
+<?php if(Yii::app()->user->hasFlash('success')):?>
+    <div class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <h4><i class="icon fa fa-check"></i>Realizado</h4>
+      <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?> 
+
 <div class="btn-group" style="padding-bottom: 2%">
    <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=resOCR/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
     <button type="button" class="btn btn-success search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
@@ -69,18 +77,12 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
         ),
 		array(
 			'class'=>'CButtonColumn',
-            'template'=>'{view}{update}',
+            'template'=>'{update}',
             'buttons'=>array(
-                'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
-                    'imageUrl'=>false,
-                    'options'=>array('title'=>'Visualizar'),
-                ),
                 'update'=>array(
                     'label'=>'<i class="fa fa-pencil actions text-black"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Actualizar'),
-                    'visible'=> '(Yii::app()->user->getState("permiso_act") == true)',
                 ),
             )
 		),

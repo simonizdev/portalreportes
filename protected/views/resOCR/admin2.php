@@ -65,7 +65,7 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
             'template'=>'{download}',
             'buttons'=>array(
                 'download'=>array(
-                    'label'=>'<i class="fa fa-file-excel-o actions text-black"></i>',
+                    'label'=>'<i class="fa fa-file-archive-o actions text-black"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Descargar resumen'),
                     'url'=>'Yii::app()->createUrl("resOCR/download", array("id"=>$data->Id))',

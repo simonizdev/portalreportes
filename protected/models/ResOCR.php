@@ -25,7 +25,6 @@ class ResOCR extends CActiveRecord
 	public $usuario_actualizacion;
 	public $sop;
 	public $orderby;
-	public $ext_sop;
 
 	/**
 	 * @return string the associated database table name

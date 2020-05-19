@@ -77,8 +77,6 @@ class ResOCRController extends Controller
 			}
 
 			$model->attributes=$_POST['ResOCR'];
-
-			$ext_sop = $_POST['ResOCR']['ext_sop'];
 			
 			if($model->Tipo == 1){
 				$nombre_doc = $cons.'_resumen_oc_'.date('Y_m_d_H_i_s');
@@ -87,7 +85,7 @@ class ResOCRController extends Controller
 			}
 
             $documento_subido = CUploadedFile::getInstance($model,'sop');
-            $nombre_archivo = "{$nombre_doc}.{$ext_sop}"; 
+            $nombre_archivo = "{$nombre_doc}.zip"; 
             $model->Doc_Soporte = $nombre_archivo;
 
             $model->Id_Usuario_Creacion = Yii::app()->user->getState('id_user');
@@ -128,16 +126,6 @@ class ResOCRController extends Controller
 			$model->attributes=$_POST['ResOCR'];
 
 			if($_FILES['ResOCR']['name']['sop']  != "") {
-
-		    	$ext_sop = $_POST['ResOCR']['ext_sop'];
-
-		    	$nombre_doc = $id.'_resumen_oc_r '.date('Y-m-d H_i_s');
-	            $documento_subido = CUploadedFile::getInstance($model,'sop');
-	            $nombre_archivo = "{$nombre_doc}.{$ext_sop}"; 
-	            $model->Doc_Soporte = $nombre_archivo;
-
-
-	            $ext_sop = $_POST['ResOCR']['ext_sop'];
 			
 				if($model->Tipo == 1){
 					$nombre_doc = $id.'_resumen_oc_'.date('Y_m_d_H_i_s');
@@ -146,7 +134,7 @@ class ResOCRController extends Controller
 				}
 
 	            $documento_subido = CUploadedFile::getInstance($model,'sop');
-	            $nombre_archivo = "{$nombre_doc}.{$ext_sop}"; 
+	            $nombre_archivo = "{$nombre_doc}.zip"; 
 	            $model->Doc_Soporte = $nombre_archivo;
 	            $opc = 1;
 
@@ -154,16 +142,13 @@ class ResOCRController extends Controller
 
 		    	if($modelo_ant->Tipo != $model->Tipo){
 
-			    	$info_sop = new SplFileInfo($modelo_ant->Doc_Soporte);
-					$ext_sop = $info_sop->getExtension();
-
 			    	if($model->Tipo == 1){
 						$nombre_doc = $id.'_resumen_oc_'.date('Y_m_d_H_i_s');
 					}else{
 						$nombre_doc = $id.'_resumen_rem_'.date('Y_m_d_H_i_s');
 					}
 
-					$nombre_archivo = "{$nombre_doc}.{$ext_sop}"; 
+					$nombre_archivo = "{$nombre_doc}.zip"; 
 		            $model->Doc_Soporte = $nombre_archivo;
 
 		            rename(Yii::app()->basePath.'/../images/resumen_oc_rem/'.$modelo_ant->Doc_Soporte, Yii::app()->basePath.'/../images/resumen_oc_rem/'.$nombre_archivo);
