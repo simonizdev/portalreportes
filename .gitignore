@@ -4,9 +4,4 @@ protected/runtime/*
 !protected/runtime/.gitignore
 protected/data/*.db
 protected/config/*
-images/imgs_listas_tmp/*
-images/items/*
-images/reg_imp/*
-images/resumen_oc_rem/*
-images/cheq/*
-images/fact_cont/*
+images/*

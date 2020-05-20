@@ -19,36 +19,38 @@
 <div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Nombres', array('class' => 'pull-right badge bg-red')); ?>
-          	<?php echo $form->label($model,'Nombres'); ?>
-		    <?php echo $form->textField($model,'Nombres', array('class' => 'form-control', 'maxlength' => '60', 'autocomplete' => 'off')); ?>
+            <?php echo $form->label($model,'Nombres', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Nombres', array('class' => 'badge badge-warning float-right')); ?>
+		    <?php echo $form->textField($model,'Nombres', array('class' => 'form-control form-control-sm', 'maxlength' => '60', 'autocomplete' => 'off')); ?>
         </div>
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Correo', array('class' => 'pull-right badge bg-red')); ?>
-          	<?php echo $form->label($model,'Correo'); ?>
-		    <?php echo $form->textField($model,'Correo', array('class' => 'form-control', 'maxlength' => '50', 'autocomplete' => 'off')); ?>
+    		<?php echo $form->label($model,'Correo', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Correo', array('class' => 'badge badge-warning float-right')); ?>
+		    <?php echo $form->textField($model,'Correo', array('class' => 'form-control form-control-sm', 'maxlength' => '50', 'autocomplete' => 'off', 'onkeyup' => 'convert_min(this)')); ?>
         </div>
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Usuario', array('class' => 'pull-right badge bg-red')); ?>
-          	<?php echo $form->label($model,'Usuario'); ?>
-		    <?php echo $form->textField($model,'Usuario', array('class' => 'form-control', 'maxlength' => '30', 'autocomplete' => 'off')); ?>
+    		<?php echo $form->label($model,'Usuario', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Usuario', array('class' => 'badge badge-warning float-right')); ?>
+		    <?php echo $form->textField($model,'Usuario', array('class' => 'form-control form-control-sm', 'maxlength' => '30', 'autocomplete' => 'off', 'onkeyup' => 'convert_min(this)')); ?>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Password', array('class' => 'pull-right badge bg-red')); ?>
-          	<?php echo $form->label($model,'Password'); ?>
-		    <input type="password" name="Usuario[Password]" id="Usuario_Password" class="form-control" autocomplete="off">
+    		<?php echo $form->label($model,'Password', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Password', array('class' => 'badge badge-warning float-right')); ?>
+		    <input type="password" name="Usuario[Password]" id="Usuario_Password" class="form-control form-control-sm" autocomplete="off">
         </div>
     </div>
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'Estado', array('class' => 'pull-right badge bg-red')); ?>
-            <?php echo $form->label($model,'Estado'); ?>
+            <?php echo $form->label($model,'Estado', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Estado', array('class' => 'badge badge-warning float-right')); ?>
             <?php $estados = Yii::app()->params->estados; ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
@@ -66,12 +68,33 @@
             ?>
         </div>
     </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <?php echo $form->label($model,'Avatar', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Avatar', array('class' => 'badge badge-warning float-right')); ?>
+            <?php $avatar = Yii::app()->params->avatar; ?>
+            <?php
+                $this->widget('ext.select2.ESelect2',array(
+                    'name'=>'Usuario[Avatar]',
+                    'id'=>'Usuario_Avatar',
+                    'data'=>$avatar,
+                    'value' => $model->Avatar,
+                    'htmlOptions'=>array(),
+                    'options'=>array(
+                        'placeholder'=>'Seleccione...',
+                        'width'=> '100%',
+                        'allowClear'=>true,
+                    ),
+                ));
+            ?>
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="col-sm-8">
         <div class="form-group">
-            <?php echo $form->error($model,'perfiles', array('class' => 'pull-right badge bg-red')); ?>
-            <?php echo $form->label($model,'perfiles'); ?>
+            <?php echo $form->label($model,'perfiles', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'perfiles', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'Usuario[perfiles]',
@@ -88,13 +111,13 @@
                 ));
             ?>
         </div>
-    </div>  
+    </div>
 </div>
 <div class="row">
     <div class="col-sm-8">
         <div class="form-group">
-            <?php echo $form->error($model,'bodegas', array('class' => 'pull-right badge bg-red')); ?>
-            <?php echo $form->label($model,'bodegas'); ?>
+            <?php echo $form->label($model,'bodegas', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'bodegas', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'Usuario[bodegas]',
@@ -116,8 +139,8 @@
 <div class="row">
     <div class="col-sm-8">
         <div class="form-group">
-            <?php echo $form->error($model,'tipos_docto', array('class' => 'pull-right badge bg-red')); ?>
-            <?php echo $form->label($model,'tipos_docto'); ?>
+            <?php echo $form->label($model,'tipos_docto', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'tipos_docto', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'Usuario[tipos_docto]',
@@ -134,13 +157,13 @@
                 ));
             ?>
         </div>
-    </div>  
+    </div>
 </div>
 <div class="row">
     <div class="col-sm-8">
         <div class="form-group">
-            <?php echo $form->error($model,'areas', array('class' => 'pull-right badge bg-red')); ?>
-            <?php echo $form->label($model,'areas'); ?>
+            <?php echo $form->label($model,'areas', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'areas', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'Usuario[areas]',
@@ -160,9 +183,11 @@
     </div>
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=usuario/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-    <button type="submit" class="btn btn-success" ><i class="fa fa-floppy-o"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=usuario/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>

@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Creación de bodega</h3>
+<h4>Creación de bodega</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

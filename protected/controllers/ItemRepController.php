@@ -59,6 +59,7 @@ class ItemRepController extends Controller
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Creacion = date('Y-m-d H:i:s');
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
+			$model->Estado = 1;
 
 			if($model->save()){
 				$this->redirect(array('rep/update','id'=>$id));

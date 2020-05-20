@@ -349,4 +349,45 @@ class UtilidadesUsuario {
 		return json_encode($array_ar_activas);
 	}
 
+	public static function factareapend() {
+		
+		$array_areas_usuario = Yii::app()->user->getState('array_areas');
+		if(!empty($array_areas_usuario)){
+			
+			$areas_usuario = implode(",", $array_areas_usuario);
+
+			$criteria=new CDbCriteria;
+			$criteria->condition='Area in ('.$areas_usuario.') AND Estado=:Estado';
+			$criteria->params=array(':Estado'=> 1);
+			$factareapendrev=FactCont::model()->findAll($criteria);
+			$resp = count($factareapendrev);
+
+		}else{
+			$resp = 0;
+		}
+
+		return $resp;
+	}
+
+	public static function correspareapend() {
+		
+		$array_areas_usuario = Yii::app()->user->getState('array_areas');
+		if(!empty($array_areas_usuario)){
+			
+			$areas_usuario = implode(",", $array_areas_usuario);
+
+			$criteria=new CDbCriteria;
+			$criteria->condition='Area in ('.$areas_usuario.') AND Estado=:Estado';
+			$criteria->params=array(':Estado'=> 1);
+			$correspareapendrev=FactCont::model()->findAll($criteria);
+			//$correspareapendrev=Corresp::model()->findAll($criteria);
+			$resp = count($correspareapendrev);
+
+		}else{
+			$resp = 0;
+		}
+
+		return $resp;
+	}
+
 }

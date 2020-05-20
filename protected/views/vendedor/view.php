@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Visualizando vendedor</h3>
+<h4>Visualizando vendedor</h4>
 
 <div class="table-responsive">
 
@@ -36,6 +36,8 @@
 
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=vendedor/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=vendedor/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+    </div>
 </div>

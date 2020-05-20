@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Actualización de EPT</h3>
+<h4>Actualización de EPT</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -20,9 +20,9 @@
 
 <?php if(Yii::app()->user->hasFlash('success')):?>
     <div class="alert alert-success alert-dismissible">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <h4><i class="icon fa fa-check"></i>Realizado</h4>
-      <?php echo Yii::app()->user->getFlash('success'); ?>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-check-circle"></i>Realizado</h5>
+        <?php echo Yii::app()->user->getFlash('success'); ?>
     </div>
 <?php endif; ?>  
 

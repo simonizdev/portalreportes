@@ -31,7 +31,7 @@ class UtilidadesReportes {
     }
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Suministro</th>
@@ -127,7 +127,7 @@ class UtilidadesReportes {
     ";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Documento</th>
@@ -197,7 +197,7 @@ class UtilidadesReportes {
     $query ="EXEC [dbo].[COM_CONS_VENDEDORES]";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Nit</th>
@@ -266,7 +266,7 @@ class UtilidadesReportes {
     $query ="EXEC [dbo].[COM_CONS_RUTAS]";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Ruta visita</th>
@@ -326,7 +326,7 @@ class UtilidadesReportes {
     $query ="EXEC [dbo].[COM_CONS_UN]";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Item</th>
@@ -391,7 +391,7 @@ class UtilidadesReportes {
     ";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Row Id</th>
@@ -462,7 +462,7 @@ class UtilidadesReportes {
     ";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Row Id</th>
@@ -538,7 +538,7 @@ class UtilidadesReportes {
     ";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Fecha</th>
@@ -601,7 +601,7 @@ class UtilidadesReportes {
     ";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Row Id</th>
@@ -653,7 +653,7 @@ class UtilidadesReportes {
                 <td>'.$RECEPCION.'</td>
                 <td>'.$CARGADO.'</td>
                 <td>'.$DOCTO_SIESA.'</td>
-                <td><input type="button" class="btn btn-success" style="padding: 0px 10px 0px 10px !important;font-size:11px !important;" onclick="actbod('.$ROWID.');" value="Cambiar bod. salida"></td>
+                <td><button type="button" class="btn btn-success btn-sm btn-rep" onclick="actbod('.$ROWID.');" ><i class="fa fa-pen"></i> Cambiar bod. salida</button></td>
             </tr>';
 
         }else{
@@ -668,7 +668,7 @@ class UtilidadesReportes {
                 <td>'.$RECEPCION.'</td>
                 <td>'.$CARGADO.'</td>
                 <td>'.$DOCTO_SIESA.'</td>
-                <td><input type="button" class="btn btn-success" style="padding: 0px 10px 0px 10px !important;font-size:11px !important;" onclick="acttal('.$ROWID.');" value="Actualizar"></td>
+                <td><button type="button" class="btn btn-success btn-sm btn-rep" onclick="acttal('.$ROWID.');"><i class="fa fa-sync"></i> Actualizar</button></td>
             </tr>';
 
         }
@@ -693,7 +693,7 @@ class UtilidadesReportes {
     $query ="SELECT * FROM [Qlik].[dbo].[PR_INVENTARIO]";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Item</th>
@@ -756,7 +756,7 @@ class UtilidadesReportes {
     $query ="SELECT * FROM [Qlik].[dbo].[ED_INVENTARIO]";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Item</th>
@@ -819,7 +819,7 @@ class UtilidadesReportes {
     $query ="EXEC [dbo].[SP_EC_INVENTARIO_COSTO]";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Item</th>
@@ -894,7 +894,7 @@ class UtilidadesReportes {
     $query ="EXEC [Qlik].[dbo].[PR_COM_INVENTARIO_COSTO]";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Item</th>
@@ -1084,7 +1084,7 @@ class UtilidadesReportes {
     $query ="SELECT * FROM [Repositorio_Datos].[dbo].[tbl_IN_Transf_29] WHERE Integrado_Pangea = 4";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Row Id</th>
@@ -1122,9 +1122,9 @@ class UtilidadesReportes {
               <td>'.$ROWID.'</td>
               <td>'.$EPT.'</td>
               <td>'.$ITEM.'</td>
-              <td>'.$CANTIDAD.'</td>
+              <td align="right">'.$CANTIDAD.'</td>
               <td>'.$RECEPCION.'</td>
-              <td><input type="button" class="btn btn-success" style="padding: 0px 10px 0px 10px !important;font-size:11px !important;" onclick="actept('.$ROWID_MOVTO.');" value="Actualizar"></td>
+              <td><button type="button" class="btn btn-success btn-sm btn-rep" onclick="actept('.$ROWID_MOVTO.');"><i class="fa fa-sync"></i> Actualizar</button></td>
           </tr>';
 
         $i++; 
@@ -1264,7 +1264,7 @@ class UtilidadesReportes {
     ";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Tipo</th>
@@ -1367,7 +1367,7 @@ class UtilidadesReportes {
     $desc_bodega = IBodega::model()->findByPk($bodega)->Descripcion;
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Línea</th>
@@ -1441,7 +1441,7 @@ class UtilidadesReportes {
     $items_exist=IItem::model()->findAll($criteria);
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Línea</th>
@@ -1523,7 +1523,7 @@ class UtilidadesReportes {
     ";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Row Id</th>
@@ -1571,7 +1571,7 @@ class UtilidadesReportes {
           <td>'.$F350_NOTAS.'</td>
           <td>'.$F353_ID_SUCURSAL_DOCTO_CRUCE.'</td>
           <td>'.$F358_REFERENCIA_OTROS.'</td>
-          <td><input type="button" class="btn btn-success" style="padding: 0px 10px 0px 10px !important;font-size:11px !important;" onclick="actreca('.$ROWID.');" value="Actualizar"></td>
+          <td><button type="button" class="btn btn-success btn-sm btn-rep" onclick="actreca('.$ROWID.');"><i class="fa fa-sync"></i> Actualizar</button></td>
         </tr>';
 
         $i++; 
@@ -1611,7 +1611,7 @@ class UtilidadesReportes {
     ";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Row Id</th>
@@ -1704,7 +1704,7 @@ class UtilidadesReportes {
     //echo $query;die;
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Leido por WMS</th>
@@ -1762,7 +1762,7 @@ class UtilidadesReportes {
     ";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Fecha</th>
@@ -1834,7 +1834,7 @@ class UtilidadesReportes {
     ";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Pedido</th>
@@ -1912,7 +1912,7 @@ class UtilidadesReportes {
     ";
 
     $tabla = '
-      <table class="table table-striped table-hover">
+      <table class="table table-sm table-hover">
               <thead>
                 <tr>
                 <th>Cia</th>

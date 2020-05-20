@@ -32,19 +32,19 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Consecutivo'); ?>
-			    <?php echo $form->numberField($model,'Consecutivo', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number')); ?>
+			    <?php echo $form->numberField($model,'Consecutivo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha'); ?>
-			    <?php echo $form->textField($model,'Fecha', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Referencia'); ?>
-			    <?php echo $form->textField($model,'Referencia', array('class' => 'form-control', 'autocomplete' => 'off')); ?>
+			    <?php echo $form->textField($model,'Referencia', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off')); ?>
 	        </div>
 	    </div>
 	</div>
@@ -68,7 +68,7 @@
 	                            'results'=>'js:function(data){ return {results:data};}'                   
 	                        ),
 	                        'formatNoMatches'=> 'js:function(){ clear_select2_ajax("IDocto_Id_Tercero"); return "No se encontraron resultados"; }',
-	                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'IDocto_Id_Tercero\')\">Limpiar campo</button>"; }',
+	                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'IDocto_Id_Tercero\')\">Limpiar campo</button>"; }',
 	                    ),
 	                ));
 	            ?>
@@ -95,7 +95,7 @@
 	                            'results'=>'js:function(data){ return {results:data};}'                   
 	                        ),
 	                        'formatNoMatches'=> 'js:function(){ clear_select2_ajax("IDocto_Id_Emp"); return "No se encontraron resultados"; }',
-	                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'IDocto_Id_Emp\')\">Limpiar campo</button>"; }',
+	                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'IDocto_Id_Emp\')\">Limpiar campo</button>"; }',
 	                    ),
 	                ));
 	            ?>
@@ -156,20 +156,17 @@
 	        </div>
 	    </div>
 	</div>
-	<div class="btn-group" style="padding-bottom: 2%">
-		<button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-		<?php echo CHtml::submitButton('', array('style' => 'display:none;', 'id' => 'yt0')); ?>
-		<button type="submit" class="btn btn-success" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+	<div class="row mb-2">
+	  	<div class="col-sm-6">  
+     		<button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+     		<?php echo CHtml::submitButton('', array('style' => 'display:none;', 'id' => 'yt0')); ?>
+			<button type="submit" class="btn btn-success btn-sm" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+	  	</div>
 	</div>
 
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
-
-	function clear_select2_ajax(id){
-    	$('#'+id+'').val('').trigger('change');
-    	$('#s2id_'+id+' span').html(""); 
-	}
 
 	function resetfields(){		
 		$('#IDocto_Id_Tipo_Docto').val('').trigger('change');

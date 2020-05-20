@@ -4,8 +4,6 @@
 
 ?>
 
-<h3>Foto de cartera</h3>
-
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
@@ -18,20 +16,23 @@
 	),
 )); ?>
 
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h4>Foto de cartera</h4>
+  </div>
+  <div class="col-sm-6 text-right">
+  	<?php echo $form->hiddenField($model,'opc', array('class' => 'form-control', 'readonly' => true, 'value' => 1)); ?>
+    <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-cogs"></i> Ejecutar proceso</button>
+  </div>
+</div>
+
 <?php if(Yii::app()->user->hasFlash('success')):?>
     <div class="alert alert-success alert-dismissible">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <h4><i class="icon fa fa-check"></i>Realizado</h4>
-      <?php echo Yii::app()->user->getFlash('success'); ?>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-check-circle"></i>Realizado</h5>
+        <?php echo Yii::app()->user->getFlash('success'); ?>
     </div>
 <?php endif; ?> 
-
-<br>
-<?php echo $form->hiddenField($model,'opc', array('class' => 'form-control', 'readonly' => true, 'value' => 1)); ?>
-
-<div class="btn-group">
-  <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-bar-chart"></i> Ejecutar proceso</button>    
-</div>
 
 <?php $this->endWidget(); ?>
 
@@ -47,7 +48,7 @@ $(function() {
       	if(confirm("Esta seguro de ejecutar el proceso ?")){
 			//se envia el form
 			form.submit();
-			$(".ajax-loader").fadeIn('fast');
+			loadershow();
       	}else{
       		return false;
       	}

@@ -75,5 +75,5 @@ function valida_opciones(){
    	
 </script>
 
-<h3>Creación de perfil</h3>    
+<h4>Creación de perfil</h4>    
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>  

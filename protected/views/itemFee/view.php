@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Visualizando item</h3>
+<h4>Visualizando item</h4>
 
 <div class="table-responsive">
 
@@ -21,10 +21,9 @@
                 return number_format($model->Porcentaje, 2);
             },
         ),
-        array(
+		array(
             'name' => 'Iva',
-            'type' => 'raw',
-            'value' => ($model->Iva == 1) ? "Si" : "No",
+            'value' => UtilidadesVarias::textoestado2($model->Iva),
         ),
 		array(
             'name'=>'Id_Usuario_Creacion',
@@ -44,15 +43,15 @@
         ),
         array(
             'name' => 'Estado',
-            'type' => 'raw',
-            'value' => ($model->Estado == 1) ? "Activo" : "Inactivo",
+            'value' => UtilidadesVarias::textoestado1($model->Estado),
         ),
 	),
 )); ?>
 
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=itemFee/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=itemFee/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+    </div>
 </div>
-

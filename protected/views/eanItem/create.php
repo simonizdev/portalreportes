@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Creación de código de barras</h3>
+<h4>Creación código de barras</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

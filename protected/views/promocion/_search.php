@@ -23,7 +23,7 @@
 
 			        'options'  => array(
 			        	'allowClear' => true,
-			        	'minimumInputLength' => 5,
+			        	'minimumInputLength' => 3,
 		               	'width' => '100%',
 		               	'language' => 'es',
 		                'ajax' => array(
@@ -34,7 +34,7 @@
 					                       
 			            ),
 		            	'formatNoMatches'=> 'js:function(){ clear_select2_ajax("Promocion_Id_Item_Padre"); return "No se encontraron resultados"; }',
-		            	'formatInputTooShort' =>  'js:function(){ return "Digite más de 5 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'Promocion_Id_Item_Padre\')\">Limpiar campo</button>"; }',
+		            	'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'Promocion_Id_Item_Padre\')\">Limpiar campo</button>"; }',
 		        	),
 
 		      	));
@@ -49,7 +49,7 @@
 			    $this->widget('ext.select2.ESelect2', array(
 			        'selector' => '#Promocion_Id_Item_Hijo',
 			        'options'  => array(
-			        	'minimumInputLength' => 5,
+			        	'minimumInputLength' => 3,
 		               	'width' => '100%',
 		               	'language' => 'es',
 		                'ajax' => array(
@@ -60,7 +60,7 @@
 					                       
 			            ),
 			            'formatNoMatches'=> 'js:function(){ clear_select2_ajax("Promocion_Id_Item_Hijo"); return "No se encontraron resultados"; }',
-			            'formatInputTooShort' =>  'js:function(){ return "Digite más de 5 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'Promocion_Id_Item_Hijo\')\">Limpiar campo</button>"; }',
+			            'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'Promocion_Id_Item_Hijo\')\">Limpiar campo</button>"; }',
 		        	),
 
 		      	));
@@ -70,7 +70,7 @@
 	    <div class="col-sm-2">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Cantidad'); ?>
-			    <?php echo $form->numberField($model,'Cantidad', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number')); ?>
+			    <?php echo $form->numberField($model,'Cantidad', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
 	        </div>
 	    </div>
 	</div>
@@ -97,7 +97,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Creacion'); ?>
-			    <?php echo $form->textField($model,'Fecha_Creacion', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha_Creacion', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
@@ -122,7 +122,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Actualizacion'); ?>
-			    <?php echo $form->textField($model,'Fecha_Actualizacion', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha_Actualizacion', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	</div>
@@ -140,20 +140,17 @@
 	        </div>
 	    </div>
 	</div>
-	<div class="btn-group" style="padding-bottom: 2%">
-		<button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-		<button type="submit" class="btn btn-success" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+	<div class="row mb-2">
+	  	<div class="col-sm-6">  
+     		<button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+			<button type="submit" class="btn btn-success btn-sm" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+	  	</div>
 	</div>
 
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
-
-function clear_select2_ajax(id){
-	$('#'+id+'').val('').trigger('change');
-	$('#s2id_'+id+' span').html("");
-}
-
+	
 function resetfields(){
 	$('#Promocion_Id_Item_Padre').val('').trigger('change');
 	$('#s2id_Promocion_Id_Item_Padre span').html("");

@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Actualización de línea de item</h3>
+<h4>Actualización de línea de item</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Pedidos pendientes por despacho / línea</h3>
+<h4>Pedidos pendientes por despacho / línea</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -21,16 +21,16 @@
 <div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'fecha_inicial', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'fecha_inicial', array('class' => 'badge badge-warning float-right')); ?>
           	<?php echo $form->label($model,'fecha_inicial'); ?>
-		    <?php echo $form->textField($model,'fecha_inicial', array('class' => 'form-control datepicker', 'readonly' => true)); ?>
+		    <?php echo $form->textField($model,'fecha_inicial', array('class' => 'form-control form-control-sm datepicker', 'readonly' => true)); ?>
         </div>
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'fecha_final', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'fecha_final', array('class' => 'badge badge-warning float-right')); ?>
           	<?php echo $form->label($model,'fecha_final'); ?>
-		    <?php echo $form->textField($model,'fecha_final', array('class' => 'form-control datepicker', 'readonly' => true)); ?>
+		    <?php echo $form->textField($model,'fecha_final', array('class' => 'form-control form-control-sm datepicker', 'readonly' => true)); ?>
         </div>
     </div>
 	<div class="col-sm-4">
@@ -40,7 +40,7 @@
 <div class="row">
     <div class="col-sm-4">
       <div class="form-group">
-        <?php echo $form->error($model,'linea_inicial', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'linea_inicial', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'linea_inicial'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -60,7 +60,7 @@
     </div>
     <div class="col-sm-4">
       <div class="form-group">
-        <?php echo $form->error($model,'linea_final', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'linea_final', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'linea_final'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -80,11 +80,11 @@
     </div>
     <div class="col-sm-4">
       <div class="form-group">
-      <?php echo $form->error($model,'opcion_exp', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'opcion_exp', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'opcion_exp'); ?><br>
       <?php 
         echo $form->radioButtonList($model,'opcion_exp',
-            array('1'=>'<i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF','2'=>'<i class="fa fa-file-excel-o" aria-hidden="true"></i> EXCEL'),
+            array('1'=>'<i class="far fa-file-pdf" aria-hidden="true"></i> PDF','2'=>'<i class="far fa-file-excel" aria-hidden="true"></i> EXCEL'),
             array(
                 'template'=>'{input}{label}',
                 'separator'=>'',
@@ -99,15 +99,14 @@
       </div>
     </div>
 </div>
-    
-<div class="row">
-    <div class="col-sm-4">
-    	<div class="form-group">
-        <button type="button" class="btn btn-success" onclick="resetfields();">Limpiar filtros</button>
-        <?php echo CHtml::Button('Generar', array('class' => 'btn btn-success', 'id' => 'valida_form')); ?>
-        </div>
+
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fa fa-cogs"></i> Generar</button>
     </div>
 </div>
+    
 <!-- /.row -->
 
 <?php $this->endWidget(); ?>
@@ -127,8 +126,7 @@ $(function() {
               });
               //se envia el form
               form.submit();
-              $(".ajax-loader").show();
-              setTimeout(function(){ $(".ajax-loader").hide(); }, 20000);
+              loadershow();
           } else {
               settings = form.data('settings'),
               $.each(settings.attributes, function () {

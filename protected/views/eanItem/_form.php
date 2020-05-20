@@ -18,32 +18,34 @@
 
 <div class="row">    		
 	<div class="col-sm-6">
-		<?php echo $form->error($model,'Id_Item', array('class' => 'pull-right badge bg-red')); ?>
-	    <?php echo $form->label($model,'Id_Item'); ?>	
-	    <?php echo $form->textField($model,'Id_Item'); ?>
-	    <?php
-	        $this->widget('ext.select2.ESelect2', array(
-	            'selector' => '#EanItem_Id_Item',
-	            'options'  => array(
-	                'allowClear' => true,
-	                'minimumInputLength' => 5,
-	                'width' => '100%',
-	                'language' => 'es',
-	                'ajax' => array(
-	                    'url' => Yii::app()->createUrl('EanItem/SearchItem'),
-	                    'dataType'=>'json',
-	                    'data'=>'js:function(term){return{q: term};}',
-	                    'results'=>'js:function(data){ return {results:data};}'                   
-	                ),
-	                'formatNoMatches'=> 'js:function(){ clear_select2_ajax("EanItem_Id_Item"); return "No se encontraron resultados"; }',
-	                'formatInputTooShort' =>  'js:function(){ return "Digite más de 5 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'EanItem_Id_Item\')\">Limpiar campo</button>"; }',
-	            ),
-	        ));
-	    ?>
+		<div class="form-group">
+			<?php echo $form->error($model,'Id_Item', array('class' => 'badge badge-warning float-right')); ?>
+		    <?php echo $form->label($model,'Id_Item'); ?>	
+		    <?php echo $form->textField($model,'Id_Item'); ?>
+		    <?php
+		        $this->widget('ext.select2.ESelect2', array(
+		            'selector' => '#EanItem_Id_Item',
+		            'options'  => array(
+		                'allowClear' => true,
+		                'minimumInputLength' => 3,
+		                'width' => '100%',
+		                'language' => 'es',
+		                'ajax' => array(
+		                    'url' => Yii::app()->createUrl('EanItem/SearchItem'),
+		                    'dataType'=>'json',
+		                    'data'=>'js:function(term){return{q: term};}',
+		                    'results'=>'js:function(data){ return {results:data};}'                   
+		                ),
+		                'formatNoMatches'=> 'js:function(){ clear_select2_ajax("EanItem_Id_Item"); return "No se encontraron resultados"; }',
+		                'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'EanItem_Id_Item\')\">Limpiar campo</button>"; }',
+		            ),
+		        ));
+		    ?>
+		</div>
   	</div>
   	<div class="col-sm-3" id="criterio" style="display: none;">
         <div class="form-group">
-            <?php echo $form->error($model,'Criterio', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Criterio', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Criterio'); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
@@ -61,17 +63,22 @@
         </div>
 	</div>
 	<div class="col-sm-3" id="ean" style="display: none;">
-		<?php echo $form->error($model,'Ean', array('class' => 'pull-right badge bg-red')); ?>
-		<?php echo $form->label($model,'Ean'); ?>
-		<?php echo $form->hiddenField($model,'Ean', array('class' => 'form-control', 'maxlength' => '100', 'autocomplete' => 'off', 'readonly' => true)); ?>
-		<?php echo $form->hiddenField($model,'Dig_Ver', array('class' => 'form-control', 'maxlength' => '2', 'autocomplete' => 'off', 'readonly' => true)); ?>
-		<p id="desc_ean"></p>
+		<div class="form-group">
+			<?php echo $form->error($model,'Ean', array('class' => 'badge badge-warning float-right')); ?>
+			<?php echo $form->label($model,'Ean'); ?>
+			<?php echo $form->hiddenField($model,'Ean', array('class' => 'form-control', 'maxlength' => '100', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			<?php echo $form->hiddenField($model,'Dig_Ver', array('class' => 'form-control', 'maxlength' => '2', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			<p id="desc_ean"></p>
+		</div>
 	</div>
 </div>
 
-<div class="btn-group" style="padding-top: 2%">
-    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=eanItem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-    <button type="submit" class="btn btn-success" id="valida_form"><i class="fa fa-floppy-o"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
+
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=eanItem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>
@@ -172,12 +179,4 @@ $(function() {
 
 });
 
-function clear_select2_ajax(id){
-	$('#'+id+'').val('').trigger('change');
-	$('#s2id_'+id+' span').html("");
-}
-
 </script>
-
-
-

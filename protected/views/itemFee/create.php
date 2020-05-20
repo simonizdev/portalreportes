@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Creación de item</h3>
+<h4>Creación de item</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

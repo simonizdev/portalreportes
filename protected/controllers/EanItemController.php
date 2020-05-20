@@ -113,6 +113,7 @@ class EanItemController extends Controller
 					$model_ean_pend->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 					$model_ean_pend->Fecha_Actualizacion = date('Y-m-d H:i:s');
 					if($model_ean_pend->save()){
+						Yii::app()->user->setFlash('success', "El código de barras fue creado correctamente.");
 						$this->redirect(array('admin'));
 					}
 				}else{
@@ -157,6 +158,7 @@ class EanItemController extends Controller
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
 
 			if($model->save()){
+				Yii::app()->user->setFlash('success', "El código de barras fue creado correctamente.");
 				$this->redirect(array('eanItem/view','id'=>$id));
 			}
 				

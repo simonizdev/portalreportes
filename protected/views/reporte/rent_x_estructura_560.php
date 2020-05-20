@@ -7,7 +7,7 @@
 
 ?>
 
-<h3>Rentabilidad por estructura 560</h3>
+<h4>Rentabilidad por estructura 560</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -24,21 +24,21 @@
 <div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'fecha_inicial', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'fecha_inicial', array('class' => 'badge badge-warning float-right')); ?>
       	<?php echo $form->label($model,'fecha_inicial'); ?>
-		    <?php echo $form->textField($model,'fecha_inicial', array('class' => 'form-control', 'readonly' => true)); ?>
+		    <?php echo $form->textField($model,'fecha_inicial', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
         </div>
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'fecha_final', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'fecha_final', array('class' => 'badge badge-warning float-right')); ?>
       	<?php echo $form->label($model,'fecha_final'); ?>
-		    <?php echo $form->textField($model,'fecha_final', array('class' => 'form-control', 'readonly' => true)); ?>
+		    <?php echo $form->textField($model,'fecha_final', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
         </div>
     </div>
     <div class="col-sm-4">
       <div class="form-group">
-        <?php echo $form->error($model,'ev', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'ev', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'ev'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -60,11 +60,11 @@
 <div class="row">   
 	  <div class="col-sm-4">
     	<div class="form-group">
-			<?php echo $form->error($model,'opcion_exp', array('class' => 'pull-right badge bg-red')); ?>
+			<?php echo $form->error($model,'opcion_exp', array('class' => 'badge badge-warning float-right')); ?>
     	<?php echo $form->label($model,'opcion_exp'); ?><br>
 			<?php 
 				echo $form->radioButtonList($model,'opcion_exp',
-			    	array('1'=>'<i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF','2'=>'<i class="fa fa-file-excel-o" aria-hidden="true"></i> EXCEL'),
+			    	array('1'=>'<i class="far fa-file-pdf" aria-hidden="true"></i> PDF','2'=>'<i class="far fa-file-excel" aria-hidden="true"></i> EXCEL'),
 			    	array(
 			        	'template'=>'{input}{label}',
 			        	'separator'=>'',
@@ -80,9 +80,11 @@
     </div>
 </div>
     
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-bar-chart"></i> Generar</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fa fa-cogs"></i> Generar</button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>
@@ -104,8 +106,7 @@ $(function() {
               });
               //se envia el form
               form.submit();
-              $(".ajax-loader").fadeIn('fast');
-              setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 20000);
+              loadershow();
           } else {
 
               settings = form.data('settings'),
@@ -151,11 +152,6 @@ $(function() {
   });
   
 });
-
-function clear_select2_ajax(id){
-  $('#'+id+'').val('').trigger('change');
-  $('#s2id_'+id+' span').html("");
-}
 
 function resetfields(){
   $('#Reporte_fecha_inicial').val('');

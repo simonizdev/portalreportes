@@ -21,9 +21,9 @@
 <div class="row">
     <div class="col-sm-4">
 	    <div class="form-group">
-			<?php echo $form->error($model,'Fecha', array('class' => 'pull-right badge bg-red')); ?>
+			<?php echo $form->error($model,'Fecha', array('class' => 'badge badge-warning float-right')); ?>
 			<?php echo $form->label($model,'Fecha'); ?>
-			<?php echo $form->textField($model,'Fecha', array('class' => 'form-control datepicker', 'readonly' => true)); ?>
+			<?php echo $form->textField($model,'Fecha', array('class' => 'form-control form-control-sm datepicker', 'readonly' => true)); ?>
 			<?php echo $form->hiddenField($model,'cad_item'); ?>
             <?php echo $form->hiddenField($model,'cad_vu'); ?>
             <?php echo $form->hiddenField($model,'cad_cant'); ?>
@@ -35,7 +35,7 @@
   	</div>
   	<div class="col-sm-6">
     	<div class="form-group">
-	      <?php echo $form->error($model,'Nit', array('class' => 'pull-right badge bg-red')); ?>
+	      <?php echo $form->error($model,'Nit', array('class' => 'badge badge-warning float-right')); ?>
 	      <?php echo $form->label($model,'Nit'); ?>
 	      <?php echo $form->textField($model,'Nit'); ?>
 	      <?php
@@ -55,7 +55,7 @@
 	                             
 	              ),
 	              'formatNoMatches'=> 'js:function(){ clear_select2_ajax("ParPedEsp_Nit"); return "No se encontraron resultados"; }',
-	              'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'ParPedEsp_Nit\')\">Limpiar campo</button>"; }',
+	              'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'ParPedEsp_Nit\')\">Limpiar campo</button>"; }',
 	          ),
 
 	        ));
@@ -66,7 +66,7 @@
 <div class="row">
   	<div class="col-sm-4" id="div_suc" style="display: none;">
 	    <div class="form-group">
-			<?php echo $form->error($model,'Sucursal', array('class' => 'pull-right badge bg-red')); ?>
+			<?php echo $form->error($model,'Sucursal', array('class' => 'badge badge-warning float-right')); ?>
 			<?php echo $form->label($model,'Sucursal', array('class' => 'control-label')); ?>
 			<?php
 			  $this->widget('ext.select2.ESelect2',array(
@@ -86,7 +86,7 @@
 	</div>
 	<div class="col-sm-4" id="div_pe" style="display: none;">
 	    <div class="form-group">
-	    	<?php echo $form->error($model,'Punto_Envio', array('class' => 'pull-right badge bg-red')); ?>
+	    	<?php echo $form->error($model,'Punto_Envio', array('class' => 'badge badge-warning float-right')); ?>
 			<?php echo $form->label($model,'Punto_Envio', array('class' => 'control-label')); ?>
 			
 			<?php
@@ -107,25 +107,25 @@
 	</div>
 	<div class="col-sm-4">
         <div class="form-group">
-        	<?php echo $form->error($model,'Porc_Desc', array('class' => 'pull-right badge bg-red')); ?>
+        	<?php echo $form->error($model,'Porc_Desc', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Porc_Desc'); ?>
-            <?php echo $form->numberField($model,'Porc_Desc', array('class' => 'form-control', 'autocomplete' => 'off' , 'step' => '0.01')); ?>
+            <?php echo $form->numberField($model,'Porc_Desc', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off' , 'step' => '0.01')); ?>
         </div>
     </div>
 </div>
 <div class="row">
 	<div class="col-sm-8">
 	    <div class="form-group">
-	        <?php echo $form->error($model,'Observaciones', array('class' => 'pull-right badge bg-red')); ?>
+	        <?php echo $form->error($model,'Observaciones', array('class' => 'badge badge-warning float-right')); ?>
 	        <?php echo $form->label($model,'Observaciones'); ?>
-	        <?php echo $form->textArea($model,'Observaciones',array('class' => 'form-control', 'rows'=>2, 'cols'=>50, 'onkeyup' => 'convert_may(this)', 'maxlength' => '200')); ?>
+	        <?php echo $form->textArea($model,'Observaciones',array('class' => 'form-control form-control-sm', 'rows'=>2, 'cols'=>50, 'onkeyup' => 'convert_may(this)', 'maxlength' => '200')); ?>
 	    </div>
     </div>
 </div>
 <div class="row" id="info_item" style="display: none;">
 	<div class="col-sm-6">
     	<div class="form-group">
-	      <?php echo $form->error($model,'item', array('class' => 'pull-right badge bg-red')); ?>
+	      <?php echo $form->error($model,'item', array('class' => 'badge badge-warning float-right')); ?>
 	      <?php echo $form->label($model,'item'); ?>
 	      <?php echo $form->textField($model,'item'); ?>
 	      <?php
@@ -145,7 +145,7 @@
 	                             
 	              ),
 	              'formatNoMatches'=> 'js:function(){ clear_select2_ajax("ParPedEsp_item"); return "No se encontraron resultados"; }',
-	              'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'ParPedEsp_item\')\">Limpiar campo</button>"; }',
+	              'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'ParPedEsp_item\')\">Limpiar campo</button>"; }',
 	          ),
 
 	        ));
@@ -154,30 +154,32 @@
   	</div>
   	<div class="col-sm-4">
         <div class="form-group">
-        	<?php echo $form->error($model,'cant', array('class' => 'pull-right badge bg-red')); ?>
+        	<?php echo $form->error($model,'cant', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'cant'); ?>
-            <?php echo $form->numberField($model,'cant', array('class' => 'form-control', 'autocomplete' => 'off' , 'min' => '1', 'step' => '1')); ?>
+            <?php echo $form->numberField($model,'cant', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off' , 'min' => '1', 'step' => '1')); ?>
         </div>
     </div>	
 	<div class="col-sm-8">
 	    <div class="form-group">
-	        <?php echo $form->error($model,'nota', array('class' => 'pull-right badge bg-red')); ?>
+	        <?php echo $form->error($model,'nota', array('class' => 'badge badge-warning float-right')); ?>
 	        <?php echo $form->label($model,'nota'); ?>
-	        <?php echo $form->textArea($model,'nota',array('class' => 'form-control', 'rows'=>2, 'cols'=>50, 'onkeyup' => 'convert_may(this)', 'maxlength' => '70')); ?>
+	        <?php echo $form->textArea($model,'nota',array('class' => 'form-control form-control-sm', 'rows'=>2, 'cols'=>50, 'onkeyup' => 'convert_may(this)', 'maxlength' => '70')); ?>
 	    </div>
     </div>	
 </div>
-
-
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=parPedEsp/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-    <button type="button" class="btn btn-success" id="add" onclick="add_item();"><i class="fa fa-plus"></i> Agregar</button>
+<div class="row mb-4">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=parPedEsp/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="button" class="btn btn-success btn-sm" onclick="add_item();"><i class="fa fa-plus" ></i> Agregar registro</button>
+    </div>
 </div>
 
 <div id="contenido"></div>
 
-<div class="btn-group" id="btn_save" style="display: none;padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="return valida_opciones(event);"><i class="fa fa-floppy-o"></i> Guardar</button>
+<div class="row mb-2" id="btn_save" style="display: none;">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="return valida_opciones(event);"><i class="fas fa-save"></i> Guardar</button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>
@@ -186,17 +188,17 @@
 
 $(function() {
 
-    $('form').keypress(function(e){   
-        if(e == 13){
-            return false;
-        }
-    });
+	$('form').keypress(function(e){   
+	  if(e == 13){
+	      return false;
+	  }
+	});
 
-    $('input').keypress(function(e){
-        if(e.which == 13){
-            return false;
-        }
-    });
+	$('input').keypress(function(e){
+	  if(e.which == 13){
+	      return false;
+	  }
+	});
 
   	//variables para el lenguaje del datepicker
   	$.fn.datepicker.dates['es'] = {
@@ -328,7 +330,7 @@ function add_item(){
             var cant_f = $(".tr_items").length;
 
             if(cant_f == 0){
-                div_contenido.append('<table class="table" id="table_items" style="font-size:11px !important;"><thead><tr><th>Código</th><th>Descripción</th><th>Marca</th><th>Oracle</th><th>Vlr. unit.</th><th>Cant.</th><th>Nota(s)</th><th>Subtotal</th><th></th></tr></thead><tbody></tbody></table>');
+                div_contenido.append('<table id="table_items" class="table table-sm table-hover"><thead><tr><th>Código</th><th>Descripción</th><th>Marca</th><th>Oracle</th><th>Vlr. unit.</th><th>Cant.</th><th>Nota(s)</th><th>Subtotal</th><th></th></tr></thead><tbody></tbody></table>');
             }
 
             var data = {item: item, cant: cant, nit: nit, suc: suc , pe: pe, desc_adic: desc_adic}
@@ -353,7 +355,7 @@ function add_item(){
 
 				  var tabla = $('#table_items');
 
-				  tabla.append('<tr class="tr_items" id="tr_'+i+'"><td><input type="hidden" class="items" value="'+i+'"><p id="codigo_'+i+'">'+i+'</p></td><td><p id="desc_'+i+'">'+desc_item+'</p></td><td><p id="marca_'+i+'">'+marca+'</p></td><td><p id="oracle_'+i+'">'+oracle+'</p></td><td align="right"><input type="hidden" id="vu_'+i+'" value="'+vlr_unit+'"><p>'+formatNumber(vlr_unit)+'</p></td><td align="right"><input type="hidden" id="cant_'+i+'" value="'+cant+'"><p>'+cant+'</p></td><td><input type="hidden" id="nota_'+i+'" value="'+nota+'"><p>'+nota+'</p></td><td align="right"><input type="hidden" id="iva_'+i+'" value="'+iva+'"><p>'+formatNumber(vlr_subtotal)+'</p></td><td><button type="button" class="btn btn-danger btn-xs delete"><i class="fa fa-trash" aria-hidden="true"></i> </button></td></tr>');
+				  tabla.append('<tr class="tr_items" id="tr_'+i+'"><td><input type="hidden" class="items" value="'+i+'"><p id="codigo_'+i+'">'+i+'</p></td><td><p id="desc_'+i+'">'+desc_item+'</p></td><td><p id="marca_'+i+'">'+marca+'</p></td><td><p id="oracle_'+i+'">'+oracle+'</p></td><td align="right"><input type="hidden" id="vu_'+i+'" value="'+vlr_unit+'"><p>'+formatNumber(vlr_unit)+'</p></td><td align="right"><input type="hidden" id="cant_'+i+'" value="'+cant+'"><p>'+cant+'</p></td><td><input type="hidden" id="nota_'+i+'" value="'+nota+'"><p>'+nota+'</p></td><td align="right"><input type="hidden" id="iva_'+i+'" value="'+iva+'"><p>'+formatNumber(vlr_subtotal)+'</p></td><td><button type="button" class="btn btn-danger btn-sm btn-rep delete"><i class="fas fa-times-circle"></i> Eliminar</button></td></tr>');
 
 				  $(".ajax-loader").fadeOut('fast');
 
@@ -369,8 +371,9 @@ function add_item(){
 	  		
 
         }else{
+        	$('html, body').animate({scrollTop:0}, 'fast');
             $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
-            $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h4><i class="icon fa fa-info-circle"></i>Cuidado</h4><p>Este item ya esta registrado.</p>');
+	        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>Ya existe este item en el registro actual.');
             $("#div_mensaje").fadeIn('fast');
             $(".ajax-loader").fadeOut('fast');
         }
@@ -378,22 +381,22 @@ function add_item(){
     }else{
 
         if(fecha == ""){
-            $('#ParPedEsp_Fecha_em_').html('Fecha no puede ser nulo.');
+            $('#ParPedEsp_Fecha_em_').html('Fecha es requerido.');
             $('#ParPedEsp_Fecha_em_').show(); 
         }
 
         if(nit == ""){
-            $('#ParPedEsp_Nit_em_').html('Cliente no puede ser nulo.');
+            $('#ParPedEsp_Nit_em_').html('Cliente es requerido.');
             $('#ParPedEsp_Nit_em_').show(); 
         }
 
         if(suc == ""){
-            $('#ParPedEsp_Sucursal_em_').html('Sucursal no puede ser nulo.');
+            $('#ParPedEsp_Sucursal_em_').html('Sucursal es requerido.');
             $('#ParPedEsp_Sucursal_em_').show();    
         }
 
         if(pe == ""){
-            $('#ParPedEsp_Punto_Envio_em_').html('Punto de envío no puede ser nulo.');
+            $('#ParPedEsp_Punto_Envio_em_').html('Punto de envío es requerido.');
             $('#ParPedEsp_Punto_Envio_em_').show();    
         }
 
@@ -403,12 +406,12 @@ function add_item(){
             	$('#ParPedEsp_Porc_Desc_em_').show(); 
             }  
         }else{
-        	$('#ParPedEsp_Porc_Desc_em_').html('% Desc. adic. no puede ser nulo.');
+        	$('#ParPedEsp_Porc_Desc_em_').html('% Desc. adic. es requerido.');
             $('#ParPedEsp_Porc_Desc_em_').show(); 	
         }
 
         if(item == ""){
-            $('#ParPedEsp_item_em_').html('Item no puede ser nulo.');
+            $('#ParPedEsp_item_em_').html('Item es requerido.');
             $('#ParPedEsp_item_em_').show();    
         }
 
@@ -418,7 +421,7 @@ function add_item(){
             	$('#ParPedEsp_cant_em_').show(); 
             }  
         }else{
-        	$('#ParPedEsp_cant_em_').html('Cant. no puede ser nulo.');
+        	$('#ParPedEsp_cant_em_').html('Cant. es requerido.');
             $('#ParPedEsp_cant_em_').show(); 	
         }
 
@@ -502,7 +505,7 @@ function valida_opciones(){
 
 	}else{
 		if(fecha == ""){
-            $('#ParPedEsp_Fecha_em_').html('Fecha no puede ser nulo.');
+            $('#ParPedEsp_Fecha_em_').html('Fecha es requerido.');
             $('#ParPedEsp_Fecha_em_').show(); 
         }
 
@@ -512,29 +515,9 @@ function valida_opciones(){
             	$('#ParPedEsp_Porc_Desc_em_').show(); 
             }  
         }else{
-        	$('#ParPedEsp_Porc_Desc_em_').html('% Desc. adic. no puede ser nulo.');
+        	$('#ParPedEsp_Porc_Desc_em_').html('% Desc. adic. es requerido.');
             $('#ParPedEsp_Porc_Desc_em_').show(); 	
         }	
 	}
 }
-
-
-function clear_select2_ajax(id){
-	$('#'+id+'').val('').trigger('change');
-	$('#s2id_'+id+' span').html("");
-}
-
-function limp_div_msg(){
-    $("#div_mensaje").hide();  
-    classact = $('#div_mensaje').attr('class');
-    $("#div_mensaje").removeClass(classact);
-    $("#mensaje").html('');
-}
-
-function formatNumber(num) {
-  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-}
-
 </script>
-
-

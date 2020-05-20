@@ -15,7 +15,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Id_B_Usuario'); ?>
-			    <?php echo $form->numberField($model,'Id_B_Usuario', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number')); ?>
+			    <?php echo $form->numberField($model,'Id_B_Usuario', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
@@ -77,7 +77,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Creacion'); ?>
-			    <?php echo $form->textField($model,'Fecha_Creacion', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha_Creacion', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
@@ -101,7 +101,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Actualizacion'); ?>
-			    <?php echo $form->textField($model,'Fecha_Actualizacion', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha_Actualizacion', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	</div>
@@ -160,9 +160,12 @@
 	        </div>
 	    </div>
 	</div>
-	<div class="btn-group" style="padding-bottom: 2%">
-		<button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-		<button type="submit" class="btn btn-success" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+
+	<div class="row mb-2">
+	  	<div class="col-sm-6">  
+     		<button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+			<button type="submit" class="btn btn-success btn-sm" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+	  	</div>
 	</div>
 
 <?php $this->endWidget(); ?>

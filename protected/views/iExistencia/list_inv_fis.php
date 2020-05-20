@@ -7,7 +7,7 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
 
 ?>
 
-<h3>Listado de items para inv. físico</h3>
+<h4>Listado de items para inv. físico</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
   'id'=>'iexistencia-form',
@@ -25,8 +25,8 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
   <div class="col-sm-8">
     <div class="form-group">
           <?php echo $form->hiddenField($model,'orderby', array('class' => 'form-control', 'readonly' => true, 'autocomplete' => 'off', 'value' => 1)); ?>
-          <?php echo $form->error($model,'linea', array('class' => 'pull-right badge bg-red')); ?>
           <?php echo $form->label($model,'linea'); ?>
+          <?php echo $form->error($model,'linea', array('class' => 'badge badge-warning float-right')); ?>
           <?php
             $this->widget('ext.select2.ESelect2',array(
               'name'=>'IExistencia[linea]',
@@ -46,9 +46,11 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
   </div>
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-bar-chart"></i> Generar</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-file-excel"></i> Generar</button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>
@@ -85,11 +87,6 @@ $(function() {
 function resetfields(){
   $('#s2id_IExistencia_linea span').html("");
   $('#IExistencia_linea').val('').trigger('change');
-}
-
-function clear_select2_ajax(id){
-    $('#'+id+'').val('').trigger('change');
-    $('#s2id_'+id+' span').html("");
 }
 
 </script>

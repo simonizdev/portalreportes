@@ -82,5 +82,5 @@ function valida_opciones(){
    	
 </script>
 
-<h3>Actualización de perfil</h3> 
+<h4>Actualización de perfil</h4> 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

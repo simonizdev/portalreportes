@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Creación de docto param. pedido especial</h3>
+<h4>Creación de docto param. pedido especial</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Actualización tipo de tercero</h3>
+<h4>Actualización tipo de tercero</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

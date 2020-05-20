@@ -611,7 +611,7 @@ class ReporteController extends Controller
         if($filas < 2){
 
         	$opc = 0;
-        	$msj = '<h4><i class="icon fa fa-info-circle"></i> Error</h4> El archivo esta vacio.';
+        	$msj = '<h5><i class="icon fas fa-info-circle"></i>Info</h5> El archivo esta vacio.';
 
         }else{
 
@@ -619,7 +619,7 @@ class ReporteController extends Controller
     	
     		//se ejecuta el sp por cada fila en el archivo
 
-    		$msj = '<h4><i class="icon fa fa-info-circle"></i> Info</h4>';
+    		$msj = '<h5><i class="icon fas fa-info-circle"></i>Info</h5>';
 
     		for($i = 1; $i <= $filas -1 ; $i++){
         		$param1 = $dataExcel[$i][0];
@@ -799,7 +799,7 @@ class ReporteController extends Controller
         if($filas < 2){
 
         	$opc = 0;
-        	$msj = '<h4><i class="icon fa fa-info-circle"></i> Error</h4> El archivo esta vacio.';
+        	$msj = '<h5><i class="icon fas fa-info-circle"></i>Info</h5> El archivo esta vacio.';
 
         }else{
 
@@ -807,7 +807,7 @@ class ReporteController extends Controller
     	
     		//se ejecuta el sp por cada fila en el archivo
 
-    		$msj = '<h4><i class="icon fa fa-info-circle"></i> Info</h4>';
+    		$msj = '<h5><i class="icon fas fa-info-circle"></i>Info</h5>';
 
     		for($i = 1; $i <= $filas -1 ; $i++){
         		$param1 = $dataExcel[$i][0];
@@ -2637,7 +2637,7 @@ class ReporteController extends Controller
         if($filas < 2){
 
         	$opc = 0;
-        	$msj = '<h4><i class="icon fa fa-info-circle"></i> Error</h4> El archivo esta vacio.';
+        	$msj = '<h5><i class="icon fas fa-info-circle"></i>Info</h5> El archivo esta vacio.';
 
         }else{
 
@@ -2645,7 +2645,7 @@ class ReporteController extends Controller
     	
     		//se ejecuta el sp por cada fila en el archivo
 
-    		$msj = '<h4><i class="icon fa fa-info-circle"></i> Info</h4>';
+    		$msj = '<h5><i class="icon fas fa-info-circle"></i>Info</h5>';
 
     		for($i = 1; $i <= $filas -1 ; $i++){
         		$param1 = $dataExcel[$i][0];
@@ -4296,5 +4296,6 @@ class ReporteController extends Controller
 		}
 
 	}
+
 
 }

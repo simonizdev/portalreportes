@@ -95,6 +95,7 @@ class ResOCRController extends Controller
  
             if($model->save()){
                 $documento_subido->saveAs(Yii::app()->basePath.'/../images/resumen_oc_rem/'.$nombre_archivo);
+                Yii::app()->user->setFlash('success', "El Resumen # ".$cons." fue creado correctamente.");
                 $this->redirect(array('admin'));
             }
 		}
@@ -126,7 +127,7 @@ class ResOCRController extends Controller
 			$model->attributes=$_POST['ResOCR'];
 
 			if($_FILES['ResOCR']['name']['sop']  != "") {
-			
+
 				if($model->Tipo == 1){
 					$nombre_doc = $id.'_resumen_oc_'.date('Y_m_d_H_i_s');
 				}else{
@@ -163,7 +164,7 @@ class ResOCRController extends Controller
             		unlink($ruta_doc_act);
                 	$documento_subido->saveAs(Yii::app()->basePath.'/../images/resumen_oc_rem/'.$nombre_archivo);
             	}
-
+            	Yii::app()->user->setFlash('success', "El Resumen # ".$id." fue actualizado correctamente.");
                 $this->redirect(array('admin'));
             }
 

@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Visualizando WIP</h3>
+<h4>Visualizando WIP</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
     'id'=>'wip-form',
@@ -201,8 +201,10 @@
     </div>
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=Wip/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=wip/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>

@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Visualizando opción de menu</h3>
+<h4>Visualizando opción de menu</h4>
 
 <div class="table-responsive">
 
@@ -18,8 +18,19 @@
         ),
 		'Descripcion',
 		'Orden',
-		'Link',
-		'Font_Icon',
+        array(
+            'name'=>'Icono',
+            'type'=>'html',
+            'value'=> '<i class="'.$model->Font_Icon.'"></i>', 
+        ),
+        array(
+            'name' => 'Descarga_Directa',
+            'value' => UtilidadesVarias::textoestado2($model->Descarga_Directa),
+        ),
+        array(
+            'name' => 'Descripcion_Larga',
+            'value' => ($model->Descripcion_Larga == "") ? "-" : $model->Descripcion_Larga,
+        ),
 		array(
             'name'=>'Id_Usuario_Creacion',
             'value'=>$model->idusuariocre->Usuario,
@@ -38,16 +49,15 @@
         ),
         array(
             'name' => 'Estado',
-            'type' => 'raw',
-            'value' => ($model->Estado == 1) ? "Activo" : "Inactivo",
+            'value' => UtilidadesVarias::textoestado1($model->Estado),
         ),
 	),
 )); ?>
 
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=menu/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=menu/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+    </div>
 </div>
-
-

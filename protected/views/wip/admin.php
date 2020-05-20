@@ -17,7 +17,7 @@ $.fn.yiiGridView.export = function() {
     });
 }
 $('.search-button').click(function(){
-	$('.search-form').toggle('fast');
+	$('.search-form').slideToggle('fast');
 	return false;
 });
 $('.search-form form').submit(function(){
@@ -29,13 +29,32 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h3>Administración de WIP</h3>
-
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=Wip/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
-    <button type="button" class="btn btn-success search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
-    <button type="button" class="btn btn-success" id="export-excel"><i class="fa fa-file-excel-o"></i> Exportar a excel</button>
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h4>Administración de WIP</h4>
+  </div>
+  <div class="col-sm-6 text-right"> 
+    <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=wip/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button> 
+    <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+    <button type="button" class="btn btn-success btn-sm" id="export-excel"><i class="fas fa-file-excel"></i> Exportar a EXCEL</button>
+  </div>
 </div>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-check-circle"></i>Realizado</h5>
+        <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?> 
+
+<?php if(Yii::app()->user->hasFlash('warning')):?>
+    <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-info-circle"></i>Info</h5>
+        <?php echo Yii::app()->user->getFlash('warning'); ?>
+    </div>
+<?php endif; ?> 
 
 <div class="search-form" style="display:none;">
 <?php $this->renderPartial('_search',array(
@@ -47,14 +66,16 @@ $('.search-form form').submit(function(){
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'wip-grid',
 	'dataProvider' => $model->search(),
-	//'filter'=>$model,
+    //'filter'=>$model,
+    'pager'=>array(
+        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+    ),
     'enableSorting' => false,
 	'columns'=>array(
 		//'ID',
 		//'CONSECUTIVO',
 		array(
             'name'=>'WIP',
-            'htmlOptions'=>array('width'=>'70px'),
     	),
     	array(
             'name' => 'CADENA',
@@ -67,10 +88,10 @@ $('.search-form form').submit(function(){
             'value' => 'substr($data->DESCRIPCION, 0, 35)',
         ),
 		'RESPONSABLE',
-		'CANT_OC_AL_DIA',
+		/*'CANT_OC_AL_DIA',
 		'CANT_PENDIENTE',
 		'CANT_VEND',
-		'INVENTARIO_TOTAL',
+		'INVENTARIO_TOTAL',*/
 		/*'ESTADO_OP',
 		'DE_0_A_30_DIAS',
 		'DE_31_A_60_DIAS',
@@ -100,14 +121,14 @@ $('.search-form form').submit(function(){
             'template'=>'{view}{update}',
             'buttons'=>array(
                 'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Visualizar'),
                     'visible'=> '$data->vbtnview($data->FECHA_CUMPLIDO)',
                     'url'=>'Yii::app()->createUrl("Wip/view", array("id"=>$data->ID))',
                 ),
                 'update'=>array(
-                    'label'=>'<i class="fa fa-pencil actions text-black"></i>',
+                    'label'=>'<i class="fa fa-pen actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Actualizar'),
                     'visible'=> '(Yii::app()->user->getState("permiso_act") == true && $data->vbtnupdate($data->FECHA_CUMPLIDO) == true)',
@@ -116,10 +137,12 @@ $('.search-form form').submit(function(){
             )
         ),
         array(
-    		'value'=>'CHTML::button(\'Generar pdf\', array(\'onClick\'=>"firmawip(\'$data->ID\')", \'class\'=>"btn btn-xs btn-success",))',
-      		'type'=>'raw',
-			'htmlOptions'=>array('data-toggle'=>'modal', 'data-target'=> '#modal-wip'),
-   		),       
+	        'name'=>'',
+	        'type'=>'html',
+	        'value'=>function($data){
+	            echo '<button type="button" class="btn btn-default btn-sm btn-rep text-dar" data-toggle="modal" data-target="#modal-wip" onclick="firmawip('.$data->ID.');"><i class="fas fa-file-signature"></i> Firma / PDF</button>';
+	        },
+	    ),   
 	),
 )); ?>
 
@@ -131,27 +154,27 @@ $('.search-form form').submit(function(){
       </div>
       <div class="modal-body">
         <div class="row">
-        	<input class="form-control" autocomplete="off" name="id_wip" id="id_wip" type="hidden">  
+        	<input class="form-control form-control-sm" autocomplete="off" name="id_wip" id="id_wip" type="hidden">  
 		  	<div class="col-sm-6">
 		        <div class="form-group">
-		        	<div class="pull-right badge bg-red" id="error_firma" style="display: none"></div>
+		        	<div class="badge badge-warning float-right" id="error_firma" style="display: none"></div>
 	                <label>Firma</label>
-	                <input class="form-control" autocomplete="off" name="firma_wip" id="firma_wip" onkeyup="convert_may(this)" type="text">
+	                <input class="form-control form-control-sm" autocomplete="off" name="firma_wip" id="firma_wip" onkeyup="convert_may(this)" type="text">
 	            </div>
 		    </div>
 		    <div class="col-sm-6">
 		        <div class="form-group">
-		        	<div class="pull-right badge bg-red" id="error_cargo" style="display: none"></div>
+		        	<div class="badge badge-warning float-right" id="error_cargo" style="display: none"></div>
 	                <label>Cargo</label>     
-	                <input class="form-control" autocomplete="off" name="cargo_wip" id="cargo_wip" onkeyup="convert_may(this)" type="text">        
+	                <input class="form-control form-control-sm" autocomplete="off" name="cargo_wip" id="cargo_wip" onkeyup="convert_may(this)" type="text">        
 	            </div>
 		    </div>
 		    
 		</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal" id="close_modal"><i class="fa fa-reply"></i> Volver</button>
-        <button type="button" class="btn btn-success" id="gen_wip"><i class="fa fa-file-pdf-o"></i> Generar PDF</button>
+        <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" id="close_modal"><i class="fa fa-reply"></i> Volver</button>
+        <button type="button" class="btn btn-success btn-sm" id="gen_wip"><i class="fas fa-file-pdf"></i> Generar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -163,6 +186,22 @@ $('.search-form form').submit(function(){
 <script type="text/javascript">
 
 	$(function(){
+
+		$("#firma_wip").change(function() {
+			val = $(this).val();
+			if(val != ""){
+				$('#error_firma').html('');
+				$('#error_firma').hide();
+			}
+		});
+
+		$("#cargo_wip").change(function() {
+			val = $(this).val();
+			if(val != ""){
+				$('#cargo_wip').html('');
+				$('#cargo_wip').hide();
+			}
+		});
 
 		$("#close_modal").click(function() {
   			$('#id_wip').val('');
@@ -198,12 +237,12 @@ $('.search-form form').submit(function(){
 
 			}else{
 				if(firma == ""){
-					$('#error_firma').html('Firma no puede ser nulo.');
+					$('#error_firma').html('Firma es requerido.');
 					$('#error_firma').show();
 				}
 
 				if(cargo == ""){
-					$('#error_cargo').html('Firma no puede ser nulo.');
+					$('#error_cargo').html('Cargo es requerido.');
 					$('#error_cargo').show();
 				}
 			}

@@ -21,7 +21,7 @@
 			            'selector' => '#EanItem_Id_Item',
 			            'options'  => array(
 			                'allowClear' => true,
-			                'minimumInputLength' => 5,
+			                'minimumInputLength' => 3,
 			                'width' => '100%',
 			                'language' => 'es',
 			                'ajax' => array(
@@ -31,7 +31,7 @@
 			                    'results'=>'js:function(data){ return {results:data};}'                   
 			                ),
 			                'formatNoMatches'=> 'js:function(){ clear_select2_ajax("EanItem_Id_Item"); return "No se encontraron resultados"; }',
-			                'formatInputTooShort' =>  'js:function(){ return "Digite más de 5 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'EanItem_Id_Item\')\">Limpiar campo</button>"; }',
+			                'formatInputTooShort' =>  'js:function(){ return "Digite más de  caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'EanItem_Id_Item\')\">Limpiar campo</button>"; }',
 			            ),
 			        ));
 			    ?>
@@ -52,19 +52,16 @@
 	        </div>
 	    </div>
 	</div>
-	<div class="btn-group" style="padding-bottom: 2%">
-		<button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-		<button type="submit" class="btn btn-success" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+	<div class="row mb-2">
+	  	<div class="col-sm-6">  
+     		<button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+			<button type="submit" class="btn btn-success btn-sm" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+	  	</div>
 	</div>
 
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
-
-	function clear_select2_ajax(id){
-		$('#'+id+'').val('').trigger('change');
-		$('#s2id_'+id+' span').html("");
-	}
 
 	function resetfields(){
 		$('#EanItem_Id_Item').val('').trigger('change');

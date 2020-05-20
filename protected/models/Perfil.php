@@ -99,7 +99,8 @@ class Perfil extends CActiveRecord
 			'usuario_creacion' => 'Usuario que creo',
 			'usuario_actualizacion' => 'Usuario que actualizó',
 			'orderby' => 'Orden de resultados',
-			'Modificacion_Reg' => 'Permitir act. de registros'
+			'Modificacion_Reg' => 'Permitir act. de reg.',
+			'opciones_menu' => 'Opciones de menu'
 
 		);
 	}

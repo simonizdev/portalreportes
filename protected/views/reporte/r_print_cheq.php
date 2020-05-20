@@ -4,9 +4,7 @@
 
 ?>
 
-<h3>Reimpresión de cheque</h3>
-
-<div id="div_mensaje" style="display: none;"></div>
+<h4>Reimpresión de cheque</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
   'id'=>'reporte-form',
@@ -20,10 +18,12 @@
   ),
 )); ?>
 
+<div id="div_mensaje" style="display: none;"></div>
+
 <div class="row">
   <div class="col-sm-4">
     <div class="form-group">
-      <?php echo $form->error($model,'cia', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'cia', array('class' => 'badge badge-warning float-right')); ?>
       <?php echo $form->label($model,'cia'); ?>
       <?php
           $this->widget('ext.select2.ESelect2',array(
@@ -42,7 +42,7 @@
   </div>
   <div class="col-sm-4">
     <div class="form-group">
-      <?php echo $form->error($model,'c_o', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'c_o', array('class' => 'badge badge-warning float-right')); ?>
       <?php echo $form->label($model,'c_o'); ?>
       <?php
           $this->widget('ext.select2.ESelect2',array(
@@ -61,7 +61,7 @@
   </div>
   <div class="col-sm-4">
     <div class="form-group">
-      <?php echo $form->error($model,'tipo', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'tipo', array('class' => 'badge badge-warning float-right')); ?>
       <?php echo $form->label($model,'tipo'); ?>
       <?php
           $this->widget('ext.select2.ESelect2',array(
@@ -82,17 +82,20 @@
 <div class="row">
   <div class="col-sm-4">
     <div class="form-group">
-        <?php echo $form->error($model,'consecutivo', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'consecutivo', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'consecutivo'); ?>
-        <?php echo $form->numberField($model,'consecutivo', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number')); ?>
+        <?php echo $form->numberField($model,'consecutivo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
     </div>
   </div>
 </div>
     
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-search"></i> Consultar</button>
-    <button type="button" class="btn btn-success" id="print" style="display: none;"><i class="fa fa-print"></i> Imprimir</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-search-dollar"></i> Buscar</button>
+      <button type="button" class="btn btn-success btn-sm" id="print" style="display: none;"><i class="fas fa-print"></i> Imprimir</button>
+
+    </div>
 </div>
 
 <div class="row">
@@ -166,19 +169,21 @@ $(function() {
                   success: function(resp){
 
                       if(resp == 0){
+                        $('html, body').animate({scrollTop:0}, 'fast');
                         $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
-                        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h4><i class="icon fa fa-info-circle"></i>Cuidado</h4><p>No se ha impreso ningún cheque con los criterios de busqueda utilizados.</p>');
+                        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>No se ha impreso ningún cheque con los criterios de busqueda utilizados.'); 
                       }
 
                       if(resp == 1){
+                        $('html, body').animate({scrollTop:0}, 'fast');
                         $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
-                        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h4><i class="icon fa fa-info-circle"></i>Cuidado</h4><p>Este cheque ya fue impreso el n° de veces permitidas (3).</p>');
+                        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>Este cheque ya fue impreso el n° de veces permitidas (3).');
                       }
 
                       if(resp == 2){
-                        $("#div_mensaje").addClass("alert alert-success alert-dismissible");
-                        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h4><i class="icon fa fa-info-circle"></i>Realizado</h4><p>Por favor oprima el botón imprimir.</p>');
-
+                        $('html, body').animate({scrollTop:0}, 'fast');
+                        $("#div_mensaje").addClass("alert alert-sussess alert-dismissible");
+                        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>Por favor oprima el botón imprimir.');
                         
                         var name_file = cia+"_"+co+"_"+tipo+"_"+consecutivo+".pdf";
                         var iframe = $("#viewer");
@@ -238,8 +243,9 @@ $(function() {
               $('#print').hide();
               $('#valida_form').show();
 
+              $('html, body').animate({scrollTop:0}, 'fast');
               $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
-              $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h4><i class="icon fa fa-info-circle"></i>Cuidado</h4><p>No se registro la reimpresión del cheque '+cia+'-'+co+'-'+tipo+'-'+consecutivo+' en el sistema.</p>');
+              $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>No se registro la reimpresión del cheque '+cia+'-'+co+'-'+tipo+'-'+consecutivo+' en el sistema.');
 
               $("#div_mensaje").fadeIn('fast');
               $(".ajax-loader").fadeOut('fast');
@@ -258,8 +264,9 @@ $(function() {
               $('#print').hide();
               $('#valida_form').show();
 
-              $("#div_mensaje").addClass("alert alert-success alert-dismissible");
-              $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h4><i class="icon fa fa-info-circle"></i>Realizado</h4><p>Se registro la reimpresión del cheque '+cia+'-'+co+'-'+tipo+'-'+consecutivo+' en el sistema.</p>');
+               $('html, body').animate({scrollTop:0}, 'fast');
+              $("#div_mensaje").addClass("alert alert-sussess alert-dismissible");
+              $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>Se registro la reimpresión del cheque '+cia+'-'+co+'-'+tipo+'-'+consecutivo+' en el sistema.');
 
               $("#div_mensaje").fadeIn('fast');
               $(".ajax-loader").fadeOut('fast');
@@ -289,14 +296,5 @@ function resetfields(){
   iframe.attr('src',url);
   limp_div_msg();
 }
-
-//función para limpiar el mensaje retornado por el ajax
-function limp_div_msg(){
-    $("#div_mensaje").hide();  
-    classact = $('#div_mensaje').attr('class');
-    $("#div_mensaje").removeClass(classact);
-    $("#mensaje").html('');
-}
-
 
 </script>

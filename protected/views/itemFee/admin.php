@@ -4,7 +4,8 @@
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
-	$('.search-form').toggle('fast');
+	$('.search-form').slideToggle('fast');
+	
 	return false;
 });
 $('.search-form form').submit(function(){
@@ -17,14 +18,17 @@ $('.search-form form').submit(function(){
 
 //para combos de usuarios
 $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario'); 
-
+						
 ?>
 
-<h3>Administración de items (FEE)</h3>
-
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=itemFee/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
-    <button type="button" class="btn btn-success search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h4>Administración de items (FEE)</h4>
+  </div>
+  <div class="col-sm-6 text-right">  
+      <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=itemFee/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
+    <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+  </div>
 </div>
 
 <div class="search-form" style="display:none;">
@@ -37,7 +41,10 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'item-fee-grid',
 	'dataProvider'=>$model->search(),
-	//'filter'=>$model,
+    //'filter'=>$model,
+    'pager'=>array(
+        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+    ),
     'enableSorting' => false,
 	'columns'=>array(
 		'Id_Fee_Item',
@@ -69,27 +76,25 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
             'name'=>'Fecha_Actualizacion',
             'value'=>'UtilidadesVarias::textofechahora($data->Fecha_Actualizacion)',
         ),*/
-        array(
+		array(
             'name' => 'Iva',
-            'type' => 'raw',
-            'value' => '($data->Iva == "1") ? "Si" : "No"',
+            'value' => 'UtilidadesVarias::textoestado2($data->Iva)',
         ),
         array(
             'name' => 'Estado',
-            'type' => 'raw',
-            'value' => '($data->Estado == "1") ? "Activo" : "Inactivo"',
+            'value' => 'UtilidadesVarias::textoestado1($data->Estado)',
         ),
 		array(
 			'class'=>'CButtonColumn',
             'template'=>'{view}{update}',
             'buttons'=>array(
                 'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Visualizar'),
                 ),
                 'update'=>array(
-                    'label'=>'<i class="fa fa-pencil actions text-black"></i>',
+                    'label'=>'<i class="fa fa-pen actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Actualizar'),
                     'visible'=> '(Yii::app()->user->getState("permiso_act") == true)',

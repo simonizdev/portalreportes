@@ -17,14 +17,14 @@ $.fn.yiiGridView.export = function() {
     });
 }
 $('.search-button').click(function(){
-	$('.search-form').toggle('fast');
-	return false;
+    $('.search-form').slideToggle('fast');
+    return false;
 });
 $('.search-form form').submit(function(){
-	$('#bodega-usuario-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
+    $('#bodega-usuario-grid').yiiGridView('update', {
+        data: $(this).serialize()
+    });
+    return false;
 });
 ");
 
@@ -35,29 +35,35 @@ $lista_bodegas = CHtml::listData($bodegas, 'Descripcion', 'Descripcion');
 
 ?>
 
-<h3>Consulta de bodegas por usuario</h3>
-
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
-    <button type="button" class="btn btn-success" id="export-excel"><i class="fa fa-file-excel-o"></i> Exportar a excel</button>
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h4>Consulta de bodegas por usuario</h4>
+  </div>
+  <div class="col-sm-6 text-right">  
+    <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+    <button type="button" class="btn btn-success btn-sm" id="export-excel"><i class="fas fa-file-excel"></i> Exportar a EXCEL</button>
+  </div>
 </div>
 
 <div class="search-form" style="display:none;">
 <?php $this->renderPartial('_search',array(
-	'model'=>$model,
+    'model'=>$model,
     'lista_usuarios' => $lista_usuarios,
     'lista_bodegas' => $lista_bodegas,
 )); ?>
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'bodega-usuario-grid',
-	'dataProvider'=>$model->search(),
-	//'filter'=>$model,
+    'id'=>'bodega-usuario-grid',
+    'dataProvider'=>$model->search(),
+    //'filter'=>$model,
+    'pager'=>array(
+        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+    ),
     'enableSorting' => false,
-	'columns'=>array(
-		'Id_B_Usuario',
-		array(
+    'columns'=>array(
+        'Id_B_Usuario',
+        array(
             'name'=>'usuario',
             'value'=>'$data->idusuario->Usuario',
         ),
@@ -65,7 +71,7 @@ $lista_bodegas = CHtml::listData($bodegas, 'Descripcion', 'Descripcion');
             'name'=>'bodega',
             'value'=>'$data->idbodega->Descripcion',
         ),
-		/*array(
+        /*array(
             'name'=>'Id_Usuario_Creacion',
             'value'=>'$data->idusuariocre->Usuario',
         ),
@@ -83,19 +89,18 @@ $lista_bodegas = CHtml::listData($bodegas, 'Descripcion', 'Descripcion');
         ),*/
         array(
             'name' => 'Estado',
-            'type' => 'raw',
-            'value' => '($data->Estado == "1") ? "Activo" : "Inactivo"',
+            'value' => 'UtilidadesVarias::textoestado1($data->Estado)',
         ),
-		array(
-			'class'=>'CButtonColumn',
+        array(
+            'class'=>'CButtonColumn',
             'template'=>'{view}',
             'buttons'=>array(
                 'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Visualizar'),
                 ),
             )
-		),
-	),
+        ),
+    ),
 )); ?>

@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Actualización de item para promoción</h3> 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<h4>Actualización de item para promoción</h4> 
+<?php $this->renderPartial('_form2', array('model'=>$model)); ?>
 

@@ -86,6 +86,7 @@ class PromocionController extends Controller
 				$nuevo_comp_prom->save();
 			}
 
+			Yii::app()->user->setFlash('success', "La Promoción ".$model->Desc_Item($model->Id_Item_Padre)." fue creada correctamente.");
 			$this->redirect(array('admin'));
 		}
 
@@ -112,8 +113,10 @@ class PromocionController extends Controller
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
 
-			if($model->save())
+			if($model->save()){
+				Yii::app()->user->setFlash('success', "El componente de la promoción ".$model->Desc_Item($model->Id_Item_Padre)." fue actualizado correctamente.");
 				$this->redirect(array('admin'));
+			}
 		}
 
 		$this->render('update',array(
@@ -129,7 +132,6 @@ class PromocionController extends Controller
 	public function actionDelete($id)
 	{
 		$this->loadModel($id)->delete();
-
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));

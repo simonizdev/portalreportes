@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Creación de factura contable</h3>
+<h4>Creación de factura contable</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

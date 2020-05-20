@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Actualización de WIP</h3>
+<h4>Actualización de WIP</h4>
 
 <?php $this->renderPartial('_form2', array('model'=>$model, 'lista_cadenas'=>$lista_cadenas)); ?>

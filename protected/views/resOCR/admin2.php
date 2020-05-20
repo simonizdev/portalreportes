@@ -4,7 +4,7 @@
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
-	$('.search-form').toggle('fast');
+	$('.search-form').slideToggle('fast');
 	return false;
 });
 $('.search-form form').submit(function(){
@@ -20,11 +20,15 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 
 ?>
 
-<h3>Descarga resumen ordenes de compra / remisiones</h3>
-
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+<div class="row mb-2">
+  <div class="col-sm-8">
+    <h4>Descarga resumen ordenes de compra / remisiones</h4>
+  </div>
+  <div class="col-sm-4 text-right">
+    <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+  </div>
 </div>
+
 
 <div class="search-form" style="display:none;">
 <?php $this->renderPartial('_search',array(
@@ -35,7 +39,10 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'res-ocr-grid',
 	'dataProvider'=>$model->search(),
-	//'filter'=>$model,
+    //'filter'=>$model,
+    'pager'=>array(
+        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+    ),
     'enableSorting' => false,
 	'columns'=>array(
 		'Id',
@@ -65,7 +72,7 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
             'template'=>'{download}',
             'buttons'=>array(
                 'download'=>array(
-                    'label'=>'<i class="fa fa-file-archive-o actions text-black"></i>',
+                    'label'=>'<i class="fas fa-file-archive actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Descargar resumen'),
                     'url'=>'Yii::app()->createUrl("resOCR/download", array("id"=>$data->Id))',

@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Modificación de documento</h3>
+<h4>Modificación de documento</h4>
 
 <?php $this->renderPartial('_form2', array('model'=>$model, 'detalle' => $detalle)); ?>

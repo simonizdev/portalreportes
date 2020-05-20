@@ -43,7 +43,7 @@
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila,$reg->Fecha_Creacion);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila,$reg->idusuarioact->Usuario);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila,$reg->Fecha_Actualizacion);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila,($reg->Estado == "1") ? "Activo" : "Inactivo");
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila,UtilidadesVarias::textoestado1($reg->Estado));
 
     $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 

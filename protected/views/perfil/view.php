@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Visualizando perfil</h3>
+<h4>Visualizando perfil</h4>
 
 <div class="table-responsive">
 
@@ -15,8 +15,7 @@
 		'Descripcion',
         array(
             'name' => 'Modificacion_Reg',
-            'type' => 'raw',
-            'value' => ($model->Modificacion_Reg == 1) ? "Si" : "No",
+            'value' => UtilidadesVarias::textoestado2($model->Modificacion_Reg),
         ),
 		array(
             'name'=>'Id_Usuario_Creacion',
@@ -36,15 +35,15 @@
         ),
         array(
             'name' => 'Estado',
-            'type' => 'raw',
-            'value' => ($model->Estado == 1) ? "Activo" : "Inactivo",
+            'value' => UtilidadesVarias::textoestado1($model->Estado),
         ),
 	),
 )); ?>
 
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=perfil/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=perfil/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+    </div>
 </div>
-

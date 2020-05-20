@@ -3,7 +3,7 @@
 /* @var $model Reporte */
 ?>
 
-<h3>Listas VS 560</h3>
+<h4>Listas VS 560</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -20,7 +20,7 @@
 <div class="row">
     <div class="col-sm-4">
       <div class="form-group">
-        <?php echo $form->error($model,'marca', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'marca', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'marca'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -40,7 +40,7 @@
     </div>
     <div class="col-sm-4">
       <div class="form-group">
-        <?php echo $form->error($model,'lista', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'lista', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'lista'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -59,7 +59,7 @@
     </div>
     <div class="col-sm-4">
       <div class="form-group">
-        <?php echo $form->error($model,'estado', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'estado', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'estado'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -78,9 +78,11 @@
     </div>
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-file-excel-o"></i> Generar</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-file-excel"></i> Generar</button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>
@@ -100,8 +102,7 @@ $(function() {
               });
               //se envia el form
               form.submit();
-              $(".ajax-loader").fadeIn('fast');
-              setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+              loadershow();
           } else {
               settings = form.data('settings'),
               $.each(settings.attributes, function () {

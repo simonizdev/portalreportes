@@ -3,7 +3,7 @@
 /* @var $model Reporte */
 ?>
 
-<h3>Análisis de ventas</h3>
+<h4>Análisis de ventas</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -23,21 +23,21 @@
   <div class="row">
       <div class="col-sm-4">
         <div class="form-group">
-          <?php echo $form->error($model,'periodo_inicial', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->error($model,'periodo_inicial', array('class' => 'badge badge-warning float-right')); ?>
           <?php echo $form->label($model,'periodo_inicial'); ?>
-          <?php echo $form->textField($model,'periodo_inicial', array('class' => 'form-control', 'readonly' => true)); ?>
+          <?php echo $form->textField($model,'periodo_inicial', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
         </div>
       </div> 
       <div class="col-sm-4">
         <div class="form-group">
-          <?php echo $form->error($model,'periodo_final', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->error($model,'periodo_final', array('class' => 'badge badge-warning float-right')); ?>
           <?php echo $form->label($model,'periodo_final'); ?>
-          <?php echo $form->textField($model,'periodo_final', array('class' => 'form-control', 'readonly' => true)); ?>
+          <?php echo $form->textField($model,'periodo_final', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
         </div>
     </div>
     <div class="col-sm-4">
       <div class="form-group">
-        <?php echo $form->error($model,'opcion', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'opcion', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'opcion'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -59,7 +59,7 @@
   <div class="row">
     <div class="col-sm-4" id="linea" style="display: none;">
       <div class="form-group">
-        <div class="pull-right badge bg-red" id="error_linea" style="display: none;"></div>
+        <div class="badge badge-warning float-right" id="error_linea" style="display: none;"></div>
         <?php echo $form->label($model,'linea'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -79,7 +79,7 @@
     </div>
     <div class="col-sm-4" id="marca" style="display: none;">
       <div class="form-group">
-        <div class="pull-right badge bg-red" id="error_marca" style="display: none;"></div>
+        <div class="badge badge-warning float-right" id="error_marca" style="display: none;"></div>
         <?php echo $form->label($model,'marca'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -99,7 +99,7 @@
     </div>
     <div class="col-sm-4" id="oracle" style="display: none;">
       <div class="form-group">
-        <div class="pull-right badge bg-red" id="error_oracle" style="display: none;"></div>
+        <div class="badge badge-warning float-right" id="error_oracle" style="display: none;"></div>
         <?php echo $form->label($model,'des_ora'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -118,11 +118,14 @@
       </div>
     </div>
 </div>
-    
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-file-excel-o"></i> Generar</button>
-</div>
+
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-file-excel"></i> Generar</button>
+    </div>
+</div>    
+
 
 <?php $this->endWidget(); ?>
 
@@ -241,7 +244,7 @@ $(function() {
                 if(linea == ""){
 
                   $('#error_linea').show();
-                  $('#error_linea').html('Línea no puede ser nulo.');
+                  $('#error_linea').html('Línea es requerido.');
                                     
                 }else{
                   
@@ -250,8 +253,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast'); 
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 20000);
+                  loadershow();
 
                 }
 
@@ -263,7 +265,7 @@ $(function() {
                 if(marca == ""){
 
                   $('#error_marca').show();
-                  $('#error_marca').html('Marca no puede ser nulo.');
+                  $('#error_marca').html('Marca es requerido.');
                                     
                 }else{
                   
@@ -272,8 +274,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -285,7 +286,7 @@ $(function() {
                 if(oracle == ""){
 
                   $('#error_oracle').show();
-                  $('#error_oracle').html('Desc. oracle no puede ser nulo.');
+                  $('#error_oracle').html('Desc. oracle es requerido.');
                                     
                 }else{
                   
@@ -294,8 +295,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 30000);
+                  loadershow();
 
                 }
 

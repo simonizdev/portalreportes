@@ -19,30 +19,30 @@
 <div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Id_Item', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'Id_Item', array('class' => 'badge badge-warning float-right')); ?>
           	<?php echo $form->label($model,'Id_Item'); ?>
-		    <?php echo $form->numberField($model,'Id_Item', array('class' => 'form-control', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'readonly' => true, 'value' => $id_asignar)); ?>
+		    <?php echo $form->numberField($model,'Id_Item', array('class' => 'form-control form-control-sm', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'readonly' => true, 'value' => $id_asignar)); ?>
         </div>
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Referencia', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'Referencia', array('class' => 'badge badge-warning float-right')); ?>
           	<?php echo $form->label($model,'Referencia'); ?>
-		    <?php echo $form->textField($model,'Referencia', array('class' => 'form-control', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+		    <?php echo $form->textField($model,'Referencia', array('class' => 'form-control form-control-sm', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Descripcion', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'Descripcion', array('class' => 'badge badge-warning float-right')); ?>
           	<?php echo $form->label($model,'Descripcion'); ?>
-		    <?php echo $form->textField($model,'Descripcion', array('class' => 'form-control', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+		    <?php echo $form->textField($model,'Descripcion', array('class' => 'form-control form-control-sm', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'UND_Medida', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'UND_Medida', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'UND_Medida'); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
@@ -62,7 +62,7 @@
     </div>
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'Id_Linea', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Id_Linea', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Id_Linea'); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
@@ -82,37 +82,37 @@
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Mes_Stock', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'Mes_Stock', array('class' => 'badge badge-warning float-right')); ?>
           	<?php echo $form->label($model,'Mes_Stock'); ?>
-		    <?php echo $form->numberField($model,'Mes_Stock', array('class' => 'form-control', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+		    <?php echo $form->numberField($model,'Mes_Stock', array('class' => 'form-control form-control-sm', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div> 
 </div>
 <div class="row">
 	<div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Min_Stock', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'Min_Stock', array('class' => 'badge badge-warning float-right')); ?>
           	<?php echo $form->label($model,'Min_Stock'); ?>
-		    <?php echo $form->numberField($model,'Min_Stock', array('class' => 'form-control', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+		    <?php echo $form->numberField($model,'Min_Stock', array('class' => 'form-control form-control-sm', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Max_Stock', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'Max_Stock', array('class' => 'badge badge-warning float-right')); ?>
           	<?php echo $form->label($model,'Max_Stock'); ?>
-		    <?php echo $form->numberField($model,'Max_Stock', array('class' => 'form-control', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+		    <?php echo $form->numberField($model,'Max_Stock', array('class' => 'form-control form-control-sm', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Nota', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'Nota', array('class' => 'badge badge-warning float-right')); ?>
           	<?php echo $form->label($model,'Nota'); ?>
-		    <?php echo $form->textField($model,'Nota', array('class' => 'form-control', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+		    <?php echo $form->textField($model,'Nota', array('class' => 'form-control form-control-sm', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'Estado', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Estado', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Estado'); ?>
             <?php $estados = Yii::app()->params->estados; ?>
             <?php
@@ -133,11 +133,12 @@
     </div> 
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=iItem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-    <button type="submit" class="btn btn-success" ><i class="fa fa-floppy-o"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=iItem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
+    </div>
 </div>
-
 
 <?php $this->endWidget(); ?>
 

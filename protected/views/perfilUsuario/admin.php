@@ -3,21 +3,8 @@
 /* @var $model PerfilUsuario */
 
 Yii::app()->clientScript->registerScript('search', "
-$('#export-excel').on('click',function() {
-    $.fn.yiiGridView.export();
-});
-$.fn.yiiGridView.export = function() {
-    $.fn.yiiGridView.update('perfil-usuario-grid',{ 
-        success: function() {
-            window.location = '". $this->createUrl('exportexcel')  . "';
-            $(\".ajax-loader\").fadeIn('fast');
-            setTimeout(function(){ $(\".ajax-loader\").fadeOut('fast'); }, 10000);
-        },
-        data: $('.search-form form').serialize() + '&export=true'
-    });
-}
 $('.search-button').click(function(){
-	$('.search-form').toggle('fast');
+	$('.search-form').slideToggle('fast');
 	return false;
 });
 $('.search-form form').submit(function(){
@@ -34,11 +21,13 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 $lista_perfiles = CHtml::listData($perfiles, 'Descripcion', 'Descripcion'); 
 ?>
 
-<h3>Consulta de perfiles por usuario</h3>
-
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
-    <button type="button" class="btn btn-success" id="export-excel"><i class="fa fa-file-excel-o"></i> Exportar a excel</button>
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h4>Consulta de perfiles por usuario</h4>
+  </div>
+  <div class="col-sm-6 text-right">  
+    <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+  </div>
 </div>
 
 <div class="search-form" style="display:none;">
@@ -54,6 +43,9 @@ $lista_perfiles = CHtml::listData($perfiles, 'Descripcion', 'Descripcion');
 	'dataProvider'=>$model->search(),
 	//'filter'=>$model,
     'enableSorting' => false,
+    'pager'=>array(
+        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+    ),
 	'columns'=>array(
 		'Id_P_Usuario',
 		array(
@@ -82,15 +74,14 @@ $lista_perfiles = CHtml::listData($perfiles, 'Descripcion', 'Descripcion');
         ),*/
         array(
             'name' => 'Estado',
-            'type' => 'raw',
-            'value' => '($data->Estado == "1") ? "Activo" : "Inactivo"',
+            'value' => 'UtilidadesVarias::textoestado1($data->Estado)',
         ),
 		array(
 			'class'=>'CButtonColumn',
             'template'=>'{view}',
             'buttons'=>array(
                 'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Visualizar'),
                 ),

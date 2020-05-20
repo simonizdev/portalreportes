@@ -4,10 +4,9 @@
 
 ?>
 
-<h3>Visualizando existencia de item</h3>
+<h4>Visualizando existencia de item</h4>
 
 <div class="table-responsive">
-
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -43,8 +42,8 @@
 
 </div>
 
-
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=iExistencia/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=iExistencia/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+    </div>
 </div>
-

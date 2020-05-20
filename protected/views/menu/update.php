@@ -7,5 +7,5 @@ $lista_opciones_p = CHtml::listData($opciones_p, 'Id_Menu', 'Descripcion');
 
 ?>
 
-<h3>Actualización opción de menu</h3> 
+<h4>Actualización opción de menu</h4> 
 <?php $this->renderPartial('_form', array('model'=>$model, 'lista_opciones_p'=>$lista_opciones_p)); ?>

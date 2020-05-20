@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Carga resumen ordenes de compra / remisiones</h3>
+<h4>Carga resumen ordenes de compra / remisiones</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

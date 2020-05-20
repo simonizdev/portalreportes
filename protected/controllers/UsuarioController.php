@@ -275,6 +275,27 @@ class UsuarioController extends Controller
         $criteria->params = array(":Id_Usuario" => Yii::app()->user->getState('id_user'));
         $perfiles=PerfilUsuario::model()->findAll($criteria);
 
+        $criteria = new CDbCriteria;
+        $criteria->join ='LEFT JOIN TH_I_BODEGA b ON t.Id_Bodega = b.Id';
+        $criteria->condition = 't.Id_Usuario = :Id_Usuario';
+        $criteria->order = 'b.Descripcion';
+        $criteria->params = array(":Id_Usuario" => Yii::app()->user->getState('id_user'));
+        $bodegas=BodegaUsuario::model()->findAll($criteria);
+
+        $criteria = new CDbCriteria;
+        $criteria->join ='LEFT JOIN TH_I_TIPO_DOCTO td ON t.Id_Tipo_Docto = td.Id';
+        $criteria->condition = 't.Id_Usuario = :Id_Usuario';
+        $criteria->order = 'td.Descripcion';
+        $criteria->params = array(":Id_Usuario" => Yii::app()->user->getState('id_user'));
+        $tipos_docto=TipoDoctoUsuario::model()->findAll($criteria);
+
+        $criteria = new CDbCriteria;
+        $criteria->join ='INNER JOIN Nomina_Real..TH_AREA a ON t.Id_Area = a.Id_Area';
+        $criteria->condition = 't.Id_Usuario = :Id_Usuario';
+        $criteria->order = 'a.Area';
+        $criteria->params = array(":Id_Usuario" => Yii::app()->user->getState('id_user'));
+        $areas=AreaUsuario::model()->findAll($criteria);
+
 	    if(isset($_POST['Usuario'])){
 	 
 	        $model->attributes = $_POST['Usuario'];
@@ -291,7 +312,7 @@ class UsuarioController extends Controller
           	}
     	}
 	 
-	    $this->render('profile',array('model'=>$model, 'perfiles'=>$perfiles)); 
+	    $this->render('profile',array('model'=>$model, 'perfiles'=>$perfiles, 'bodegas'=>$bodegas, 'tipos_docto'=>$tipos_docto, 'areas'=>$areas)); 
 	 }
 
 	/**

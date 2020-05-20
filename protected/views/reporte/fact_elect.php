@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Consulta facturas electrónicas</h3>
+<h4>Consulta facturas electrónicas</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -21,23 +21,23 @@
 <div class="row">
   <div class="col-sm-4">
     <div class="form-group">
-      <?php echo $form->error($model,'tipo', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'tipo', array('class' => 'badge badge-warning float-right')); ?>
       <?php echo $form->label($model,'tipo'); ?>
-      <?php echo $form->textField($model,'tipo', array('class' => 'form-control', 'maxlength' => '3', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+      <?php echo $form->textField($model,'tipo', array('class' => 'form-control form-control-sm', 'maxlength' => '3', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
     </div>
   </div>
   <div class="col-sm-4">
     <div class="form-group">
-        <?php echo $form->error($model,'cons_inicial', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'cons_inicial', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'cons_inicial'); ?>
-        <?php echo $form->numberField($model,'cons_inicial', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number')); ?>
+        <?php echo $form->numberField($model,'cons_inicial', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
     </div>
   </div>
   <div class="col-sm-4">
     <div class="form-group">
-        <?php echo $form->error($model,'cons_final', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'cons_final', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'cons_final'); ?>
-        <?php echo $form->numberField($model,'cons_final', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number')); ?>
+        <?php echo $form->numberField($model,'cons_final', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
     </div>
   </div>
 </div>
@@ -45,11 +45,11 @@
 <div class="row">  
 	<div class="col-sm-4">
     	<div class="form-group">
-			<?php echo $form->error($model,'opcion_exp', array('class' => 'pull-right badge bg-red')); ?>
+			<?php echo $form->error($model,'opcion_exp', array('class' => 'badge badge-warning float-right')); ?>
     	<?php echo $form->label($model,'opcion_exp'); ?><br>
 			<?php 
 				echo $form->radioButtonList($model,'opcion_exp',
-			    	array('3'=>'<i class="fa fa-desktop" aria-hidden="true"></i> Pantalla','2'=>'<i class="fa fa-file-excel-o" aria-hidden="true"></i> EXCEL'),
+			    	array('3'=>'<i class="fa fa-desktop" aria-hidden="true"></i> Pantalla','2'=>'<i class="far fa-file-excel" aria-hidden="true"></i> EXCEL'),
 			    	array(
 			        	'template'=>'{input}{label}',
 			        	'separator'=>'',
@@ -64,13 +64,14 @@
     	</div>
     </div>
 </div>
-    
-<div class="btn-group" style="padding-bottom: 2%">
-  <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-  <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-bar-chart"></i> Generar</button>
+
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fa fa-cogs"></i> Generar</button>
+    </div>
 </div>
-
-
+    
 <div class="row">
     <div class="col-lg-12 table-responsive" id="resultados">
     <!-- contenido via ajax -->
@@ -100,8 +101,7 @@ $(function() {
                 reporte_pantalla();
               }else{
                 form.submit();
-                $(".ajax-loader").fadeIn('fast');
-                setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000); 
+                loadershow();
               }  
           } else {
               settings = form.data('settings'),

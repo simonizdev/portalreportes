@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Actualización estado de documento</h3>
+<h4>Actualización estado de documento</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

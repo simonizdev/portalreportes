@@ -17,14 +17,14 @@ $.fn.yiiGridView.export = function() {
     });
 }
 $('.search-button').click(function(){
-	$('.search-form').toggle('fast');
-	return false;
+    $('.search-form').slideToggle('fast');
+    return false;
 });
 $('.search-form form').submit(function(){
-	$('#iexistencia-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
+    $('#iexistencia-grid').yiiGridView('update', {
+        data: $(this).serialize()
+    });
+    return false;
 });
 ");
 
@@ -32,15 +32,18 @@ $('.search-form form').submit(function(){
 $lista_bodegas = CHtml::listData($bodegas, 'Id', 'Descripcion'); 
 
 //para combos de lineas
-$lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion'); 
+$lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');  
 
 ?>
 
-<h3>Consulta de existencias x bodega</h3>
-
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
-    <button type="button" class="btn btn-success" id="export-excel"><i class="fa fa-file-excel-o"></i> Exportar a excel</button>
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h4>Consulta de existencias x bodega</h4>
+  </div>
+  <div class="col-sm-6 text-right">  
+    <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+    <button type="button" class="btn btn-success btn-sm" id="export-excel"><i class="fas fa-file-excel"></i> Exportar a EXCEL</button>
+  </div>
 </div>
 
 <div class="search-form" style="display:none;">
@@ -54,7 +57,10 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'iexistencia-grid',
 	'dataProvider'=>$model->search(),
-	//'filter'=>$model,
+    //'filter'=>$model,
+    'pager'=>array(
+        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+    ),
     'enableSorting' => false,
 	'columns'=>array(
 		array(
@@ -75,6 +81,7 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
             'name'=>'Cantidad',
             'value'=>'$data->Cantidad',
             'cssClassExpression' => 'UtilidadesVarias::estadoexiststock($data->Id_Item, $data->Cantidad)',
+            'htmlOptions'=>array('style' => 'text-align: right;'),
         ),
 		array(
             'name'=>'Fecha_Ult_Ent',
@@ -93,7 +100,7 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
             'template'=>'{view}',
             'buttons'=>array(
                 'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Visualizar'),
                 ),

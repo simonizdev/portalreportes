@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>TAL sin procesar</h3>
+<h4>TAL sin procesar</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -21,11 +21,12 @@
 <div class="row">  
 	<div class="col-sm-4">
     	<div class="form-group">
-			<?php echo $form->error($model,'opcion_exp', array('class' => 'pull-right badge bg-red')); ?>
-    	<?php echo $form->label($model,'opcion_exp'); ?><br>
+    	<?php echo $form->label($model,'opcion_exp'); ?>
+      <?php echo $form->error($model,'opcion_exp', array('class' => 'badge badge-warning float-right')); ?>
+      <br>
 			<?php 
 				echo $form->radioButtonList($model,'opcion_exp',
-			    	array('3'=>'<i class="fa fa-desktop" aria-hidden="true"></i> Pantalla','2'=>'<i class="fa fa-file-excel-o" aria-hidden="true"></i> EXCEL'),
+			    	array('3'=>'<i class="fa fa-desktop" aria-hidden="true"></i> Pantalla','2'=>'<i class="far fa-file-excel" aria-hidden="true"></i> EXCEL'),
 			    	array(
 			        	'template'=>'{input}{label}',
 			        	'separator'=>'',
@@ -41,8 +42,10 @@
     </div>
 </div>
     
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-bar-chart"></i> Generar</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fa fa-cogs"></i> Generar</button>
+    </div>
 </div>
 
 <div class="row">
@@ -74,8 +77,7 @@ $(function() {
                 reporte_pantalla();
               }else{
                 form.submit();
-                $(".ajax-loader").fadeIn('fast');
-                setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 5000); 
+                loadershow(); 
               }  
           } else {
               settings = form.data('settings'),

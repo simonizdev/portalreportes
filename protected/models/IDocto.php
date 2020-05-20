@@ -189,7 +189,7 @@ class IDocto extends CActiveRecord
 			'linea' => 'Línea(s)',
 			'Id_Emp'=> 'Empleado',
 			'lin' => 'Línea',
-			'opcion_exp'=>'Exportar a',
+			'opcion_exp'=>'Ver en',
 			'Notas'=>'Notas',
 			'bodega' => 'Bodega',
 		);

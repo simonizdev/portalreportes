@@ -4,7 +4,23 @@
 
 ?>
 
-<h3>Visualizando códigos de barras x item</h3>
+<h4>Actualización códigos de barras x item</h4>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-check-circle"></i>Realizado</h5>
+        <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?> 
+
+<?php if(Yii::app()->user->hasFlash('warning')):?>
+    <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-info-circle"></i>Info</h5>
+        <?php echo Yii::app()->user->getFlash('warning'); ?>
+    </div>
+<?php endif; ?> 
 
 <div class="row">
     <div class="col-sm-6">
@@ -21,17 +37,22 @@
     </div>
 </div>
 
-<div class="btn-group" id="btn_add" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=eanItem/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
-    <?php if($n_u < 5){ ?>
-        <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=eanItem/AddCod&id='.$model->Id_Item; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
-    <?php } ?>
+<div class="row mb-4">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=eanItem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <?php if($n_u < 5){ ?>
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=eanItem/AddCod&id='.$model->Id_Item; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
+        <?php } ?>
+    </div>
 </div>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
     'id'=>'ean-item-grid',
-    'dataProvider'=>$model_all,
+    'dataProvider' => $model_all,
     //'filter'=>$model,
+    'pager'=>array(
+        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+    ),
     'enableSorting' => false,
     'columns'=>array(
         //'Num_Und',
@@ -53,7 +74,7 @@
             'template'=>'{view}',
             'buttons'=>array(
                 'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Visualizar'),
                     'url'=>'Yii::app()->createUrl("eanItem/view2", array("id"=>$data->Id_Ean_Item))',

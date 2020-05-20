@@ -121,9 +121,10 @@ class UserIdentity extends CUserIdentity
         }
 
         $this->setState('id_user', $modelousuario->Id_Usuario);
-        $this->setState('name_user', $modelousuario->Nombres);
-        $this->setState('username_user', $modelousuario->Usuario);
+        $this->setState('name_user', strtoupper($modelousuario->Nombres));
+        $this->setState('username_user', strtoupper($modelousuario->Usuario));
         $this->setState('email_user', $modelousuario->Correo);
+        $this->setState('avatar_user', $modelousuario->Avatar);
         $this->setState('array_perfiles', $array_perfiles);
         $this->setState('array_bodegas', $array_bodegas);
         $this->setState('array_td', $array_td);

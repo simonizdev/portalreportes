@@ -20,16 +20,16 @@
 <div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Descripcion', array('class' => 'pull-right badge bg-red')); ?>
-          	<?php echo $form->label($model,'Descripcion'); ?>
-		    <?php echo $form->textField($model,'Descripcion', array('class' => 'form-control', 'maxlength' => '50', 'autocomplete' => 'off')); ?>
+    		<?php echo $form->label($model,'Descripcion', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Descripcion', array('class' => 'badge badge-warning float-right')); ?>
+		    <?php echo $form->textField($model,'Descripcion', array('class' => 'form-control form-control-sm', 'maxlength' => '50', 'autocomplete' => 'off')); ?>
         </div>
     </div>
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'Modificacion_Reg', array('class' => 'pull-right badge bg-red')); ?>
-            <?php echo $form->label($model,'Modificacion_Reg'); ?>
-            <?php $opcs = array(0 => "No", 1 => "Si"); ?>
+            <?php echo $form->label($model,'Modificacion_Reg', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Modificacion_Reg', array('class' => 'badge badge-warning float-right')); ?>
+            <?php $opcs = array(0 => "NO", 1 => "SI"); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'Perfil[Modificacion_Reg]',
@@ -48,8 +48,8 @@
     </div>
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'Estado', array('class' => 'pull-right badge bg-red')); ?>
-            <?php echo $form->label($model,'Estado'); ?>
+            <?php echo $form->label($model,'Estado', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Estado', array('class' => 'badge badge-warning float-right')); ?>
             <?php $estados = Yii::app()->params->estados; ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
@@ -71,8 +71,8 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="form-group">
-            <?php echo $form->error($model,'opciones_menu', array('class' => 'pull-right badge bg-red')); ?>
-            <?php echo $form->label($model,'opciones_menu'); ?>
+            <?php echo $form->label($model,'opciones_menu', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'opciones_menu', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->hiddenField($model,'opciones_menu', array('class' => 'form-control', 'autocomplete' => 'off')); ?>
             <div id="example-0">
 			    <div>
@@ -85,10 +85,11 @@
     </div> 
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=perfil/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-    <button type="submit" class="btn btn-success" onclick="return valida_opciones(event);"><i class="fa fa-floppy-o"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
-</div>   
-<!-- /.row -->
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=perfil/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="submit" class="btn btn-success btn-sm" onclick="return valida_opciones(event);"><i class="fas fa-save"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
+    </div>
+</div>
 
 <?php $this->endWidget(); ?>

@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Actualización declaración de importación</h3>
+<h4>Actualización declaración de importación</h4>
 
 <?php $this->renderPartial('_form2', array('model'=>$model)); ?>

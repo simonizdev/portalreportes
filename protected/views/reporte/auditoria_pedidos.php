@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Auditoría de pedidos</h3>
+<h4>Auditoría de pedidos</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -22,7 +22,7 @@
 <div class="row">
     <div class="col-sm-4">
       <div class="form-group">
-          <?php echo $form->error($model,'opcion', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->error($model,'opcion', array('class' => 'badge badge-warning float-right')); ?>
           <?php echo $form->label($model,'opcion'); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
@@ -44,7 +44,7 @@
 <div class="row" id="filtro" style="display: none;">
     <div class="col-sm-4">
       <div class="form-group">
-          <?php echo $form->error($model,'c_o', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->error($model,'c_o', array('class' => 'badge badge-warning float-right')); ?>
           <?php echo $form->label($model,'c_o'); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
@@ -63,7 +63,7 @@
     </div>
     <div class="col-sm-4">
       <div class="form-group">
-          <?php echo $form->error($model,'tipo', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->error($model,'tipo', array('class' => 'badge badge-warning float-right')); ?>
           <?php echo $form->label($model,'tipo'); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
@@ -82,16 +82,18 @@
     </div>
     <div class="col-sm-4">
       <div class="form-group">
-          <?php echo $form->error($model,'consecutivo', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->error($model,'consecutivo', array('class' => 'badge badge-warning float-right')); ?>
           <?php echo $form->label($model,'consecutivo'); ?>
-          <?php echo $form->numberField($model,'consecutivo', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number')); ?>
+          <?php echo $form->numberField($model,'consecutivo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
       </div>
     </div>
 </div>
-    
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-bar-chart"></i> Generar</button>
+
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fa fa-cogs"></i> Generar</button>
+    </div>
 </div>
 
 <div class="row">
@@ -120,8 +122,7 @@ $(function() {
 
           //TODO
           form.submit();
-          $(".ajax-loader").fadeIn('fast');
-          setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+          loadershow();
 
         }else{
 
@@ -144,17 +145,17 @@ $(function() {
 
           }else{
             if(co == ""){
-              $('#Reporte_c_o_em_').html('CO no puede ser nulo.');
+              $('#Reporte_c_o_em_').html('CO es requerido.');
               $('#Reporte_c_o_em_').show();
             }
 
             if(tipo == ""){
-              $('#Reporte_tipo_em_').html('Tipo no puede ser nulo.');
+              $('#Reporte_tipo_em_').html('Tipo es requerido.');
               $('#Reporte_tipo_em_').show();
             }
             
             if(consecutivo == ""){
-              $('#Reporte_consecutivo_em_').html('Consecutivo no puede ser nulo.');
+              $('#Reporte_consecutivo_em_').html('Consecutivo es requerido.');
               $('#Reporte_consecutivo_em_').show();   
             }
 
@@ -162,7 +163,7 @@ $(function() {
 
         }
       }else{
-        $('#Reporte_opcion_em_').html('Opción no puede ser nulo.');
+        $('#Reporte_opcion_em_').html('Opción es requerido.');
         $('#Reporte_opcion_em_').show();
       }
 
@@ -190,7 +191,7 @@ $(function() {
       }
       
     }else{
-      $('#Reporte_opcion_em_').html('Opción no puede ser nulo.');
+      $('#Reporte_opcion_em_').html('Opción es requerido.');
       $('#Reporte_opcion_em_').show();
       $('#filtro').hide();
     }

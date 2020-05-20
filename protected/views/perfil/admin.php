@@ -4,7 +4,7 @@
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
-	$('.search-form').toggle('fast');
+	$('.search-form').slideToggle('fast');
 	return false;
 });
 $('.search-form form').submit(function(){
@@ -19,11 +19,14 @@ $('.search-form form').submit(function(){
 $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario'); 
 ?>
 
-<h3>Administración de perfiles</h3>
-
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=perfil/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
-    <button type="button" class="btn btn-success search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h4>Administración de perfiles</h4>
+  </div>
+  <div class="col-sm-6 text-right">  
+      <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=perfil/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
+    <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+  </div>
 </div>
 
 <div class="search-form" style="display:none; ">
@@ -38,6 +41,9 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 	'dataProvider'=>$model->search(),
 	//'filter'=>$model,
     'enableSorting' => false,
+    'pager'=>array(
+        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+    ),
 	'columns'=>array(
 		'Id_Perfil',
 		'Descripcion',
@@ -53,27 +59,30 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
             'name'=>'Fecha_Actualizacion',
             'value'=>'UtilidadesVarias::textofechahora($data->Fecha_Actualizacion)',
         ),*/
-        array(
+        /*array(
             'name' => 'Modificacion_Reg',
             'type' => 'raw',
             'value' => '($data->Modificacion_Reg == "0") ? "No" : "Si"',
+        ),*/
+        array(
+            'name' => 'Modificacion_Reg',
+            'value' => 'UtilidadesVarias::textoestado2($data->Modificacion_Reg)',
         ),
         array(
             'name' => 'Estado',
-            'type' => 'raw',
-            'value' => '($data->Estado == "1") ? "Activo" : "Inactivo"',
+            'value' => 'UtilidadesVarias::textoestado1($data->Estado)',
         ),
 		array(
 			'class'=>'CButtonColumn',
             'template'=>'{view}{update}',
             'buttons'=>array(
                 'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Visualizar'),
                 ),
                 'update'=>array(
-                    'label'=>'<i class="fa fa-pencil actions text-black"></i>',
+                    'label'=>'<i class="fa fa-pen actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Actualizar'),
                     'visible'=> '(Yii::app()->user->getState("permiso_act") == true)',

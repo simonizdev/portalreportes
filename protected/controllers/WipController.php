@@ -133,6 +133,7 @@ class WipController extends Controller
 
 			}
 
+			Yii::app()->user->setFlash('success', "El WIP ".$n_wip." fue creado correctamente.");
 			$this->redirect(array('admin'));
 		}
 
@@ -182,6 +183,7 @@ class WipController extends Controller
 					$reg->save();
 	            }
 
+	            Yii::app()->user->setFlash('success', "El WIP ".$model->WIP." fue actualizado correctamente.");
                 $this->redirect(array('admin'));
             }
         }

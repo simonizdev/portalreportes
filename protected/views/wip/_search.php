@@ -13,7 +13,7 @@
 	<div class="col-sm-4">
     	<div class="form-group">
           	<?php echo $form->label($model,'WIP'); ?>
-		    <?php echo $form->textField($model,'WIP', array('class' => 'form-control', 'autocomplete' => 'off')); ?>
+		    <?php echo $form->textField($model,'WIP', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off')); ?>
         </div>
     </div>
     <div class="col-sm-8">
@@ -26,7 +26,7 @@
                     'selector' => '#Wip_ID_ITEM',
                     'options'  => array(
                         'allowClear' => true,
-                        'minimumInputLength' => 5,
+                        'minimumInputLength' => 3,
                         'width' => '100%',
                         'language' => 'es',
                         'ajax' => array(
@@ -36,7 +36,7 @@
                             'results'=>'js:function(data){ return {results:data};}'                   
                         ),
                         'formatNoMatches'=> 'js:function(){ clear_select2_ajax("Wip_ID_ITEM"); return "No se encontraron resultados"; }',
-                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 5 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'Wip_ID_ITEM\')\">Limpiar campo</button>"; }',
+                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'Wip_ID_ITEM\')\">Limpiar campo</button>"; }',
                     ),
                 ));
             ?>
@@ -68,14 +68,14 @@
         <div class="form-group">
             <?php echo $form->error($model,'RESPONSABLE', array('class' => 'pull-right badge bg-red')); ?>
             <?php echo $form->label($model,'RESPONSABLE'); ?>
-            <?php echo $form->textField($model,'RESPONSABLE', array('class' => 'form-control', 'maxlength' => '200', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+            <?php echo $form->textField($model,'RESPONSABLE', array('class' => 'form-control form-control-sm', 'maxlength' => '200', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
     <div class="col-sm-4">
       <div class="form-group">
           <?php echo $form->error($model,'CANT_OC_AL_DIA', array('class' => 'pull-right badge bg-red')); ?>
           <?php echo $form->label($model,'CANT_OC_AL_DIA'); ?>
-          <?php echo $form->numberField($model,'CANT_OC_AL_DIA', array('class' => 'form-control', 'autocomplete' => 'off')); ?>
+          <?php echo $form->numberField($model,'CANT_OC_AL_DIA', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off')); ?>
       </div>
     </div>    
 </div>
@@ -84,32 +84,27 @@
       <div class="form-group">
           <?php echo $form->error($model,'CANT_PENDIENTE', array('class' => 'pull-right badge bg-red')); ?>
           <?php echo $form->label($model,'CANT_PENDIENTE'); ?>
-          <?php echo $form->numberField($model,'CANT_PENDIENTE', array('class' => 'form-control', 'autocomplete' => 'off')); ?>
+          <?php echo $form->numberField($model,'CANT_PENDIENTE', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off')); ?>
       </div>
   </div>
   <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->error($model,'INVENTARIO_TOTAL', array('class' => 'pull-right badge bg-red')); ?>
             <?php echo $form->label($model,'INVENTARIO_TOTAL'); ?>
-            <?php echo $form->numberField($model,'INVENTARIO_TOTAL', array('class' => 'form-control', 'autocomplete' => 'off')); ?>
+            <?php echo $form->numberField($model,'INVENTARIO_TOTAL', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off')); ?>
         </div>
     </div>
 </div> 
-
-
-<div class="btn-group" style="padding-bottom: 2%">
-	<button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-	<button type="submit" class="btn btn-success" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="submit" class="btn btn-success btn-sm" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
-  
-function clear_select2_ajax(id){
-	$('#'+id+'').val('').trigger('change');
-	$('#s2id_'+id+' span').html("");
-}
 
 function resetfields(){	
 	$('#Wip_WIP').val('');

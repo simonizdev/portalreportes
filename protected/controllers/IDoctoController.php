@@ -144,7 +144,11 @@ class IDoctoController extends Controller
 					$model->Vlr_Total = $total;
 					$model->save();
 
+					Yii::app()->user->setFlash('success', "El Documento # ".$model->Consecutivo." (".$model->idtipodocto->Descripcion.") fue creado correctamente.");
+				}else{
+					Yii::app()->user->setFlash('warning', "No se pudo crear el documento.");
 				}
+
 			}
 
 			if($model->Id_Tipo_Docto == Yii::app()->params->sal){
@@ -182,6 +186,10 @@ class IDoctoController extends Controller
 								
 					}
 
+					Yii::app()->user->setFlash('success', "El Documento # ".$model->Consecutivo." (".$model->idtipodocto->Descripcion.") fue creado correctamente.");
+			
+				}else{
+					Yii::app()->user->setFlash('warning', "No se pudo crear el documento.");
 				}
 			}
 
@@ -221,7 +229,13 @@ class IDoctoController extends Controller
 
 					}
 
+				
+					Yii::app()->user->setFlash('success', "El Documento # ".$model->Consecutivo." (".$model->idtipodocto->Descripcion.") fue creado correctamente.");
+				
+				}else{
+					Yii::app()->user->setFlash('warning', "No se pudo crear el documento.");
 				}
+
 			}
 
 			if($model->Id_Tipo_Docto == Yii::app()->params->aje){
@@ -259,8 +273,12 @@ class IDoctoController extends Controller
 						$nuevo_det->save();
 								
 					}
-
+				
+					Yii::app()->user->setFlash('success', "El Documento # ".$model->Consecutivo." (".$model->idtipodocto->Descripcion.") fue creado correctamente.");
+				}else{
+					Yii::app()->user->setFlash('warning', "No se pudo crear el documento.");
 				}
+
 			}
 
 			if($model->Id_Tipo_Docto == Yii::app()->params->ajs){
@@ -299,7 +317,11 @@ class IDoctoController extends Controller
 								
 					}
 
+					Yii::app()->user->setFlash('success', "El Documento # ".$model->Consecutivo." (".$model->idtipodocto->Descripcion.") fue creado correctamente.");
+				}else{
+					Yii::app()->user->setFlash('warning', "No se pudo crear el documento.");
 				}
+
 			}
 
 			if($model->Id_Tipo_Docto == Yii::app()->params->sad){
@@ -333,10 +355,14 @@ class IDoctoController extends Controller
 						$nuevo_det->Fecha_Creacion = date('Y-m-d H:i:s');
 						$nuevo_det->Fecha_Actualizacion = date('Y-m-d H:i:s');
 						$nuevo_det->save();
-								
 					}
-
+								
+					Yii::app()->user->setFlash('success', "El Documento # ".$model->Consecutivo." (".$model->idtipodocto->Descripcion.") fue creado correctamente.");
+				}else{
+					Yii::app()->user->setFlash('warning', "No se pudo crear el documento.");
 				}
+
+
 			}
 
 			if($model->Id_Tipo_Docto == Yii::app()->params->dev){
@@ -390,7 +416,11 @@ class IDoctoController extends Controller
 					$model->Vlr_Total = $total;
 					$model->save();
 
+					Yii::app()->user->setFlash('success', "El Documento # ".$model->Consecutivo." (".$model->idtipodocto->Descripcion.") fue creado correctamente.");
+				}else{
+					Yii::app()->user->setFlash('warning', "No se pudo crear el documento.");
 				}
+
 			}
 
 			$this->redirect(array('admin'));
@@ -425,8 +455,14 @@ class IDoctoController extends Controller
 			$model->attributes=$_POST['IDocto'];
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
-			if($model->save())
-				$this->redirect(array('admin'));
+			if($model->save()){
+				Yii::app()->user->setFlash('success', "El Documento # ".$model->Consecutivo." (".$model->idtipodocto->Descripcion.") fue actualizado correctamente.");
+			}else{
+				Yii::app()->user->setFlash('warning', "No se pudo actualizar el documento # ".$model->Consecutivo." (".$model->idtipodocto->Descripcion.").");
+			}
+
+			$this->redirect(array('admin'));
+			
 		}
 
 		$this->render('update',array(

@@ -48,7 +48,7 @@ class BodegaUsuario extends CActiveRecord
 			array('Id_Usuario, Id_Usuario_Creacion, Id_Usuario_Actualizacion, Id_Bodega, Estado', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id_B_Usuario, Id_Usuario, usuario_creacion, usuario_actualizacion, bodega, Estado, Fecha_Creacion, Fecha_Actualizacion, orderby', 'safe', 'on'=>'search'),
+			array('Id_B_Usuario, Id_Usuario, usuario_creacion, usuario_actualizacion, usuario, bodega, Estado, Fecha_Creacion, Fecha_Actualizacion, orderby', 'safe', 'on'=>'search'),
 		);
 	}
 

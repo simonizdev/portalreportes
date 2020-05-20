@@ -7,7 +7,7 @@
 
 ?>
 
-<h3>Reporte rentabilidad por cliente</h3>
+<h4>Reporte rentabilidad por cliente</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -24,21 +24,21 @@
 <div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'fecha_inicial', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'fecha_inicial', array('class' => 'badge badge-warning float-right')); ?>
       	<?php echo $form->label($model,'fecha_inicial'); ?>
-		    <?php echo $form->textField($model,'fecha_inicial', array('class' => 'form-control', 'readonly' => true)); ?>
+		    <?php echo $form->textField($model,'fecha_inicial', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
         </div>
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'fecha_final', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'fecha_final', array('class' => 'badge badge-warning float-right')); ?>
       	<?php echo $form->label($model,'fecha_final'); ?>
-		    <?php echo $form->textField($model,'fecha_final', array('class' => 'form-control', 'readonly' => true)); ?>
+		    <?php echo $form->textField($model,'fecha_final', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
         </div>
     </div>
     <div class="col-sm-4">
       <div class="form-group">
-          <?php echo $form->error($model,'clase', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->error($model,'clase', array('class' => 'badge badge-warning float-right')); ?>
           <?php echo $form->label($model,'clase'); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
@@ -55,9 +55,9 @@
           ?>
       </div>
     </div>
-    <div class="col-sm-4" id="div_canal" style="display: none;">
+    <div class="col-sm-6" id="div_canal" style="display: none;">
       <div class="form-group">
-          <?php echo $form->error($model,'canal', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->error($model,'canal', array('class' => 'badge badge-warning float-right')); ?>
           <?php echo $form->label($model,'canal'); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
@@ -76,9 +76,9 @@
           ?>
       </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-6">
       <div class="form-group" id="div_ev" style="display: none;">
-          <?php echo $form->error($model,'ev', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->error($model,'ev', array('class' => 'badge badge-warning float-right')); ?>
           <?php echo $form->label($model,'ev'); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
@@ -99,9 +99,9 @@
     </div>
 </div>
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-6">
     <div class="form-group">
-      <?php echo $form->error($model,'cliente_inicial', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'cliente_inicial', array('class' => 'badge badge-warning float-right')); ?>
       <?php echo $form->label($model,'cliente_inicial'); ?>
       <?php echo $form->textField($model,'cliente_inicial'); ?>
       <?php
@@ -121,16 +121,16 @@
                              
               ),
               'formatNoMatches'=> 'js:function(){ clear_select2_ajax("Reporte_cliente_inicial"); return "No se encontraron resultados"; }',
-              'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'Reporte_cliente_inicial\')\">Limpiar campo</button>"; }',
+              'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'Reporte_cliente_inicial\')\">Limpiar campo</button>"; }',
           ),
 
         ));
       ?>
     </div>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-6">
     <div class="form-group">
-      <?php echo $form->error($model,'cliente_final', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'cliente_final', array('class' => 'badge badge-warning float-right')); ?>
       <?php echo $form->label($model,'cliente_final'); ?>
       <?php echo $form->textField($model,'cliente_final'); ?>
       <?php
@@ -150,20 +150,22 @@
                              
               ),
               'formatNoMatches'=> 'js:function(){ clear_select2_ajax("Reporte_cliente_final"); return "No se encontraron resultados"; }',
-              'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'Reporte_cliente_final\')\">Limpiar campo</button>"; }',
+              'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'Reporte_cliente_final\')\">Limpiar campo</button>"; }',
           ),
 
         ));
       ?>
     </div>
-  </div>    
+  </div>
+</div>
+<div class="row">    
 	<div class="col-sm-4">
     	<div class="form-group">
-			<?php echo $form->error($model,'opcion_exp', array('class' => 'pull-right badge bg-red')); ?>
+			<?php echo $form->error($model,'opcion_exp', array('class' => 'badge badge-warning float-right')); ?>
     	<?php echo $form->label($model,'opcion_exp'); ?><br>
 			<?php 
 				echo $form->radioButtonList($model,'opcion_exp',
-			    	array('1'=>'<i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF','2'=>'<i class="fa fa-file-excel-o" aria-hidden="true"></i> EXCEL'),
+			    	array('1'=>'<i class="far fa-file-pdf" aria-hidden="true"></i> PDF','2'=>'<i class="far fa-file-excel" aria-hidden="true"></i> EXCEL'),
 			    	array(
 			        	'template'=>'{input}{label}',
 			        	'separator'=>'',
@@ -179,12 +181,10 @@
     </div>
 </div>
     
-<div class="row">
-    <div class="col-sm-4">
-    	<div class="form-group">
-        <button type="button" class="btn btn-success" onclick="resetfields();">Limpiar filtros</button>
-        <?php echo CHtml::Button('Generar', array('class' => 'btn btn-success', 'id' => 'valida_form')); ?>
-        </div>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fa fa-cogs"></i> Generar</button>
     </div>
 </div>
 <!-- /.row -->
@@ -223,8 +223,7 @@ $(function() {
               });
               //se envia el form
               form.submit();
-              $(".ajax-loader").show();
-              setTimeout(function(){ $(".ajax-loader").hide(); }, 20000);
+              loadershow();
           } else {
 
               settings = form.data('settings'),
@@ -236,12 +235,12 @@ $(function() {
               var evs = $("#Reporte_ev").val();
         
               if (canales == "") {
-                $('#Reporte_canal_em_').html('Canal no puede ser nulo.');
+                $('#Reporte_canal_em_').html('Canal es requerido.');
                 $('#Reporte_canal_em_').show(); 
               }
 
               if (evs == "") {
-                $('#Reporte_ev_em_').html('Estructura de ventas no puede ser nulo.');
+                $('#Reporte_ev_em_').html('Estructura de ventas es requerido.');
                 $('#Reporte_ev_em_').show();  
               }
 
@@ -299,11 +298,6 @@ $(function() {
 
   
 });
-
-function clear_select2_ajax(id){
-  $('#'+id+'').val('').trigger('change');
-  $('#s2id_'+id+' span').html("");
-}
 
 function resetfields(){
   $('#Reporte_fecha_inicial').val('');

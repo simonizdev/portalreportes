@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Saldo de cartera por cliente</h3>
+<h4>Saldo de cartera por cliente</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -23,7 +23,7 @@
 <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
-          <?php echo $form->error($model,'cliente_inicial', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->error($model,'cliente_inicial', array('class' => 'badge badge-warning float-right')); ?>
           <?php echo $form->label($model,'cliente_inicial'); ?>
           <?php echo $form->textField($model,'cliente_inicial'); ?>
           <?php
@@ -43,7 +43,7 @@
                                  
                   ),
                   'formatNoMatches'=> 'js:function(){ clear_select2_ajax("Reporte_cliente_inicial"); return "No se encontraron resultados"; }',
-                  'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'Reporte_cliente_inicial\')\">Limpiar campo</button>"; }',
+                  'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'Reporte_cliente_inicial\')\">Limpiar campo</button>"; }',
               ),
 
             ));
@@ -52,7 +52,7 @@
     </div>
     <div class="col-sm-6">
       <div class="form-group">
-          <?php echo $form->error($model,'cliente_final', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->error($model,'cliente_final', array('class' => 'badge badge-warning float-right')); ?>
           <?php echo $form->label($model,'cliente_final'); ?>
           <?php echo $form->textField($model,'cliente_final'); ?>
           <?php
@@ -72,7 +72,7 @@
                                  
                   ),
                   'formatNoMatches'=> 'js:function(){ clear_select2_ajax("Reporte_cliente_final"); return "No se encontraron resultados"; }',
-                  'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'Reporte_cliente_final\')\">Limpiar campo</button>"; }',
+                  'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'Reporte_cliente_final\')\">Limpiar campo</button>"; }',
               ),
 
             ));
@@ -81,9 +81,11 @@
     </div> 
 </div>
     
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-file-pdf-o"></i> Generar</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-file-pdf"></i> Generar</button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>
@@ -105,8 +107,7 @@ $(function() {
               });
               //se envia el form
               form.submit();
-              $(".ajax-loader").fadeIn('fast');
-              setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+              loadershow();
           } else {
 
               settings = form.data('settings'),
@@ -120,11 +121,6 @@ $(function() {
   });
   
 });
-
-function clear_select2_ajax(id){
-  $('#'+id+'').val('').trigger('change');
-  $('#s2id_'+id+' span').html("");
-}
 
 function resetfields(){
   $('#Reporte_cliente_inicial').val('').trigger('change');

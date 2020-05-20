@@ -26,7 +26,7 @@
     </div>
     <div class="col-sm-8">
         <div class="form-group">
-            <?php echo $form->error($model,'CADENA', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'CADENA', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'CADENA'); ?>
             <?php
               $this->widget('ext.select2.ESelect2',array(
@@ -61,18 +61,18 @@
     </div>
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'RESPONSABLE', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'RESPONSABLE', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'RESPONSABLE'); ?>
-            <?php echo $form->textField($model,'RESPONSABLE', array('class' => 'form-control', 'maxlength' => '200', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+            <?php echo $form->textField($model,'RESPONSABLE', array('class' => 'form-control form-control-sm', 'maxlength' => '200', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>   
 </div>
 <div class="row">
     <div class="col-sm-8">
         <div class="form-group">
-            <?php echo $form->error($model,'OBSERVACIONES', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'OBSERVACIONES', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'OBSERVACIONES'); ?>
-            <?php echo $form->textField($model,'OBSERVACIONES', array('class' => 'form-control', 'maxlength' => '50', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+            <?php echo $form->textField($model,'OBSERVACIONES', array('class' => 'form-control form-control-sm', 'maxlength' => '50', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
 </div>
@@ -179,9 +179,9 @@
 <div class="row">  
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'CANT_A_ARMAR', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'CANT_A_ARMAR', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'CANT_A_ARMAR'); ?>
-            <?php echo $form->numberField($model,'CANT_A_ARMAR', array('class' => 'form-control', 'autocomplete' => 'off')); ?>
+            <?php echo $form->numberField($model,'CANT_A_ARMAR', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off')); ?>
         </div>
     </div> 
     <div class="col-sm-4">
@@ -206,23 +206,25 @@
     </div>
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'REDISTRIBUCION', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'REDISTRIBUCION', array('class' => 'badge badge-warning float-right')); ?>
         	<?php echo $form->label($model,'REDISTRIBUCION'); ?>
-        	<?php echo $form->textField($model,'REDISTRIBUCION', array('class' => 'form-control', 'maxlength' => '200', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+        	<?php echo $form->textField($model,'REDISTRIBUCION', array('class' => 'form-control form-control-sm', 'maxlength' => '200', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>	   
     </div>
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'PTM', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'PTM', array('class' => 'badge badge-warning float-right')); ?>
         	<?php echo $form->label($model,'PTM'); ?>
-            <?php echo $form->numberField($model,'PTM', array('class' => 'form-control', 'autocomplete' => 'off')); ?>
+            <?php echo $form->numberField($model,'PTM', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off')); ?>
         </div> 
     </div>
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=Wip/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-    <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> <?php echo 'Guardar'; ?></button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=wip/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> <?php echo 'Guardar'; ?></button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>

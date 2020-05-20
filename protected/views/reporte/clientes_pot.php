@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Clientes potenciales</h3>
+<h4>Clientes potenciales</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -21,16 +21,16 @@
 <div class="row">
   <div class="col-sm-4">
   	<div class="form-group">
-      <?php echo $form->error($model,'dias', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'dias', array('class' => 'badge badge-warning float-right')); ?>
   		<?php echo $form->label($model,'dias'); ?>
-      <?php echo $form->numberField($model,'dias', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number', 'min' => 1)); ?>
+      <?php echo $form->numberField($model,'dias', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => 1)); ?>
     </div>
   </div>
   <div class="col-sm-4" style="display: none;">
     <div class="form-group">
-        <?php echo $form->error($model,'plan', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'plan', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'plan'); ?>
-        <?php echo $form->HiddenField($model,'opc', array('class' => 'form-control', 'autocomplete' => 'off', 'readonly' => true)); ?>
+        <?php echo $form->HiddenField($model,'opc', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'readonly' => true)); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
                 'name'=>'Reporte[plan]',
@@ -48,7 +48,7 @@
   </div>
   <div class="col-sm-4" id="div_criterios" style="display: none;">
     <div class="form-group">
-        <?php echo $form->error($model,'criterio', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'criterio', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'criterio'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -65,10 +65,13 @@
   </div>
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-file-excel-o"></i> Generar</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-file-excel"></i> Generar</button>
+    </div>
 </div>
+
 
 <?php $this->endWidget(); ?>
 
@@ -165,8 +168,7 @@
                   if(valid == 1){
                     //se envia el form
                     form.submit();
-                    $(".ajax-loader").fadeIn('fast');
-                    setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 20000);
+                    loadershow();
                   }
    
               } else {

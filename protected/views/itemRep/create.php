@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Asociación de item a reporte</h3>
+<h4>Asociación de item a reporte</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model, 'id'=>$id)); ?>

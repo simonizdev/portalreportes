@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Lista de precios</h3>
+<h4>Lista de precios</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -21,7 +21,7 @@
 <div class="row">
   <div class="col-sm-4">
     <div class="form-group">
-        <?php echo $form->error($model,'tipo', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'tipo', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'tipo'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -39,7 +39,7 @@
   </div>
   <div class="col-sm-8">
     <div class="form-group">
-      <?php echo $form->error($model,'lista', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'lista', array('class' => 'badge badge-warning float-right')); ?>
       <?php echo $form->label($model,'lista'); ?>
       <?php
           $this->widget('ext.select2.ESelect2',array(
@@ -59,7 +59,7 @@
 <div class="row">
    <div class="col-sm-6" id="marca_inicial" style="display: none;">
     <div class="form-group">
-      <?php echo $form->error($model,'marca_inicial', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'marca_inicial', array('class' => 'badge badge-warning float-right')); ?>
       <?php echo $form->label($model,'marca_inicial'); ?>
       <?php
           $this->widget('ext.select2.ESelect2',array(
@@ -77,7 +77,7 @@
   </div>
   <div class="col-sm-6" id="marca_final" style="display: none;">
     <div class="form-group">
-      <?php echo $form->error($model,'marca_final', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'marca_final', array('class' => 'badge badge-warning float-right')); ?>
       <?php echo $form->label($model,'marca_final'); ?>
       <?php
           $this->widget('ext.select2.ESelect2',array(
@@ -95,7 +95,7 @@
   </div>
   <div class="col-sm-6" id="oracle_inicial" style="display: none;">
     <div class="form-group">
-      <?php echo $form->error($model,'des_ora_ini', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'des_ora_ini', array('class' => 'badge badge-warning float-right')); ?>
       <?php echo $form->label($model,'des_ora_ini'); ?>
       <?php
           $this->widget('ext.select2.ESelect2',array(
@@ -113,7 +113,7 @@
   </div>
   <div class="col-sm-6" id="oracle_final" style="display: none;">
     <div class="form-group">
-      <?php echo $form->error($model,'des_ora_fin', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'des_ora_fin', array('class' => 'badge badge-warning float-right')); ?>
       <?php echo $form->label($model,'des_ora_fin'); ?>
       <?php
           $this->widget('ext.select2.ESelect2',array(
@@ -131,9 +131,11 @@
   </div>
 </div>
     
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-file-pdf-o"></i> Generar</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-file-pdf"></i> Generar</button>
+    </div>
 </div>
 
 
@@ -222,21 +224,20 @@ $(function() {
         if(lista != "" && marca_inicial != "" && marca_final != ""){
           //se envia el form
           form.submit();
-          $(".ajax-loader").fadeIn('fast');
-          setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+          loadershow();
         }else{
           if(lista == ""){
-            $('#Reporte_lista_em_').html('Lista no puede ser nulo.');
+            $('#Reporte_lista_em_').html('Lista es requerido.');
             $('#Reporte_lista_em_').show(); 
           }
 
           if(marca_inicial == ""){
-            $('#Reporte_marca_inicial_em_').html('Línea inicial no puede ser nulo.');
+            $('#Reporte_marca_inicial_em_').html('Línea inicial es requerido.');
             $('#Reporte_marca_inicial_em_').show();    
           }
 
           if(marca_final == ""){
-            $('#Reporte_marca_final_em_').html('Línea final no puede ser nulo.');
+            $('#Reporte_marca_final_em_').html('Línea final es requerido.');
             $('#Reporte_marca_final_em_').show();    
           }
         }
@@ -244,27 +245,26 @@ $(function() {
         if(lista != "" && oracle_inicial != "" && oracle_final != ""){
           //se envia el form
           form.submit();
-          $(".ajax-loader").fadeIn('fast');
-          setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+          loadershow();
         }else{
           if(lista == ""){
-            $('#Reporte_lista_em_').html('Lista no puede ser nulo.');
+            $('#Reporte_lista_em_').html('Lista es requerido.');
             $('#Reporte_lista_em_').show(); 
           }
 
           if(oracle_inicial == ""){
-              $('#Reporte_des_ora_ini_em_').html('Desc. oracle inicial no puede ser nulo.');
+              $('#Reporte_des_ora_ini_em_').html('Desc. oracle inicial es requerido.');
               $('#Reporte_des_ora_ini_em_').show();    
           }
 
           if(oracle_final == ""){
-              $('#Reporte_des_ora_fin_em_').html('Desc. oracle final no puede ser nulo.');
+              $('#Reporte_des_ora_fin_em_').html('Desc. oracle final es requerido.');
               $('#Reporte_des_ora_fin_em_').show();    
           }
         }
       }
     }else{
-      $('#Reporte_tipo_em_').html('Tipo no puede ser nulo.');
+      $('#Reporte_tipo_em_').html('Tipo es requerido.');
       $('#Reporte_tipo_em_').show(); 
     }
   });

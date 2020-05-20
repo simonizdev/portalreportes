@@ -4,10 +4,9 @@
 
 ?>
 
-<h3>Visualizando item</h3>
+<h4>Visualizando item</h4>
 
 <div class="table-responsive">
-
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -35,21 +34,18 @@
             'value'=>function($model){
                 return number_format($model->Vlr_Costo, 2);
             },
-            'htmlOptions'=>array('style' => 'text-align: right;'),
         ),
         array(
             'name'=>'costo_unit',
             'value'=>function($model){
                 return (number_format($model->Vlr_Costo) != 0 || number_format($model->Total_Inventario) != 0) ? number_format($model->Vlr_Costo / $model->Total_Inventario, 2) : number_format(0, 2) ;
             },
-            'htmlOptions'=>array('style' => 'text-align: right;'),
         ),
         array(
             'name'=>'Vlr_Ult_Compra',
             'value'=>function($model){
                 return number_format($model->Vlr_Ult_Compra, 2);
             },
-            'htmlOptions'=>array('style' => 'text-align: right;'),
         ),
 		'Nota',
 		array(
@@ -70,16 +66,16 @@
         ),
         array(
             'name' => 'Estado',
-            'type' => 'raw',
-            'value' => ($model->Estado == 1) ? "Activo" : "Inactivo",
+            'value' => UtilidadesVarias::textoestado1($model->Estado),
         ),
-	),
+    ),
 )); ?>
 
 </div>
 
-
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=iItem/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=iItem/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+    </div>
 </div>
 

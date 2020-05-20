@@ -4,7 +4,7 @@
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
-	$('.search-form').toggle('fast');
+	$('.search-form').slideToggle('fast');
 	return false;
 });
 $('.search-form form').submit(function(){
@@ -29,29 +29,32 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 
 ?>
 
-<h3>Aprobación y anulación de documentos</h3>
-
 <?php if($v == 1) { ?>
+
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h4>Aprobación y anulación de documentos</h4>
+  </div>
+  <div class="col-sm-6 text-right">  
+    <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+  </div>
+</div>
 
 <?php if(Yii::app()->user->hasFlash('success')):?>
     <div class="alert alert-success alert-dismissible">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <h4><i class="icon fa fa-check"></i>Realizado</h4>
-      <?php echo Yii::app()->user->getFlash('success'); ?>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-check-circle"></i>Realizado</h5>
+        <?php echo Yii::app()->user->getFlash('success'); ?>
     </div>
 <?php endif; ?> 
 
 <?php if(Yii::app()->user->hasFlash('warning')):?>
     <div class="alert alert-warning alert-dismissible">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <h4><i class="icon fa fa-info"></i>Info</h4>
-      <?php echo Yii::app()->user->getFlash('warning'); ?>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-info-circle"></i>Info</h5>
+        <?php echo Yii::app()->user->getFlash('warning'); ?>
     </div>
 <?php endif; ?> 
-
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
-</div>
 
 <div class="search-form" style="display:none;">
 <?php $this->renderPartial('_search',array(
@@ -66,7 +69,10 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'idocto-grid',
 	'dataProvider'=>$model->search(),
-	//'filter'=>$model,
+    //'filter'=>$model,
+    'pager'=>array(
+        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+    ),
     'enableSorting' => false,
 	'columns'=>array(
 		//'Id',
@@ -101,13 +107,13 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
             'template'=>'{reppdf}{apro}{anul}',
             'buttons'=>array(
                 'reppdf'=>array(
-                    'label'=>'<i class="fa fa-file-pdf-o actions text-black"></i>',
+                    'label'=>'<i class="fas fa-file-pdf actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Generar reporte en PDF'),
                     'url'=>'Yii::app()->createUrl("iDocto/genrepdoc", array("id"=>$data->Id))',
                 ),
                 'apro'=>array(
-                    'label'=>'<i class="fa fa-check actions text-black"></i>',
+                    'label'=>'<i class="fas fa-check-circle actions text-dark"></i>',
                     'imageUrl'=>false,
                     'url'=>'Yii::app()->createUrl("iDocto/aprodoc", array("id"=>$data->Id))',
                     'visible'=> '(Yii::app()->user->getState("permiso_act") == true && $data->Id_Estado == Yii::app()->params->elab)',
@@ -115,7 +121,7 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 
                 ),
                 'anul'=>array(
-                    'label'=>'<i class="fa fa-close actions text-black"></i>',
+                    'label'=>'<i class="fas fa-times-circle actions text-dark"></i>',
                     'imageUrl'=>false,
                     'url'=>'Yii::app()->createUrl("iDocto/anuldoc", array("id"=>$data->Id))',
                     'visible'=> '(Yii::app()->user->getState("permiso_act") == true && ($data->Id_Estado == Yii::app()->params->elab || $data->Id_Estado == Yii::app()->params->apro))',
@@ -129,9 +135,18 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 
 <?php } else { ?>
 
-<br>
-<br>
-<p>Este usuario no tiene bodegas / tipos de docto asociados.</p>
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h4>Aprobación y anulación de documentos</h4>
+  </div>
+  <div class="col-sm-6 text-right">  
+  </div>
+</div>
+
+<div class="alert alert-warning alert-dismissible">
+    <h5><i class="icon fas fa-info-circle"></i>Info</h5>
+    Este usuario no tiene bodegas / tipos de docto asociados.
+</div>
 
 <?php } ?>
 

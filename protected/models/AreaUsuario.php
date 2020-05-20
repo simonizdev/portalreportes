@@ -108,7 +108,6 @@ class AreaUsuario extends CActiveRecord
 
 		$criteria->compare('t.Id_A_Usuario',$this->Id_A_Usuario);
 		$criteria->compare('t.Estado',$this->Estado);
-		$criteria->compare('t.Id_Area',$this->Id_Area);
 
 		if($this->Fecha_Creacion != ""){
       		$fci = $this->Fecha_Creacion." 00:00:00";
@@ -134,6 +133,10 @@ class AreaUsuario extends CActiveRecord
 
 	    if($this->usuario != ""){
 			$criteria->AddCondition("idusuario.Usuario = '".$this->usuario."'"); 
+	    }
+
+	    if($this->Id_Area != ""){
+			$criteria->AddCondition("t.Id_Area = '".$this->Id_Area."'"); 
 	    }
 
 	    if(empty($this->orderby)){

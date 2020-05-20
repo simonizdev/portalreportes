@@ -15,7 +15,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Id_Fact'); ?>
-			    <?php echo $form->numberField($model,'Id_Fact', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number')); ?>
+			    <?php echo $form->numberField($model,'Id_Fact', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
@@ -60,26 +60,26 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Num_Factura'); ?>
-			    <?php echo $form->textField($model,'Num_Factura', array('class' => 'form-control', 'autocomplete' => 'off')); ?>
+			    <?php echo $form->textField($model,'Num_Factura', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off')); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Factura'); ?>
-			    <?php echo $form->textField($model,'Fecha_Factura', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha_Factura', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Radicado'); ?>
-			    <?php echo $form->textField($model,'Fecha_Radicado', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha_Radicado', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
 	        <div class="form-group">
-	          <?php echo $form->error($model,'periodo_radicado', array('class' => 'pull-right badge bg-red')); ?>
+	          <?php echo $form->error($model,'periodo_radicado', array('class' => 'badge badge-warning float-right')); ?>
 	          <?php echo $form->label($model,'periodo_radicado'); ?>
-	          <?php echo $form->textField($model,'periodo_radicado', array('class' => 'form-control', 'readonly' => true)); ?>
+	          <?php echo $form->textField($model,'periodo_radicado', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	</div>
@@ -94,7 +94,7 @@
 
 			        'options'  => array(
 			        	'allowClear' => true,
-			        	'minimumInputLength' => 5,
+			        	'minimumInputLength' => 3,
 		               	'width' => '100%',
 		               	'language' => 'es',
 		                'ajax' => array(
@@ -105,7 +105,7 @@
 					                       
 			            ),
 		            	'formatNoMatches'=> 'js:function(){ clear_select2_ajax("FactCont_Proveedor"); return "No se encontraron resultados"; }',
-		            	'formatInputTooShort' =>  'js:function(){ return "Digite más de 5 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'FactCont_Proveedor\')\">Limpiar campo</button>"; }',
+		            	'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'FactCont_Proveedor\')\">Limpiar campo</button>"; }',
 		        	),
 
 		      	));
@@ -136,7 +136,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Creacion'); ?>
-			    <?php echo $form->textField($model,'Fecha_Creacion', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha_Creacion', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
@@ -161,7 +161,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Actualizacion'); ?>
-			    <?php echo $form->textField($model,'Fecha_Actualizacion', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha_Actualizacion', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	</div>
@@ -188,7 +188,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Revision'); ?>
-			    <?php echo $form->textField($model,'Fecha_Revision', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha_Revision', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
@@ -247,10 +247,12 @@
 	        </div>
 	    </div>
 	</div>
-	<div class="btn-group" style="padding-bottom: 2%">
-		<button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-		<?php echo CHtml::submitButton('', array('style' => 'display:none;', 'id' => 'yt0')); ?>
-		<button type="submit" class="btn btn-success" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+	<div class="row mb-2">
+	  	<div class="col-sm-6">  
+     		<button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+     		<?php echo CHtml::submitButton('', array('style' => 'display:none;', 'id' => 'yt0')); ?>
+			<button type="submit" class="btn btn-success btn-sm" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+	  	</div>
 	</div>
 
 <?php $this->endWidget(); ?>
@@ -282,11 +284,6 @@ $(function() {
   });
 
 });
-
-function clear_select2_ajax(id){
-	$('#'+id+'').val('').trigger('change');
-	$('#s2id_'+id+' span').html("");
-}
 
 function resetfields(){
 	$('#FactCont_Id_Fact').val('');

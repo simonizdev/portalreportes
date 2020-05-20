@@ -11,6 +11,8 @@
  * @property string $Descripcion
  * @property string $Link
  * @property integer $Orden
+ * @property int $Descarga_Directa
+ * @property string $Descripcion_Larga
  * @property boolean $Estado
  * @property string $Font_Icon
  * @property string $Fecha_Creacion
@@ -34,6 +36,7 @@ class Menu extends CActiveRecord
 	/**
 	 * @return string the associated database table name
 	 */
+
 	public function tableName()
 	{
 		return 'TH_MENU';
@@ -47,12 +50,13 @@ class Menu extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_Padre, Descripcion, Link, Orden, Estado, Font_Icon', 'required','on'=>'create , update'),
-			array('Id_Padre, Id_Usuario_Creacion, Id_Usuario_Actualizacion, Orden', 'numerical', 'integerOnly'=>true),
+			array('Id_Padre, Descripcion, Link, Orden, Descarga_Directa, Estado, Font_Icon', 'required','on'=>'create , update'),
+			array('Id_Padre, Id_Usuario_Creacion, Id_Usuario_Actualizacion, Orden, Descarga_Directa', 'numerical', 'integerOnly'=>true),
 			array('Descripcion, Link, Font_Icon', 'length', 'max'=>50),
+			array('Descripcion_Larga', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id_Menu, padre, Descripcion, Link, Orden, Estado, Fecha_Creacion, Fecha_Actualizacion, usuario_creacion, usuario_actualizacion, orderby', 'safe', 'on'=>'search'),
+			array('Id_Menu, padre, Descripcion, Link, Orden, Descarga_Directa, Estado, Fecha_Creacion, Fecha_Actualizacion, usuario_creacion, usuario_actualizacion, orderby', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -86,6 +90,8 @@ class Menu extends CActiveRecord
 			'Descripcion' => 'Descripción',
 			'Link' => 'Link',
 			'Orden' => 'Orden',
+			'Descarga_Directa' => 'Descarga directa',
+			'Descripcion_Larga' => 'Descripción larga',
 			'Estado' => 'Estado',
 			'Font_Icon' => 'Icono font awesome',
 			'Fecha_Creacion' => 'Fecha de creación',
@@ -122,6 +128,7 @@ class Menu extends CActiveRecord
 		$criteria->compare('t.Descripcion',$this->Descripcion,true);
 		$criteria->compare('t.Link',$this->Link,true);
 		$criteria->compare('t.Orden',$this->Orden);
+		$criteria->compare('t.Descarga_Directa',$this->Descarga_Directa);
 		$criteria->compare('t.Estado',$this->Estado);
 		$criteria->compare('t.Font_Icon',$this->Font_Icon,true);
 		$criteria->AddCondition("t.Id_Menu != 1"); 

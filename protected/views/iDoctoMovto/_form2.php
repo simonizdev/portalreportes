@@ -20,10 +20,13 @@ $modelo_docto = IDocto::model()->findByPk($id);
 
 ?>
 
+<div id="div_mensaje" style="display: none;">
+</div>
+
 <div class="row">
 	<div class="col-sm-4">
 	    <div class="form-group">
-	    	<?php echo $form->hiddenField($model,'Id_Docto', array('class' => 'form-control', 'autocomplete' => 'off','value' => $id)); ?>
+	    	<?php echo $form->hiddenField($model,'Id_Docto', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off','value' => $id)); ?>
 	        <?php echo $form->label($model,'tipo_docto'); ?>
 	        <?php echo '<p>'.$modelo_docto->idtipodocto->Descripcion.'</p>'; ?>
 	    </div>
@@ -38,7 +41,7 @@ $modelo_docto = IDocto::model()->findByPk($id);
 <div class="row">
 	<div class="col-sm-8">
         <div class="form-group">
-            <?php echo $form->error($model,'Id_Item', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Id_Item', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Id_Item'); ?>
             <?php echo $form->textField($model,'Id_Item'); ?>
             <?php
@@ -55,7 +58,7 @@ $modelo_docto = IDocto::model()->findByPk($id);
                             'results'=>'js:function(data){ return {results:data};}'                
                         ),
                         'formatNoMatches'=> 'js:function(){ clear_select2_ajax("IDoctoMovto_Id_Item"); return "No se encontraron resultados"; }',
-                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'IDoctoMovto_Id_Item\')\">Limpiar campo</button>"; }',
+                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'IDoctoMovto_Id_Item\')\">Limpiar campo</button>"; }',
                         'initSelection'=>'js:function(element,callback) {
                             var id=$(element).val(); // read #selector value
                             if ( id !== "" ) {
@@ -75,7 +78,7 @@ $modelo_docto = IDocto::model()->findByPk($id);
 
 	<div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'Id_Bodega_Org', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Id_Bodega_Org', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Id_Bodega_Org'); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
@@ -100,7 +103,7 @@ $modelo_docto = IDocto::model()->findByPk($id);
 
 	<div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'Id_Bodega_Dst', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Id_Bodega_Dst', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Id_Bodega_Dst'); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
@@ -129,7 +132,7 @@ $modelo_docto = IDocto::model()->findByPk($id);
 
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'Id_Bodega_Org', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Id_Bodega_Org', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Id_Bodega_Org'); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
@@ -149,7 +152,7 @@ $modelo_docto = IDocto::model()->findByPk($id);
     </div>
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'Id_Bodega_Dst', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Id_Bodega_Dst', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Id_Bodega_Dst'); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
@@ -171,9 +174,9 @@ $modelo_docto = IDocto::model()->findByPk($id);
 
 	<div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'Cantidad', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Cantidad', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Cantidad'); ?>
-            <?php echo $form->numberField($model,'Cantidad', array('class' => 'form-control', 'autocomplete' => 'off','maxlength' => '250', 'min' => 1)); ?>
+            <?php echo $form->numberField($model,'Cantidad', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off','maxlength' => '250', 'min' => 1)); ?>
         </div>
     </div>
 
@@ -181,9 +184,9 @@ $modelo_docto = IDocto::model()->findByPk($id);
 
 	<div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'Vlr_Unit_Item', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Vlr_Unit_Item', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Vlr_Unit_Item'); ?>
-            <?php echo $form->numberField($model,'Vlr_Unit_Item', array('class' => 'form-control', 'autocomplete' => 'off','maxlength' => '250', 'min' => 1)); ?>
+            <?php echo $form->numberField($model,'Vlr_Unit_Item', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off','maxlength' => '250', 'min' => 1)); ?>
         </div>
     </div>
 
@@ -191,23 +194,20 @@ $modelo_docto = IDocto::model()->findByPk($id);
 
 </div>
 
-<div class="pull-right badge bg-red" id="error_det" style="display: none;"></div>
-
-<div class="btn-group" id="btn_save" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=iDocto/update&id='.$id; ?>';"><i class="fa fa-reply"></i> Volver </button>
-   <button type="button" class="btn btn-success" onclick="add_item();"><i class="fa fa-floppy-o" ></i> Guardar</button>
+<div class="row mb-4">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=iDocto/update&id='.$id; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="button" class="btn btn-success btn-sm" onclick="add_item();"><i class="fas fa-save" ></i> Guardar</button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
 
-function clear_select2_ajax(id){
-    $('#'+id+'').val('').trigger('change');
-    $('#s2id_'+id+' span').html(""); 
-}
-
 function add_item(){
+    
+    limp_div_msg();
 
 	var form = $("#idocto-movto-form");
 
@@ -236,15 +236,17 @@ function add_item(){
 
                     if(response == 0){
                         //se encontro un registro identico en item / bodega
-                        $('#error_det').html('Ya existe un detalle con la misma combinación (Item - Bodega destino)');
-                        $('#error_det').show();
+                        $('html, body').animate({scrollTop:0}, 'fast');
+                        $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
+                        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>Ya existe un detalle con la misma combinación (Item - Bodega destino).');    
+                        $("#div_mensaje").fadeIn('fast');
+                        $(".ajax-loader").fadeOut('fast');
                     }
 
                     if(response == 1){
                         //si esta disponible la cantidad solicitada
-                        $('#error_det').html('');
-						$('#error_det').hide();
-						$('#btn_save').hide();
+                        //se envia el form
+                        $(".ajax-loader").fadeIn('fast');
                         form.submit();
                     }
 
@@ -253,19 +255,19 @@ function add_item(){
 
 		}else{
 	        if(item == ""){
-	            $('#IDoctoMovto_Id_Item_em_').html('Item no puede ser nulo.');
+	            $('#IDoctoMovto_Id_Item_em_').html('Item es requerido.');
 	            $('#IDoctoMovto_Id_Item_em_').show(); 
 	        }
 	        if(bodega_destino == ""){
-	            $('#IDoctoMovto_Id_Bodega_Dst_em_').html('Bodega destino no puede ser nulo.');
+	            $('#IDoctoMovto_Id_Bodega_Dst_em_').html('Bodega destino es requerido.');
 	            $('#IDoctoMovto_Id_Bodega_Dst_em_').show();    
 	        }
 	        if(cant == ""){
-	            $('#IDoctoMovto_Cantidad_em_').html('Cantidad no puede ser nulo.');
+	            $('#IDoctoMovto_Cantidad_em_').html('Cantidad es requerido.');
 	            $('#IDoctoMovto_Cantidad_em_').show();    
 	        }
 	        if(vlr == ""){
-	            $('#IDoctoMovto_Vlr_Unit_Item_em_').html('Vlr. unitario no puede ser nulo.');
+	            $('#IDoctoMovto_Vlr_Unit_Item_em_').html('Vlr. unitario es requerido.');
 	            $('#IDoctoMovto_Vlr_Unit_Item_em_').show();    
 	        }  
 		}
@@ -285,15 +287,17 @@ function add_item(){
                    
                     if(response == 0){
                         //se encontro un registro identico en item / bodega
-                        $('#error_det').html('Ya existe un detalle con la misma combinación (Item - Bodega origen)');
-                        $('#error_det').show();
+                        $('html, body').animate({scrollTop:0}, 'fast');
+                        $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
+                        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>Ya existe un detalle con la misma combinación (Item - Bodega origen).');    
+                        $("#div_mensaje").fadeIn('fast');
+                        $(".ajax-loader").fadeOut('fast');
                     }
 
                     if(response == 1){
                         //si esta disponible la cantidad solicitada
-                        $('#error_det').html('');
-						$('#error_det').hide();
-						$('#btn_save').hide();
+                        $//se envia el form
+                        $(".ajax-loader").fadeIn('fast');
                         form.submit();
                     }
 
@@ -302,15 +306,15 @@ function add_item(){
 
 		}else{
 	        if(item == ""){
-	            $('#IDoctoMovto_Id_Item_em_').html('Item no puede ser nulo.');
+	            $('#IDoctoMovto_Id_Item_em_').html('Item es requerido.');
 	            $('#IDoctoMovto_Id_Item_em_').show(); 
 	        }
 	        if(bodega_origen == ""){
-	            $('#IDoctoMovto_Id_Bodega_Org_em_').html('Bodega origen no puede ser nulo.');
+	            $('#IDoctoMovto_Id_Bodega_Org_em_').html('Bodega origen es requerido.');
 	            $('#IDoctoMovto_Id_Bodega_Org_em_').show();    
 	        }
 	        if(cant == ""){
-	            $('#IDoctoMovto_Cantidad_em_').html('Cantidad no puede ser nulo.');
+	            $('#IDoctoMovto_Cantidad_em_').html('Cantidad es requerido.');
 	            $('#IDoctoMovto_Cantidad_em_').show();    
 	        }
 		}
@@ -330,15 +334,17 @@ function add_item(){
                    
                     if(response == 0){
                         //se encontro un registro identico en item / bodega
-                        $('#error_det').html('Ya existe un detalle con la misma combinación (Item - Bodega origen - Bodega destino)');
-                        $('#error_det').show();
+                        $('html, body').animate({scrollTop:0}, 'fast');
+                        $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
+                        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>Ya existe un detalle con la misma combinación (Item - Bodega origen - Bodega destino).');    
+                        $("#div_mensaje").fadeIn('fast');
+                        $(".ajax-loader").fadeOut('fast');
                     }
 
                     if(response == 1){
                         //si esta disponible la cantidad solicitada
-                        $('#error_det').html('');
-						$('#error_det').hide();
-						$('#btn_save').hide();
+                        //se envia el form
+                        $(".ajax-loader").fadeIn('fast');
                         form.submit();
                     }
                 }
@@ -346,19 +352,19 @@ function add_item(){
 
 		}else{
 	        if(item == ""){
-	            $('#IDoctoMovto_Id_Item_em_').html('Item no puede ser nulo.');
+	            $('#IDoctoMovto_Id_Item_em_').html('Item es requerido.');
 	            $('#IDoctoMovto_Id_Item_em_').show(); 
 	        }
 	        if(bodega_origen == ""){
-	            $('#IDoctoMovto_Id_Bodega_Org_em_').html('Bodega origen no puede ser nulo.');
+	            $('#IDoctoMovto_Id_Bodega_Org_em_').html('Bodega origen es requerido.');
 	            $('#IDoctoMovto_Id_Bodega_Org_em_').show();    
 	        }
 	        if(bodega_destino == ""){
-	            $('#IDoctoMovto_Id_Bodega_Dst_em_').html('Bodega destino no puede ser nulo.');
+	            $('#IDoctoMovto_Id_Bodega_Dst_em_').html('Bodega destino es requerido.');
 	            $('#IDoctoMovto_Id_Bodega_Dst_em_').show();    
 	        }
 	        if(cant == ""){
-	            $('#IDoctoMovto_Cantidad_em_').html('Cantidad no puede ser nulo.');
+	            $('#IDoctoMovto_Cantidad_em_').html('Cantidad es requerido.');
 	            $('#IDoctoMovto_Cantidad_em_').show();    
 	        }
 		}
@@ -377,15 +383,17 @@ function add_item(){
                    
                     if(response == 0){
                         //se encontro un registro identico en item / bodega
-                        $('#error_det').html('Ya existe un detalle con la misma combinación (Item - Bodega destino)');
-                        $('#error_det').show();
+                        $('html, body').animate({scrollTop:0}, 'fast');
+                        $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
+                        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>Ya existe un detalle con la misma combinación (Item - Bodega destino).');    
+                        $("#div_mensaje").fadeIn('fast');
+                        $(".ajax-loader").fadeOut('fast');
                     }
 
                     if(response == 1){
                         //si esta disponible la cantidad solicitada
-                        $('#error_det').html('');
-						$('#error_det').hide();
-						$('#btn_save').hide();
+                        //se envia el form
+                        $(".ajax-loader").fadeIn('fast');
                         form.submit();
                     }
 
@@ -394,15 +402,15 @@ function add_item(){
 
 		}else{
 	        if(item == ""){
-	            $('#IDoctoMovto_Id_Item_em_').html('Item no puede ser nulo.');
+	            $('#IDoctoMovto_Id_Item_em_').html('Item es requerido.');
 	            $('#IDoctoMovto_Id_Item_em_').show(); 
 	        }
 	        if(bodega_destino == ""){
-	            $('#IDoctoMovto_Id_Bodega_Dst_em_').html('Bodega destino no puede ser nulo.');
+	            $('#IDoctoMovto_Id_Bodega_Dst_em_').html('Bodega destino es requerido.');
 	            $('#IDoctoMovto_Id_Bodega_Dst_em_').show();    
 	        }
 	        if(cant == ""){
-	            $('#IDoctoMovto_Cantidad_em_').html('Cantidad no puede ser nulo.');
+	            $('#IDoctoMovto_Cantidad_em_').html('Cantidad es requerido.');
 	            $('#IDoctoMovto_Cantidad_em_').show();    
 	        }
 		}
@@ -422,15 +430,17 @@ function add_item(){
                    
                     if(response == 0){
                         //se encontro un registro identico en item / bodega
-                        $('#error_det').html('Ya existe un detalle con la misma combinación (Item - Bodega origen)');
-                        $('#error_det').show();
+                        $('html, body').animate({scrollTop:0}, 'fast');
+                        $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
+                        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>Ya existe un detalle con la misma combinación (Item - Bodega origen).');    
+                        $("#div_mensaje").fadeIn('fast');
+                        $(".ajax-loader").fadeOut('fast');
                     }
 
                     if(response == 1){
                         //si esta disponible la cantidad solicitada
-                        $('#error_det').html('');
-                        $('#error_det').hide();
-                        $('#btn_save').hide();
+                        //se envia el form
+                        $(".ajax-loader").fadeIn('fast');
                         form.submit();
                     }
 
@@ -439,15 +449,15 @@ function add_item(){
 
         }else{
             if(item == ""){
-                $('#IDoctoMovto_Id_Item_em_').html('Item no puede ser nulo.');
+                $('#IDoctoMovto_Id_Item_em_').html('Item es requerido.');
                 $('#IDoctoMovto_Id_Item_em_').show(); 
             }
             if(bodega_origen == ""){
-                $('#IDoctoMovto_Id_Bodega_Org_em_').html('Bodega origen no puede ser nulo.');
+                $('#IDoctoMovto_Id_Bodega_Org_em_').html('Bodega origen es requerido.');
                 $('#IDoctoMovto_Id_Bodega_Org_em_').show();    
             }
             if(cant == ""){
-                $('#IDoctoMovto_Cantidad_em_').html('Cantidad no puede ser nulo.');
+                $('#IDoctoMovto_Cantidad_em_').html('Cantidad es requerido.');
                 $('#IDoctoMovto_Cantidad_em_').show();    
             }
         }
@@ -467,15 +477,17 @@ function add_item(){
                    
                     if(response == 0){
                         //se encontro un registro identico en item / bodega
-                        $('#error_det').html('Ya existe un detalle con la misma combinación (Item - Bodega origen)');
-                        $('#error_det').show();
+                        $('html, body').animate({scrollTop:0}, 'fast');
+                        $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
+                        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>Ya existe un detalle con la misma combinación (Item - Bodega origen).');    
+                        $("#div_mensaje").fadeIn('fast');
+                        $(".ajax-loader").fadeOut('fast');
                     }
 
                     if(response == 1){
                         //si esta disponible la cantidad solicitada
-                        $('#error_det').html('');
-                        $('#error_det').hide();
-                        $('#btn_save').hide();
+                        //se envia el form
+                        $(".ajax-loader").fadeIn('fast');
                         form.submit();
                     }
 
@@ -484,15 +496,15 @@ function add_item(){
 
         }else{
             if(item == ""){
-                $('#IDoctoMovto_Id_Item_em_').html('Item no puede ser nulo.');
+                $('#IDoctoMovto_Id_Item_em_').html('Item es requerido.');
                 $('#IDoctoMovto_Id_Item_em_').show(); 
             }
             if(bodega_origen == ""){
-                $('#IDoctoMovto_Id_Bodega_Org_em_').html('Bodega origen no puede ser nulo.');
+                $('#IDoctoMovto_Id_Bodega_Org_em_').html('Bodega origen es requerido.');
                 $('#IDoctoMovto_Id_Bodega_Org_em_').show();    
             }
             if(cant == ""){
-                $('#IDoctoMovto_Cantidad_em_').html('Cantidad no puede ser nulo.');
+                $('#IDoctoMovto_Cantidad_em_').html('Cantidad es requerido.');
                 $('#IDoctoMovto_Cantidad_em_').show();    
             }
         }
@@ -512,15 +524,17 @@ function add_item(){
                    
                     if(response == 0){
                         //se encontro un registro identico en item / bodega
-                        $('#error_det').html('Ya existe un detalle con la misma combinación (Item - Bodega destino)');
-                        $('#error_det').show();
+                        $('html, body').animate({scrollTop:0}, 'fast');
+                        $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
+                        $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>Ya existe un detalle con la misma combinación (Item - Bodega destino).');    
+                        $("#div_mensaje").fadeIn('fast');
+                        $(".ajax-loader").fadeOut('fast');
                     }
 
                     if(response == 1){
                         //si esta disponible la cantidad solicitada
-                        $('#error_det').html('');
-                        $('#error_det').hide();
-                        $('#btn_save').hide();
+                        //se envia el form
+                        $(".ajax-loader").fadeIn('fast');
                         form.submit();
                     }
 
@@ -529,15 +543,15 @@ function add_item(){
 
         }else{
             if(item == ""){
-                $('#IDoctoMovto_Id_Item_em_').html('Item no puede ser nulo.');
+                $('#IDoctoMovto_Id_Item_em_').html('Item es requerido.');
                 $('#IDoctoMovto_Id_Item_em_').show(); 
             }
             if(bodega_destino == ""){
-                $('#IDoctoMovto_Id_Bodega_Dst_em_').html('Bodega destino no puede ser nulo.');
+                $('#IDoctoMovto_Id_Bodega_Dst_em_').html('Bodega destino es requerido.');
                 $('#IDoctoMovto_Id_Bodega_Dst_em_').show();    
             }
             if(cant == ""){
-                $('#IDoctoMovto_Cantidad_em_').html('Cantidad no puede ser nulo.');
+                $('#IDoctoMovto_Cantidad_em_').html('Cantidad es requerido.');
                 $('#IDoctoMovto_Cantidad_em_').show();    
             }
         }
@@ -546,23 +560,18 @@ function add_item(){
 }
 
 $("#IDoctoMovto_Id_Item").change( function (){
-	$('#error_det').html('');
-	$('#error_det').hide();
-   
+	limp_div_msg();  
 });
 
 $("#IDoctoMovto_Id_Bodega_Dst").change( function (){
-	$('#error_det').html('');
-	$('#error_det').hide();
-   
+    limp_div_msg();
 });
 
 $("#IDoctoMovto_Id_Bodega_Org").change( function (){
 
 	var tipo = <?php echo $modelo_docto->Id_Tipo_Docto; ?>;
 
-	$('#error_det').html('');
-	$('#error_det').hide();
+	limp_div_msg();
 
 	bod = $(this).val();
 	

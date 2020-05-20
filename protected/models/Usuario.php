@@ -14,6 +14,7 @@
  * @property boolean $Estado
  * @property string $Fecha_Creacion
  * @property string $Fecha_Actualizacion
+ * @property integer $Avatar
  *
  * The followings are the available model relations:
  * @property THEMPRESAUSUARIO[] $tHEMPRESAUSUARIOs
@@ -64,8 +65,8 @@ class Usuario extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Nombres, Correo, Usuario, Password, Estado, perfiles','required','on'=>'create'),
-			array('Nombres, Correo, Usuario, Estado, perfiles','required','on'=>'update'),
+			array('Nombres, Correo, Usuario, Password, Estado, Avatar, perfiles','required','on'=>'create'),
+			array('Nombres, Correo, Usuario, Estado, Avatar, perfiles','required','on'=>'update'),
 			array('Usuario','unique','on'=>'create'),
 			array('Usuario', 'uniqueUsuario','on'=>'update'),
 			array('Correo','email', 'message'=>'E-mail no valido' ,'on'=>'create , update'),
@@ -152,6 +153,7 @@ class Usuario extends CActiveRecord
 			'Correo' => 'E-mail',
 			'Password' => 'Password',
 			'Estado' => 'Estado',
+			'Avatar' => 'Avatar',
 			'Fecha_Creacion' => 'Fecha de creación',
 			'Fecha_Actualizacion' => 'Fecha de actualización',
 			'usuario_creacion' => 'Usuario que creo',

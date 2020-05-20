@@ -215,7 +215,7 @@ class Reporte extends CFormModel
             'marca_final'=>'Marca final',
             'cliente_inicial'=>'Cliente inicial',
             'cliente_final'=>'Cliente final',
-            'opcion_exp'=>'Exportar a',
+            'opcion_exp'=>'Ver en',
             'origen' => 'Origen',
             'clase' => 'Clase',
             'canal' => 'Canal',

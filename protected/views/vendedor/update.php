@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Actualización de vendedor</h3>
+<h4>Actualización de vendedor</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

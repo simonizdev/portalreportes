@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Visualizando usuario</h3>
+<h4>Visualizando usuario</h4>
 
 <div class="table-responsive">
 
@@ -15,6 +15,10 @@
 		'Usuario',
 		'Nombres',
 		'Correo',
+        array(
+            'name' => 'Avatar',
+            'value' => UtilidadesVarias::textoavatar($model->Avatar),
+        ),
 		array(
             'name'=>'Id_Usuario_Creacion',
             'value'=>$model->idusuariocre->Usuario,
@@ -33,15 +37,15 @@
         ),
         array(
             'name' => 'Estado',
-            'type' => 'raw',
-            'value' => ($model->Estado == 1) ? "Activo" : "Inactivo",
+            'value' => UtilidadesVarias::textoestado1($model->Estado),
         ),
 	),
 )); ?>
 
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=usuario/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=usuario/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+    </div>
 </div>
-

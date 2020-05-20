@@ -20,10 +20,13 @@ $modelo_rep = Rep::model()->findByPk($id);
 
 ?>
 
+<div id="div_mensaje" style="display: none;">
+</div>
+
 <div class="row">
 	<div class="col-sm-4">
 	    <div class="form-group">
-	    	<?php echo $form->hiddenField($model,'Id_Rep', array('class' => 'form-control', 'autocomplete' => 'off','value' => $id)); ?>
+	    	<?php echo $form->hiddenField($model,'Id_Rep', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off','value' => $id)); ?>
 	        <?php echo $form->label($model,'Id_Rep'); ?>
 	        <?php echo '<p>'.$modelo_rep->Descripcion.'</p>'; ?>
 	    </div>
@@ -32,7 +35,7 @@ $modelo_rep = Rep::model()->findByPk($id);
 <div class="row">
 	<div class="col-sm-8">
         <div class="form-group">
-            <?php echo $form->error($model,'Id_Item', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Id_Item', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Id_Item'); ?>
             <?php echo $form->textField($model,'Id_Item'); ?>
             <?php
@@ -49,7 +52,7 @@ $modelo_rep = Rep::model()->findByPk($id);
                             'results'=>'js:function(data){ return {results:data};}'                
                         ),
                         'formatNoMatches'=> 'js:function(){ clear_select2_ajax("ItemRep_Id_Item"); return "No se encontraron resultados"; }',
-                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'ItemRep_Id_Item\')\">Limpiar campo</button>"; }',
+                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'ItemRep_Id_Item\')\">Limpiar campo</button>"; }',
                         'initSelection'=>'js:function(element,callback) {
                             var id=$(element).val(); // read #selector value
                             if ( id !== "" ) {
@@ -68,37 +71,34 @@ $modelo_rep = Rep::model()->findByPk($id);
 <div class="row">
 	<div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'Orden', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Orden', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Orden'); ?>
-            <?php echo $form->numberField($model,'Orden', array('class' => 'form-control', 'autocomplete' => 'off',  'step' => '1', 'min' => '0')); ?>
+            <?php echo $form->numberField($model,'Orden', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off',  'step' => '1', 'min' => '0')); ?>
         </div>
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Porcentaje', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'Porcentaje', array('class' => 'badge badge-warning float-right')); ?>
           	<?php echo $form->label($model,'Porcentaje'); ?>
-		    <?php echo $form->numberField($model,'Porcentaje', array('class' => 'form-control', 'autocomplete' => 'off', 'step' => '0.01', 'min' => '0')); ?>
+		    <?php echo $form->numberField($model,'Porcentaje', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'step' => '0.01', 'min' => '0')); ?>
         </div>
     </div>
 </div>
 
-<div class="pull-right badge bg-red" id="error_det" style="display: none;"></div>
-
-<div class="btn-group" id="btn_save" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=rep/update&id='.$id; ?>';"><i class="fa fa-reply"></i> Volver </button>
-   <button type="button" class="btn btn-success" onclick="add_item();"><i class="fa fa-floppy-o" ></i> Guardar</button>
+<div class="row mb-4">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=rep/update&id='.$id; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="button" class="btn btn-success btn-sm" onclick="add_item();"><i class="fas fa-save" ></i> Guardar</button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
 
-function clear_select2_ajax(id){
-    $('#'+id+'').val('').trigger('change');
-    $('#s2id_'+id+' span').html(""); 
-}
-
 function add_item(){
+
+    limp_div_msg();
 
 	var form = $("#item-rep-form");
 
@@ -121,16 +121,14 @@ function add_item(){
             success: function(response){
 
                 if(response == 0){
-                    //se encontro un registro identico en item / bodega
-                    $('#error_det').html('Este item ya esta asociado con este reporte.');
-                    $('#error_det').show();
+                    $("#div_mensaje").addClass("alert alert-warning alert-dismissible");
+                    $("#div_mensaje").html('<button type="button" class="close" aria-hidden="true" onclick="limp_div_msg();">×</button><h5><i class="icon fas fa-exclamation-triangle"></i>Info</h5>Este item ya esta asociado con este reporte.');    
+                    $("#div_mensaje").fadeIn('fast');
+                    $(".ajax-loader").fadeOut('fast');
                 }
 
                 if(response == 1){
-                    //si esta disponible la cantidad solicitada
-                    $('#error_det').html('');
-					$('#error_det').hide();
-					$('#btn_save').hide();
+                    $(".ajax-loader").fadeIn('fast');
                     form.submit();
                 }
 
@@ -139,25 +137,19 @@ function add_item(){
 
 	}else{
         if(item == ""){
-            $('#ItemRep_Id_Item_em_').html('Item no puede ser nulo.');
+            $('#ItemRep_Id_Item_em_').html('Item es requerido.');
             $('#ItemRep_Id_Item_em_').show(); 
         }
         if(orden == ""){
-            $('#ItemRep_Orden_em_').html('Orden no puede ser nulo.');
+            $('#ItemRep_Orden_em_').html('Orden es requerido.');
             $('#ItemRep_Orden_em_').show();    
         }
         if(porcentaje == ""){
-            $('#ItemRep_Porcentaje_em_').html('Porcentaje no puede ser nulo.');
+            $('#ItemRep_Porcentaje_em_').html('Porcentaje es requerido.');
             $('#ItemRep_Porcentaje_em_').show();    
         }
 	}
 
 }
-
-$("#ItemRep_Id_Item").change( function (){
-	$('#error_det').html('');
-	$('#error_det').hide();
-   
-});
 
 </script>

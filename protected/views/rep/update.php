@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Actualización item(s) por reporte</h3>
+<h4>Actualización item(s) por reporte</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model, 'items'=>$items)); ?>

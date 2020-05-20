@@ -7,7 +7,7 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
 
 ?>
 
-<h3>Kardex de inventario</h3>
+<h4>Kardex de inventario</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'idocto-form',
@@ -24,22 +24,22 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
 <div class="row">
   <div class="col-sm-4">
     <div class="form-group">
-      <?php echo $form->error($model,'fecha_inicial', array('class' => 'pull-right badge bg-red')); ?>
       <?php echo $form->label($model,'fecha_inicial'); ?>
-      <?php echo $form->textField($model,'fecha_inicial', array('class' => 'form-control', 'readonly' => true)); ?>
+      <?php echo $form->error($model,'fecha_inicial', array('class' => 'badge badge-warning float-right')); ?>
+      <?php echo $form->textField($model,'fecha_inicial', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
     </div>
   </div> 
   <div class="col-sm-4">
     <div class="form-group">
-      <?php echo $form->error($model,'fecha_final', array('class' => 'pull-right badge bg-red')); ?>
       <?php echo $form->label($model,'fecha_final'); ?>
-      <?php echo $form->textField($model,'fecha_final', array('class' => 'form-control', 'readonly' => true)); ?>
+      <?php echo $form->error($model,'fecha_final', array('class' => 'badge badge-warning float-right')); ?>
+      <?php echo $form->textField($model,'fecha_final', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
     </div>
   </div> 
   <div class="col-sm-4">
     <div class="form-group">
-        <?php echo $form->error($model,'tipo', array('class' => 'pull-right badge bg-red')); ?>
         <?php echo $form->label($model,'tipo'); ?>
+        <?php echo $form->error($model,'tipo', array('class' => 'badge badge-warning float-right')); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
                 'name'=>'IDocto[tipo]',
@@ -60,7 +60,7 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
 <div class="row">
   <div class="col-sm-6" id="div_item_i" style="display: none">
     <div class="form-group">
-      <div class="pull-right badge bg-red" id="error_item_inicial" style="display: none;"></div>
+      <div class="badge badge-warning float-right" id="error_item_inicial" style="display: none;"></div>
         <?php echo $form->label($model,'item_inicial'); ?>
         <?php echo $form->textField($model,'item_inicial'); ?>
         <?php
@@ -77,7 +77,7 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
                       'results'=>'js:function(data){ return {results:data};}'                
                   ),
                   'formatNoMatches'=> 'js:function(){ clear_select2_ajax("IDocto_det_item"); return "No se encontraron resultados"; }',
-                  'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'IDocto_det_item\')\">Limpiar campo</button>"; }',
+                  'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'IDocto_det_item\')\">Limpiar campo</button>"; }',
               ),
           ));
         ?>
@@ -85,8 +85,8 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
   </div>
   <div class="col-sm-6" id="div_item_f" style="display: none">
     <div class="form-group">
-      <div class="pull-right badge bg-red" id="error_item_final" style="display: none;"></div>
         <?php echo $form->label($model,'item_final'); ?>
+        <div class="badge badge-warning float-right" id="error_item_final" style="display: none;"></div>
         <?php echo $form->textField($model,'item_final'); ?>
         <?php
           $this->widget('ext.select2.ESelect2', array(
@@ -102,7 +102,7 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
                       'results'=>'js:function(data){ return {results:data};}'                
                   ),
                   'formatNoMatches'=> 'js:function(){ clear_select2_ajax("IDocto_det_item"); return "No se encontraron resultados"; }',
-                  'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'IDocto_det_item\')\">Limpiar campo</button>"; }',
+                  'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'IDocto_det_item\')\">Limpiar campo</button>"; }',
               ),
           ));
         ?>
@@ -110,8 +110,8 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
   </div>
   <div class="col-sm-8" id="div_linea" style="display: none">
     <div class="form-group">
-          <div class="pull-right badge bg-red" id="error_linea" style="display: none;"></div>
           <?php echo $form->label($model,'linea'); ?>
+          <div class="badge badge-warning float-right" id="error_linea" style="display: none;"></div>
           <?php
             $this->widget('ext.select2.ESelect2',array(
               'name'=>'IDocto[linea]',
@@ -130,9 +130,12 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
     </div>
   </div>
 </div>
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-bar-chart"></i> Generar</button>
+
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-file-pdf"></i> Generar</button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>
@@ -316,11 +319,6 @@ function resetfields(){
   $('#error_item_inicial').hide();
   $('#error_item_final').html('');
   $('#error_item_final').hide();
-}
-
-function clear_select2_ajax(id){
-    $('#'+id+'').val('').trigger('change');
-    $('#s2id_'+id+' span').html("");
 }
 
 </script>

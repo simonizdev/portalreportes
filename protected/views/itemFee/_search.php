@@ -15,12 +15,12 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Id_Fee_Item'); ?>
-			    <?php echo $form->numberField($model,'Id_Fee_Item', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number')); ?>
+			    <?php echo $form->numberField($model,'Id_Fee_Item', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-6">
 	        <div class="form-group">
-	            <?php echo $form->error($model,'Rowid_Item', array('class' => 'pull-right badge bg-red')); ?>
+	            <?php echo $form->error($model,'Rowid_Item', array('class' => 'badge badge-warning float-right')); ?>
 	            <?php echo $form->label($model,'Rowid_Item'); ?>
 	            <?php echo $form->textField($model,'Rowid_Item'); ?>
 	            <?php
@@ -38,7 +38,7 @@
 	                            'results'=>'js:function(data){ return {results:data};}'                   
 	                        ),
 	                        'formatNoMatches'=> 'js:function(){ clear_select2_ajax("ItemFee_Rowid_Item"); return "No se encontraron resultados"; }',
-	                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'ItemFee_Rowid_Item\')\">Limpiar campo</button>"; }',
+	                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'ItemFee_Rowid_Item\')\">Limpiar campo</button>"; }',
 	                    ),
 	                ));
 	            ?>
@@ -68,7 +68,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Porcentaje'); ?>
-			    <?php echo $form->numberField($model,'Porcentaje', array('class' => 'form-control', 'autocomplete' => 'off' , 'step' => '0.01')); ?>
+			    <?php echo $form->numberField($model,'Porcentaje', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off' , 'step' => '0.01')); ?>
 	        </div>
 	    </div>
 	</div>
@@ -94,7 +94,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Creacion'); ?>
-			    <?php echo $form->textField($model,'Fecha_Creacion', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha_Creacion', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
@@ -118,7 +118,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Actualizacion'); ?>
-			    <?php echo $form->textField($model,'Fecha_Actualizacion', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha_Actualizacion', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	</div>
@@ -177,9 +177,11 @@
 	        </div>
 	    </div>
 	</div>
-	<div class="btn-group" style="padding-bottom: 2%">
-		<button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-		<button type="submit" class="btn btn-success" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+	<div class="row mb-2">
+	  	<div class="col-sm-6">  
+     		<button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+			<button type="submit" class="btn btn-success btn-sm" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+	  	</div>
 	</div>
 	
 
@@ -200,11 +202,6 @@
 		$('#ItemFee_Estado').val('').trigger('change');
 		$('#ItemFee_orderby').val('').trigger('change');
 		$('#yt0').click();
-	}
-
-	function clear_select2_ajax(id){
-    	$('#'+id+'').val('').trigger('change');
-    	$('#s2id_'+id+' span').html(""); 
 	}
 	
 </script>

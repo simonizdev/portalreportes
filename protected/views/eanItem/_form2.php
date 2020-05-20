@@ -18,22 +18,22 @@
 
 <div class="row">    		
 	<div class="col-sm-6">
-		<?php echo $form->error($model,'Id_Item', array('class' => 'pull-right badge bg-red')); ?>
+		<?php echo $form->error($model,'Id_Item', array('class' => 'badge badge-warning float-right')); ?>
 	    <?php echo $form->label($model,'Id_Item'); ?>
-	    <?php echo $form->hiddenField($model,'Id_Item', array('class' => 'form-control', 'maxlength' => '100', 'autocomplete' => 'off', 'readonly' => true, 'value' => $modelo_info_item->Id_Item)); ?>	
+	    <?php echo $form->hiddenField($model,'Id_Item', array('class' => 'form-control form-control-sm', 'maxlength' => '100', 'autocomplete' => 'off', 'readonly' => true, 'value' => $modelo_info_item->Id_Item)); ?>	
    		<p><?php echo $modelo_info_item->DescItem($modelo_info_item->Id_Item); ?></p>
   	</div>
   	<div class="col-sm-3">
         <div class="form-group">
-            <?php echo $form->error($model,'Criterio', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Criterio', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Criterio'); ?>
-            <?php echo $form->hiddenField($model,'Criterio', array('class' => 'form-control', 'maxlength' => '100', 'autocomplete' => 'off', 'readonly' => true, 'value' => $modelo_info_item->Criterio)); ?>	
+            <?php echo $form->hiddenField($model,'Criterio', array('class' => 'form-control form-control-sm', 'maxlength' => '100', 'autocomplete' => 'off', 'readonly' => true, 'value' => $modelo_info_item->Criterio)); ?>	
             <p><?php echo $modelo_info_item->DescCriterio($modelo_info_item->Criterio); ?></p>
         </div>
 	</div>
 	<div class="col-sm-3">
         <div class="form-group">
-            <?php echo $form->error($model,'Num_Und', array('class' => 'pull-right badge bg-red')); ?>
+            <?php echo $form->error($model,'Num_Und', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Num_Und'); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
@@ -53,22 +53,24 @@
 </div>
 <div class="row">
 	<div class="col-sm-3" id="ean" style="display: none;">
-		<?php echo $form->error($model,'Ean', array('class' => 'pull-right badge bg-red')); ?>
+		<?php echo $form->error($model,'Ean', array('class' => 'badge badge-warning float-right')); ?>
 		<?php echo $form->label($model,'Ean'); ?>
-		<?php echo $form->hiddenField($model,'Ean', array('class' => 'form-control', 'maxlength' => '100', 'autocomplete' => 'off', 'readonly' => true)); ?>
-		<?php echo $form->hiddenField($model,'Dig_Ver', array('class' => 'form-control', 'maxlength' => '2', 'autocomplete' => 'off', 'readonly' => true)); ?>
+		<?php echo $form->hiddenField($model,'Ean', array('class' => 'form-control form-control-sm', 'maxlength' => '100', 'autocomplete' => 'off', 'readonly' => true)); ?>
+		<?php echo $form->hiddenField($model,'Dig_Ver', array('class' => 'form-control form-control-sm', 'maxlength' => '2', 'autocomplete' => 'off', 'readonly' => true)); ?>
 		<p id="desc_ean"></p>
 	</div>
 	<div class="col-sm-3" id="uxc" style="display: none;">
-		<?php echo $form->error($model,'Und_x_Caja', array('class' => 'pull-right badge bg-red')); ?>
+		<?php echo $form->error($model,'Und_x_Caja', array('class' => 'badge badge-warning float-right')); ?>
 		<?php echo $form->label($model,'Und_x_Caja'); ?>
-		<?php echo $form->numberField($model,'Und_x_Caja', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number')); ?>
+		<?php echo $form->numberField($model,'Und_x_Caja', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
 	</div>
 </div>
 
-<div class="btn-group" style="padding-top: 2%">
-    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=eanItem/view&id='.$modelo_info_item->Id_Item; ?>';"><i class="fa fa-reply"></i> Volver</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-floppy-o"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=eanItem/view&id='.$modelo_info_item->Id_Item; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>
@@ -148,8 +150,9 @@ $(function() {
 					if(response == 1){
 						//se envia el form
         				form.submit();
+        				loadershow();
 					}else{
-						$('#EanItem_Und_x_Caja_em_').html('Esta cant. ya ha sido asignada');
+						$('#EanItem_Und_x_Caja_em_').html('Esta cant. ya ha sido asignada.');
 						$('#EanItem_Und_x_Caja_em_').show();
 
 					}

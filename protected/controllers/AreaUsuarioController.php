@@ -31,8 +31,8 @@ class AreaUsuarioController extends Controller
 				'actions'=>array('index','view'),
 				'users'=>array('@'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array(),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('export', 'exportexcel'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -72,6 +72,12 @@ class AreaUsuarioController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		
+		if(Yii::app()->request->getParam('export')) {
+    		$this->actionExport();
+    		Yii::app()->end();
+		}
+
 		$model=new AreaUsuario('search');
 		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario'));
 		$model->unsetAttributes();  // clear any default values
@@ -110,5 +116,28 @@ class AreaUsuarioController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	public function actionExport(){
+    	
+    	$model=new AreaUsuario('search');
+	    $model->unsetAttributes();  // clear any default values
+	    
+	    if(isset($_GET['AreaUsuario'])) {
+	        $model->attributes=$_GET['AreaUsuario'];
+	    }
+
+    	$dp = $model->search();
+		$dp->setPagination(false);
+ 
+		$data = $dp->getData();
+
+		Yii::app()->user->setState('area-usuario-export',$data);
+	}
+
+	public function actionExportExcel()
+	{
+		$data = Yii::app()->user->getState('area-usuario-export');
+		$this->renderPartial('area_usuario_export_excel',array('data' => $data));	
 	}
 }

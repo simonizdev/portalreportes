@@ -4,8 +4,8 @@
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
-	$('.search-form').toggle('fast');
-	return false;
+    $('.search-form').slideToggle('fast');
+    return false;
 });
 $('.search-form form').submit(function(){
 	$('#menu-grid').yiiGridView('update', {
@@ -23,11 +23,14 @@ $lista_opciones_p = CHtml::listData($opciones_p, 'Descripcion', 'Descripcion');
 
 ?>
 
-<h3>Administración de opciones de menu</h3>
-
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=menu/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
-    <button type="button" class="btn btn-success search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h4>Administración de opciones de menu</h4>
+  </div>
+  <div class="col-sm-6 text-right">  
+      <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=menu/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
+    <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+  </div>
 </div>
 
 <div class="search-form" style="display:none;">
@@ -42,6 +45,9 @@ $lista_opciones_p = CHtml::listData($opciones_p, 'Descripcion', 'Descripcion');
 	'id'=>'menu-grid',
 	'dataProvider'=>$model->search(),
 	//'filter'=>$model,
+    'pager'=>array(
+        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+    ),
     'enableSorting' => false,
 	'columns'=>array(
 		'Id_Menu',
@@ -75,31 +81,26 @@ $lista_opciones_p = CHtml::listData($opciones_p, 'Descripcion', 'Descripcion');
         ),*/
         array(
             'name' => 'Estado',
-            'type' => 'raw',
-            'value' => '($data->Estado == "1") ? "Activo" : "Inactivo"',
+            'value' => 'UtilidadesVarias::textoestado1($data->Estado)',
         ),
-		array(
-			'class'=>'CButtonColumn',
+        array(
+            'class'=>'CButtonColumn',
             'template'=>'{view}{update}',
             'buttons'=>array(
                 'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Visualizar'),
                 ),
                 'update'=>array(
-                    'label'=>'<i class="fa fa-pencil actions text-black"></i>',
+                    'label'=>'<i class="fa fa-pen actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Actualizar'),
                     'visible'=> '(Yii::app()->user->getState("permiso_act") == true)',
                 ),
             )
-		),
+        ),
 	),
 )); 
 
 ?>
-
-
-
-

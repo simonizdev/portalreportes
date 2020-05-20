@@ -226,6 +226,8 @@ class UtilidadesMenu {
 		    foreach ($opciones_raiz as $or) {
 		        $id1 = $or->Id_Menu;
 		        $text1 = $or->Descripcion;
+		        $long_text1 = $or->Descripcion_Larga;
+		        $dd1 = $or->Descarga_Directa;
 		        $link1 = $or->Link;
 		        $icon1 = $or->Font_Icon;
 		        if (in_array($id1, $array_opciones_menu)) { $visible1 = 1; } else { $visible1 = 0; }
@@ -239,6 +241,8 @@ class UtilidadesMenu {
 		            foreach ($hijos1 as $h1) {
 		                $id2 = $h1->Id_Menu;
 		                $text2 = $h1->Descripcion;
+		                $long_text2 = $h1->Descripcion_Larga;
+		        		$dd2 = $h1->Descarga_Directa;
 		                $link2 = $h1->Link;
 		        		$icon2 = $h1->Font_Icon;
 		                if (in_array($id2, $array_opciones_menu)) { $visible2 = 1; } else { $visible2 = 0; }
@@ -252,34 +256,37 @@ class UtilidadesMenu {
 		                    foreach ($hijos2 as $h2) {
 		                        $id3 = $h2->Id_Menu;
 		                        $text3 = $h2->Descripcion;
+		                        $long_text3 = $h2->Descripcion_Larga;
+		        				$dd3 = $h2->Descarga_Directa;
 		                        $link3 = $h2->Link;
 		        				$icon3 = $h2->Font_Icon;
 		                        if (in_array($id3, $array_opciones_menu)) { $visible3 = 1; } else { $visible3  = 0; }
 		                        if($visible3 == 1){
-		                        	$array_menu3[] = array('id' => $id3, 'text' => $text3, 'link' => $link3, 'icon' => $icon3, 'children' => array());	
+		                        	$array_menu3[] = array('id' => $id3, 'text' => $text3, 'long_text' => $long_text3, 'dd' => $dd3, 'link' => $link3, 'icon' => $icon3, 'children' => array());	
 		                        }    
 		                    }    
 		                }
 		                if($visible2 == 1){
-		                	$array_menu2[] = array('id' => $id2, 'text' => $text2, 'link' => $link2, 'icon' => $icon2, 'children' => $array_menu3);
+		                	$array_menu2[] = array('id' => $id2, 'text' => $text2, 'long_text' => $long_text2, 'dd' => $dd2, 'link' => $link2, 'icon' => $icon2, 'children' => $array_menu3);
 		                	reset($array_menu3);	
                         }
 		                
 		            }
 
 		        	if($visible1 == 1){    
-		        		$array_menu[] = array('id' => $id1, 'text' => $text1, 'link' => $link1, 'icon' => $icon1, 'children' => $array_menu2);
+		        		$array_menu[] = array('id' => $id1, 'text' => $text1, 'long_text' => $long_text1, 'dd' => $dd1, 'link' => $link1, 'icon' => $icon1, 'children' => $array_menu2);
 		        		reset($array_menu2);
 	        		}
 		        }else{
 		        	if($visible1 == 1){  
-		            	$array_menu[] = array('id' => $id1, 'text' => $text1, 'link' => $link1, 'icon' => $icon1, 'children' => array());
+		            	$array_menu[] = array('id' => $id1, 'text' => $text1, 'long_text' => $long_text1, 'dd' => $dd1, 'link' => $link1, 'icon' => $icon1, 'children' => array());
 		        	}
 		        }   
 		    }
 		}
 
 	return json_encode($array_menu);
+
 
 	}
 

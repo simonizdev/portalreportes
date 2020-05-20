@@ -7,6 +7,6 @@ $lista_lineas = CHtml::listData($lineas, 'Id', 'Descripcion');
 
 ?>
 
-<h3>Creación de item</h3>
+<h4>Creación de item</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model, 'lista_unidades'=>$lista_unidades, 'lista_lineas'=>$lista_lineas, 'id_asignar'=>$id_asignar)); ?>

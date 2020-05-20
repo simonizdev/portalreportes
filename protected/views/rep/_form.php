@@ -16,18 +16,12 @@
     ),
 )); ?>
 
-<div class="btn-group" id="btn_save" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=rep/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
-   <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> Guardar</button>
-</div>
-
-
 <div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Descripcion', array('class' => 'pull-right badge bg-red')); ?>
+    		<?php echo $form->error($model,'Descripcion', array('class' => 'badge badge-warning float-right')); ?>
           	<?php echo $form->label($model,'Descripcion'); ?>
-		    <?php echo $form->textField($model,'Descripcion', array('class' => 'form-control', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+		    <?php echo $form->textField($model,'Descripcion', array('class' => 'form-control form-control-sm', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
     <div class="col-sm-4">
@@ -58,11 +52,15 @@
     </div>
 </div>
 
-<div class="btn-group" id="btn_add" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=itemRep/create&id='.$model->Id_Rep; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
+<div class="row mb-4">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=rep/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=itemRep/create&id='.$model->Id_Rep; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
+        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> Guardar</button>
+    </div>
 </div>
 
-<h3>Items asociados</h3>
+<h5>Items asociados</h5>
 
 <?php 
 
@@ -98,13 +96,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			}',
             'buttons'=>array(
                	'update'=>array(
-                    'label'=>'<i class="fa fa-pencil actions text-black"></i>',
+                    'label'=>'<i class="fa fa-pen actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Modificar'),
                     'url'=>'Yii::app()->createUrl("itemRep/update", array("id"=>$data->Id_Item_Rep))',
                 ),
                 'delete'=>array(
-                    'label'=>'<i class="fa fa-trash actions text-black"></i>',
+                    'label'=>'<i class="fas fa-times-circle actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Eliminar'),
                     'url'=>'Yii::app()->createUrl("itemRep/delete", array("id"=>$data->Id_Item_Rep))',

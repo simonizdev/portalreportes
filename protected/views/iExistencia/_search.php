@@ -14,7 +14,6 @@
 	<div class="row">
 		<div class="col-sm-9">
 	        <div class="form-group">
-	            <?php echo $form->error($model,'linea', array('class' => 'pull-right badge bg-red')); ?>
 				<?php echo $form->label($model,'linea'); ?>
 				<?php
 				$this->widget('ext.select2.ESelect2',array(
@@ -54,7 +53,7 @@
 	                            'results'=>'js:function(data){ return {results:data};}'                   
 	                        ),
 	                        'formatNoMatches'=> 'js:function(){ clear_select2_ajax("IExistencia_Id_Item"); return "No se encontraron resultados"; }',
-	                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'IExistencia_Id_Item\')\">Limpiar campo</button>"; }',
+	                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'IExistencia_Id_Item\')\">Limpiar campo</button>"; }',
 	                    ),
 	                ));
 	            ?>
@@ -83,19 +82,19 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Cantidad'); ?>
-			    <?php echo $form->numberField($model,'Cantidad', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number')); ?>
+			    <?php echo $form->numberField($model,'Cantidad', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Ult_Ent'); ?>
-			    <?php echo $form->textField($model,'Fecha_Ult_Ent', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha_Ult_Ent', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Fecha_Ult_Sal'); ?>
-			    <?php echo $form->textField($model,'Fecha_Ult_Sal', array('class' => 'form-control datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+			    <?php echo $form->textField($model,'Fecha_Ult_Sal', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	</div>
@@ -156,20 +155,18 @@
 	        </div>
 	    </div>
 	</div>
-	<div class="btn-group" style="padding-bottom: 2%">
-		<button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-		<?php echo CHtml::submitButton('', array('style' => 'display:none;', 'id' => 'yt0')); ?>
-		<button type="submit" class="btn btn-success" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+
+	<div class="row mb-2">
+	  	<div class="col-sm-6">  
+     		<button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+     		<?php echo CHtml::submitButton('', array('style' => 'display:none;', 'id' => 'yt0')); ?>
+			<button type="submit" class="btn btn-success btn-sm" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+	  	</div>
 	</div>
 
 <?php $this->endWidget(); ?>
 
 <script type="text/javascript">
-
-	function clear_select2_ajax(id){
-    	$('#'+id+'').val('').trigger('change');
-    	$('#s2id_'+id+' span').html(""); 
-	}
 
 	function resetfields(){	
 		$('#IExistencia_linea').val('').trigger('change');

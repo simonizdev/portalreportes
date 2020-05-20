@@ -15,7 +15,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Id_A_Usuario'); ?>
-			    <?php echo $form->numberField($model,'Id_A_Usuario', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number')); ?>
+			    <?php echo $form->numberField($model,'Id_A_Usuario', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
@@ -160,9 +160,12 @@
 	        </div>
 	    </div>
 	</div>
-	<div class="btn-group" style="padding-bottom: 2%">
-		<button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-		<button type="submit" class="btn btn-success" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+
+	<div class="row mb-2">
+	  	<div class="col-sm-6">  
+     		<button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+			<button type="submit" class="btn btn-success btn-sm" id="yt0"><i class="fa fa-search"></i> Buscar</button>
+	  	</div>
 	</div>
 
 <?php $this->endWidget(); ?>
@@ -172,7 +175,7 @@
 	function resetfields(){
 		$('#AreaUsuario_Id_A_Usuario').val('');
 		$('#AreaUsuario_usuario').val('').trigger('change');
-		$('#AreaUsuario_area').val('').trigger('change');
+		$('#AreaUsuario_Id_Area').val('').trigger('change');
 		$('#AreaUsuario_usuario_creacion').val('').trigger('change');
 		$('#AreaUsuario_Fecha_Creacion').val('');
 		$('#AreaUsuario_usuario_actualizacion').val('').trigger('change');

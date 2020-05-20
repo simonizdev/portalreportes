@@ -16,22 +16,22 @@
 <div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Tipo', array('class' => 'pull-right badge bg-red')); ?>
           	<?php echo $form->label($model,'Tipo'); ?>
-		    <?php echo $form->textField($model,'Tipo', array('class' => 'form-control', 'maxlength' => '3', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+            <?php echo $form->error($model,'Tipo', array('class' => 'badge badge-warning float-right')); ?>
+		    <?php echo $form->textField($model,'Tipo', array('class' => 'form-control form-control-sm', 'maxlength' => '3', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
     <div class="col-sm-4">
     	<div class="form-group">
-    		<?php echo $form->error($model,'Descripcion', array('class' => 'pull-right badge bg-red')); ?>
           	<?php echo $form->label($model,'Descripcion'); ?>
-		    <?php echo $form->textField($model,'Descripcion', array('class' => 'form-control', 'maxlength' => '50', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
+            <?php echo $form->error($model,'Descripcion', array('class' => 'badge badge-warning float-right')); ?>
+		    <?php echo $form->textField($model,'Descripcion', array('class' => 'form-control form-control-sm', 'maxlength' => '50', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->error($model,'Estado', array('class' => 'pull-right badge bg-red')); ?>
             <?php echo $form->label($model,'Estado'); ?>
+            <?php echo $form->error($model,'Estado', array('class' => 'badge badge-warning float-right')); ?>
             <?php $estados = Yii::app()->params->estados; ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
@@ -51,10 +51,11 @@
     </div> 
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=ITipoDocto/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-    <button type="submit" class="btn btn-success" ><i class="fa fa-floppy-o"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=ITipoDocto/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
+    </div>
 </div>
-
 
 <?php $this->endWidget(); ?>

@@ -4,12 +4,7 @@
 
 ?>
 
-<h3>Visualizando documento</h3>
-
-
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=iDocto/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
-</div>
+<h4>Visualizando documento</h4>
 
 <div class="row">
     <div class="col-sm-4">
@@ -116,7 +111,13 @@
     </div>
 </div>
 
-<h3>Detalle</h3>
+<div class="row mb-4">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=iDocto/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+    </div>
+</div>
+
+<h5>Detalle</h5>
 
 <?php 
 
@@ -128,7 +129,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->ent){
 		'id'=>'idocto-movto-grid',
 		'dataProvider'=>$detalle->search(),
 		//'filter'=>$model,
-    	'enableSorting' => false,
+	    'pager'=>array(
+	        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+	    ),
+	    'enableSorting' => false,
 		'columns'=>array(
 			array(
 	            'name' => 'Id_Item',
@@ -140,7 +144,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->ent){
 	            'type' => 'raw',
 	            'value' => '$data->idbodegadst->Descripcion',
 	        ),
-			'Cantidad',
+			array(
+                'name'=>'Cantidad',
+                'htmlOptions'=>array('style' => 'text-align: right;'),
+            ),
 			array(
                 'name'=>'Vlr_Unit_Item',
                 'value'=>function($data){
@@ -153,7 +160,7 @@ if($model->Id_Tipo_Docto == Yii::app()->params->ent){
 	            'template'=>'{view}',
 	            'buttons'=>array(
 	                'view'=>array(
-	                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+	                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
 	                    'imageUrl'=>false,
 	                    'options'=>array('title'=>'Visualizar'),
 	                    'url'=>'Yii::app()->createUrl("iDoctoMovto/view", array("id"=>$data->Id))',
@@ -170,7 +177,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->sal){
 		'id'=>'idocto-movto-grid',
 		'dataProvider'=>$detalle->search(),
 		//'filter'=>$model,
-    	'enableSorting' => false,
+	    'pager'=>array(
+	        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+	    ),
+	    'enableSorting' => false,
 		'columns'=>array(
 			array(
 	            'name' => 'Id_Item',
@@ -182,7 +192,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->sal){
 	            'type' => 'raw',
 	            'value' => '$data->idbodegaorg->Descripcion',
 	        ),
-			'Cantidad',
+			array(
+                'name'=>'Cantidad',
+                'htmlOptions'=>array('style' => 'text-align: right;'),
+            ),
 			array(
                 'name'=>'Vlr_Unit_Item',
                 'value'=>function($data){
@@ -195,7 +208,7 @@ if($model->Id_Tipo_Docto == Yii::app()->params->sal){
 	            'template'=>'{view}',
 	            'buttons'=>array(
 	                'view'=>array(
-	                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+	                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
 	                    'imageUrl'=>false,
 	                    'options'=>array('title'=>'Visualizar'),
 	                    'url'=>'Yii::app()->createUrl("iDoctoMovto/view", array("id"=>$data->Id))',
@@ -212,7 +225,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->trb){
 		'id'=>'idocto-movto-grid',
 		'dataProvider'=>$detalle->search(),
 		//'filter'=>$model,
-    	'enableSorting' => false,
+	    'pager'=>array(
+	        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+	    ),
+	    'enableSorting' => false,
 		'columns'=>array(
 			array(
 	            'name' => 'Id_Item',
@@ -228,7 +244,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->trb){
 	            'type' => 'raw',
 	            'value' => '$data->idbodegadst->Descripcion',
 	        ),
-			'Cantidad',
+			array(
+                'name'=>'Cantidad',
+                'htmlOptions'=>array('style' => 'text-align: right;'),
+            ),
 			array(
                 'name'=>'Vlr_Unit_Item',
                 'value'=>function($data){
@@ -241,7 +260,7 @@ if($model->Id_Tipo_Docto == Yii::app()->params->trb){
 	            'template'=>'{view}',
 	            'buttons'=>array(
 	                'view'=>array(
-	                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+	                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
 	                    'imageUrl'=>false,
 	                    'options'=>array('title'=>'Visualizar'),
 	                    'url'=>'Yii::app()->createUrl("iDoctoMovto/view", array("id"=>$data->Id))',
@@ -258,7 +277,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->aje){
 		'id'=>'idocto-movto-grid',
 		'dataProvider'=>$detalle->search(),
 		//'filter'=>$model,
-    	'enableSorting' => false,
+	    'pager'=>array(
+	        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+	    ),
+	    'enableSorting' => false,
 		'columns'=>array(
 			array(
 	            'name' => 'Id_Item',
@@ -270,7 +292,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->aje){
 	            'type' => 'raw',
 	            'value' => '$data->idbodegadst->Descripcion',
 	        ),
-			'Cantidad',
+			array(
+                'name'=>'Cantidad',
+                'htmlOptions'=>array('style' => 'text-align: right;'),
+            ),
 			array(
                 'name'=>'Vlr_Unit_Item',
                 'value'=>function($data){
@@ -283,7 +308,7 @@ if($model->Id_Tipo_Docto == Yii::app()->params->aje){
 	            'template'=>'{view}',
 	            'buttons'=>array(
 	                'view'=>array(
-	                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+	                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
 	                    'imageUrl'=>false,
 	                    'options'=>array('title'=>'Visualizar'),
 	                    'url'=>'Yii::app()->createUrl("iDoctoMovto/view", array("id"=>$data->Id))',
@@ -300,7 +325,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->ajs){
 		'id'=>'idocto-movto-grid',
 		'dataProvider'=>$detalle->search(),
 		//'filter'=>$model,
-    	'enableSorting' => false,
+	    'pager'=>array(
+	        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+	    ),
+	    'enableSorting' => false,
 		'columns'=>array(
 			array(
 	            'name' => 'Id_Item',
@@ -312,7 +340,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->ajs){
 	            'type' => 'raw',
 	            'value' => '$data->idbodegaorg->Descripcion',
 	        ),
-			'Cantidad',
+			array(
+                'name'=>'Cantidad',
+                'htmlOptions'=>array('style' => 'text-align: right;'),
+            ),
 			array(
                 'name'=>'Vlr_Unit_Item',
                 'value'=>function($data){
@@ -325,7 +356,7 @@ if($model->Id_Tipo_Docto == Yii::app()->params->ajs){
 	            'template'=>'{view}',
 	            'buttons'=>array(
 	                'view'=>array(
-	                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+	                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
 	                    'imageUrl'=>false,
 	                    'options'=>array('title'=>'Visualizar'),
 	                    'url'=>'Yii::app()->createUrl("iDoctoMovto/view", array("id"=>$data->Id))',
@@ -342,7 +373,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->sad){
 		'id'=>'idocto-movto-grid',
 		'dataProvider'=>$detalle->search(),
 		//'filter'=>$model,
-    	'enableSorting' => false,
+	    'pager'=>array(
+	        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+	    ),
+	    'enableSorting' => false,
 		'columns'=>array(
 			array(
 	            'name' => 'Id_Item',
@@ -354,7 +388,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->sad){
 	            'type' => 'raw',
 	            'value' => '$data->idbodegaorg->Descripcion',
 	        ),
-			'Cantidad',
+			array(
+                'name'=>'Cantidad',
+                'htmlOptions'=>array('style' => 'text-align: right;'),
+            ),
 			array(
                 'name'=>'Vlr_Unit_Item',
                 'value'=>function($data){
@@ -367,7 +404,7 @@ if($model->Id_Tipo_Docto == Yii::app()->params->sad){
 	            'template'=>'{view}',
 	            'buttons'=>array(
 	                'view'=>array(
-	                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+	                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
 	                    'imageUrl'=>false,
 	                    'options'=>array('title'=>'Visualizar'),
 	                    'url'=>'Yii::app()->createUrl("iDoctoMovto/view", array("id"=>$data->Id))',
@@ -384,7 +421,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->dev){
 		'id'=>'idocto-movto-grid',
 		'dataProvider'=>$detalle->search(),
 		//'filter'=>$model,
-    	'enableSorting' => false,
+	    'pager'=>array(
+	        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+	    ),
+	    'enableSorting' => false,
 		'columns'=>array(
 			array(
 	            'name' => 'Id_Item',
@@ -396,7 +436,10 @@ if($model->Id_Tipo_Docto == Yii::app()->params->dev){
 	            'type' => 'raw',
 	            'value' => '$data->idbodegadst->Descripcion',
 	        ),
-			'Cantidad',
+			array(
+                'name'=>'Cantidad',
+                'htmlOptions'=>array('style' => 'text-align: right;'),
+            ),
 			array(
                 'name'=>'Vlr_Unit_Item',
                 'value'=>function($data){
@@ -409,7 +452,7 @@ if($model->Id_Tipo_Docto == Yii::app()->params->dev){
 	            'template'=>'{view}',
 	            'buttons'=>array(
 	                'view'=>array(
-	                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+	                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
 	                    'imageUrl'=>false,
 	                    'options'=>array('title'=>'Visualizar'),
 	                    'url'=>'Yii::app()->createUrl("iDoctoMovto/view", array("id"=>$data->Id))',

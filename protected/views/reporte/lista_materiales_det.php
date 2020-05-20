@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Detalle de materiales</h3>
+<h4>Detalle de materiales</h4>
 
 <div class="row">
   <div class="col-sm-12">
@@ -14,13 +14,18 @@
             
         </div>
       </div> 
-      <p id="mensaje" style="display: none;">Este item no tiene registrada lista de materiales.</p>           
+      <div class="alert alert-warning alert-dismissible" id="mensaje" style="display: none;">
+        <h5><i class="icon fas fa-info-circle"></i>Info</h5>
+        Este item no tiene registrada lista de materiales.
+      </div>           
     </div>
   </div> 
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success"  onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=reporte/listamateriales'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=reporte/listamateriales'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+    </div>
 </div>
 
 <script>

@@ -3,7 +3,7 @@
 /* @var $model Reporte */
 ?>
 
-<h3>Cuadro de compras PT</h3>
+<h4>Cuadro de compras PT</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -20,7 +20,7 @@
   <div class="row">
     <div class="col-sm-8">
       <div class="form-group">
-        <?php echo $form->error($model,'opcion', array('class' => 'pull-right badge bg-red')); ?>
+        <?php echo $form->error($model,'opcion', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'opcion'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -42,7 +42,7 @@
   <div class="row">
     <div class="col-sm-4" id="origen" style="display: none;">
       <div class="form-group">
-        <div class="pull-right badge bg-red" id="error_origen" style="display: none;"></div>
+        <div class="badge badge-warning float-right" id="error_origen" style="display: none;"></div>
         <?php echo $form->label($model,'origen'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -62,7 +62,7 @@
     </div>
     <div class="col-sm-4" id="marca" style="display: none;">
       <div class="form-group">
-        <div class="pull-right badge bg-red" id="error_marca" style="display: none;"></div>
+        <div class="badge badge-warning float-right" id="error_marca" style="display: none;"></div>
         <?php echo $form->label($model,'marca'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -82,7 +82,7 @@
     </div>
     <div class="col-sm-4" id="linea" style="display: none;">
       <div class="form-group">
-        <div class="pull-right badge bg-red" id="error_linea" style="display: none;"></div>
+        <div class="badge badge-warning float-right" id="error_linea" style="display: none;"></div>
         <?php echo $form->label($model,'linea'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -102,7 +102,7 @@
     </div>
     <div class="col-sm-4" id="oracle" style="display: none;">
       <div class="form-group">
-        <div class="pull-right badge bg-red" id="error_oracle" style="display: none;"></div>
+        <div class="badge badge-warning float-right" id="error_oracle" style="display: none;"></div>
         <?php echo $form->label($model,'des_ora'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -122,7 +122,7 @@
     </div>
     <div class="col-sm-4" id="proveedor" style="display: none;">
       <div class="form-group">
-        <div class="pull-right badge bg-red" id="error_proveedor" style="display: none;"></div>
+        <div class="badge badge-warning float-right" id="error_proveedor" style="display: none;"></div>
         <?php echo $form->label($model,'proveedor'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -142,7 +142,7 @@
     </div>
     <div class="col-sm-4" id="estado" style="display: none;">
       <div class="form-group">
-        <div class="pull-right badge bg-red" id="error_estado" style="display: none;"></div>
+        <div class="badge badge-warning float-right" id="error_estado" style="display: none;"></div>
         <?php echo $form->label($model,'estado'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
@@ -164,9 +164,11 @@
     </div>
 </div>
     
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-file-excel-o"></i> Generar</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-file-excel"></i> Generar</button>
+    </div>
 </div>
 
 <?php $this->endWidget(); ?>
@@ -842,7 +844,7 @@ $(function() {
                 if(estado == ""){
                   
                   $('#error_estado').show();
-                  $('#error_estado').html('Estado no puede ser nulo.');
+                  $('#error_estado').html('Estado es requerido.');
 
                 }else{
                   
@@ -851,8 +853,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -865,7 +866,7 @@ $(function() {
 
                   if(origen == ""){
                     $('#error_origen').show();
-                    $('#error_origen').html('Origen no puede ser nulo.');
+                    $('#error_origen').html('Origen es requerido.');
                   }else{
                     $('#error_origen').hide();
                     $('#error_origen').html('');
@@ -873,7 +874,7 @@ $(function() {
 
                   if(estado == ""){
                     $('#error_estado').show();
-                    $('#error_estado').html('Estado no puede ser nulo.');
+                    $('#error_estado').html('Estado es requerido.');
                   }else{
                     $('#error_estado').hide();
                     $('#error_estado').html('');
@@ -888,8 +889,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -901,7 +901,7 @@ $(function() {
                 if(origen == ""){
 
                   $('#error_origen').show();
-                  $('#error_origen').html('Origen no puede ser nulo.');
+                  $('#error_origen').html('Origen es requerido.');
                                     
                 }else{
                   
@@ -910,8 +910,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -924,7 +923,7 @@ $(function() {
 
                   if(marca == ""){
                     $('#error_marca').show();
-                    $('#error_marca').html('Marca no puede ser nulo.');
+                    $('#error_marca').html('Marca es requerido.');
                   }else{
                     $('#error_marca').hide();
                     $('#error_marca').html('');
@@ -932,7 +931,7 @@ $(function() {
 
                   if(estado == ""){
                     $('#error_estado').show();
-                    $('#error_estado').html('Estado no puede ser nulo.');
+                    $('#error_estado').html('Estado es requerido.');
                   }else{
                     $('#error_estado').hide();
                     $('#error_estado').html('');
@@ -947,8 +946,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -961,7 +959,7 @@ $(function() {
 
                   if(linea == ""){
                     $('#error_linea').show();
-                    $('#error_linea').html('línea no puede ser nulo.');
+                    $('#error_linea').html('línea es requerido.');
                   }else{
                     $('#error_linea').hide();
                     $('#error_linea').html('');
@@ -969,7 +967,7 @@ $(function() {
 
                   if(estado == ""){
                     $('#error_estado').show();
-                    $('#error_estado').html('Estado no puede ser nulo.');
+                    $('#error_estado').html('Estado es requerido.');
                   }else{
                     $('#error_estado').hide();
                     $('#error_estado').html('');
@@ -984,8 +982,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -998,7 +995,7 @@ $(function() {
 
                   if(oracle == ""){
                     $('#error_oracle').show();
-                    $('#error_oracle').html('Desc. oracle no puede ser nulo.');
+                    $('#error_oracle').html('Desc. oracle es requerido.');
                   }else{
                     $('#error_oracle').hide();
                     $('#error_oracle').html('');
@@ -1006,7 +1003,7 @@ $(function() {
 
                   if(estado == ""){
                     $('#error_estado').show();
-                    $('#error_estado').html('Estado no puede ser nulo.');
+                    $('#error_estado').html('Estado es requerido.');
                   }else{
                     $('#error_estado').hide();
                     $('#error_estado').html('');
@@ -1021,8 +1018,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -1034,7 +1030,7 @@ $(function() {
                 if(marca == ""){
 
                   $('#error_marca').show();
-                  $('#error_marca').html('Marca no puede ser nulo.');
+                  $('#error_marca').html('Marca es requerido.');
                                     
                 }else{
                   
@@ -1043,8 +1039,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -1056,7 +1051,7 @@ $(function() {
                 if(linea == ""){
 
                   $('#error_linea').show();
-                  $('#error_linea').html('Línea no puede ser nulo.');
+                  $('#error_linea').html('Línea es requerido.');
                                     
                 }else{
                   
@@ -1065,8 +1060,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -1078,7 +1072,7 @@ $(function() {
                 if(oracle == ""){
 
                   $('#error_oracle').show();
-                  $('#error_oracle').html('Desc. oracle no puede ser nulo.');
+                  $('#error_oracle').html('Desc. oracle es requerido.');
                                     
                 }else{
                   
@@ -1087,8 +1081,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -1101,7 +1094,7 @@ $(function() {
 
                   if(origen == ""){
                     $('#error_origen').show();
-                    $('#error_origen').html('Origen no puede ser nulo.');
+                    $('#error_origen').html('Origen es requerido.');
                   }else{
                     $('#error_origen').hide();
                     $('#error_origen').html('');
@@ -1109,7 +1102,7 @@ $(function() {
 
                   if(marca == ""){
                     $('#error_marca').show();
-                    $('#error_marca').html('Marca no puede ser nulo.');
+                    $('#error_marca').html('Marca es requerido.');
                   }else{
                     $('#error_marca').hide();
                     $('#error_marca').html('');
@@ -1124,8 +1117,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -1138,7 +1130,7 @@ $(function() {
 
                   if(origen == ""){
                     $('#error_origen').show();
-                    $('#error_origen').html('Origen no puede ser nulo.');
+                    $('#error_origen').html('Origen es requerido.');
                   }else{
                     $('#error_origen').hide();
                     $('#error_origen').html('');
@@ -1146,7 +1138,7 @@ $(function() {
 
                   if(linea == ""){
                     $('#error_linea').show();
-                    $('#error_linea').html('Línea no puede ser nulo.');
+                    $('#error_linea').html('Línea es requerido.');
                   }else{
                     $('#error_linea').hide();
                     $('#error_linea').html('');
@@ -1161,8 +1153,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -1175,7 +1166,7 @@ $(function() {
 
                   if(origen == ""){
                     $('#error_origen').show();
-                    $('#error_origen').html('Origen no puede ser nulo.');
+                    $('#error_origen').html('Origen es requerido.');
                   }else{
                     $('#error_origen').hide();
                     $('#error_origen').html('');
@@ -1183,7 +1174,7 @@ $(function() {
 
                   if(oracle == ""){
                     $('#error_oracle').show();
-                    $('#error_oracle').html('Desc. oracle no puede ser nulo.');
+                    $('#error_oracle').html('Desc. oracle es requerido.');
                   }else{
                     $('#error_oracle').hide();
                     $('#error_oracle').html('');
@@ -1198,8 +1189,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -1212,7 +1202,7 @@ $(function() {
 
                   if(origen == ""){
                     $('#error_origen').show();
-                    $('#error_origen').html('Origen no puede ser nulo.');
+                    $('#error_origen').html('Origen es requerido.');
                   }else{
                     $('#error_origen').hide();
                     $('#error_origen').html('');
@@ -1220,7 +1210,7 @@ $(function() {
 
                   if(marca == ""){
                     $('#error_marca').show();
-                    $('#error_marca').html('Marca no puede ser nulo.');
+                    $('#error_marca').html('Marca es requerido.');
                   }else{
                     $('#error_marca').hide();
                     $('#error_marca').html('');
@@ -1228,7 +1218,7 @@ $(function() {
 
                   if(estado == ""){
                     $('#error_estado').show();
-                    $('#error_estado').html('Estado no puede ser nulo.');
+                    $('#error_estado').html('Estado es requerido.');
                   }else{
                     $('#error_estado').hide();
                     $('#error_estado').html('');
@@ -1245,8 +1235,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -1259,7 +1248,7 @@ $(function() {
 
                   if(origen == ""){
                     $('#error_origen').show();
-                    $('#error_origen').html('Origen no puede ser nulo.');
+                    $('#error_origen').html('Origen es requerido.');
                   }else{
                     $('#error_origen').hide();
                     $('#error_origen').html('');
@@ -1267,7 +1256,7 @@ $(function() {
 
                   if(linea == ""){
                     $('#error_linea').show();
-                    $('#error_linea').html('Línea no puede ser nulo.');
+                    $('#error_linea').html('Línea es requerido.');
                   }else{
                     $('#error_linea').hide();
                     $('#error_linea').html('');
@@ -1275,7 +1264,7 @@ $(function() {
 
                   if(estado == ""){
                     $('#error_estado').show();
-                    $('#error_estado').html('Estado no puede ser nulo.');
+                    $('#error_estado').html('Estado es requerido.');
                   }else{
                     $('#error_estado').hide();
                     $('#error_estado').html('');
@@ -1292,8 +1281,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -1306,7 +1294,7 @@ $(function() {
 
                   if(origen == ""){
                     $('#error_origen').show();
-                    $('#error_origen').html('Origen no puede ser nulo.');
+                    $('#error_origen').html('Origen es requerido.');
                   }else{
                     $('#error_origen').hide();
                     $('#error_origen').html('');
@@ -1314,7 +1302,7 @@ $(function() {
 
                   if(oracle == ""){
                     $('#error_oracle').show();
-                    $('#error_oracle').html('Desc. oracle no puede ser nulo.');
+                    $('#error_oracle').html('Desc. oracle es requerido.');
                   }else{
                     $('#error_oracle').hide();
                     $('#error_oracle').html('');
@@ -1322,7 +1310,7 @@ $(function() {
 
                   if(estado == ""){
                     $('#error_estado').show();
-                    $('#error_estado').html('Estado no puede ser nulo.');
+                    $('#error_estado').html('Estado es requerido.');
                   }else{
                     $('#error_estado').hide();
                     $('#error_estado').html('');
@@ -1339,8 +1327,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -1352,7 +1339,7 @@ $(function() {
                 if(proveedor == ""){
 
                   $('#error_proveedor').show();
-                  $('#error_proveedor').html('Proveedor no puede ser nulo.');
+                  $('#error_proveedor').html('Proveedor es requerido.');
                                     
                 }else{
                   
@@ -1361,8 +1348,7 @@ $(function() {
 
                   //se envia el form
                   form.submit();
-                  $(".ajax-loader").fadeIn('fast');
-                  setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                  loadershow();
 
                 }
 
@@ -1373,8 +1359,7 @@ $(function() {
 
                 //se envia el form
                 form.submit();
-                $(".ajax-loader").fadeIn('fast');
-                setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000);
+                loadershow();
 
               }
 

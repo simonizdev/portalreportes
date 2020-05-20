@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Visualizando detalle de documento</h3>
+<h4>Visualizando detalle de documento</h4>
 
 <div class="table-responsive">
 
@@ -341,7 +341,8 @@ if($model->iddocto->Id_Tipo_Docto == Yii::app()->params->dev){
 
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=iDocto/view&id='.$model->Id_Docto; ?>';"><i class="fa fa-reply"></i> Volver </button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=iDocto/view&id='.$model->Id_Docto; ?>';"><i class="fa fa-reply"></i> Volver </button>
+    </div>
 </div>
-

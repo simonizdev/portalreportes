@@ -4,7 +4,7 @@
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
-	$('.search-form').toggle('fast');
+	$('.search-form').slideToggle('fast');
 	return false;
 });
 $('.search-form form').submit(function(){
@@ -25,11 +25,13 @@ $lista_perfiles = CHtml::listData($perfiles, 'Descripcion', 'Descripcion');
 $lista_menus = CHtml::listData($menus, 'Descripcion', 'Descripcion');  
 ?>
 
-<h3>Consulta opciones de menu por perfil</h3>
-
-
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h4>Consulta opciones de menu por perfil</h4>
+  </div>
+  <div class="col-sm-6 text-right">
+    <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+  </div>
 </div>
 
 <div class="search-form" style="display:none;">
@@ -45,6 +47,9 @@ $lista_menus = CHtml::listData($menus, 'Descripcion', 'Descripcion');
 	'id'=>'menu-perfil-grid',
 	'dataProvider'=>$model->search(),
 	//'filter'=>$model,
+    'pager'=>array(
+        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+    ),
 	'enableSorting' => false,
 	'columns'=>array(
 		'Id_M_Perfil',
@@ -70,15 +75,14 @@ $lista_menus = CHtml::listData($menus, 'Descripcion', 'Descripcion');
         ),*/
         array(
             'name' => 'Estado',
-            'type' => 'raw',
-            'value' => '($data->Estado == "1") ? "Activo" : "Inactivo"',
+            'value' => 'UtilidadesVarias::textoestado1($data->Estado)',
         ),
 		array(
 			'class'=>'CButtonColumn',
             'template'=>'{view}',
             'buttons'=>array(
                 'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Visualizar'),
                 ),

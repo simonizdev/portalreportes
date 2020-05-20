@@ -4,6 +4,6 @@
 
 ?>
 
-<h3>Creación de proveedor</h3>
+<h4>Creación de proveedor</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

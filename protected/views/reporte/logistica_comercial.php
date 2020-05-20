@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Logistica comercial</h3>
+<h4>Logistica comercial</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -21,7 +21,7 @@
 <div class="row">
   <div class="col-sm-6">
       <div class="form-group">
-          <?php echo $form->error($model,'des_ora_ini', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->error($model,'des_ora_ini', array('class' => 'badge badge-warning float-right')); ?>
           <?php echo $form->label($model,'des_ora_ini'); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
@@ -39,7 +39,7 @@
   </div>
   <div class="col-sm-6">
       <div class="form-group">
-          <?php echo $form->error($model,'des_ora_fin', array('class' => 'pull-right badge bg-red')); ?>
+          <?php echo $form->error($model,'des_ora_fin', array('class' => 'badge badge-warning float-right')); ?>
           <?php echo $form->label($model,'des_ora_fin'); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
@@ -57,11 +57,12 @@
   </div>
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-file-excel-o"></i> Generar</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-file-excel"></i> Generar</button>
+    </div>
 </div>
-
 <?php $this->endWidget(); ?>
 
 <script>
@@ -81,8 +82,7 @@ $(function() {
               });
               //se envia el form
               form.submit();
-              $(".ajax-loader").fadeIn('fast');
-              setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 15000);
+              loadershow();
           } else {
 
               settings = form.data('settings'),

@@ -13,7 +13,7 @@ $lista_estados = CHtml::listData($estados, 'Id', 'Descripcion');
 
 ?>
 
-<h3>Movimientos de inventario</h3>
+<h4>Movimientos de inventario</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'idocto-form',
@@ -33,37 +33,37 @@ $lista_estados = CHtml::listData($estados, 'Id', 'Descripcion');
           <?php echo $form->label($model,'Id_Tipo_Docto'); ?>
           <?php
             $this->widget('ext.select2.ESelect2',array(
-        'name'=>'IDocto[Id_Tipo_Docto]',
-        'id'=>'IDocto_Id_Tipo_Docto',
-        'data'=>$lista_tipos,
-        'htmlOptions'=>array(),
-          'options'=>array(
-            'placeholder'=>'Seleccione...',
-            'width'=> '100%',
-            'allowClear'=>true,
-        ),
-      ));
-    ?>
+              'name'=>'IDocto[Id_Tipo_Docto]',
+              'id'=>'IDocto_Id_Tipo_Docto',
+              'data'=>$lista_tipos,
+              'htmlOptions'=>array(),
+                'options'=>array(
+                  'placeholder'=>'Seleccione...',
+                  'width'=> '100%',
+                  'allowClear'=>true,
+              ),
+            ));
+          ?>
     </div>
   </div>
   <div class="col-sm-3">
     <div class="form-group">
       <?php echo $form->label($model,'Consecutivo'); ?>
-      <?php echo $form->numberField($model,'Consecutivo', array('class' => 'form-control', 'autocomplete' => 'off', 'type' => 'number')); ?>
+      <?php echo $form->numberField($model,'Consecutivo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
     </div>
   </div>
   <div class="col-sm-3">
     <div class="form-group">
-      <?php echo $form->error($model,'fecha_inicial', array('class' => 'pull-right badge bg-red')); ?>
       <?php echo $form->label($model,'fecha_inicial'); ?>
-      <?php echo $form->textField($model,'fecha_inicial', array('class' => 'form-control', 'readonly' => true)); ?>
+      <?php echo $form->error($model,'fecha_inicial', array('class' => 'badge badge-warning float-right')); ?>
+      <?php echo $form->textField($model,'fecha_inicial', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
     </div>
   </div> 
   <div class="col-sm-3">
     <div class="form-group">
-      <?php echo $form->error($model,'fecha_final', array('class' => 'pull-right badge bg-red')); ?>
       <?php echo $form->label($model,'fecha_final'); ?>
-      <?php echo $form->textField($model,'fecha_final', array('class' => 'form-control', 'readonly' => true)); ?>
+      <?php echo $form->error($model,'fecha_final', array('class' => 'badge badge-warning float-right')); ?>
+      <?php echo $form->textField($model,'fecha_final', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
     </div>
   </div> 
 </div>
@@ -87,7 +87,7 @@ $lista_estados = CHtml::listData($estados, 'Id', 'Descripcion');
                         'results'=>'js:function(data){ return {results:data};}'                   
                     ),
                     'formatNoMatches'=> 'js:function(){ clear_select2_ajax("IDocto_Id_Tercero"); return "No se encontraron resultados"; }',
-                    'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'IDocto_Id_Tercero\')\">Limpiar campo</button>"; }',
+                    'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'IDocto_Id_Tercero\')\">Limpiar campo</button>"; }',
                 ),
             ));
         ?>
@@ -95,8 +95,8 @@ $lista_estados = CHtml::listData($estados, 'Id', 'Descripcion');
   </div>
   <div class="col-sm-6">
     <div class="form-group">
-        <?php echo $form->error($model,'det_item', array('class' => 'pull-right badge bg-red')); ?>
         <?php echo $form->label($model,'det_item'); ?>
+        <?php echo $form->error($model,'det_item', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->textField($model,'det_item'); ?>
         <?php
           $this->widget('ext.select2.ESelect2', array(
@@ -112,7 +112,7 @@ $lista_estados = CHtml::listData($estados, 'Id', 'Descripcion');
                       'results'=>'js:function(data){ return {results:data};}'                
                   ),
                   'formatNoMatches'=> 'js:function(){ clear_select2_ajax("IDocto_det_item"); return "No se encontraron resultados"; }',
-                  'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs pull-right\" onclick=\"clear_select2_ajax(\'IDocto_det_item\')\">Limpiar campo</button>"; }',
+                  'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'IDocto_det_item\')\">Limpiar campo</button>"; }',
               ),
           ));
           ?>
@@ -122,8 +122,8 @@ $lista_estados = CHtml::listData($estados, 'Id', 'Descripcion');
 <div class="row">
   <div class="col-sm-4">
     <div class="form-group">
-        <?php echo $form->error($model,'det_bodega_origen', array('class' => 'pull-right badge bg-red')); ?>
         <?php echo $form->label($model,'det_bodega_origen'); ?>
+        <?php echo $form->error($model,'det_bodega_origen', array('class' => 'badge badge-warning float-right')); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
                 'name'=>'IDocto[det_bodega_origen]',
@@ -142,8 +142,8 @@ $lista_estados = CHtml::listData($estados, 'Id', 'Descripcion');
   </div>
   <div class="col-sm-4">
     <div class="form-group">
-        <?php echo $form->error($model,'det_bodega_destino', array('class' => 'pull-right badge bg-red')); ?>
         <?php echo $form->label($model,'det_bodega_destino'); ?>
+        <?php echo $form->error($model,'det_bodega_destino', array('class' => 'badge badge-warning float-right')); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
                 'name'=>'IDocto[det_bodega_destino]',
@@ -162,11 +162,12 @@ $lista_estados = CHtml::listData($estados, 'Id', 'Descripcion');
   </div>
   <div class="col-sm-4">
     <div class="form-group">
-      <?php echo $form->error($model,'opcion_exp', array('class' => 'pull-right badge bg-red')); ?>
-      <?php echo $form->label($model,'opcion_exp'); ?><br>
+      <?php echo $form->label($model,'opcion_exp'); ?>
+      <?php echo $form->error($model,'opcion_exp', array('class' => 'badge badge-warning float-right')); ?>
+      <br>
       <?php 
         echo $form->radioButtonList($model,'opcion_exp',
-            array('3'=>'<i class="fa fa-desktop" aria-hidden="true"></i> Pantalla','1'=>'<i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF'),
+            array('3'=>'<i class="fa fa-desktop" aria-hidden="true"></i> Pantalla','1'=>'<i class="far fa-file-pdf" aria-hidden="true"></i> PDF'),
             array(
                 'template'=>'{input}{label}',
                 'separator'=>'',
@@ -182,10 +183,13 @@ $lista_estados = CHtml::listData($estados, 'Id', 'Descripcion');
   </div>
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-bar-chart"></i> Generar</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fa fa-cogs"></i> Generar</button>
+    </div>
 </div>
+
 
 <div class="row">
     <div class="col-lg-12 table-responsive" id="resultados">
@@ -215,8 +219,7 @@ $(function() {
                 reporte_pantalla();
               }else{
                 form.submit();
-                $(".ajax-loader").fadeIn('fast');
-                setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 5000); 
+                loadershow(); 
               } 
           } else {
               settings = form.data('settings'),
@@ -273,11 +276,7 @@ function resetfields(){
   $('#s2id_IDocto_det_item span').html("");
   $('#IDocto_det_bodega_origen').val('').trigger('change');
   $('#IDocto_det_bodega_destino').val('').trigger('change');
-}
-
-function clear_select2_ajax(id){
-    $('#'+id+'').val('').trigger('change');
-    $('#s2id_'+id+' span').html("");
+  $("#resultados").html('');
 }
 
 function reporte_pantalla(){

@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Historico liberación de pedidos</h3>
+<h4>Historico liberación de pedidos</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -21,25 +21,26 @@
 <div class="row">
   <div class="col-sm-4">
     <div class="form-group">
-      <?php echo $form->error($model,'fecha_inicial', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'fecha_inicial', array('class' => 'badge badge-warning float-right')); ?>
       <?php echo $form->label($model,'fecha_inicial'); ?>
-      <?php echo $form->textField($model,'fecha_inicial', array('class' => 'form-control', 'readonly' => true)); ?>
+      <?php echo $form->textField($model,'fecha_inicial', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
     </div>
   </div> 
   <div class="col-sm-4">
     <div class="form-group">
-      <?php echo $form->error($model,'fecha_final', array('class' => 'pull-right badge bg-red')); ?>
+      <?php echo $form->error($model,'fecha_final', array('class' => 'badge badge-warning float-right')); ?>
       <?php echo $form->label($model,'fecha_final'); ?>
-      <?php echo $form->textField($model,'fecha_final', array('class' => 'form-control', 'readonly' => true)); ?>
+      <?php echo $form->textField($model,'fecha_final', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
     </div>
   </div>  
 </div>
 
-<div class="btn-group">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-file-excel-o"></i> Generar</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-file-excel"></i> Generar</button>
+    </div>
 </div>
-
 
 <?php $this->endWidget(); ?>
 
@@ -56,11 +57,9 @@ $(function() {
               $.each(settings.attributes, function () {
                  $.fn.yiiactiveform.updateInput(this,messages,form); 
               });
-              $("#resultados").html(''); 
               //se envia el form
                 form.submit();
-                $(".ajax-loader").fadeIn('fast');
-                setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 5000);   
+                loadershow(); 
           } else {
               settings = form.data('settings'),
               $.each(settings.attributes, function () {

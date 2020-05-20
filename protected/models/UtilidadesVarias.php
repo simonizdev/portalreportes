@@ -19,7 +19,7 @@ class UtilidadesVarias {
 		$ding=array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
 		$ming=array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 		$mesp=array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
-		$desp=array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo');
+		$desp=array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
 		$mesn=array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12');
 		$diaesp=str_replace($ding, $desp, $diatxt);
 		$mesesp=str_replace($ming, $mesp, $mestxt);
@@ -41,12 +41,83 @@ class UtilidadesVarias {
 		$ding=array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
 		$ming=array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 		$mesp=array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
-		$desp=array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo');
+		$desp=array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
 		$mesn=array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12');
 		$diaesp=str_replace($ding, $desp, $diatxt);
 		$mesesp=str_replace($ming, $mesp, $mestxt);
 
 		return $diaesp.", ".$dianro." de ".$mesesp." de ".$anionro;	
+	}
+
+	public static function textoestado1($opc) {
+
+		if($opc == 0){
+			return 'INACTIVO';
+		}
+
+		if($opc == 1){
+			return 'ACTIVO';	
+		}
+	}
+
+
+	public static function textoestado2($opc) {
+
+		if($opc == 0){
+			return 'NO';
+		}
+
+		if($opc == 1){
+			return 'SI';	
+		}
+	}
+
+	public static function textoavatar($opc) {
+
+		if($opc == 1){
+			return 'FEMENINO';
+		}
+
+		if($opc == 2){
+			return 'MASCULINO';	
+		}
+	}
+
+	public static function listaareas() {
+
+		$areas = Yii::app()->db->createCommand("SELECT Id_Area, Area FROM Nomina_Real..TH_AREA WHERE Estado = 1 ORDER BY Area")->queryAll();
+
+		$lista_areas = array();
+		foreach ($areas as $ar) {
+			$lista_areas[$ar['Id_Area']] = $ar['Area'];
+		}
+
+		return $lista_areas;
+	}
+
+
+	public static function descarea($id_area) {
+
+		$area = Yii::app()->db->createCommand("SELECT Area FROM Nomina_Real..TH_AREA WHERE Id_Area = ".$id_area)->queryRow();
+		return $area['Area'];
+	}
+
+	public static function listaareasusuario() {
+
+		$array_areas_usuario = Yii::app()->user->getState('array_areas');
+		$lista_areas = array();
+
+		if(!empty($array_areas_usuario)){
+
+			$areas_usuario = implode(",", $array_areas_usuario);
+			$areas = Yii::app()->db->createCommand("SELECT Id_Area, Area FROM Nomina_Real..TH_AREA WHERE Estado = 1 AND Id_Area IN (".$areas_usuario.") ORDER BY Area")->queryAll();
+			foreach ($areas as $ar) {
+				$lista_areas[$ar['Id_Area']] = $ar['Area'];
+			}
+
+		}
+
+		return $lista_areas;
 	}
 
 	public static function estadoexiststock($item, $cantidad) {
@@ -56,7 +127,7 @@ class UtilidadesVarias {
 		if($cantidad >= $cant_min_stock_item){
 			return "";
 		}else{
-			return "label-danger";
+			return "bg-danger";
 		}
 		
 	}
@@ -98,43 +169,6 @@ class UtilidadesVarias {
 		return $check_digit;
 
 	}
-
-	public static function listaareas() {
-
-		$areas = Yii::app()->db->createCommand("SELECT Id_Area, Area FROM Nomina_Real..TH_AREA WHERE Estado = 1 ORDER BY Area")->queryAll();
-
-		$lista_areas = array();
-		foreach ($areas as $ar) {
-			$lista_areas[$ar['Id_Area']] = $ar['Area'];
-		}
-
-		return $lista_areas;
-	}
-
-	public static function listaareasusuario() {
-
-		$array_areas_usuario = Yii::app()->user->getState('array_areas');
-		$lista_areas = array();
-
-		if(!empty($array_areas_usuario)){
-
-			$areas_usuario = implode(",", $array_areas_usuario);
-			$areas = Yii::app()->db->createCommand("SELECT Id_Area, Area FROM Nomina_Real..TH_AREA WHERE Estado = 1 AND Id_Area IN (".$areas_usuario.") ORDER BY Area")->queryAll();
-			foreach ($areas as $ar) {
-				$lista_areas[$ar['Id_Area']] = $ar['Area'];
-			}
-
-		}
-
-		return $lista_areas;
-	}
-
-	public static function descarea($id_area) {
-
-		$area = Yii::app()->db->createCommand("SELECT Area FROM Nomina_Real..TH_AREA WHERE Id_Area = ".$id_area)->queryRow();
-		return $area['Area'];
-	}
-
 
 	public static function listaplanescliente() {
 
@@ -217,5 +251,4 @@ class UtilidadesVarias {
 		return $desc['DESCR'];
 
     }
-
 }

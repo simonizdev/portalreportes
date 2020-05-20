@@ -7,7 +7,7 @@ $lista_bodegas = CHtml::listData($bodegas, 'Id', 'Descripcion');
 
 ?>
 
-<h3>Costo de inventario x bodega</h3>
+<h4>Costo de inventario x bodega</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'idocto-form',
@@ -24,8 +24,8 @@ $lista_bodegas = CHtml::listData($bodegas, 'Id', 'Descripcion');
 <div class="row">
   <div class="col-sm-4">
     <div class="form-group">
-        <?php echo $form->error($model,'bodega', array('class' => 'pull-right badge bg-red')); ?>
         <?php echo $form->label($model,'bodega'); ?>
+        <?php echo $form->error($model,'bodega', array('class' => 'badge badge-warning float-right')); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
                 'name'=>'IDocto[bodega]',
@@ -44,11 +44,12 @@ $lista_bodegas = CHtml::listData($bodegas, 'Id', 'Descripcion');
   </div>
   <div class="col-sm-4">
     <div class="form-group">
-      <?php echo $form->error($model,'opcion_exp', array('class' => 'pull-right badge bg-red')); ?>
-      <?php echo $form->label($model,'opcion_exp'); ?><br>
+      <?php echo $form->label($model,'opcion_exp'); ?>
+      <?php echo $form->error($model,'opcion_exp', array('class' => 'badge badge-warning float-right')); ?>
+      <br>
       <?php 
         echo $form->radioButtonList($model,'opcion_exp',
-            array('3'=>'<i class="fa fa-desktop" aria-hidden="true"></i> Pantalla','1'=>'<i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF'),
+            array('3'=>'<i class="fa fa-desktop" aria-hidden="true"></i> Pantalla','1'=>'<i class="far fa-file-pdf" aria-hidden="true"></i> PDF'),
             array(
                 'template'=>'{input}{label}',
                 'separator'=>'',
@@ -64,9 +65,11 @@ $lista_bodegas = CHtml::listData($bodegas, 'Id', 'Descripcion');
   </div>
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-bar-chart"></i> Generar</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fa fa-cogs"></i> Generar</button>
+    </div>
 </div>
 
 <div class="row">
@@ -97,8 +100,7 @@ $(function() {
                 reporte_pantalla();
               }else{
                 form.submit();
-                $(".ajax-loader").fadeIn('fast');
-                setTimeout(function(){ $(".ajax-loader").fadeOut('fast'); }, 10000); 
+                loadershow();
               } 
           } else {
               settings = form.data('settings'),
@@ -114,6 +116,7 @@ $(function() {
 
 function resetfields(){
   $('#IDocto_bodega').val('').trigger('change');
+  $("#resultados").html('');
 }
 
 

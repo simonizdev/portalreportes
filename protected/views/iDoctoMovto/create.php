@@ -7,6 +7,6 @@ $lista_bodegas = CHtml::listData($bodegas, 'Id', 'Descripcion');
 
 ?>
 
-<h3>Creación de detalle</h3>
+<h4>Creación de detalle</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model, 'id'=>$id, 'lista_bodegas'=>$lista_bodegas)); ?>

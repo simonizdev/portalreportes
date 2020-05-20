@@ -4,7 +4,7 @@
 
 ?>
 
-<h3>Pagos tienda binner</h3>
+<h4>Pagos tienda binner</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
   'id'=>'reporte-form',
@@ -21,22 +21,25 @@
   ),
 )); ?>
 
-<div id="mensaje" role="alert"></div>
+<div id="mensaje"></div>
 
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-8">
       <div class="form-group">
-        <div class="pull-right badge bg-red" id="error_file" style="display: none;"></div>
+        <div class="badge badge-warning float-right" id="error_file" style="display: none;"></div>
         <input type="hidden" id="valid_file" value="0">
-        <?php echo $form->label($model,'archivo'); ?>
+        <?php echo $form->label($model,'archivo'); ?><br>
         <?php echo $form->fileField($model, 'archivo'); ?>
         </div>
     </div>
 </div>
 
-<div class="btn-group" style="padding-bottom: 2%">
-    <button type="button" class="btn btn-success" id="valida_form"><i class="fa fa-upload"></i> Subir archivo</button>
+<div class="row mb-2">
+    <div class="col-sm-6">  
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-upload"></i> Subir archivo</button>
+    </div>
 </div>
+
 
 <?php $this->endWidget(); ?>
 
@@ -45,7 +48,10 @@
 $(function() {
 
   var extensionesValidas = ".csv";
-  var pesoPermitido = 1024;
+  var textExtensionesValidas = "(.csv)";
+  var pesoPermitido = 2048;
+  var idInput = "valid_file";
+  var idMsg = "error_file";
 
   $("#valida_form").click(function() {
 
@@ -59,7 +65,7 @@ $(function() {
       var archivo = $('#Reporte_archivo').val();
 
       if(archivo == ''){
-        $('#error_file').html('Debe subir un archivo.');
+        $('#error_file').html('debe cargar un archivo.');
         $('#error_file').show();
       }
           
@@ -92,7 +98,7 @@ $(function() {
                 var data = jQuery.parseJSON(data); 
                 var mensaje = data.msj; 
 
-                $("#mensaje").addClass("alert alert-success");
+                $("#mensaje").addClass("alert alert-warning alert-dismissible");
                 $("#mensaje").html(mensaje);
                 
                 //se resetea el campo FILE
@@ -110,9 +116,9 @@ $(function() {
       $('#error_file').html('');
       $('#error_file').hide();
 
-      if(validarExtension(this)) {
+      if(validarExtension(this, extensionesValidas, textExtensionesValidas, idInput, idMsg)) {
 
-          if(validarPeso(this)) {
+          if(validarPeso(this, pesoPermitido)) {
 
             $('#valid_file').val(1);
 
@@ -127,53 +133,6 @@ $(function() {
     $("#mensaje").html('');
 
   });
-
-
-  // Validacion de extensiones permitidas
-  function validarExtension(datos) {
-
-    var ruta = datos.value;
-    var extension = ruta.substring(ruta.lastIndexOf('.') + 1).toLowerCase();
-    var extensionValida = extensionesValidas.indexOf(extension);
-
-    if(extensionValida < 0) {
-
-      $('#error_file').html('La extensión no es válida (.'+ extension+'), Solo se admite (.csv)');
-      $('#error_file').show();
-      $('#valid_file').val(0);
-      return false;
-
-    } else {
-
-      return true;
-
-    }
-  }
-
-  // Validacion de peso del fichero en kbs
-
-  function validarPeso(datos) {
-
-    if (datos.files && datos.files[0]) {
-
-          var pesoFichero = datos.files[0].size/1024;
-
-          if(pesoFichero > pesoPermitido) {
-
-              $('#error_file').html('El peso maximo permitido del fichero es: ' + pesoPermitido / 1024 + ' MB, Su fichero tiene: '+ (pesoFichero /1024).toFixed(2) +' MB.');
-              $('#error_file').show();
-              $('#valid_file').val(0);
-              return false;
-
-          } else {
-
-              return true;
-
-          }
-
-      }
-
-  }
 
 });
 

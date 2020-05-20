@@ -17,7 +17,7 @@ $.fn.yiiGridView.export = function() {
     });
 }
 $('.search-button').click(function(){
-	$('.search-form').toggle('fast');
+	$('.search-form').slideToggle('fast');
 	return false;
 });
 $('.search-form form').submit(function(){
@@ -32,13 +32,32 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 
 ?>
 
-<h3>Administración de promociones</h3>
-
-<div class="btn-group" style="padding-bottom: 2%">
-   <button type="button" class="btn btn-success" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=promocion/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
-    <button type="button" class="btn btn-success search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
-    <button type="button" class="btn btn-success" id="export-excel"><i class="fa fa-file-excel-o"></i> Exportar a excel</button>
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h4>Administración de promociones</h4>
+  </div>
+  <div class="col-sm-6 text-right"> 
+    <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=promocion/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button> 
+    <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+    <button type="button" class="btn btn-success btn-sm" id="export-excel"><i class="fas fa-file-excel"></i> Exportar a EXCEL</button>
+  </div>
 </div>
+
+<?php if(Yii::app()->user->hasFlash('success')):?>
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-check-circle"></i>Realizado</h5>
+        <?php echo Yii::app()->user->getFlash('success'); ?>
+    </div>
+<?php endif; ?> 
+
+<?php if(Yii::app()->user->hasFlash('warning')):?>
+    <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-info-circle"></i>Info</h5>
+        <?php echo Yii::app()->user->getFlash('warning'); ?>
+    </div>
+<?php endif; ?> 
 
 <div class="search-form" style="display:none;">
 <?php $this->renderPartial('_search',array(
@@ -54,7 +73,10 @@ $this->widget('ext.groupgridview.GroupGridView', array(
     'dataProvider' => $model->search(),
     'mergeColumns' => array('Id_Item_Padre'), 
     //'filter'=>$model,
-    'enableSorting' => false, 
+    'pager'=>array(
+        'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+    ),
+    'enableSorting' => false,
     'columns' => array(
         array(
             'name'=>'Id_Item_Padre',
@@ -86,18 +108,18 @@ $this->widget('ext.groupgridview.GroupGridView', array(
             'template'=>'{view}{update}{delete}',
             'buttons'=>array(
                 'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-black"></i>',
+                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Visualizar'),
                 ),
                 'update'=>array(
-                    'label'=>'<i class="fa fa-pencil actions text-black"></i>',
+                    'label'=>'<i class="fa fa-pen actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Actualizar'),
                     'visible'=> '(Yii::app()->user->getState("permiso_act") == true)',
                 ),
                 'delete'=>array(
-                    'label'=>'<i class="fa fa-trash actions text-black"></i>',
+                    'label'=>'<i class="fa fa-times-circle actions text-dark"></i>',
                     'imageUrl'=>false,
                     'options'=>array('title'=>'Eliminar'),
                     'visible'=> '(Yii::app()->user->getState("permiso_act") == true)',
