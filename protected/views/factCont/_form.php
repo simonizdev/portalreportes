@@ -192,7 +192,7 @@ $(function() {
 	var idMsg = "error_file";
 
     $("#valida_form").click(function() {
-      var form = $("#fact-pend-form");
+      var form = $("#fact-cont-form");
       var settings = form.data('settings') ;
 
       var soporte = $('#FactCont_sop').val();
