@@ -22,17 +22,24 @@
   </div>
   <div class="col-sm-6 text-right"> 
 	<?php if($opc == 2){ ?>
-    <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/admin2'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+    	<button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/admin2'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+    	<button type="button" class="btn btn-success btn-sm" id="toogle_button"><i class="fa fa-low-vision"></i> Ver / ocultar doc.</button>
+		<button type="button" class="btn btn-success btn-sm" id="recibir"><i class="fas fa-check-circle"></i> Recibir factura</button>
+		<button type="button" class="btn btn-success btn-sm" id="rechazar"><i class="fas fa-minus-circle"></i> Rechazar factura</button>    
+
     <?php } else {?>
-    <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/admin3'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+    	<button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/admin3'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+		<button type="button" class="btn btn-success btn-sm" id="toogle_button"><i class="fa fa-low-vision"></i> Ver / ocultar doc.</button>
+		<?php if($model->Estado == 1){ ?>
+	    <button type="button" class="btn btn-success btn-sm" id="recibir"><i class="fas fa-check-circle"></i> Recibir factura</button>
+	    <button type="button" class="btn btn-success btn-sm" id="rechazar"><i class="fas fa-minus-circle"></i> Rechazar factura</button> 
+	    <button type="button" class="btn btn-success btn-sm" id="anular"><i class="fas fa-times-circle"></i> Anular factura</button>    
+	   <?php } ?>
+	   <?php if($model->Estado == 2 || $model->Estado == 3){ ?>
+	   	<button type="button" class="btn btn-success btn-sm" id="anular"><i class="fas fa-times-circle"></i> Anular factura</button> 
+	    <button type="button" class="btn btn-success btn-sm" id="revertir"><i class="fas fa-arrow-circle-left"></i> Revertir estado de factura</button>   
+	   <?php } ?>
     <?php } ?>
-	<button type="button" class="btn btn-success btn-sm" id="toogle_button"><i class="fa fa-low-vision"></i> Ver / ocultar doc.</button>
-	<?php if($model->Estado == 1){ ?>
-    <button type="button" class="btn btn-success btn-sm" id="recibir"><i class="fas fa-check-circle"></i> Recibir factura</button>
-    <button type="button" class="btn btn-success btn-sm" id="rechazar"><i class="fas fa-times-circle"></i> Rechazar factura</button>    
-   <?php }else{ ?>
-    <button type="button" class="btn btn-success btn-sm" id="revertir"><i class="fas fa-arrow-circle-left"></i> Revertir estado de factura</button>   
-   <?php } ?>
   </div>
 </div>
 
@@ -192,9 +199,19 @@ $("#rechazar").click(function() {
   var opcion = confirm("Esta seguro de rechazar esta factura ?");
     if (opcion == true) {
         $(".ajax-loader").fadeIn('fast');
-        $("#FactCont_Estado").val(0);
+        $("#FactCont_Estado").val(3);
         form.submit();
     }   
+});
+
+$("#anular").click(function() {
+  var opcion = confirm("Esta seguro de anular el estado ?");
+    if (opcion == true) {
+        $(".ajax-loader").fadeIn('fast');
+        $("#FactCont_Estado").val(0);
+        form.submit();
+    }  
+
 });
 
 $("#revertir").click(function() {

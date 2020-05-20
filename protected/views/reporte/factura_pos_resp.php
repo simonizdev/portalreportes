@@ -410,6 +410,7 @@ class PDF extends FPDF{
   protected $col = 0; // Current column
 protected $y0;      // Ordinate of column start
 
+/*
 function Header()
 {
     // Page header
@@ -435,7 +436,9 @@ function Footer()
     $this->SetFont('Arial','I',8);
     $this->SetTextColor(128);
     $this->Cell(0,10,'Page '.$this->PageNo(),0,0,'C');
-}
+}*/
+
+
 
 function SetCol($col)
 {
@@ -467,7 +470,7 @@ function AcceptPageBreak()
     }
 }
 
-function ChapterTitle($num, $label)
+/*function ChapterTitle($num, $label)
 {
     // Title
     $this->SetFont('Arial','',12);
@@ -476,30 +479,20 @@ function ChapterTitle($num, $label)
     $this->Ln(4);
     // Save ordinate
     $this->y0 = $this->GetY();
-}
+}*/
 
 function ChapterBody($text)
 {
-    // Read text file
-    //$txt = file_get_contents($file);
-    // Font
-    $this->SetFont('Times','',12);
+     $this->SetFont('Arial','',12);
     
-    // Output text in a 6 cm width column
-    $this->MultiCell(60,5,$text);
-    $this->Ln();
-    // Mention
-    $this->SetFont('','I');
-    $this->Cell(0,5,'(end of excerpt)');
-    // Go back to first column
-    $this->SetCol(0);
+
 }
 
 function PrintChapter($num, $title, $text)
 {
     // Add chapter
     $this->AddPage();
-    $this->ChapterTitle($num,$title);
+    //$this->ChapterTitle($num,$title);
     $this->ChapterBody($text);
 }
 }
@@ -517,13 +510,24 @@ $pdf->Tabla();
 ob_end_clean();
 $pdf->Output('D','Factura_comstar_'.$consecutivo.'.pdf');*/
 
-$pdf = new PDF('P','mm','A4');
-$title = '20000 Leagues Under the Seas';
-$pdf->SetTitle($title);
-$pdf->SetAuthor('Jules Verne');
-$pdf->PrintChapter(1,'A RUNAWAY REEF','t is a long established <
-    fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to , making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).t is a long established <br>
-    fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to , making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).');
+$pdf = new PDF('L','mm','A4');
+$pdf->AddPage();
+$pdf->SetFont('Arial','',12);
+
+$x = $pdf->GetX();
+$y = $pdf->GetY();
+
+$col1="PILOT REMARKS\n\n";
+$pdf->MultiCell(65, 10, $col1, 1, 1);
+
+$pdf->SetXY($x + 65, $y);
+
+$col2="Pilot's Name and Signature\n".$consecutivo;
+$pdf->MultiCell(65, 10, $col2, 1);
+$pdf->SetXY($x + 130, $y);
+$col3="Date Prepared\n".$consecutivo;
+$pdf->MultiCell(65, 10, $col3, 1);
+
 $pdf->Output('D','Factura_POS_'.$consecutivo.'.pdf');
 
 ?>

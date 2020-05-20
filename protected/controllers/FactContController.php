@@ -146,13 +146,16 @@ class FactContController extends Controller
 				if($model->Estado == 2){
 					//recibir
 					Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue recibida correctamente.");
-					$this->redirect(array('admin2'));
+				}
+
+				if($model->Estado == 3){
+					//rechazar
+					Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue rechazada correctamente.");
 				}
 
 				if($model->Estado == 0){
-					//rechazar
-					Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue rechazada correctamente.");
-					$this->redirect(array('admin2'));
+					//anular
+					Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue anulada correctamente.");
 				}
 
 				if($opc == 2){
@@ -168,9 +171,14 @@ class FactContController extends Controller
 					Yii::app()->user->setFlash('warning', "Error al recibir la factura (".$model->Num_Factura.").");
 				}
 
-				if($model->Estado == 0){
+				if($model->Estado == 3){
 					//rechazar
 					Yii::app()->user->setFlash('warning', "Error al rechazar la factura (".$model->Num_Factura.").");
+				}
+
+				if($model->Estado == 0){
+					//anular
+					Yii::app()->user->setFlash('warning', "Error al anular la factura (".$model->Num_Factura.").");
 				}
 
 				if($opc == 2){

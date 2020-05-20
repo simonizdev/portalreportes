@@ -119,7 +119,7 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 					'imageUrl'=>false,
 					'url'=>'Yii::app()->createUrl("factCont/updateest2", array("id"=>$data->Id_Fact))',
 					'options'=>array('title'=>'Actualizar'),
-					'visible'=> '($data->Estado != 1)',
+					'visible'=> '($data->Estado == 2 || $data->Estado == 3)',
 				),
 			)
 		),

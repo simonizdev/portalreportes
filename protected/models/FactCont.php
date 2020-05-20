@@ -111,6 +111,8 @@ class FactCont extends CActiveRecord
 		        return "CARGADA";
 		    case 2:
 		        return "RECIBIDA";
+		    case 3:
+		        return "RECHAZADA";
 		}
 
     }
