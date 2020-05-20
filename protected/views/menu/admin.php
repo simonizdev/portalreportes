@@ -25,7 +25,7 @@ $lista_opciones_p = CHtml::listData($opciones_p, 'Descripcion', 'Descripcion');
 
 <div class="row mb-2">
   <div class="col-sm-6">
-    <h4>Administración de opciones de menu</h4>
+    <h4>Administración de opciones de menú</h4>
   </div>
   <div class="col-sm-6 text-right">  
       <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=menu/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>

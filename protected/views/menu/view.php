@@ -4,7 +4,7 @@
 
 ?>
 
-<h4>Visualizando opción de menu</h4>
+<h4>Visualizando opción de menú</h4>
 
 <div class="table-responsive">
 
