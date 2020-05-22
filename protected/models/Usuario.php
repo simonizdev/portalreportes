@@ -153,7 +153,7 @@ class Usuario extends CActiveRecord
 			'Correo' => 'E-mail',
 			'Password' => 'Password',
 			'Estado' => 'Estado',
-			'Avatar' => 'Avatar',
+			'Avatar' => 'Género',
 			'Fecha_Creacion' => 'Fecha de creación',
 			'Fecha_Actualizacion' => 'Fecha de actualización',
 			'usuario_creacion' => 'Usuario que creo',

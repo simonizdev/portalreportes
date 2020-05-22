@@ -3439,7 +3439,7 @@ class ReporteController extends Controller
         if($filas < 2){
 
         	$opc = 0;
-        	$msj = '<h4><i class="icon fa fa-info-circle"></i> Error</h4> El archivo esta vacio.';
+        	$msj = '<h5><i class="icon fas fa-info-circle"></i>Info</h5> El archivo esta vacio.';
 
         }else{
 
@@ -3447,7 +3447,7 @@ class ReporteController extends Controller
     	
     		//se ejecuta el sp por cada fila en el archivo
 
-    		$msj = '<h4><i class="icon fa fa-info-circle"></i> Info</h4>';
+    		$msj = '<h5><i class="icon fas fa-info-circle"></i>Info</h5>';
 
     		for($i = 1; $i <= $filas -1 ; $i++){
         		$param1 = $dataExcel[$i][0];
@@ -3674,7 +3674,7 @@ class ReporteController extends Controller
 
 		}
 		
-        $msj .= $i.' Registro(s) insertados correctamente.<br>'; 	
+        $msj .= $i.' Registro(s) insertados.<br>'; 	
 
         $resp = array('msj' => $msj);
 
@@ -3907,7 +3907,7 @@ class ReporteController extends Controller
     	
     		//se ejecuta el sp por cada fila en el archivo
 
-    		$msj = '<h4><i class="icon fa fa-info-circle"></i> Info</h4>';
+    		$msj = '<h5><i class="icon fas fa-info-circle"></i>Info</h5>';
 
     		for($i = 1; $i <= $filas -1 ; $i++){
         		$param1 = intval($dataExcel[$i][0]); //Número de pedido
@@ -3955,110 +3955,81 @@ class ReporteController extends Controller
 
 				if(empty($row_exist_cab)){
 					//no existe la cabecera
+
+					if(is_numeric($param31)){
 				
-					$command = Yii::app()->db->createCommand("
-					INSERT INTO Tiendabinner..Web_Orders
-					([Order_Number]
-		           ,[Order_Status]
-		           ,[Order_Date]
-		           ,[Customer_Note]
-		           ,[Billing_First_Name]
-		           ,[Billing_Last_Name]
-		           ,[Plain_Orders__Billing_Ident]
-		           ,[Billing_Company]
-		           ,[Billing_Address]
-		           ,[Billing_City]
-		           ,[Billing_State]
-		           ,[Billing_Postcode]
-		           ,[Billing_Country]
-		           ,[Billing_Email]
-		           ,[Billing_Phone]
-		           ,[Shipping_First_Name]
-		           ,[Shipping_Last_Name]
-		           ,[Shipping_Address]
-		           ,[Shipping_City]
-		           ,[Shipping_State]
-		           ,[Shipping_Postcode]
-		           ,[Shipping_Country]
-		           ,[Payment_Method_Title]
-		           ,[Cart_Discount]
-		           ,[Order_Subtotal]
-		           ,[Shipping_Method_Title]
-		           ,[Order_Shipping]
-		           ,[Order_Refund]
-		           ,[Order_Total]
-		           ,[Order_Total_Tax]
-		           ,[Coupons]
-		           ,[Fecha]
-		           )
-					VALUES
-					(".$param1."
-		           ,'".$param2."'
-		           ,'".$param3."'
-		           ,'".$param4."'
-		           ,'".$param5."'
-		           ,'".$param6."'
-		           ,'".$param7."'
-		           ,'".$param8."'
-		           ,'".$param9."'
-		           ,'".$param10."'
-		           ,'".$param11."'
-		           ,'".$param12."'
-		           ,'".$param13."'
-		           ,'".$param14."'
-		           ,'".$param15."'
-		           ,'".$param16."'
-		           ,'".$param17."'
-		           ,'".$param18."'
-		           ,'".$param19."'
-		           ,'".$param20."'
-		           ,'".$param21."'
-		           ,'".$param22."'
-		           ,'".$param23."'
-		           ,".$param24."
-		           ,".$param25."
-		           ,'".$param26."'
-		           ,".$param27."
-		           ,".$param28."
-		           ,".$param29."
-		           ,".$param30."
-		           ,'".$param36."'
-		           ,'".date('Y-m-d H:i:s')."'
-					)");
+						$command = Yii::app()->db->createCommand("
+						INSERT INTO Tiendabinner..Web_Orders
+						([Order_Number]
+			           ,[Order_Status]
+			           ,[Order_Date]
+			           ,[Customer_Note]
+			           ,[Billing_First_Name]
+			           ,[Billing_Last_Name]
+			           ,[Plain_Orders__Billing_Ident]
+			           ,[Billing_Company]
+			           ,[Billing_Address]
+			           ,[Billing_City]
+			           ,[Billing_State]
+			           ,[Billing_Postcode]
+			           ,[Billing_Country]
+			           ,[Billing_Email]
+			           ,[Billing_Phone]
+			           ,[Shipping_First_Name]
+			           ,[Shipping_Last_Name]
+			           ,[Shipping_Address]
+			           ,[Shipping_City]
+			           ,[Shipping_State]
+			           ,[Shipping_Postcode]
+			           ,[Shipping_Country]
+			           ,[Payment_Method_Title]
+			           ,[Cart_Discount]
+			           ,[Order_Subtotal]
+			           ,[Shipping_Method_Title]
+			           ,[Order_Shipping]
+			           ,[Order_Refund]
+			           ,[Order_Total]
+			           ,[Order_Total_Tax]
+			           ,[Coupons]
+			           ,[Fecha]
+			           )
+						VALUES
+						(".$param1."
+			           ,'".$param2."'
+			           ,'".$param3."'
+			           ,'".$param4."'
+			           ,'".$param5."'
+			           ,'".$param6."'
+			           ,'".$param7."'
+			           ,'".$param8."'
+			           ,'".$param9."'
+			           ,'".$param10."'
+			           ,'".$param11."'
+			           ,'".$param12."'
+			           ,'".$param13."'
+			           ,'".$param14."'
+			           ,'".$param15."'
+			           ,'".$param16."'
+			           ,'".$param17."'
+			           ,'".$param18."'
+			           ,'".$param19."'
+			           ,'".$param20."'
+			           ,'".$param21."'
+			           ,'".$param22."'
+			           ,'".$param23."'
+			           ,".$param24."
+			           ,".$param25."
+			           ,'".$param26."'
+			           ,".$param27."
+			           ,".$param28."
+			           ,".$param29."
+			           ,".$param30."
+			           ,'".$param36."'
+			           ,'".date('Y-m-d H:i:s')."'
+						)");
 
-					$command->execute();
-					$c++;
-
-					$command2 = Yii::app()->db->createCommand("
-					INSERT INTO Tiendabinner..Web_Orders_Details
-		           ([Order_Number]
-		           ,[Sku]
-		           ,[Line_Id]
-		           ,[Name]
-		           ,[Qty]
-		           ,[Item_Price]
-		           ,[Fecha])
-		     		VALUES
-		           (".$param1."
-		           ,".$param31."
-		           ,".$param32."
-		           ,'".$param33."'
-		           ,".$param34."
-		           ,".$param35."
-		           ,'".date('Y-m-d H:i:s')."'
-					)");
-
-					$command2->execute();
-					$c++;
-
-				}else{
-
-					$query_exist_det = "SELECT Order_Number FROM Tiendabinner..Web_Orders_Details WHERE Order_Number = ".$param1." AND Line_Id = ".$param32;
-
-					$row_exist_det =  Yii::app()->db->createCommand($query_exist_det)->queryRow();
-
-					if(empty($row_exist_det)){
-						//no existe el detalle
+						$command->execute();
+						$c++;
 
 						$command2 = Yii::app()->db->createCommand("
 						INSERT INTO Tiendabinner..Web_Orders_Details
@@ -4084,10 +4055,46 @@ class ReporteController extends Controller
 
 					}
 
+				}else{
+
+					$query_exist_det = "SELECT Order_Number FROM Tiendabinner..Web_Orders_Details WHERE Order_Number = ".$param1." AND Line_Id = ".$param32;
+
+					$row_exist_det =  Yii::app()->db->createCommand($query_exist_det)->queryRow();
+
+					if(empty($row_exist_det)){
+						//no existe el detalle
+
+						if(is_numeric($param31)){
+
+							$command2 = Yii::app()->db->createCommand("
+							INSERT INTO Tiendabinner..Web_Orders_Details
+				           ([Order_Number]
+				           ,[Sku]
+				           ,[Line_Id]
+				           ,[Name]
+				           ,[Qty]
+				           ,[Item_Price]
+				           ,[Fecha])
+				     		VALUES
+				           (".$param1."
+				           ,".$param31."
+				           ,".$param32."
+				           ,'".$param33."'
+				           ,".$param34."
+				           ,".$param35."
+				           ,'".date('Y-m-d H:i:s')."'
+							)");
+
+							$command2->execute();
+							$c++;
+						}
+
+					}
+
 				}
 			}
 
-			$msj .= $c.' Registro(s) insertados correctamente.<br>'; 	
+			$msj .= $c.' Registro(s) insertados.<br>'; 	
 
         	$resp = array('msj' => $msj);
 
@@ -4186,7 +4193,162 @@ class ReporteController extends Controller
     	
     		//se ejecuta el sp por cada fila en el archivo
 
-    		$msj = '<h4><i class="icon fa fa-info-circle"></i> Info</h4>';
+    		$msj = '<h5><i class="icon fas fa-info-circle"></i>Info</h5>';
+
+    		$clean_number_caract = array("$", ",");
+
+    		for($i = 1; $i <= $filas -1 ; $i++){
+
+        		$param1 = $dataExcel[$i][0]; //TypeStatus
+        		$param2 = $dataExcel[$i][1]; //Status_Details
+        		$param3 = $dataExcel[$i][2];  //Id_Transaccion
+        		$param4 = $dataExcel[$i][3];  //Autorizacion
+        		$param5 = str_replace($clean_number_caract, "", $dataExcel[$i][4]);  //Valor_Venta
+        		$param6 = $dataExcel[$i][5];  //Fecha_Venta
+        		$param7 = $dataExcel[$i][6];  //Medio_Pago
+        		$param8 = $dataExcel[$i][7]; //Franquicia
+        		$param9 = $dataExcel[$i][8]; //N_Identif
+        		$param10 = $dataExcel[$i][9]; //Ref1
+        		$param11 = $dataExcel[$i][10]; //Ref2
+        		$param12 = $dataExcel[$i][11]; //Ref3
+        		$param13 = $dataExcel[$i][12]; //Descripcion
+        		$param14 = str_replace($clean_number_caract, "", $dataExcel[$i][13]); //Comision
+        		$param15 = $dataExcel[$i][14]; //Porcentaje
+        		$param16 = str_replace($clean_number_caract, "", $dataExcel[$i][15]); //Iva_Comision
+        		$param17 = str_replace($clean_number_caract, "", $dataExcel[$i][16]); //Fee
+        		$param18 = str_replace($clean_number_caract, "", $dataExcel[$i][17]); //IvaFee
+        		$param19 = str_replace($clean_number_caract, "", $dataExcel[$i][18]); //ReteIca
+        		$param20 = str_replace($clean_number_caract, "", $dataExcel[$i][19]); //ReteIva
+        		$param21 = str_replace($clean_number_caract, "", $dataExcel[$i][20]); //ReteFTE
+        		$param22 = str_replace($clean_number_caract, "", $dataExcel[$i][21]); //Gravamen
+        		$param23 = str_replace($clean_number_caract, "", $dataExcel[$i][22]); //Valor_Desembolsar
+        		$param24 = $dataExcel[$i][23]; //Desembolso
+        		$param25 = $dataExcel[$i][24]; //Fecha_Desembolso
+
+        		$query_exist = "SELECT Id_Transaccion FROM Tiendabinner..Confirmacion_Pagos WHERE Id_Transaccion = ".$param3;
+
+				$row_exist =  Yii::app()->db->createCommand($query_exist)->queryRow();
+
+				if(empty($row_exist)){
+					//no existe la cabecera
+				
+					$command = Yii::app()->db->createCommand("
+					INSERT INTO Tiendabinner..Confirmacion_Pagos
+					([TypeStatus]
+		           ,[Status_Details]
+		           ,[Id_Transaccion]
+		           ,[Autorizacion]
+		           ,[Valor_Venta]
+		           ,[Fecha_Venta]
+		           ,[Medio_Pago]
+		           ,[Franquicia]
+		           ,[N_Identif]
+		           ,[Ref1]
+		           ,[Ref2]
+		           ,[Ref3]
+		           ,[Descripcion]
+		           ,[Comision]
+		           ,[Porcentaje]
+		           ,[Iva_Comision]
+		           ,[Fee]
+		           ,[IvaFee]
+		           ,[ReteIca]
+		           ,[ReteIva]
+		           ,[ReteFTE]
+		           ,[Gravamen]
+		           ,[Valor_Desembolsar]
+		           ,[Desembolso]
+		           ,[Fecha_Desembolso]
+		           )
+					VALUES
+					('".$param1."'
+		           ,'".$param2."'
+		           ,".$param3."
+		           ,'".$param4."'
+		           ,".$param5."
+		           ,'".$param6."'
+		           ,'".$param7."'
+		           ,'".$param8."'
+		           ,'".$param9."'
+		           ,'".$param10."'
+		           ,'".$param11."'
+		           ,'".$param12."'
+		           ,'".$param13."'
+		           ,".$param14."
+		           ,'".$param15."'
+		           ,".$param16."
+		           ,".$param17."
+		           ,".$param18."
+		           ,".$param19."
+		           ,".$param20."
+		           ,".$param21."
+		           ,".$param22."
+		           ,".$param23."
+		           ,'".$param24."'
+		           ,'".$param25."'
+					)");
+
+
+					$command->execute();
+					$c++;
+
+				}
+			}
+
+			$msj .= $c.' Registro(s) insertados.<br>'; 	
+
+        	$resp = array('msj' => $msj);
+
+        	echo json_encode($resp);
+
+		}
+
+	}
+
+
+	public function actionDetTransTiendasWeb()
+	{		
+		$model=new Reporte;
+
+		$this->render('det_trans_tiendas_web',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionUploadDetTransTiendasWeb()
+	{		
+		$opc = '';
+       	$msj = '';
+
+		$file_tmp = $_FILES['Reporte']['tmp_name']['archivo'];
+        
+        set_time_limit(0);
+
+        // Se inactiva el autoloader de yii
+		spl_autoload_unregister(array('YiiBase','autoload'));   
+
+		require_once Yii::app()->basePath . '/extensions/PHPExcel/Classes/PHPExcel.php';
+		require_once Yii::app()->basePath . '/extensions/PHPExcel/Classes/PHPExcel/Reader/Excel2007.php';
+		require_once Yii::app()->basePath . '/extensions/PHPExcel/Classes/PHPExcel/IOFactory.php';
+
+		//cuando se termina la accion relacionada con la libreria se activa el autoloader de yii
+		spl_autoload_register(array('YiiBase','autoload'));
+
+		$objPHPExcel = PHPExcel_IOFactory::load($file_tmp); 
+        $objPHPExcel->setActiveSheetIndex(0);
+
+        //Convierto la data de la Hoja en un arreglo
+        $dataExcel = $objPHPExcel->getActiveSheet()->toArray();
+
+        $filas = count($dataExcel);
+
+        if($filas > 2){
+
+       		$c = 0;
+    	
+    		//se ejecuta el sp por cada fila en el archivo
+
+    		$msj = '<h5><i class="icon fas fa-info-circle"></i>Info</h5>';
 
     		$clean_number_caract = array("$", ",");
 
@@ -4287,7 +4449,7 @@ class ReporteController extends Controller
 				}
 			}
 
-			$msj .= $c.' Registro(s) insertados correctamente.<br>'; 	
+			$msj .= $c.' Registro(s) insertados.<br>'; 	
 
         	$resp = array('msj' => $msj);
 
@@ -4296,6 +4458,5 @@ class ReporteController extends Controller
 		}
 
 	}
-
 
 }
