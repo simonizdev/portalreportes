@@ -135,7 +135,7 @@ $(function() {
 </script>
 
 
-<body class="sidebar-mini layout-fixed control-sidebar-open text-sm">
+<body class="sidebar-mini layout-fixed control-sidebar-open small">
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
@@ -379,8 +379,8 @@ $(function() {
 
 /*Modificación botones de la grid yii*/
 .actions{
-  padding-left: 5%;
-  padding-right: 5%; 
+  padding-left: 2%;
+  padding-right: 2%; 
   font-size: 11px;
 }
 
@@ -402,7 +402,7 @@ $(function() {
 }
 
 td.button-column {
-  min-width: 50px !important;
+  white-space: nowrap;
 }
 
 .select2-results .select2-highlighted {

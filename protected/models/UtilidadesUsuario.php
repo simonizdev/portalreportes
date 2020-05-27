@@ -363,7 +363,7 @@ class UtilidadesUsuario {
 			$resp = count($factareapendrev);
 
 		}else{
-			$resp = 0;
+			$resp = -1;
 		}
 
 		return $resp;
@@ -384,7 +384,7 @@ class UtilidadesUsuario {
 			$resp = count($correspareapendrev);
 
 		}else{
-			$resp = 0;
+			$resp = -1;
 		}
 
 		return $resp;

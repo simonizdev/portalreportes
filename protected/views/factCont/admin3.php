@@ -3,6 +3,19 @@
 /* @var $model FactCont */
 
 Yii::app()->clientScript->registerScript('search', "
+$('#export-excel').on('click',function() {
+    $.fn.yiiGridView.export();
+});
+$.fn.yiiGridView.export = function() {
+    $.fn.yiiGridView.update('fact-cont-grid',{ 
+        success: function() {
+            window.location = '". $this->createUrl('exportexcel')  . "';
+            $(\".ajax-loader\").fadeIn('fast');
+            setTimeout(function(){ $(\".ajax-loader\").fadeOut('fast'); }, 20000);
+        },
+        data: $('.search-form form').serialize() + '&export=true'
+    });
+}
 $('.search-button').click(function(){
 	$('.search-form').slideToggle('fast');
 	return false;
@@ -26,24 +39,11 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
   </div>
   <div class="col-sm-6 text-right"> 
     <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
+    <button type="button" class="btn btn-success btn-sm" id="export-excel"><i class="fas fa-file-excel"></i> Exportar a EXCEL</button>
   </div>
 </div>
 
-<?php if(Yii::app()->user->hasFlash('success')):?>
-    <div class="alert alert-success alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h5><i class="icon fas fa-check-circle"></i>Realizado</h5>
-        <?php echo Yii::app()->user->getFlash('success'); ?>
-    </div>
-<?php endif; ?> 
-
-<?php if(Yii::app()->user->hasFlash('warning')):?>
-    <div class="alert alert-warning alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h5><i class="icon fas fa-info-circle"></i>Info</h5>
-        <?php echo Yii::app()->user->getFlash('warning'); ?>
-    </div>
-<?php endif; ?> 
+<div id="div_mensaje" style="display: none;"></div>
 
 <div class="search-form" style="display:none;">
 <?php $this->renderPartial('_search',array(
@@ -99,7 +99,7 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 
 		array(
 			'class'=>'CButtonColumn',
-			'template'=>'{view}{update}{update2}',
+			'template'=>'{view}{recibir}{rechazar}{anular}{revertir}',
 			'buttons'=>array(
 				'view'=>array(
 					'label'=>'<i class="fa fa-eye actions text-dark"></i>',
@@ -107,20 +107,162 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 					'options'=>array('title'=>'Visualizar'),
 					'url'=>'Yii::app()->createUrl("factCont/view", array("id"=>$data->Id_Fact, "opc"=> 3))',
 				),
-				'update'=>array(
-					'label'=>'<i class="fa fa-pen actions text-dark"></i>',
-					'imageUrl'=>false,
-					'url'=>'Yii::app()->createUrl("factCont/updateest", array("id"=>$data->Id_Fact, "opc"=> 3))',
-					'options'=>array('title'=>'Actualizar'),
-					'visible'=> '($data->Estado == 1)',
-				),
-				'update2'=>array(
-					'label'=>'<i class="fa fa-pen actions text-dark"></i>',
-					'imageUrl'=>false,
-					'url'=>'Yii::app()->createUrl("factCont/updateest2", array("id"=>$data->Id_Fact))',
-					'options'=>array('title'=>'Actualizar'),
-					'visible'=> '($data->Estado == 2 || $data->Estado == 3)',
-				),
+				'recibir' => array(
+                    'label'=>'<i class="fas fa-check-circle actions text-dark"></i>',
+                    'imageUrl'=>false, 
+                    'url'=>'Yii::app()->createUrl("factCont/recibir", array("id"=>$data->Id_Fact))', 
+                    'visible'=> '($data->Estado == 1)',                 
+                    'options'=>array('title'=>' Recibir factura'),
+                    'click'=>"
+                    function() {
+                        if(confirm('Esta seguro de recibir esta factura ?')) {
+
+                            $.fn.yiiGridView.update('fact-cont-grid', {
+                                type:'POST',
+                                dataType: 'json',
+                                url:$(this).attr('href'),
+                                success:function(data) {
+
+                                    var res = data.res; 
+                                    var mensaje = data.msg;
+
+                                    if(res == 0){
+                                        $('#div_mensaje').addClass('alert alert-warning alert-dismissible');
+                                        $('#div_mensaje').html('<button type=\"button\" class=\"close\" aria-hidden=\"true\" onclick=\"limp_div_msg();\">×</button><h5><i class=\"icon fas fa-info-circle\"></i>Info</h5><p>'+mensaje+'</p>');
+                                    }
+
+                                    if(res == 1){
+                                        $('#div_mensaje').addClass('alert alert-success alert-dismissible');
+                                        $('#div_mensaje').html('<button type=\"button\" class=\"close\" aria-hidden=\"true\" onclick=\"limp_div_msg();\">×</button><h5><i class=\"icon fas fa-check-circle\"></i>Realizado</h5><p>'+mensaje+'</p>');
+                                    }
+
+                                    $('#div_mensaje').fadeIn('fast');
+                                    $.fn.yiiGridView.update('fact-cont-grid');
+                                }
+                            })
+                            return false;
+                        }else{
+                            return false;    
+                        }
+                    }",
+                ),
+                'rechazar' => array(
+                    'label'=>'<i class="fas fa-minus-circle actions text-dark"></i>',
+                    'imageUrl'=>false, 
+                    'url'=>'Yii::app()->createUrl("factCont/rechazar", array("id"=>$data->Id_Fact))',
+                    'visible'=> '($data->Estado == 1)',                    
+                    'options'=>array('title'=>' Rechazar factura'),
+                    'click'=>"
+                    function() {
+                        if(confirm('Esta seguro de rechazar esta factura ?')) {
+
+                            $.fn.yiiGridView.update('fact-cont-grid', {
+                                type:'POST',
+                                dataType: 'json',
+                                url:$(this).attr('href'),
+                                success:function(data) {
+
+                                    var res = data.res; 
+                                    var mensaje = data.msg;
+
+                                    if(res == 0){
+                                        $('#div_mensaje').addClass('alert alert-warning alert-dismissible');
+                                        $('#div_mensaje').html('<button type=\"button\" class=\"close\" aria-hidden=\"true\" onclick=\"limp_div_msg();\">×</button><h5><i class=\"icon fas fa-info-circle\"></i>Info</h5><p>'+mensaje+'</p>');
+                                    }
+
+                                    if(res == 1){
+                                        $('#div_mensaje').addClass('alert alert-success alert-dismissible');
+                                        $('#div_mensaje').html('<button type=\"button\" class=\"close\" aria-hidden=\"true\" onclick=\"limp_div_msg();\">×</button><h5><i class=\"icon fas fa-check-circle\"></i>Realizado</h5><p>'+mensaje+'</p>');
+                                    }
+
+                                    $('#div_mensaje').fadeIn('fast');
+                                    $.fn.yiiGridView.update('fact-cont-grid');
+                                }
+                            })
+                            return false;
+                        }else{
+                            return false;    
+                        }
+                    }",
+                ),
+                'anular' => array(
+                    'label'=>'<i class="fa fas fa-times-circle actions text-dark"></i>',
+                    'imageUrl'=>false, 
+                    'url'=>'Yii::app()->createUrl("factCont/anular", array("id"=>$data->Id_Fact, "opc"=> 3, "e"=> 0))',
+                    'visible'=> '($data->Estado == 1 || $data->Estado == 2 || $data->Estado == 3)',                  
+                    'options'=>array('title'=>' Anular factura'),
+                    'click'=>"
+                    function() {
+                        if(confirm('Esta seguro de anular esta factura ?')) {
+
+                            $.fn.yiiGridView.update('fact-cont-grid', {
+                                type:'POST',
+                                dataType: 'json',
+                                url:$(this).attr('href'),
+                                success:function(data) {
+
+                                    var res = data.res; 
+                                    var mensaje = data.msg;
+
+                                    if(res == 0){
+                                        $('#div_mensaje').addClass('alert alert-warning alert-dismissible');
+                                        $('#div_mensaje').html('<button type=\"button\" class=\"close\" aria-hidden=\"true\" onclick=\"limp_div_msg();\">×</button><h5><i class=\"icon fas fa-info-circle\"></i>Info</h5><p>'+mensaje+'</p>');
+                                    }
+
+                                    if(res == 1){
+                                        $('#div_mensaje').addClass('alert alert-success alert-dismissible');
+                                        $('#div_mensaje').html('<button type=\"button\" class=\"close\" aria-hidden=\"true\" onclick=\"limp_div_msg();\">×</button><h5><i class=\"icon fas fa-check-circle\"></i>Realizado</h5><p>'+mensaje+'</p>');
+                                    }
+
+                                    $('#div_mensaje').fadeIn('fast');
+                                    $.fn.yiiGridView.update('fact-cont-grid');
+                                }
+                            })
+                            return false;
+                        }else{
+                            return false;    
+                        }
+                    }",
+                ),
+                'revertir' => array(
+                    'label'=>'<i class="fa fas fa-arrow-circle-left actions text-dark"></i>',
+                    'imageUrl'=>false, 
+                    'url'=>'Yii::app()->createUrl("factCont/revertir", array("id"=>$data->Id_Fact))', 
+                    'visible'=> '($data->Estado == 2 || $data->Estado == 3)',                   
+                    'options'=>array('title'=>' Revertir factura'),
+                    'click'=>"
+                    function() {
+                        if(confirm('Esta seguro de revertir esta factura ?')) {
+
+                            $.fn.yiiGridView.update('fact-cont-grid', {
+                                type:'POST',
+                                dataType: 'json',
+                                url:$(this).attr('href'),
+                                success:function(data) {
+
+                                    var res = data.res; 
+                                    var mensaje = data.msg;
+
+                                    if(res == 0){
+                                        $('#div_mensaje').addClass('alert alert-warning alert-dismissible');
+                                        $('#div_mensaje').html('<button type=\"button\" class=\"close\" aria-hidden=\"true\" onclick=\"limp_div_msg();\">×</button><h5><i class=\"icon fas fa-info-circle\"></i>Info</h5><p>'+mensaje+'</p>');
+                                    }
+
+                                    if(res == 1){
+                                        $('#div_mensaje').addClass('alert alert-success alert-dismissible');
+                                        $('#div_mensaje').html('<button type=\"button\" class=\"close\" aria-hidden=\"true\" onclick=\"limp_div_msg();\">×</button><h5><i class=\"icon fas fa-check-circle\"></i>Realizado</h5><p>'+mensaje+'</p>');
+                                    }
+
+                                    $('#div_mensaje').fadeIn('fast');
+                                    $.fn.yiiGridView.update('fact-cont-grid');
+                                }
+                            })
+                            return false;
+                        }else{
+                            return false;    
+                        }
+                    }",
+                ),
 			)
 		),
 	),

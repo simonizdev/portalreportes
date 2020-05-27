@@ -32,7 +32,7 @@ class FactContController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'export', 'exportexcel','updateest','updateest2'),
+				'actions'=>array('create','update', 'export', 'exportexcel','recibir','rechazar','anular','revertir'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -124,114 +124,6 @@ class FactContController extends Controller
 	}
 
 	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdateEst($id, $opc)
-	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['FactCont']))
-		{
-			$model->attributes=$_POST['FactCont'];
-			$model->Id_Usuario_Revision = Yii::app()->user->getState('id_user');
-			$model->Fecha_Revision = date('Y-m-d H:i:s');
-			
-			if($model->save()){
-
-				if($model->Estado == 2){
-					//recibir
-					Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue recibida correctamente.");
-				}
-
-				if($model->Estado == 3){
-					//rechazar
-					Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue rechazada correctamente.");
-				}
-
-				if($model->Estado == 0){
-					//anular
-					Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue anulada correctamente.");
-				}
-
-				if($opc == 2){
-					$this->redirect(array('admin2'));
-				}else{
-					$this->redirect(array('admin3'));	
-				}
-				
-			}else{
-
-				if($model->Estado == 2){
-					//recibir
-					Yii::app()->user->setFlash('warning', "Error al recibir la factura (".$model->Num_Factura.").");
-				}
-
-				if($model->Estado == 3){
-					//rechazar
-					Yii::app()->user->setFlash('warning', "Error al rechazar la factura (".$model->Num_Factura.").");
-				}
-
-				if($model->Estado == 0){
-					//anular
-					Yii::app()->user->setFlash('warning', "Error al anular la factura (".$model->Num_Factura.").");
-				}
-
-				if($opc == 2){
-					$this->redirect(array('admin2'));
-				}else{
-					$this->redirect(array('admin3'));	
-				}
-
-					
-			}
-
-		}
-
-		$this->render('update_est',array(
-			'model'=>$model,
-			'opc'=>$opc,
-		));
-	}
-
-	public function actionUpdateEst2($id)
-	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['FactCont']))
-		{
-			$model->attributes=$_POST['FactCont'];
-			$model->Id_Usuario_Revision = NULL;
-			$model->Fecha_Revision = NULL;
-			
-			if($model->save()){
-
-				Yii::app()->user->setFlash('success', "La estado de la factura (".$model->Num_Factura.") fue revertido correctamente.");
-				$this->redirect(array('admin3'));
-				
-			}else{
-
-				Yii::app()->user->setFlash('warning', "Error al revertir el estado de la factura (".$model->Num_Factura.").");
-				$this->redirect(array('admin3'));
-				
-			}
-
-		}
-
-		$this->render('update_est',array(
-			'model'=>$model,
-			'opc'=>3,
-		));
-	}
-
-	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
@@ -284,6 +176,11 @@ class FactContController extends Controller
 
 	public function actionAdmin2()
 	{
+		if(Yii::app()->request->getParam('export')) {
+    		$this->actionExport();
+    		Yii::app()->end();
+		}
+
 		$model=new FactCont('search2');
 		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario'));
 		$lista_areas = UtilidadesVarias::listaareasusuario();
@@ -304,6 +201,11 @@ class FactContController extends Controller
 	 */
 	public function actionAdmin3()
 	{
+		if(Yii::app()->request->getParam('export')) {
+    		$this->actionExport();
+    		Yii::app()->end();
+		}
+
 		$model=new FactCont('search');
 		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario'));
 		$lista_areas = UtilidadesVarias::listaareas();
@@ -370,93 +272,109 @@ class FactContController extends Controller
 		$this->renderPartial('fact_cont_export_excel',array('data' => $data));	
 	}
 
-	public function actionReciDoc($id)
+	public function actionRecibir($id)
 	{
 		
 		$model=$this->loadModel($id);
-
+		$model->Id_Usuario_Revision = Yii::app()->user->getState('id_user');
+		$model->Fecha_Revision = date('Y-m-d H:i:s');
 		$model->Estado = 2;
-		$model->Id_Usuario_Revision = Yii::app()->user->getState('id_user');
-		$model->Fecha_Revision = date('Y-m-d H:i:s');
-
-		if($model->save()){
-			Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue recibida correctamente.");
-			$this->redirect(array('admin2'));
-		}else{
-			Yii::app()->user->setFlash('warning', "Error al recibir la factura (".$model->Num_Factura.").");
-			$this->redirect(array('admin2'));	
-		}
 		
-	}
-
-	public function actionRechDoc($id)
-	{
-		
-		$model=$this->loadModel($id);
-
-		$model->Estado = 0;
-		$model->Id_Usuario_Revision = Yii::app()->user->getState('id_user');
-		$model->Fecha_Revision = date('Y-m-d H:i:s');
-
-		if($model->save()){
-			Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue rechazada correctamente.");
-			$this->redirect(array('admin2'));
-		}else{
-			Yii::app()->user->setFlash('warning', "Error al rechazar la factura (".$model->Num_Factura.").");
-			$this->redirect(array('admin2'));	
-		}
-		
-	}
-
-	public function actionUpdateEstadoFact()
-	{
-		$id_factura = $_POST['id_factura'];
-		$opcion = $_POST['opcion'];
-
-		$model=FactCont::model()->findByPk($id_factura);
-		$model->Id_Usuario_Revision = Yii::app()->user->getState('id_user');
-		$model->Fecha_Revision = date('Y-m-d H:i:s');
-
-		if($opcion == 1){
-			//recibir
-			$model->Estado = 2;
-		}
-
-		if($opcion == 0){
-			//rechazar
-			$model->Estado = 0;
-		}
-
 		if($model->save()){
 
-			if($opcion == 1){
-				//recibir
-				Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue recibida correctamente.");
-				$this->redirect(array('admin2'));
-			}
-
-			if($opcion == 0){
-				//rechazar
-				Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue rechazada correctamente.");
-				$this->redirect(array('admin2'));
-			}
+			$res = 1;
+			$msg = "La factura # ".$model->Num_Factura." fue recibida correctamente.";
 			
 		}else{
 
-			if($opcion == 1){
-				//recibir
-				Yii::app()->user->setFlash('warning', "Error al recibir la factura (".$model->Num_Factura.").");
-				$this->redirect(array('admin2'));
-			}
+			$res = 0;
+			$msg = "Error al recibir la factura # ".$model->Num_Factura.".";
+			
 
-			if($opcion == 0){
-				//rechazar
-				Yii::app()->user->setFlash('warning', "Error al rechazar la factura (".$model->Num_Factura.").");
-				$this->redirect(array('admin2'));
-			}
-
-				
 		}
+
+		$resp = array('res' => $res, 'msg' => $msg);
+        echo json_encode($resp);
+
+	}
+
+	public function actionRechazar($id)
+	{
+		
+		$model=$this->loadModel($id);
+		$model->Id_Usuario_Revision = Yii::app()->user->getState('id_user');
+		$model->Fecha_Revision = date('Y-m-d H:i:s');
+		$model->Estado = 3;
+		
+		if($model->save()){
+
+			$res = 1;
+			$msg = "La factura # ".$model->Num_Factura." fue rechazada correctamente.";
+			
+		}else{
+
+			$res = 0;
+			$msg = "Error al rechazar la factura # ".$model->Num_Factura.".";
+			
+
+		}
+
+		$resp = array('res' => $res, 'msg' => $msg);
+        echo json_encode($resp);
+
+	}
+
+	public function actionAnular($id)
+	{
+		
+		$model=$this->loadModel($id);
+		$model->Id_Usuario_Revision = Yii::app()->user->getState('id_user');
+		$model->Fecha_Revision = date('Y-m-d H:i:s');
+		$model->Estado = 0;
+		
+		if($model->save()){
+
+			$res = 1;
+			$msg = "La factura # ".$model->Num_Factura." fue anulada correctamente.";
+			
+		}else{
+
+			$res = 0;
+			$msg = "Error al anular la factura # ".$model->Num_Factura.".";
+			
+
+		}
+
+		$resp = array('res' => $res, 'msg' => $msg);
+        echo json_encode($resp);
+
+	}
+
+	public function actionRevertir($id)
+	{
+		
+		$model=$this->loadModel($id);
+		$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+		$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
+		$model->Id_Usuario_Revision = NULL;
+		$model->Fecha_Revision = NULL;
+		$model->Estado = 1;
+		
+		if($model->save()){
+
+			$res = 1;
+			$msg = "La estado de la factura # ".$model->Num_Factura." fue revertido correctamente.";
+			
+		}else{
+
+			$res = 0;
+			$msg = "Error al revertir el estado de la factura # ".$model->Num_Factura.".";
+			
+
+		}
+
+		$resp = array('res' => $res, 'msg' => $msg);
+        echo json_encode($resp);
 
 	}
 
