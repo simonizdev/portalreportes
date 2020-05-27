@@ -55,8 +55,11 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'fact-cont-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->search2(),
 	//'filter'=>$model,
+	'pager'=>array(
+		'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
+	),
 	'enableSorting' => false,
 	'columns'=>array(
 		'Id_Fact',
