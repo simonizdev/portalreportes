@@ -177,6 +177,8 @@ $(function() {
 
       ?>
 
+      <?php if($fact_pend_rev > -1){ ?>
+
       <li class="nav-item">
         <a class="nav-link" href="<?php echo $url ?>" data-toggle="tooltip" data-placement="bottom" title="<?php echo $msg; ?>">
           <i class="nav-icon fas fa-file-invoice"></i> 
@@ -184,6 +186,7 @@ $(function() {
         </a>
       </li>
 
+      <?php } ?>
 
       <?php 
 
