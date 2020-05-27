@@ -217,9 +217,9 @@ $(function() {
 
       <!--
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo $url ?>" data-toggle="tooltip" data-placement="bottom" title="<?php //echo $msg; ?>">
+        <a class="nav-link" href="<?php //echo $url ?>" data-toggle="tooltip" data-placement="bottom" title="<?php //echo $msg; ?>">
           <i class="nav-icon fas fa-inbox"></i> 
-          <span class="badge badge-<?php echo $est ?> navbar-badge"><?php //echo $ind ?></span>
+          <span class="badge badge-<?php //echo $est ?> navbar-badge"><?php //echo $ind ?></span>
         </a>
       </li>
       -->
