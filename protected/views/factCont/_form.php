@@ -182,14 +182,13 @@
 
 <script type="text/javascript">
 
+var extensionesValidas = ".pdf, .PDF";
+var textExtensionesValidas = "(.pdf)";
+var pesoPermitido = 2048;
+var idInput = "valid_file";
+var idMsg = "error_file";
 
 $(function() {
-
-    var extensionesValidas = ".pdf, .PDF";
-	var textExtensionesValidas = "(.pdf)";
-    var pesoPermitido = 2048;
-	var idInput = "valid_file";
-	var idMsg = "error_file";
 
     $("#valida_form").click(function() {
       var form = $("#fact-cont-form");
