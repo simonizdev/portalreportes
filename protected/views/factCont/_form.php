@@ -60,7 +60,7 @@
             ?>
         </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->error($model,'Num_Factura', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Num_Factura'); ?>
@@ -182,13 +182,14 @@
 
 <script type="text/javascript">
 
-var extensionesValidas = ".pdf, .PDF";
-var textExtensionesValidas = "(.pdf)";
-var pesoPermitido = 2048;
-var idInput = "valid_file";
-var idMsg = "error_file";
 
 $(function() {
+
+    var extensionesValidas = ".pdf, .PDF";
+	var textExtensionesValidas = "(.pdf)";
+    var pesoPermitido = 2048;
+	var idInput = "valid_file";
+	var idMsg = "error_file";
 
     $("#valida_form").click(function() {
       var form = $("#fact-cont-form");
@@ -238,7 +239,7 @@ $(function() {
 
   		if(validarExtension(this, extensionesValidas, textExtensionesValidas, idInput, idMsg)) {
 
-          if(validarPeso(this, pesoPermitido)) {
+          if(validarPeso(this, pesoPermitido, idInput, idMsg)) {
 
             $('#valid_file').val(1);
 

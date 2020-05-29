@@ -144,7 +144,7 @@ $(function() {
 
   		if(validarExtension(this, extensionesValidas, textExtensionesValidas, idInput, idMsg)) {
 
-			if(validarPeso(this, pesoPermitido)) {
+			if(validarPeso(this, pesoPermitido, idInput, idMsg)) {
 	
 				$('#valid_file').val(1);
 

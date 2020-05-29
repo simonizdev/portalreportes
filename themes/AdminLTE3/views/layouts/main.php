@@ -559,7 +559,7 @@ function validarExtension(datos, extensionesValidas, textExtensionesValidas, idI
 
 // Validacion de peso del fichero en kbs
 
-function validarPeso(datos, pesoPermitido) {
+function validarPeso(datos, pesoPermitido, idInput, IdMsg) {
 
   if (datos.files && datos.files[0]) {
 
