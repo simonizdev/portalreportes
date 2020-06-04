@@ -198,8 +198,8 @@ $('.search-form form').submit(function(){
 		$("#cargo_wip").change(function() {
 			val = $(this).val();
 			if(val != ""){
-				$('#cargo_wip').html('');
-				$('#cargo_wip').hide();
+				$('#error_cargo').html('');
+				$('#error_cargo').hide();
 			}
 		});
 
