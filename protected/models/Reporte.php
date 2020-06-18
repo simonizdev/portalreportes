@@ -172,7 +172,8 @@ class Reporte extends CFormModel
             array('cia, c_o, tipo, consecutivo', 'required','on'=>'r_print_cheq'),
             array('fecha_inicial, fecha_final, opcion_exp', 'required','on'=>'fact_tiendas_web'),
             array('fecha_inicial, fecha_final, opcion_exp', 'required','on'=>'desp_tiendas_web'),
-            array('consecutivo', 'required','on'=>'factura_pos'),
+            array('tipo, consecutivo', 'required','on'=>'factura_pos'),
+            array('c_o, tipo, consecutivo', 'required','on'=>'remision_tu_go'),
         );  
     }
 

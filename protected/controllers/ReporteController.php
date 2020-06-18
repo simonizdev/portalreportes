@@ -30,7 +30,7 @@ class ReporteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform actions
-				'actions'=>array('rentmarca','rentmarcaitem','rentcliente','nivelserviciomarca','nivelserviciopedido','ventasperiodoprom', 'searchcliente','rentoracle', 'rentoracleitem','rentcriterios','saldocarteraruta','saldocarteravendedor','saldocarteracliente','searchclientecart','logmobile','logmobilepant','saldocarteraco','saldocarteraco999','saldocarteracototal','saldocarteracolitigio','clientexfecha','vendedores','vendedorespant','diferenciasrutas','diferenciasrutaspant','diferenciasun','diferenciasunpant','notascredito','rentitem','registroguia','uploadguia','rentiteml560','histcliente','searchclientecartnit','seguimientodoc','uploadseguimientodoc','saldocliente','cambioasesor','facturacomstar','facturapansell','controlpedidoslinea','controlpedidosmarca','controlpedidosoracle','controlpedidossegmento','controlpedidosorigen','pedidosacumlinea','pedidosacummarca','pedidosacumoracle','listasvs560','itemscostos','pqrsdetalle','docsclientespotenciales','clientescrmsiesa','ventaempleado','analisisxproducto','nivelserviciolinea','recaudosvendedor','cobroprejuridico','actualizaciondatos','controlpedidoslinealista','controlpedidosmarcalista','rentinvmarca','rentinvlinea','rentinvoracle','notasdevolucion','notasanulacion','cruceantcli','crucenotcon','errorept','erroreptpant','errortal','errortalpant','errorconectores','errorconectorespant','pedidospenddesreqmarca','docsasesor','pedidospenddesreqlinea','rentxcliente','acttal','acttalpant','actualizartal','rentxcliente560','rentmarcap','rentmarcae','invperu','invperupant','invecuador','invecuadorpant','invcosperu','invcosperupant','invcosecuador','invcosecuadorpant','rentinvmarcap','rentinvmarcae','pedidospenddesmarcap','pedidospenddesmarcae','pedidosacummarcap','pedidosacummarcae','rentmarcaiteml560','listamateriales','listamaterialesdet','listamaterialespant','searchitem','searchitembyid','crucenotcar','actualizaciondatossaldo','revisioncomercial','rentxestructura560','uncomercial','clientespot', 'loadcriterios', 'getopcionplan', 'indpqrs','actept','acteptpant','actualizarept','actualizarbod','logisticaexterior', 'naf','saldocarteraev','fleteguia','uploadfleteguia','cambiofecpedxml','actreca','actrecapant','actualizarreca','consultapagos','consultapagospant','elimrecibo','pedidosacumlineatot','auditoriapedidos','auditoriapedidospant','listap','venposfalt','venposfaltpant','venposentr','venposentrpant','costoxitempos','facturaproforma','elimpedido','fotocart','recxwebservice','facturatitan','rentcriterios560','feeterpeldet','feeterpelcons','cuadrocompraspt','histlibped','itemsexentosiva','descb2b', 'logisticacomercial','analisisventas','pedidospenddesreqtop','estadoitems','uploadestadoitems','consultafactelect','consultafactelectpant','cuadrocomprasmp','pagostiendabinner','uploadpagostiendabinner','printcheq','existcheq','regimpcheq','rprintcheq','verifcheq','regrimpcheq','ingresoswebbinner','uploadingresoswebbinner','facttiendasweb','desptiendasweb','facturapos','confirmacionpagos','uploadconfirmacionpagos'),
+				'actions'=>array('rentmarca','rentmarcaitem','rentcliente','nivelserviciomarca','nivelserviciopedido','ventasperiodoprom', 'searchcliente','rentoracle', 'rentoracleitem','rentcriterios','saldocarteraruta','saldocarteravendedor','saldocarteracliente','searchclientecart','logmobile','logmobilepant','saldocarteraco','saldocarteraco999','saldocarteracototal','saldocarteracolitigio','clientexfecha','vendedores','vendedorespant','diferenciasrutas','diferenciasrutaspant','diferenciasun','diferenciasunpant','notascredito','rentitem','registroguia','uploadguia','rentiteml560','histcliente','searchclientecartnit','seguimientodoc','uploadseguimientodoc','saldocliente','cambioasesor','facturacomstar','facturapansell','controlpedidoslinea','controlpedidosmarca','controlpedidosoracle','controlpedidossegmento','controlpedidosorigen','pedidosacumlinea','pedidosacummarca','pedidosacumoracle','listasvs560','itemscostos','pqrsdetalle','docsclientespotenciales','clientescrmsiesa','ventaempleado','analisisxproducto','nivelserviciolinea','recaudosvendedor','cobroprejuridico','actualizaciondatos','controlpedidoslinealista','controlpedidosmarcalista','rentinvmarca','rentinvlinea','rentinvoracle','notasdevolucion','notasanulacion','cruceantcli','crucenotcon','errorept','erroreptpant','errortal','errortalpant','errorconectores','errorconectorespant','pedidospenddesreqmarca','docsasesor','pedidospenddesreqlinea','rentxcliente','acttal','acttalpant','actualizartal','rentxcliente560','rentmarcap','rentmarcae','invperu','invperupant','invecuador','invecuadorpant','invcosperu','invcosperupant','invcosecuador','invcosecuadorpant','rentinvmarcap','rentinvmarcae','pedidospenddesmarcap','pedidospenddesmarcae','pedidosacummarcap','pedidosacummarcae','rentmarcaiteml560','listamateriales','listamaterialesdet','listamaterialespant','searchitem','searchitembyid','crucenotcar','actualizaciondatossaldo','revisioncomercial','rentxestructura560','uncomercial','clientespot', 'loadcriterios', 'getopcionplan', 'indpqrs','actept','acteptpant','actualizarept','actualizarbod','logisticaexterior', 'naf','saldocarteraev','fleteguia','uploadfleteguia','cambiofecpedxml','actreca','actrecapant','actualizarreca','consultapagos','consultapagospant','elimrecibo','pedidosacumlineatot','auditoriapedidos','auditoriapedidospant','listap','venposfalt','venposfaltpant','venposentr','venposentrpant','costoxitempos','facturaproforma','elimpedido','fotocart','recxwebservice','facturatitan','rentcriterios560','feeterpeldet','feeterpelcons','cuadrocompraspt','histlibped','itemsexentosiva','descb2b', 'logisticacomercial','analisisventas','pedidospenddesreqtop','estadoitems','uploadestadoitems','consultafactelect','consultafactelectpant','cuadrocomprasmp','pagostiendabinner','uploadpagostiendabinner','printcheq','existcheq','regimpcheq','rprintcheq','verifcheq','regrimpcheq','ingresoswebbinner','uploadingresoswebbinner','facttiendasweb','desptiendasweb','facturapos','confirmacionpagos','uploadconfirmacionpagos','dettranstiendasweb','uploaddettranstiendasweb', 'remisiontugo'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -4141,6 +4141,13 @@ class ReporteController extends Controller
 		$model=new Reporte;
 		$model->scenario = 'factura_pos';
 
+		$tipos = Yii::app()->db->createCommand("SELECT DISTINCT f350_id_tipo_docto FROM UnoEE1..t350_co_docto_contable WHERE f350_id_cia = 2 AND f350_id_tipo_docto like 'R%'")->queryAll();
+
+		$lista_tipos = array();
+		foreach ($tipos as $td) {
+			$lista_tipos[$td['f350_id_tipo_docto']] = $td['f350_id_tipo_docto'];
+		}
+
 		if(isset($_POST['Reporte']))
 		{
 			$this->renderPartial('factura_pos_resp',array('model' => $_POST['Reporte']));
@@ -4148,6 +4155,7 @@ class ReporteController extends Controller
 
 		$this->render('factura_pos',array(
 			'model'=>$model,
+			'lista_tipos'=>$lista_tipos,
 		));
 	}
 
@@ -4354,33 +4362,33 @@ class ReporteController extends Controller
 
     		for($i = 1; $i <= $filas -1 ; $i++){
 
-        		$param1 = $dataExcel[$i][0]; //TypeStatus
-        		$param2 = $dataExcel[$i][1]; //Status_Details
-        		$param3 = $dataExcel[$i][2];  //Id_Transaccion
-        		$param4 = $dataExcel[$i][3];  //Autorizacion
-        		$param5 = str_replace($clean_number_caract, "", $dataExcel[$i][4]);  //Valor_Venta
-        		$param6 = $dataExcel[$i][5];  //Fecha_Venta
-        		$param7 = $dataExcel[$i][6];  //Medio_Pago
-        		$param8 = $dataExcel[$i][7]; //Franquicia
-        		$param9 = $dataExcel[$i][8]; //N_Identif
-        		$param10 = $dataExcel[$i][9]; //Ref1
-        		$param11 = $dataExcel[$i][10]; //Ref2
-        		$param12 = $dataExcel[$i][11]; //Ref3
-        		$param13 = $dataExcel[$i][12]; //Descripcion
-        		$param14 = str_replace($clean_number_caract, "", $dataExcel[$i][13]); //Comision
-        		$param15 = $dataExcel[$i][14]; //Porcentaje
-        		$param16 = str_replace($clean_number_caract, "", $dataExcel[$i][15]); //Iva_Comision
-        		$param17 = str_replace($clean_number_caract, "", $dataExcel[$i][16]); //Fee
-        		$param18 = str_replace($clean_number_caract, "", $dataExcel[$i][17]); //IvaFee
-        		$param19 = str_replace($clean_number_caract, "", $dataExcel[$i][18]); //ReteIca
-        		$param20 = str_replace($clean_number_caract, "", $dataExcel[$i][19]); //ReteIva
-        		$param21 = str_replace($clean_number_caract, "", $dataExcel[$i][20]); //ReteFTE
-        		$param22 = str_replace($clean_number_caract, "", $dataExcel[$i][21]); //Gravamen
-        		$param23 = str_replace($clean_number_caract, "", $dataExcel[$i][22]); //Valor_Desembolsar
-        		$param24 = $dataExcel[$i][23]; //Desembolso
-        		$param25 = $dataExcel[$i][24]; //Fecha_Desembolso
+    			print_r($dataExcel[$i]);die;
 
-        		$query_exist = "SELECT Id_Transaccion FROM Tiendabinner..Confirmacion_Pagos WHERE Id_Transaccion = ".$param3;
+        		$param1 = $dataExcel[$i][0]; //Id
+        		$param2 = $dataExcel[$i][1]; //Autorizacion
+        		$param3 = $dataExcel[$i][2];  //Recibo
+        		$param4 = $dataExcel[$i][3];  //Valor
+        		$param5 = $dataExcel[$i][4];  //Iva
+        		$param6 = $dataExcel[$i][5];  //Tipo_Identificacion
+        		$param7 = $dataExcel[$i][6];  //Identificacion
+        		$param8 = $dataExcel[$i][7]; //Ref1
+        		$param9 = $dataExcel[$i][8]; //Ref2
+        		$param10 = $dataExcel[$i][9]; //Ref3
+        		$param11 = $dataExcel[$i][10]; //Servicio
+        		$param12 = $dataExcel[$i][11]; //Descripcion
+        		$param13 = $dataExcel[$i][12]; //Fecha
+        		$param14 = $dataExcel[$i][13]; //Nombre
+        		$param15 = $dataExcel[$i][14]; //Franquisia
+        		$param16 = $dataExcel[$i][15]; //Tipo
+        		$param17 = $dataExcel[$i][16]; //Tarjeta
+        		$param18 = $dataExcel[$i][17]; //Cuotas
+        		$param19 = $dataExcel[$i][18]; //Origen
+        		$param20 = $dataExcel[$i][19]; //Score
+        		$param21 = $dataExcel[$i][20]; //Respuesta
+        		$param22 = $dataExcel[$i][21]; //Status
+        		$param23 = $dataExcel[$i][22]; //Pais
+
+        		$query_exist = "SELECT Id FROM Tiendabinner..Det_Trans WHERE Id_Transaccion = ".$param1;
 
 				$row_exist =  Yii::app()->db->createCommand($query_exist)->queryRow();
 
@@ -4388,38 +4396,35 @@ class ReporteController extends Controller
 					//no existe la cabecera
 				
 					$command = Yii::app()->db->createCommand("
-					INSERT INTO Tiendabinner..Confirmacion_Pagos
-					([TypeStatus]
-		           ,[Status_Details]
-		           ,[Id_Transaccion]
+					INSERT INTO Tiendabinner..Det_Trans
+		           ([Id]
 		           ,[Autorizacion]
-		           ,[Valor_Venta]
-		           ,[Fecha_Venta]
-		           ,[Medio_Pago]
-		           ,[Franquicia]
-		           ,[N_Identif]
+		           ,[Recibo]
+		           ,[Valor]
+		           ,[Iva]
+		           ,[Tipo_Identificacion]
+		           ,[Identificacion]
 		           ,[Ref1]
 		           ,[Ref2]
 		           ,[Ref3]
+		           ,[Servicio]
 		           ,[Descripcion]
-		           ,[Comision]
-		           ,[Porcentaje]
-		           ,[Iva_Comision]
-		           ,[Fee]
-		           ,[IvaFee]
-		           ,[ReteIca]
-		           ,[ReteIva]
-		           ,[ReteFTE]
-		           ,[Gravamen]
-		           ,[Valor_Desembolsar]
-		           ,[Desembolso]
-		           ,[Fecha_Desembolso]
-		           )
-					VALUES
-					('".$param1."'
+		           ,[Fecha]
+		           ,[Nombre]
+		           ,[Franquisia]
+		           ,[Tipo]
+		           ,[Tarjeta]
+		           ,[Cuotas]
+		           ,[Origen]
+		           ,[Score]
+		           ,[Respuesta]
+		           ,[Status]
+		           ,[Pais])
+		     VALUES
+		           (".$param1."
 		           ,'".$param2."'
-		           ,".$param3."
-		           ,'".$param4."'
+		           ,'".$param3."'
+		           ,".$param4."
 		           ,".$param5."
 		           ,'".$param6."'
 		           ,'".$param7."'
@@ -4429,18 +4434,16 @@ class ReporteController extends Controller
 		           ,'".$param11."'
 		           ,'".$param12."'
 		           ,'".$param13."'
-		           ,".$param14."
+		           ,'".$param14."'
 		           ,'".$param15."'
-		           ,".$param16."
-		           ,".$param17."
+		           ,'".$param16."'
+		           ,'".$param17."'
 		           ,".$param18."
-		           ,".$param19."
+		           ,'".$param19."'
 		           ,".$param20."
-		           ,".$param21."
-		           ,".$param22."
-		           ,".$param23."
-		           ,'".$param24."'
-		           ,'".$param25."'
+		           ,'".$param21."'
+		           ,'".$param22."'
+		           ,'".$param23."'
 					)");
 
 					$command->execute();
@@ -4457,6 +4460,37 @@ class ReporteController extends Controller
 
 		}
 
+	}
+
+	public function actionRemisionTuGo()
+	{		
+		$model=new Reporte;
+		$model->scenario = 'remision_tu_go';
+
+		$cos = Yii::app()->db->createCommand("SELECT DISTINCT f350_id_co FROM UnoEE1..t350_co_docto_contable WHERE f350_id_cia = 2")->queryAll();
+
+		$lista_co = array();
+		foreach ($cos as $co) {
+			$lista_co[$co['f350_id_co']] = $co['f350_id_co'];
+		}
+
+		$tipos = Yii::app()->db->createCommand("SELECT DISTINCT f350_id_tipo_docto FROM UnoEE1..t350_co_docto_contable WHERE f350_id_cia = 2 AND f350_id_tipo_docto like 'R%'")->queryAll();
+
+		$lista_tipos = array();
+		foreach ($tipos as $td) {
+			$lista_tipos[$td['f350_id_tipo_docto']] = $td['f350_id_tipo_docto'];
+		}
+
+		if(isset($_POST['Reporte']))
+		{
+			$this->renderPartial('remision_tu_go_resp',array('model' => $_POST['Reporte']));
+		}
+
+		$this->render('remision_tu_go',array(
+			'model'=>$model,
+			'lista_co'=>$lista_co,
+			'lista_tipos'=>$lista_tipos,
+		));
 	}
 
 }
