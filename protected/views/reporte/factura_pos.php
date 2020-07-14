@@ -27,7 +27,7 @@
             $this->widget('ext.select2.ESelect2',array(
                 'name'=>'Reporte[tipo]',
                 'id'=>'Reporte_tipo',
-                'data'=> array('VE1' => 'VE1', 'VF1' => 'VF1', 'X30' => 'X30', 'X50' => 'X50'),
+                'data'=> array('VE1' => 'VE1', 'VF1' => 'VF1', 'VF4' => 'VF4', 'VF7' => 'VF7', 'X30' => 'X30', 'X50' => 'X50'),
                 'htmlOptions'=>array(),
                 'options'=>array(
                   'placeholder'=>'Seleccione...',
@@ -40,9 +40,16 @@
     </div>
     <div class="col-sm-4">
       <div class="form-group">
-          <?php echo $form->error($model,'consecutivo', array('class' => 'badge badge-warning float-right')); ?>
-          <?php echo $form->label($model,'consecutivo'); ?>
-          <?php echo $form->numberField($model,'consecutivo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
+          <?php echo $form->error($model,'cons_inicial', array('class' => 'badge badge-warning float-right')); ?>
+          <?php echo $form->label($model,'cons_inicial'); ?>
+          <?php echo $form->numberField($model,'cons_inicial', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+          <?php echo $form->error($model,'cons_final', array('class' => 'badge badge-warning float-right')); ?>
+          <?php echo $form->label($model,'cons_final'); ?>
+          <?php echo $form->numberField($model,'cons_final', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
       </div>
     </div>
 </div>

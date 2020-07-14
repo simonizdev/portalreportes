@@ -4141,13 +4141,6 @@ class ReporteController extends Controller
 		$model=new Reporte;
 		$model->scenario = 'factura_pos';
 
-		$tipos = Yii::app()->db->createCommand("SELECT DISTINCT f350_id_tipo_docto FROM UnoEE1..t350_co_docto_contable WHERE f350_id_cia = 2 AND f350_id_tipo_docto like 'R%'")->queryAll();
-
-		$lista_tipos = array();
-		foreach ($tipos as $td) {
-			$lista_tipos[$td['f350_id_tipo_docto']] = $td['f350_id_tipo_docto'];
-		}
-
 		if(isset($_POST['Reporte']))
 		{
 			$this->renderPartial('factura_pos_resp',array('model' => $_POST['Reporte']));
@@ -4155,7 +4148,6 @@ class ReporteController extends Controller
 
 		$this->render('factura_pos',array(
 			'model'=>$model,
-			'lista_tipos'=>$lista_tipos,
 		));
 	}
 

@@ -172,7 +172,8 @@ class Reporte extends CFormModel
             array('cia, c_o, tipo, consecutivo', 'required','on'=>'r_print_cheq'),
             array('fecha_inicial, fecha_final, opcion_exp', 'required','on'=>'fact_tiendas_web'),
             array('fecha_inicial, fecha_final, opcion_exp', 'required','on'=>'desp_tiendas_web'),
-            array('tipo, consecutivo', 'required','on'=>'factura_pos'),
+            array('tipo, cons_inicial, cons_final', 'required','on'=>'factura_pos'),
+            array('cons_final','compare','compareAttribute'=>'cons_inicial','operator'=>'>=','message'=>'Consecutivo final debe ser mayor o igual al inicial','on'=>'factura_pos'),
             array('c_o, tipo, consecutivo', 'required','on'=>'remision_tu_go'),
         );  
     }
