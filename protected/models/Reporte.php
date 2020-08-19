@@ -175,6 +175,8 @@ class Reporte extends CFormModel
             array('tipo, cons_inicial, cons_final', 'required','on'=>'factura_pos'),
             array('cons_final','compare','compareAttribute'=>'cons_inicial','operator'=>'>=','message'=>'Consecutivo final debe ser mayor o igual al inicial','on'=>'factura_pos'),
             array('c_o, tipo, consecutivo', 'required','on'=>'remision_tu_go'),
+            array('tipo, consecutivo', 'required','on'=>'elim_error_trans'),
+            array('fecha, opcion_exp', 'required','on'=>'error_transf'),
         );  
     }
 

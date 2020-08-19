@@ -30,7 +30,7 @@ class ReporteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform actions
-				'actions'=>array('rentmarca','rentmarcaitem','rentcliente','nivelserviciomarca','nivelserviciopedido','ventasperiodoprom', 'searchcliente','rentoracle', 'rentoracleitem','rentcriterios','saldocarteraruta','saldocarteravendedor','saldocarteracliente','searchclientecart','logmobile','logmobilepant','saldocarteraco','saldocarteraco999','saldocarteracototal','saldocarteracolitigio','clientexfecha','vendedores','vendedorespant','diferenciasrutas','diferenciasrutaspant','diferenciasun','diferenciasunpant','notascredito','rentitem','registroguia','uploadguia','rentiteml560','histcliente','searchclientecartnit','seguimientodoc','uploadseguimientodoc','saldocliente','cambioasesor','facturacomstar','facturapansell','controlpedidoslinea','controlpedidosmarca','controlpedidosoracle','controlpedidossegmento','controlpedidosorigen','pedidosacumlinea','pedidosacummarca','pedidosacumoracle','listasvs560','itemscostos','pqrsdetalle','docsclientespotenciales','clientescrmsiesa','ventaempleado','analisisxproducto','nivelserviciolinea','recaudosvendedor','cobroprejuridico','actualizaciondatos','controlpedidoslinealista','controlpedidosmarcalista','rentinvmarca','rentinvlinea','rentinvoracle','notasdevolucion','notasanulacion','cruceantcli','crucenotcon','errorept','erroreptpant','errortal','errortalpant','errorconectores','errorconectorespant','pedidospenddesreqmarca','docsasesor','pedidospenddesreqlinea','rentxcliente','acttal','acttalpant','actualizartal','rentxcliente560','rentmarcap','rentmarcae','invperu','invperupant','invecuador','invecuadorpant','invcosperu','invcosperupant','invcosecuador','invcosecuadorpant','rentinvmarcap','rentinvmarcae','pedidospenddesmarcap','pedidospenddesmarcae','pedidosacummarcap','pedidosacummarcae','rentmarcaiteml560','listamateriales','listamaterialesdet','listamaterialespant','searchitem','searchitembyid','crucenotcar','actualizaciondatossaldo','revisioncomercial','rentxestructura560','uncomercial','clientespot', 'loadcriterios', 'getopcionplan', 'indpqrs','actept','acteptpant','actualizarept','actualizarbod','logisticaexterior', 'naf','saldocarteraev','fleteguia','uploadfleteguia','cambiofecpedxml','actreca','actrecapant','actualizarreca','consultapagos','consultapagospant','elimrecibo','pedidosacumlineatot','auditoriapedidos','auditoriapedidospant','listap','venposfalt','venposfaltpant','venposentr','venposentrpant','costoxitempos','facturaproforma','elimpedido','fotocart','recxwebservice','facturatitan','rentcriterios560','feeterpeldet','feeterpelcons','cuadrocompraspt','histlibped','itemsexentosiva','descb2b', 'logisticacomercial','analisisventas','pedidospenddesreqtop','estadoitems','uploadestadoitems','consultafactelect','consultafactelectpant','cuadrocomprasmp','pagostiendabinner','uploadpagostiendabinner','printcheq','existcheq','regimpcheq','rprintcheq','verifcheq','regrimpcheq','ingresoswebbinner','uploadingresoswebbinner','facttiendasweb','desptiendasweb','facturapos','confirmacionpagos','uploadconfirmacionpagos','dettranstiendasweb','uploaddettranstiendasweb', 'remisiontugo'),
+				'actions'=>array('rentmarca','rentmarcaitem','rentcliente','nivelserviciomarca','nivelserviciopedido','ventasperiodoprom', 'searchcliente','rentoracle', 'rentoracleitem','rentcriterios','saldocarteraruta','saldocarteravendedor','saldocarteracliente','searchclientecart','logmobile','logmobilepant','saldocarteraco','saldocarteraco999','saldocarteracototal','saldocarteracolitigio','clientexfecha','vendedores','vendedorespant','diferenciasrutas','diferenciasrutaspant','diferenciasun','diferenciasunpant','notascredito','rentitem','registroguia','uploadguia','rentiteml560','histcliente','searchclientecartnit','seguimientodoc','uploadseguimientodoc','saldocliente','cambioasesor','facturacomstar','facturapansell','controlpedidoslinea','controlpedidosmarca','controlpedidosoracle','controlpedidossegmento','controlpedidosorigen','pedidosacumlinea','pedidosacummarca','pedidosacumoracle','listasvs560','itemscostos','pqrsdetalle','docsclientespotenciales','clientescrmsiesa','ventaempleado','analisisxproducto','nivelserviciolinea','recaudosvendedor','cobroprejuridico','actualizaciondatos','controlpedidoslinealista','controlpedidosmarcalista','rentinvmarca','rentinvlinea','rentinvoracle','notasdevolucion','notasanulacion','cruceantcli','crucenotcon','errorept','erroreptpant','errortal','errortalpant','errorconectores','errorconectorespant','pedidospenddesreqmarca','docsasesor','pedidospenddesreqlinea','rentxcliente','acttal','acttalpant','actualizartal','rentxcliente560','rentmarcap','rentmarcae','invperu','invperupant','invecuador','invecuadorpant','invcosperu','invcosperupant','invcosecuador','invcosecuadorpant','rentinvmarcap','rentinvmarcae','pedidospenddesmarcap','pedidospenddesmarcae','pedidosacummarcap','pedidosacummarcae','rentmarcaiteml560','listamateriales','listamaterialesdet','listamaterialespant','searchitem','searchitembyid','crucenotcar','actualizaciondatossaldo','revisioncomercial','rentxestructura560','uncomercial','clientespot', 'loadcriterios', 'getopcionplan', 'indpqrs','actept','acteptpant','actualizarept','actualizarbod','logisticaexterior', 'naf','saldocarteraev','fleteguia','uploadfleteguia','cambiofecpedxml','actreca','actrecapant','actualizarreca','consultapagos','consultapagospant','elimrecibo','pedidosacumlineatot','auditoriapedidos','auditoriapedidospant','listap','venposfalt','venposfaltpant','venposentr','venposentrpant','costoxitempos','facturaproforma','elimpedido','fotocart','recxwebservice','facturatitan','rentcriterios560','feeterpeldet','feeterpelcons','cuadrocompraspt','histlibped','itemsexentosiva','descb2b', 'logisticacomercial','analisisventas','pedidospenddesreqtop','estadoitems','uploadestadoitems','consultafactelect','consultafactelectpant','cuadrocomprasmp','pagostiendabinner','uploadpagostiendabinner','printcheq','existcheq','regimpcheq','rprintcheq','verifcheq','regrimpcheq','ingresoswebbinner','uploadingresoswebbinner','facttiendasweb','desptiendasweb','facturapos','confirmacionpagos','uploadconfirmacionpagos','dettranstiendasweb','uploaddettranstiendasweb', 'remisiontugo','elimerrortrans','errortransf','errortransfpant'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -4483,6 +4483,78 @@ class ReporteController extends Controller
 			'lista_co'=>$lista_co,
 			'lista_tipos'=>$lista_tipos,
 		));
+	}
+
+	public function actionElimErrorTrans()
+	{		
+		$model=new Reporte;
+		$model->scenario = 'elim_error_trans';
+
+		if(isset($_POST['Reporte']))
+		{
+			$c = 0;
+			
+			$array_cons = explode(",", $_POST['Reporte']['consecutivo']);
+			$array_td = array('EPM' => 'PME', 'EPP' => 'PPE', 'EPT' => 'PTE');
+
+			$array_cd_act = array();
+
+			$td = $_POST['Reporte']['tipo'];
+			$td_i = $array_td[$td];
+
+			foreach ($array_cons as $cd) {
+
+				if($cd != ""){
+
+					$command = Yii::app()->db2->createCommand("
+					UPDATE Repositorio_Datos.dbo.tbl_IN_Transf_29 SET Integrado_Pangea= 99 , Tipo_Docto='".$td_i."' WHERE Tipo_Docto='".$td."' AND Consec_Docto in (".$cd.") AND Integrado_Pangea = 4");
+
+					if($command->execute() > 0){
+						$c++;
+						$array_cd_act[] = $cd;
+					}
+				}
+
+			}
+
+			if ($c > 0) {
+				$cd_act = implode(",", $array_cd_act);
+				$cad_res = $td. " (".$cd_act.")";
+				Yii::app()->user->setFlash('success', "Se procesaron ".$c." documento(s), ".$cad_res.".");
+			}else{
+				Yii::app()->user->setFlash('warning', "No se proceso ningún documento.");	
+			}			
+
+		}
+
+		$this->render('elim_error_trans',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionErrorTransf()
+	{		
+		$model=new Reporte;
+		$model->scenario = 'error_transf';
+
+		if(isset($_POST['Reporte']))
+		{
+			$model=$_POST['Reporte'];
+			$this->renderPartial('error_transf_resp',array('model' => $model));	
+		}
+
+		$this->render('error_transf',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionErrorTransfPant()
+	{		
+		$fecha = $_POST['fecha'];
+
+		$resultados = UtilidadesReportes::errortransfpantalla($fecha);
+
+		echo $resultados;
 	}
 
 }
