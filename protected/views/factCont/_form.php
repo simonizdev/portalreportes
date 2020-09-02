@@ -164,7 +164,7 @@
         <div class="form-group">
             <?php echo $form->error($model,'sop', array('class' => 'badge badge-warning float-right')); ?>
             <div class="badge badge-warning float-right" id="error_file" style="display: none;"></div>
-            <input type="hidden" id="valid_file" value="0">
+            <input type="hidden" id="valid_file" value="1">
 			<?php echo $form->label($model,'sop'); ?><br>
             <?php echo $form->fileField($model, 'sop'); ?>
         </div>
@@ -196,11 +196,6 @@ $(function() {
       var settings = form.data('settings') ;
 
       var soporte = $('#FactCont_sop').val();
-
-      if(soporte == ''){
-        $('#error_file').html('Soporte es requerido.');
-        $('#error_file').show();
-      }
 
       settings.submitting = true ;
       $.fn.yiiactiveform.validate(form, function(messages) {

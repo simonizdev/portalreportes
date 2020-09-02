@@ -96,7 +96,9 @@ $(function() {
 });
 
 function resetfields(){
-  $('#Reporte_consecutivo').val('');
+  $('#Reporte_tipo').val('');
+  $('#Reporte_cons_inicial').val('');
+  $('#Reporte_cons_final').val('');
 }
 
 </script>

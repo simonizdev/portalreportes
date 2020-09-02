@@ -15,8 +15,9 @@
     <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/admin2'; ?>';"><i class="fa fa-reply"></i> Volver </button>
     <?php } if($opc == 3){ ?>
     <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/admin3'; ?>';"><i class="fa fa-reply"></i> Volver </button>
-    <?php } ?>
+    <?php } if ($model->Doc_Soporte != "") {  ?>
 	<button type="button" class="btn btn-success btn-sm" id="toogle_button"><i class="fa fa-low-vision"></i> Ver / ocultar doc.</button>
+<?php } ?>
   </div>
 </div>
 
@@ -158,15 +159,21 @@
 
 $(function() {
 
-    renderPDF('<?php echo Yii::app()->getBaseUrl(true).'/images/fact_cont/'.$model->Doc_Soporte; ?>', document.getElementById('viewer'));
+	var sop = '<?php echo $model->Doc_Soporte; ?>';
 
-    loadershow();
+	if(sop != ""){
+		renderPDF('<?php echo Yii::app()->getBaseUrl(true).'/images/fact_cont/'.$model->Doc_Soporte; ?>', document.getElementById('viewer'));
 
-    $('#toogle_button').click(function(){
-        $('#info').slideToggle('fast');
-        $('#viewer').slideToggle('fast');
-        return false;
-    });
+	    loadershow();
+
+	    $('#toogle_button').click(function(){
+	        $('#info').slideToggle('fast');
+	        $('#viewer').slideToggle('fast');
+	        return false;
+	    });	
+	}
+
+    
 
 });
 

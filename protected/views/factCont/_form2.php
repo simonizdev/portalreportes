@@ -11,9 +11,12 @@
 	// There is a call to performAjaxValidation() commented in generated controller code.
 	// See class documentation of CActiveForm for details on this.
 	'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
-	),
+    'clientOptions'=>array(
+        'validateOnSubmit'=>true,
+    ),
+    'htmlOptions' => array(
+        'enctype' => 'multipart/form-data'
+    ),
 )); ?>
 
 <div class="row mb-2">
@@ -22,8 +25,10 @@
   </div>
   <div class="col-sm-6 text-right">  
     <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=factCont/admin'; ?>';"><i class="fa fa-reply"></i> Volver </button>
+    <?php if ($model->Doc_Soporte != "") {  ?>
     <button type="button" class="btn btn-success btn-sm" id="toogle_button"><i class="fa fa-low-vision"></i> Ver / ocultar doc.</button>
-	<button type="submit" class="btn btn-success btn-sm" ><i class="fas fa-save"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
+	<?php } ?>
+	<button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>
   </div>
 </div>
 
@@ -169,6 +174,17 @@
 	    </div>
 	</div>
 </div>
+<div class="row">
+    <div class="col-sm-8">
+        <div class="form-group">
+            <?php echo $form->error($model,'sop', array('class' => 'badge badge-warning float-right')); ?>
+            <div class="badge badge-warning float-right" id="error_file" style="display: none;"></div>
+            <input type="hidden" id="valid_file" value="1">
+			<?php echo $form->label($model,'sop'); ?><br>
+            <?php echo $form->fileField($model, 'sop'); ?>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div id="viewer" class="col-sm-12 text-center" style="display: none;">
@@ -183,14 +199,76 @@
 
 $(function() {
 
-    renderPDF('<?php echo Yii::app()->getBaseUrl(true).'/images/fact_cont/'.$model->Doc_Soporte; ?>', document.getElementById('viewer'));
+	var sop = '<?php echo $model->Doc_Soporte; ?>';
+	var extensionesValidas = ".pdf, .PDF";
+	var textExtensionesValidas = "(.pdf)";
+    var pesoPermitido = 2048;
+	var idInput = "valid_file";
+	var idMsg = "error_file";
 
-    loadershow();
+	if(sop != ""){
 
-    $('#toogle_button').click(function(){
-        $('#info').slideToggle('fast');
-        $('#viewer').slideToggle('fast');
-        return false;
+	    renderPDF('<?php echo Yii::app()->getBaseUrl(true).'/images/fact_cont/'.$model->Doc_Soporte; ?>', document.getElementById('viewer'));
+
+	    loadershow();
+
+	    $('#toogle_button').click(function(){
+	        $('#info').slideToggle('fast');
+	        $('#viewer').slideToggle('fast');
+	        return false;
+	    });
+
+	}
+
+    $("#valida_form").click(function() {
+      var form = $("#fact-cont-form");
+      var settings = form.data('settings') ;
+
+      var soporte = $('#FactCont_sop').val();
+
+      settings.submitting = true ;
+      $.fn.yiiactiveform.validate(form, function(messages) {
+          if($.isEmptyObject(messages)) {
+              $.each(settings.attributes, function () {
+                 $.fn.yiiactiveform.updateInput(this,messages,form); 
+              });
+                
+              //se valida si el archivo cargado es valido (1)
+              valid_doc = $('#valid_file').val();
+
+              if(valid_doc == 1){
+                //se envia el form
+				form.submit();
+				loadershow();
+              }else{
+
+                settings.submitting = false ;   
+              }
+              
+
+          } else {
+              settings = form.data('settings'),
+              $.each(settings.attributes, function () {
+                 $.fn.yiiactiveform.updateInput(this,messages,form); 
+              });
+              settings.submitting = false ;
+          }
+      });
+    });
+
+    $("#FactCont_sop").change(function () {
+
+        $('#error_file').html('');
+    	$('#error_file').hide();
+
+  		if(validarExtension(this, extensionesValidas, textExtensionesValidas, idInput, idMsg)) {
+
+          if(validarPeso(this, pesoPermitido, idInput, idMsg)) {
+
+            $('#valid_file').val(1);
+
+          }
+      }   
     });
 
 });

@@ -64,6 +64,7 @@ class FactContController extends Controller
 	 */
 	public function actionCreate()
 	{
+		$opc = 0;
 		$model=new FactCont;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -79,13 +80,21 @@ class FactContController extends Controller
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
 			$model->Estado = 1;
 
-			$documento_subido = CUploadedFile::getInstance($model,'sop');
-            $nombre_archivo = "{$rnd}-{$documento_subido}";
-            $model->Doc_Soporte = $nombre_archivo;
+			if($_FILES['FactCont']['name']['sop']  != "") {
+
+		        $documento_subido = CUploadedFile::getInstance($model,'sop');
+	            $nombre_archivo = "{$rnd}-{$documento_subido}";
+            	$model->Doc_Soporte = $nombre_archivo;
+	            $opc = 1;
+		    }
 
 			if($model->save()){	
-				$documento_subido->saveAs(Yii::app()->basePath.'/../images/fact_cont/'.$nombre_archivo);
-				Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue cargada correctamente.");
+
+				if($opc == 1){
+                	$documento_subido->saveAs(Yii::app()->basePath.'/../images/fact_cont/'.$nombre_archivo);	
+            	}
+
+            	Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue cargada correctamente.");
 				$this->redirect(array('admin'));
 			}
 		}
@@ -104,15 +113,38 @@ class FactContController extends Controller
 	{
 		$model=$this->loadModel($id);
 
+		$opc = 0;
+
+		$doc_actual = $model->Doc_Soporte;
+		$ruta_doc_actual = Yii::app()->basePath.'/../images/fact_cont/'.$model->Doc_Soporte;
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['FactCont']))
 		{
+			$rnd = rand(0,99999);  // genera un numero ramdom entre 0-99999
 			$model->attributes=$_POST['FactCont'];
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
-			if($model->save()){	
+
+			if($_FILES['FactCont']['name']['sop']  != "") {
+
+		        $documento_subido = CUploadedFile::getInstance($model,'sop');
+	            $nombre_archivo = "{$rnd}-{$documento_subido}";
+            	$model->Doc_Soporte = $nombre_archivo;
+	            $opc = 1;
+		    }
+
+			if($model->save()){
+
+				if($opc == 1){
+        			if ($doc_actual != "") {
+            			unlink($ruta_doc_actual);
+            		}
+                	$documento_subido->saveAs(Yii::app()->basePath.'/../images/fact_cont/'.$nombre_archivo);
+            	}
+
 				Yii::app()->user->setFlash('success', "La factura (".$model->Num_Factura.") fue actualizada correctamente.");
 				$this->redirect(array('admin'));
 			}
