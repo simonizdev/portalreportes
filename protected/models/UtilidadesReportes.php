@@ -1081,7 +1081,11 @@ class UtilidadesReportes {
 
   public static function acteptpantalla(){
 
-    $query ="SELECT * FROM [Repositorio_Datos].[dbo].[tbl_IN_Transf_29] WHERE Integrado_Pangea = 4";
+    $query ="SELECT *
+    FROM [Repositorio_Datos].[dbo].[tbl_IN_Transf_29] AS t1
+    INNER JOIN Repositorio_Datos..tbl_OUT_Transf_28 AS t2 ON t1.Centro_Operacion=t2.Centro_Operacion AND t1.Tipo_Docto=t2.Tipo_Docto AND t1.Consec_Docto=t2.Num_Docto AND t1.Item=t2.Item
+    INNER JOIN UnoEE1..t350_co_docto_contable ON f350_id_co=t1.Centro_Operacion AND f350_id_tipo_docto=t1.Tipo_Docto AND f350_consec_docto=t1.Consec_Docto AND f350_ind_estado=1
+    WHERE t1.Integrado_Pangea = 4";
 
     $tabla = '
       <table class="table table-sm table-hover">
@@ -1119,13 +1123,13 @@ class UtilidadesReportes {
 
         $tabla .= '    
         <tr class="'.$clase.'">
-              <td>'.$ROWID.'</td>
-              <td>'.$EPT.'</td>
-              <td>'.$ITEM.'</td>
-              <td align="right">'.$CANTIDAD.'</td>
-              <td>'.$RECEPCION.'</td>
-              <td><button type="button" class="btn btn-success btn-sm btn-rep" onclick="actept('.$ROWID_MOVTO.');"><i class="fa fa-sync"></i> Actualizar</button></td>
-          </tr>';
+          <td>'.$ROWID.'</td>
+          <td>'.$EPT.'</td>
+          <td>'.$ITEM.'</td>
+          <td align="right">'.$CANTIDAD.'</td>
+          <td>'.$RECEPCION.'</td>
+          <td><input type="checkbox" value="'.$ROWID_MOVTO.'" class="checks" onclick="evaldocs()"/></td>
+        </tr>';
 
         $i++; 
 

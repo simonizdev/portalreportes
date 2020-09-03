@@ -148,6 +148,7 @@ class Reporte extends CFormModel
             array('marca, fecha_inicial, fecha_final', 'required','on'=>'revision_comercial'),
             array('fecha_inicial, fecha_final, ev, opcion_exp', 'required','on'=>'rent_x_estructura_560'),
             array('dias', 'required','on'=>'clientes_pot'),
+            array('consecutivo', 'required','on'=>'act_ept'),
             array('marca_inicial, marca_final', 'required','on'=>'logistica_exterior'),
             array('cons_inicial, cons_final', 'required','on'=>'naf'),
             array('ev', 'required','on'=>'saldo_cartera_ev'),
