@@ -607,6 +607,7 @@ class UtilidadesReportes {
                 <th>Row Id</th>
                 <th>Doc. alterno</th>
                 <th>Item</th>
+                <th>Cantidad a transferir</th>
                 <th>Cantidad</th>
                 <th>Fecha de retorno WMS</th>
                 <th># Recepción</th>
@@ -628,6 +629,7 @@ class UtilidadesReportes {
         $DOCTO_ALTERNO  = $reg1 ['DOCTO_ALTERNO']; 
         $ITEM  = $reg1 ['ITEM'];
         $CANTIDAD  = number_format($reg1 ['CANTIDAD'], 0, ',', '.');
+        $CANTIDAD_BODEGA_SALIDA  = number_format($reg1 ['CANTIDAD_BODEGA_SALIDA'], 0, ',', '.');
         $FECHA_RETORNO  = $reg1 ['FECH_RETORNO'];
         $RECEPCION  = $reg1 ['RECEPCION'];
         $CARGADO  = $reg1 ['CARGADO'];
@@ -649,6 +651,7 @@ class UtilidadesReportes {
                 <td>'.$DOCTO_ALTERNO.'</td>
                 <td>'.$ITEM.'</td>
                 <td>'.$CANTIDAD.'</td>
+                <td>'.$CANTIDAD_BODEGA_SALIDA.'</td>
                 <td>'.$FECHA_RETORNO.'</td>
                 <td>'.$RECEPCION.'</td>
                 <td>'.$CARGADO.'</td>
@@ -664,6 +667,7 @@ class UtilidadesReportes {
                 <td>'.$DOCTO_ALTERNO.'</td>
                 <td>'.$ITEM.'</td>
                 <td>'.$CANTIDAD.'</td>
+                <td>'.$CANTIDAD_BODEGA_SALIDA.'</td>
                 <td>'.$FECHA_RETORNO.'</td>
                 <td>'.$RECEPCION.'</td>
                 <td>'.$CARGADO.'</td>
