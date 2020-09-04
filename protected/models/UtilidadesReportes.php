@@ -607,7 +607,7 @@ class UtilidadesReportes {
                 <th>Row Id</th>
                 <th>Doc. alterno</th>
                 <th>Item</th>
-                <th>Cant.d a transferir</th>
+                <th>Cant. a transferir</th>
                 <th>Cant. disponible</th>
                 <th>Fecha de retorno WMS</th>
                 <th># Recepción</th>
