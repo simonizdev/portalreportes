@@ -643,37 +643,57 @@ class UtilidadesReportes {
           $clase = 'even'; 
         }
 
-        if($BOD_ENTRADA == 'BPMER' && $BOD_SALIDA != 'BDPOP'){
+        if($reg1 ['CANTIDAD'] <= $reg1['CANTIDAD_BODEGA_SALIDA']){
 
-          $tabla .= '    
-          <tr class="'.$clase.'">
-                <td>'.$ROWID.'</td>
-                <td>'.$DOCTO_ALTERNO.'</td>
-                <td>'.$ITEM.'</td>
-                <td>'.$CANTIDAD.'</td>
-                <td>'.$CANTIDAD_BODEGA_SALIDA.'</td>
-                <td>'.$FECHA_RETORNO.'</td>
-                <td>'.$RECEPCION.'</td>
-                <td>'.$CARGADO.'</td>
-                <td>'.$DOCTO_SIESA.'</td>
-                <td><button type="button" class="btn btn-success btn-sm btn-rep" onclick="actbod('.$ROWID.');" ><i class="fa fa-pen"></i> Cambiar bod. salida</button></td>
-            </tr>';
+          if($BOD_ENTRADA == 'BPMER' && $BOD_SALIDA != 'BDPOP'){
+
+            $tabla .= '    
+            <tr class="'.$clase.'">
+                  <td>'.$ROWID.'</td>
+                  <td>'.$DOCTO_ALTERNO.'</td>
+                  <td>'.$ITEM.'</td>
+                  <td>'.$CANTIDAD.'</td>
+                  <td>'.$CANTIDAD_BODEGA_SALIDA.'</td>
+                  <td>'.$FECHA_RETORNO.'</td>
+                  <td>'.$RECEPCION.'</td>
+                  <td>'.$CARGADO.'</td>
+                  <td>'.$DOCTO_SIESA.'</td>
+                  <td><button type="button" class="btn btn-success btn-sm btn-rep" onclick="actbod('.$ROWID.');" ><i class="fa fa-pen"></i> Cambiar bod. salida</button></td>
+              </tr>';
+
+          }else{
+
+            $tabla .= '    
+            <tr class="'.$clase.'">
+                  <td>'.$ROWID.'</td>
+                  <td>'.$DOCTO_ALTERNO.'</td>
+                  <td>'.$ITEM.'</td>
+                  <td>'.$CANTIDAD.'</td>
+                  <td>'.$CANTIDAD_BODEGA_SALIDA.'</td>
+                  <td>'.$FECHA_RETORNO.'</td>
+                  <td>'.$RECEPCION.'</td>
+                  <td>'.$CARGADO.'</td>
+                  <td>'.$DOCTO_SIESA.'</td>
+                  <td><button type="button" class="btn btn-success btn-sm btn-rep" onclick="acttal('.$ROWID.');"><i class="fa fa-sync"></i> Actualizar</button></td>
+              </tr>';
+
+          }
 
         }else{
 
           $tabla .= '    
-          <tr class="'.$clase.'">
-                <td>'.$ROWID.'</td>
-                <td>'.$DOCTO_ALTERNO.'</td>
-                <td>'.$ITEM.'</td>
-                <td>'.$CANTIDAD.'</td>
-                <td>'.$CANTIDAD_BODEGA_SALIDA.'</td>
-                <td>'.$FECHA_RETORNO.'</td>
-                <td>'.$RECEPCION.'</td>
-                <td>'.$CARGADO.'</td>
-                <td>'.$DOCTO_SIESA.'</td>
-                <td><button type="button" class="btn btn-success btn-sm btn-rep" onclick="acttal('.$ROWID.');"><i class="fa fa-sync"></i> Actualizar</button></td>
-            </tr>';
+            <tr class="'.$clase.'">
+              <td>'.$ROWID.'</td>
+              <td>'.$DOCTO_ALTERNO.'</td>
+              <td>'.$ITEM.'</td>
+              <td>'.$CANTIDAD.'</td>
+              <td>'.$CANTIDAD_BODEGA_SALIDA.'</td>
+              <td>'.$FECHA_RETORNO.'</td>
+              <td>'.$RECEPCION.'</td>
+              <td>'.$CARGADO.'</td>
+              <td>'.$DOCTO_SIESA.'</td>
+              <td><button type="button" class="btn btn-danger btn-sm btn-rep" disabled><i class="fa fa-ban"></i> No hay inv. suficiente</button></td>
+          </tr>';
 
         }
 
