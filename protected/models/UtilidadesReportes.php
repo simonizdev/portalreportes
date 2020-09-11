@@ -397,7 +397,9 @@ class UtilidadesReportes {
                 <th>Row Id</th>
                 <th>Ept</th>
                 <th>Item</th>
-                <th>Cantidad</th>
+                <th>Cant. transferencia</th>
+                <th>Cant. recibida</th>
+                <th>Cant. disponible recepción</th>
                 <th>Fecha de envío</th>
                 <th>Fecha de retorno WMS</th>
                 <th># Recepción</th>
@@ -416,7 +418,9 @@ class UtilidadesReportes {
         $ROWID  = $reg1 ['ROWID']; 
         $EPT  = $reg1 ['EPT']; 
         $ITEM  = $reg1 ['ITEM'];
-        $CANTIDAD  = number_format($reg1 ['CANTIDAD'], 0, ',', '.');
+        $CANTIDAD_TRANS  = number_format($reg1 ['CANTIDAD_ENV'], 0, ',', '');
+        $CANTIDAD_RECEP  = number_format($reg1 ['CANTIDAD_REC'], 0, ',', '');
+        $CANTIDAD_PEND_RECEP  = number_format($reg1 ['CANT_TRANS'], 0, ',', '');
         $FECHA_ENVIO  = $reg1 ['FECHA_ENVIO'];
         $FECHA_RETORNO  = $reg1 ['FECHA_RETORNO'];
         $RECEPCION  = $reg1 ['RECEPCION'];
@@ -433,10 +437,12 @@ class UtilidadesReportes {
               <td>'.$ROWID.'</td>
               <td>'.$EPT.'</td>
               <td>'.$ITEM.'</td>
-              <td>'.$CANTIDAD.'</td>
+              <td align="right">'.$CANTIDAD_TRANS.'</td>
+              <td align="right">'.$CANTIDAD_RECEP.'</td>
+              <td align="right">'.$CANTIDAD_PEND_RECEP.'</td>
               <td>'.$FECHA_ENVIO.'</td>
               <td>'.$FECHA_RETORNO.'</td>
-              <td>'.$RECEPCION.'</td>
+              <td align="right">'.$RECEPCION.'</td>
               <td>'.$CARGADO.'</td>
           </tr>';
 
@@ -445,7 +451,7 @@ class UtilidadesReportes {
       }
     }else{
       $tabla .= ' 
-        <tr><td colspan="8" class="empty"><span class="empty">No se encontraron resultados.</span></td></tr>
+        <tr><td colspan="10" class="empty"><span class="empty">No se encontraron resultados.</span></td></tr>
       ';
     }
 
@@ -1105,11 +1111,23 @@ class UtilidadesReportes {
 
   public static function acteptpantalla(){
 
-    $query ="SELECT *
+    $query ="
+    SELECT DISTINCT
+    t1.Rowid
+    ,t1.Centro_Operacion
+    ,t1.Tipo_Docto
+    ,Consec_Docto
+    ,t1.Item
+    ,t1.Cantidad
+    ,Num_Recepcion
+    ,t1.Rowid_Movto
     FROM [Repositorio_Datos].[dbo].[tbl_IN_Transf_29] AS t1
-    INNER JOIN Repositorio_Datos..tbl_OUT_Transf_28 AS t2 ON t1.Centro_Operacion=t2.Centro_Operacion AND t1.Tipo_Docto=t2.Tipo_Docto AND t1.Consec_Docto=t2.Num_Docto AND t1.Item=t2.Item
-    INNER JOIN UnoEE1..t350_co_docto_contable ON f350_id_co=t1.Centro_Operacion AND f350_id_tipo_docto=t1.Tipo_Docto AND f350_consec_docto=t1.Consec_Docto AND f350_ind_estado=1
-    WHERE t1.Integrado_Pangea = 4";
+    inner JOIN Repositorio_Datos..tbl_OUT_Transf_28 AS t2 ON t1.Rowid_Movto=t2.Rowid_Movto
+    INNER JOIN UnoEE1..t350_co_docto_contable as t350 on t350.f350_id_co=t1.Centro_Operacion and t350.f350_id_tipo_docto=t1.Tipo_Docto and t350.f350_consec_docto=t1.Consec_Docto and t350.f350_ind_estado=1
+    INNER JOIN UnoEE1..t120_mc_items on f120_id_cia=t1.Compania and f120_id=t1.Item
+    INNER JOIN UnoEE1..t121_mc_items_extensiones on f121_rowid_item=f120_rowid
+    INNER JOIN UnoEE1..t406_cm_movto_transito on f406_rowid_item_ext=f121_rowid and t1.Rowid_Movto=f406_rowid_movto_sal and f406_cant_base_pendiente>=t1.Cantidad
+    ";
 
     $tabla = '
       <table class="table table-sm table-hover">

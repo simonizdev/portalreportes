@@ -30,14 +30,16 @@ $objPHPExcel->setActiveSheetIndex();
 $objPHPExcel->setActiveSheetIndex()->setCellValue('A1', 'Row Id');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B1', 'Ept');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('C1', 'Item');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('D1', 'Cantidad');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('E1', 'Fecha de envío');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('F1', 'Fecha de retorno WMS');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('G1', '# Recepción');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('H1', 'Cargado');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('D1', 'Cant. transferencia');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('E1', 'Cant. recepcionada');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('F1', 'Cant. pend. recepción');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('G1', 'Fecha de envío');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('H1', 'Fecha de retorno WMS');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('I1', '# Recepción');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('J1', 'Cargado');
 
-$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A1:J1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+$objPHPExcel->getActiveSheet()->getStyle('A1:J1')->getFont()->setBold(true);
 
 /*Inicio contenido tabla*/
     
@@ -51,7 +53,9 @@ if(!empty($q1)){
     $ROWID  = $reg1 ['ROWID']; 
     $EPT  = $reg1 ['EPT']; 
     $ITEM  = $reg1 ['ITEM'];
-    $CANTIDAD  = number_format($reg1 ['CANTIDAD'], 0, ',', '');
+    $CANTIDAD_TRANS  = number_format($reg1 ['CANTIDAD_ENV'], 0, ',', '');
+    $CANTIDAD_RECEP  = number_format($reg1 ['CANTIDAD_REC'], 0, ',', '');
+    $CANTIDAD_PEND_RECEP  = number_format($reg1 ['CANT_TRANS'], 0, ',', '');
     $FECHA_ENVIO  = $reg1 ['FECHA_ENVIO'];
     $FECHA_RETORNO  = $reg1 ['FECHA_RETORNO'];
     $RECEPCION  = $reg1 ['RECEPCION'];
@@ -60,19 +64,21 @@ if(!empty($q1)){
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, $ROWID);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, $EPT);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, $ITEM);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, $CANTIDAD);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $FECHA_ENVIO);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $FECHA_RETORNO);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $RECEPCION);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $CARGADO);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, $CANTIDAD_TRANS);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $CANTIDAD_REC);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $CANTIDAD_PEND_RECEP);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $FECHA_ENVIO);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $FECHA_RETORNO);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, $RECEPCION);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, $CARGADO);
         
     $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':C'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-    $objPHPExcel->getActiveSheet()->getStyle('D'.$Fila)->getNumberFormat()->setFormatCode('0');
-    $objPHPExcel->getActiveSheet()->getStyle('D'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-    $objPHPExcel->getActiveSheet()->getStyle('E'.$Fila.':F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-    $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-    $objPHPExcel->getActiveSheet()->getStyle('H'.$Fila)->getNumberFormat()->setFormatCode('0'); 
-    $objPHPExcel->getActiveSheet()->getStyle('H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet()->getStyle('D'.$Fila.':F'.$Fila)->getNumberFormat()->setFormatCode('0');
+    $objPHPExcel->getActiveSheet()->getStyle('D'.$Fila.':F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila.':H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila)->getNumberFormat()->setFormatCode('0'); 
+    $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
     
 
     $Fila = $Fila + 1; 
