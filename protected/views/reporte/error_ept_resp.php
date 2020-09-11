@@ -65,7 +65,7 @@ if(!empty($q1)){
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, $EPT);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, $ITEM);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, $CANTIDAD_TRANS);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $CANTIDAD_REC);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $CANTIDAD_RECEP);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $CANTIDAD_PEND_RECEP);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $FECHA_ENVIO);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $FECHA_RETORNO);
