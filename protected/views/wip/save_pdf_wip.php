@@ -232,6 +232,8 @@ if($cadena_emails_adic != ""){
             $resp = UtilidadesVarias::envioemailliq($id ,$email, $nombre_archivo_gen);
             $num_notif = $num_notif + $resp;
         }
+
+        unlink(Yii::app()->basePath.'/../images/wip/WIP '.$modelo_wip->WIP.'.pdf');
     }
 
 }
