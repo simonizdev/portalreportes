@@ -4,7 +4,7 @@
 
 ?>
 
-<h4>Logistica comercial</h4>
+<h4>Logistica comercial x unidad de negocio</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -21,13 +21,13 @@
 <div class="row">
   <div class="col-sm-6">
       <div class="form-group">
-          <?php echo $form->error($model,'des_ora_ini', array('class' => 'badge badge-warning float-right')); ?>
-          <?php echo $form->label($model,'des_ora_ini'); ?>
+          <?php echo $form->error($model,'un_inicial', array('class' => 'badge badge-warning float-right')); ?>
+          <?php echo $form->label($model,'un_inicial'); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
-                  'name'=>'Reporte[des_ora_ini]',
-                  'id'=>'Reporte_des_ora_ini',
-                  'data'=> $lista_oracle,
+                  'name'=>'Reporte[un_inicial]',
+                  'id'=>'Reporte_un_inicial',
+                  'data'=> $lista_un,
                   'options'=>array(
                       'placeholder'=>'Seleccione...',
                       'width'=> '100%',
@@ -39,13 +39,13 @@
   </div>
   <div class="col-sm-6">
       <div class="form-group">
-          <?php echo $form->error($model,'des_ora_fin', array('class' => 'badge badge-warning float-right')); ?>
-          <?php echo $form->label($model,'des_ora_fin'); ?>
+          <?php echo $form->error($model,'un_final', array('class' => 'badge badge-warning float-right')); ?>
+          <?php echo $form->label($model,'un_final'); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
-                  'name'=>'Reporte[des_ora_fin]',
-                  'id'=>'Reporte_des_ora_fin',
-                  'data'=> $lista_oracle,
+                  'name'=>'Reporte[un_final]',
+                  'id'=>'Reporte_un_final',
+                  'data'=> $lista_un,
                   'options'=>array(
                       'placeholder'=>'Seleccione...',
                       'width'=> '100%',
@@ -98,8 +98,8 @@ $(function() {
 });
 
 function resetfields(){
-  $('#Reporte_des_ora_ini').val('').trigger('change');
-  $('#Reporte_des_ora_fin').val('').trigger('change');
+  $('#Reporte_un_inicial').val('').trigger('change');
+  $('#Reporte_un_final').val('').trigger('change');
 }
 
 </script>

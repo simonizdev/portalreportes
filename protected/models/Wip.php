@@ -50,6 +50,9 @@ class Wip extends CActiveRecord
 	
 	public $cad_item;
 	public $cad_cant;
+	public $firma;
+	public $cargo;
+	public $correos_notif;
 
 	/**
 	 * @return string the associated database table name
@@ -69,6 +72,7 @@ class Wip extends CActiveRecord
 		return array(
 			//array('CONSECUTIVO, ID_ITEM, ESTADO_OP, INVENTARIO_TOTAL, DE_0_A_30_DIAS, DE_31_A_60_DIAS, DE_61_A_90_DIAS, MAS_DE_90_DIAS, CANT_A_ARMAR, CANT_OC_AL_DIA, CANT_PENDIENTE, DIAS_VENCIMIENTO, ID_USUARIO_CREACION, ID_USUARIO_ACTUALIZACION', 'required'),
 			array('RESPONSABLE, CANT_A_ARMAR', 'required', 'on' => 'update'),
+			array('firma, cargo, correos_notif', 'required', 'on' => 'notif'),
 			array('ID_ITEM, INVENTARIO_TOTAL, DE_0_A_30_DIAS, DE_31_A_60_DIAS, DE_61_A_90_DIAS, MAS_DE_90_DIAS, CANT_A_ARMAR, CANT_OC_AL_DIA, CANT_PENDIENTE, DIAS_VENCIMIENTO, ID_USUARIO_CREACION, ID_USUARIO_ACTUALIZACION, CANT_VEND', 'numerical', 'integerOnly'=>true),
 			array('DESCRIPCION, WIP, CADENA, ESTADO_OP, ESTADO_COMERCIAL, RESPONSABLE, REDISTRIBUCION, UN, SUB_MARCA, FAMILIA, SUB_FAMILIA, GRUPO, ORACLE, PTM', 'length', 'max'=>200),
 			array('OBSERVACIONES', 'length', 'max'=>50),
@@ -103,21 +107,11 @@ class Wip extends CActiveRecord
     public function desccadena($id_Wip){
 
     	$model = Wip::model()->findByPk($id_Wip);
-    	$array_us = Yii::app()->params->users_s;
-    	$array_ut = Yii::app()->params->users_t;
 
-    	if(!is_null($model->CADENA)){
+    	if($model->CADENA != ""){
     		return $model->CADENA;
     	}else{
-    		
-    		if(in_array($model->ID_USUARIO_CREACION, $array_us)){
-    			return 'SUPERETES';
-    		}
-
-    		if(in_array($model->ID_USUARIO_CREACION, $array_ut)){
-				return 'TRADICIONAL';
-    		}
-
+    		return $model->OBSERVACIONES;	
     	}
     }
 
@@ -175,6 +169,9 @@ class Wip extends CActiveRecord
 			'CANT_VEND' => 'Cant. vend.',
 			'FECHA_CUMPLIDO' => 'Fecha cumplido',
 			'OBSERVACIONES' => 'Observaciones',
+			'firma' => 'Firma',
+			'cargo' => 'Cargo',
+			'correos_notif' => 'E-mail(s) para envió',
 		);
 	}
 

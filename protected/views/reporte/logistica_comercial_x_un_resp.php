@@ -4,8 +4,8 @@
 
 //se reciben los parametros para el reporte
 
-$des_ora_ini = $model['des_ora_ini'];
-$des_ora_fin = $model['des_ora_fin'];
+$un_inicial = $model['un_inicial'];
+$un_final = $model['un_final'];
 
 set_time_limit(0);
 
@@ -14,9 +14,9 @@ set_time_limit(0);
 //EXCEL
 
 $query ="SET NOCOUNT ON 
-        EXEC [dbo].[COM_CONS_ITEMS_COMER] 
-        @ORACLE = N'".$des_ora_ini."',
-        @ORACLE2 = N'".$des_ora_fin."'
+        EXEC [dbo].[COM_CONS_ITEMS_COMER_UN] 
+        @UN1 = N'".$un_inicial."',
+        @UN2 = N'".$un_final."'
         ";
 
 $q1 = Yii::app()->db->createCommand($query)->queryAll();
@@ -641,7 +641,7 @@ foreach($objPHPExcel->getWorksheetIterator() as $worksheet) {
     }
 }
 
-$n = 'Logistica_comercial_'.date('Y-m-d H_i_s');
+$n = 'Logistica_comercial_x_un_'.date('Y-m-d H_i_s');
 
 header('Content-Type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="'.$n.'.xlsx"');

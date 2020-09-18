@@ -14,6 +14,9 @@ $texto_ev = $query_ev['Criterio_Descripcion'];
 
 set_time_limit(0);
 
+//opcion: 1. PDF, 2. EXCEL
+$opcion = $model['opcion_exp'];
+
 //se obtiene la cadena de la fecha actual
 $diatxt=date('l');
 $dianro=date('d');
@@ -52,6 +55,7 @@ foreach ($query1 as $reg) {
   $fecha_venc  = $reg['FECHA_VENCIDO'];
   $id  = $reg['VEND'];
   $n_documento  = $reg['DOCUMENTO'];
+  $vendedor = $reg['RZ_VENDEDOR'];
   $cond_pago  = $reg['COND_PAGO'];
   $dias  = $reg['DIAS_VCDO'];
   $valor_inicial  = $reg['TOTAL_DOCUMENTO'];
@@ -78,6 +82,7 @@ foreach ($query1 as $reg) {
       'fecha_doc' => $fecha_doc, 
       'fecha_venc' => $fecha_venc,
       'id_vend' => $id, 
+      'vendedor' => $vendedor,
       'cond_pago' => $cond_pago, 
       'dias' => $dias,
       'valor_inicial' => $valor_inicial,
@@ -101,6 +106,7 @@ foreach ($query1 as $reg) {
         'fecha_doc' => $fecha_doc, 
         'fecha_venc' => $fecha_venc,
         'id_vend' => $id, 
+        'vendedor' => $vendedor,
         'cond_pago' => $cond_pago, 
         'dias' => $dias,
         'valor_inicial' => $valor_inicial,
@@ -119,6 +125,7 @@ foreach ($query1 as $reg) {
           'fecha_doc' => $fecha_doc, 
           'fecha_venc' => $fecha_venc,
           'id_vend' => $id, 
+          'vendedor' => $vendedor,
           'cond_pago' => $cond_pago, 
           'dias' => $dias,
           'valor_inicial' => $valor_inicial,
@@ -137,6 +144,7 @@ foreach ($query1 as $reg) {
 
 /*fin configuración array de datos*/
 
+if($opcion == 1){
   //PDF
 
   //se incluye la libreria pdf
@@ -161,9 +169,9 @@ foreach ($query1 as $reg) {
       $this->SetFont('Arial','B',12);
       $this->Cell(200,5,'SALDO DE CARTERA POR ESTRUCTURA DE VENTAS',0,0,'L');
       $this->SetFont('Arial','',9);
-      $this->Cell(80,5,utf8_decode($this->fecha_actual),0,0,'R');
+      $this->Cell(140,5,utf8_decode($this->fecha_actual),0,0,'R');
       $this->Ln();
-      $this->SetFont('Arial','',7);
+      $this->SetFont('Arial','',8);
       $this->Cell(280,5,utf8_decode('Criterio de búsqueda: Estructura de venta: '.$this->ev),0,0,'L');
       $this->Ln();
 
@@ -171,8 +179,9 @@ foreach ($query1 as $reg) {
       $this->Cell(18,5, utf8_decode('Fecha doc'),0,0,'L');
       $this->Cell(18,5, utf8_decode('Fecha vcto'),0,0,'L');
       $this->Cell(8,5, utf8_decode('ID'),0,0,'L');
+      $this->Cell(50,5, utf8_decode('Vendedor'),0,0,'L');
       $this->Cell(26,5, utf8_decode('# documento'),0,0,'L');
-      $this->Cell(50,5, utf8_decode('Condición de pago'),0,0,'L');
+      $this->Cell(60,5, utf8_decode('Condición de pago'),0,0,'L');
       $this->Cell(8,5, utf8_decode('Días'),0,0,'R');
       $this->Cell(22,5, utf8_decode('Valor Inicial'),0,0,'R');
       $this->Cell(22,5, utf8_decode('Valor Saldo'),0,0,'R');
@@ -185,7 +194,7 @@ foreach ($query1 as $reg) {
       $this->Ln();
       
       $this->SetDrawColor(0,0,0);
-      $this->Cell(280,1,'','T');                            
+      $this->Cell(340,1,'','T');                            
       $this->Ln();
       $this->Ln();
     
@@ -226,10 +235,10 @@ foreach ($query1 as $reg) {
           $docs_suc_cliente = $suc_info['documentos'];
 
           $this->SetFont('Arial','B',7);
-          $this->Cell(70,3, utf8_decode($desc_cliente),0,0,'L');
-          $this->Cell(70,3, utf8_decode($nit_cliente),0,0,'L');
-          $this->Cell(70,3, utf8_decode($tel_cliente),0,0,'L');
-          $this->Cell(70,3, utf8_decode($dir_cliente.' / '.$suc_cliente),0,0,'L');
+          $this->Cell(80,3, utf8_decode($desc_cliente),0,0,'L');
+          $this->Cell(80,3, utf8_decode($nit_cliente),0,0,'L');
+          $this->Cell(80,3, utf8_decode($tel_cliente),0,0,'L');
+          $this->Cell(80,3, utf8_decode($dir_cliente.' / '.$suc_cliente),0,0,'L');
           $this->Ln();
 
           $t_s = 0;
@@ -244,6 +253,7 @@ foreach ($query1 as $reg) {
             $fecha_doc = $doc_info['fecha_doc'];
             $fecha_venc = $doc_info['fecha_venc'];
             $id_vend = $doc_info['id_vend'];
+            $vendedor = $doc_info['vendedor'];
             $cond_pago = $doc_info['cond_pago'];
             $dias = $doc_info['dias'];
             $valor_inicial = $doc_info['valor_inicial'];
@@ -259,8 +269,9 @@ foreach ($query1 as $reg) {
             $this->Cell(18,3,$fecha_doc,0,0,'L');
             $this->Cell(18,3,$fecha_venc,0,0,'L');
             $this->Cell(8,3,$id_vend,0,0,'L');
+            $this->Cell(50,3,substr($vendedor, 0, 26),0,0,'L');
             $this->Cell(26,3,$doc,0,0,'L');
-            $this->Cell(50,3,$cond_pago,0,0,'L');
+            $this->Cell(60,3,$cond_pago,0,0,'L');
             $this->Cell(8,3,$dias,0,0,'R');
             $this->Cell(22,3,number_format(($valor_inicial),0,".",","),0,0,'R');
             $this->Cell(22,3,number_format(($valor_saldo),0,".",","),0,0,'R');
@@ -287,9 +298,9 @@ foreach ($query1 as $reg) {
 
           $this->SetFont('Arial','B',6);
           $this->Cell(33,3,utf8_decode('CUPO TOTAL:'),0,0,'L');
-          $this->Cell(37,3,number_format(($cupo_cliente),0,".",","),0,0,'L');
+          $this->Cell(47,3,number_format(($cupo_cliente),0,".",","),0,0,'L');
           $this->Cell(34,3,utf8_decode('CUPO DISPONIBLE:'),0,0,'L');
-          $this->Cell(37,3,number_format(($cupo_disp),0,".",","),0,0,'L');
+          $this->Cell(87,3,number_format(($cupo_disp),0,".",","),0,0,'L');
           $this->Cell(10,3,'TOTALES',0,0,'R');
           $this->Cell(21,3,number_format(($t_s),0,".",","),0,0,'R');
           $this->Cell(3,3,'',0,0,'L');
@@ -301,7 +312,7 @@ foreach ($query1 as $reg) {
 
           $this->Ln();
           $this->SetDrawColor(0,0,0);
-          $this->Cell(280,1,'','T');                            
+          $this->Cell(340,1,'','T');                            
           $this->Ln(4);
 
 
@@ -323,7 +334,7 @@ foreach ($query1 as $reg) {
       }
 
       $this->SetFont('Arial','B',8);
-      $this->Cell(151,3,utf8_decode('TOTALES '.$this->ev ),0,0,'L');
+      $this->Cell(211,3,utf8_decode('TOTALES '.$this->ev ),0,0,'L');
       $this->SetFont('Arial','B',7);
       $this->Cell(21,3,number_format(($tf_s),0,".",","),0,0,'R');
       $this->Cell(3,3,'',0,0,'L');
@@ -348,7 +359,7 @@ foreach ($query1 as $reg) {
         $ptf_e = $tf_e / $tf_s *100;
       }
 
-      $this->Cell(175,3,'',0,0,'L');
+      $this->Cell(235,3,'',0,0,'L');
       $this->Cell(21,3,number_format(($ptf_a),2,".",",").' %',0,0,'R');
       $this->Cell(21,3,number_format(($ptf_b),2,".",",").' %',0,0,'R');
       $this->Cell(21,3,number_format(($ptf_c),2,".",",").' %',0,0,'R');
@@ -370,7 +381,7 @@ foreach ($query1 as $reg) {
       $ptf_e = 0;
 
       $this->SetDrawColor(0,0,0);
-      $this->Cell(280,1,'','T');                            
+      $this->Cell(340,1,'','T');                            
       $this->Ln();
       $this->Ln();
 
@@ -386,7 +397,7 @@ foreach ($query1 as $reg) {
     }
   }
 
-  $pdf = new PDF('L','mm','A4');
+  $pdf = new PDF('L','mm','Legal');
   //se definen las variables extendidas de la libreria FPDF
   $pdf->setFechaActual($fecha_act);
   $pdf->setData($array_clientes);
@@ -396,5 +407,272 @@ foreach ($query1 as $reg) {
   $pdf->Tabla();
   ob_end_clean();
   $pdf->Output('D','Saldo_cartera_est_ventas_'.date('Y-m-d H_i_s').'.pdf');
+
+}
+
+if($opcion == 2){
+  //EXCEL
+
+  // Se inactiva el autoloader de yii
+  spl_autoload_unregister(array('YiiBase','autoload'));   
+
+  require_once Yii::app()->basePath . '/extensions/PHPExcel/Classes/PHPExcel.php';
+  
+  //cuando se termina la accion relacionada con la libreria se activa el autoloader de yii
+  spl_autoload_register(array('YiiBase','autoload'));
+
+  $objPHPExcel = new PHPExcel();
+
+  $objPHPExcel->getActiveSheet()->setTitle('Hoja1');
+  $objPHPExcel->setActiveSheetIndex();
+
+  /*Cabecera tabla*/
+
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('A1', 'Estructura de venta: '.$texto_ev);
+  $objPHPExcel->setActiveSheetIndex()->mergeCells('A1:N1');
+  $objPHPExcel->getActiveSheet()->getStyle('A1:N1')->getFont()->setBold(true);
+
+
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('A3', 'Fecha doc');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('B3', 'Fecha vcto');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('C3', 'ID');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('D3', 'Vendedor');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('E3', '# documento');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('F3', 'Condición de pago');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('G3', 'Días');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('H3', 'Valor Inicial');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('I3', 'Valor Saldo');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('J3', '');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('K3', 'Entre 1 - 30');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('L3', 'Entre 31 - 60');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('M3', 'Entre 61 - 90');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('N3', 'Entre 90 - 120');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('O3', '120 Más de 120');
+
+  $objPHPExcel->getActiveSheet()->getStyle('A3:O3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet()->getStyle('A3:O3')->getFont()->setBold(true);
+
+  /*Inicio contenido tabla*/
+
+  $Fila = 5;
+
+  $tf_s = 0;
+  $tf_a = 0;
+  $tf_b = 0;
+  $tf_c = 0;
+  $tf_d = 0;
+  $tf_e = 0;
+
+  $ptf_a = 0;
+  $ptf_b = 0;
+  $ptf_c = 0;
+  $ptf_d = 0;
+  $ptf_e = 0;
+
+  foreach ($array_clientes as $nit_c => $cli_info){
+
+    $nit_cliente = $nit_c;
+    $desc_cliente = $cli_info['desc_cliente'];
+    $suc_docs = $cli_info['suc'];
+
+    foreach ($suc_docs as $suc => $suc_info) {
+
+      $tel_cliente = $suc_info['telefono'];
+      $dir_cliente = $suc_info['direccion'];
+      $suc_cliente = $suc;
+      $cupo_cliente = $suc_info['cupo'];
+    
+      $docs_suc_cliente = $suc_info['documentos'];
+
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, utf8_decode($desc_cliente));
+      $objPHPExcel->setActiveSheetIndex()->mergeCells('A'.$Fila.':D'.$Fila);
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, utf8_decode($nit_cliente));
+      $objPHPExcel->setActiveSheetIndex()->mergeCells('E'.$Fila.':F'.$Fila);
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, utf8_decode($tel_cliente));
+      $objPHPExcel->setActiveSheetIndex()->mergeCells('G'.$Fila.':I'.$Fila);
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, utf8_decode($dir_cliente.' / '.$suc_cliente));
+      $objPHPExcel->setActiveSheetIndex()->mergeCells('J'.$Fila.':O'.$Fila);
+      $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':O'.$Fila)->getFont()->setBold(true);
+
+      $Fila = $Fila + 1;
+
+      $t_s = 0;
+      $t_a = 0;
+      $t_b = 0;
+      $t_c = 0;
+      $t_d = 0;
+      $t_e = 0;
+
+      foreach ($docs_suc_cliente as $doc => $doc_info) {
+
+        $fecha_doc = $doc_info['fecha_doc'];
+        $fecha_venc = $doc_info['fecha_venc'];
+        $id_vend = $doc_info['id_vend'];
+        $vendedor = $doc_info['vendedor'];
+        $cond_pago = $doc_info['cond_pago'];
+        $dias = $doc_info['dias'];
+        $valor_inicial = $doc_info['valor_inicial'];
+        $valor_saldo = $doc_info['valor_saldo'];
+        $chq = $doc_info['chq'];
+        $a = $doc_info['a'];
+        $b = $doc_info['b'];
+        $c = $doc_info['c'];
+        $d = $doc_info['d'];
+        $e = $doc_info['e'];
+
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, $fecha_doc);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, $fecha_venc);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, $id_vend);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, $vendedor);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $doc);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $cond_pago);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $dias);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $valor_inicial);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, $valor_saldo);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, $chq);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $a);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $b);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, $c);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$Fila, $d);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$Fila, $e);
+
+        $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':F'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila.':O'.$Fila)->getNumberFormat()->setFormatCode('0');        
+        $objPHPExcel->getActiveSheet()->getStyle('G'.$Fila.':O'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+        $Fila = $Fila + 1;
+
+        $t_s = $t_s + $valor_saldo;
+        $t_a = $t_a + $a;
+        $t_b = $t_b + $b;
+        $t_c = $t_c + $c;
+        $t_d = $t_d + $d;
+        $t_e = $t_e + $e;
+
+      }
+
+      $cupo_disp = $cupo_cliente - $t_s;
+
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, 'CUPO TOTAL: ');
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, $cupo_cliente);
+      $objPHPExcel->setActiveSheetIndex()->mergeCells('B'.$Fila.':C'.$Fila);
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, 'CUPO DISPONIBLE:');
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $cupo_disp);
+      $objPHPExcel->setActiveSheetIndex()->mergeCells('E'.$Fila.':G'.$Fila);
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, 'TOTALES');
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, $t_s);
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, '');
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $t_a);
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $t_b);
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, $t_c);
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$Fila, $t_d);
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$Fila, $t_e);
+
+      $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':O'.$Fila)->getFont()->setBold(true);
+      $objPHPExcel->getActiveSheet()->getStyle('B'.$Fila)->getNumberFormat()->setFormatCode('0');
+      $objPHPExcel->getActiveSheet()->getStyle('E'.$Fila)->getNumberFormat()->setFormatCode('0');
+      $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila.':O'.$Fila)->getNumberFormat()->setFormatCode('0');        
+      $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila.':O'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+      $Fila = $Fila + 2;
+
+      $tf_s = $tf_s + $t_s;
+      $tf_a = $tf_a + $t_a;
+      $tf_b = $tf_b + $t_b;
+      $tf_c = $tf_c + $t_c;
+      $tf_d = $tf_d + $t_d;
+      $tf_e = $tf_e + $t_e;
+
+      $t_s = 0;
+      $t_a = 0;
+      $t_b = 0;
+      $t_c = 0;
+      $t_d = 0;
+      $t_e = 0;
+
+    }
+  }
+
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, 'TOTALES '.$texto_ev);
+  $objPHPExcel->setActiveSheetIndex()->mergeCells('A'.$Fila.':H'.$Fila);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, $tf_s);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, '');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $tf_a);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $tf_b);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, $tf_c);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$Fila, $tf_d);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$Fila, $tf_e);
+
+  $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':O'.$Fila)->getFont()->setBold(true);
+  $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila.':O'.$Fila)->getNumberFormat()->setFormatCode('0');
+  $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila.':O'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+  $Fila = $Fila + 1;
+
+  if($tf_s == 0){
+    $ptf_a = 0;
+    $ptf_b = 0;
+    $ptf_c = 0;
+    $ptf_d = 0;
+    $ptf_e = 0;        
+  }else{
+    $ptf_a = $tf_a / $tf_s *100;
+    $ptf_b = $tf_b / $tf_s *100;
+    $ptf_c = $tf_c / $tf_s *100;
+    $ptf_d = $tf_d / $tf_s *100;
+    $ptf_e = $tf_e / $tf_s *100;
+  }
+
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, number_format(($ptf_a),2).'%');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, number_format(($ptf_b),2).'%');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, number_format(($ptf_c),2).'%');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$Fila, number_format(($ptf_d),2).'%');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$Fila, number_format(($ptf_e),2).'%');
+
+  $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':O'.$Fila)->getFont()->setBold(true);
+  $objPHPExcel->getActiveSheet()->getStyle('K'.$Fila.':O'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+  $objPHPExcel->getActiveSheet()->getStyle('K'.$Fila.':O'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+
+  $Fila = $Fila + 1;
+
+  $tf_s = 0;
+  $tf_a = 0;
+  $tf_b = 0;
+  $tf_c = 0;
+  $tf_d = 0;
+  $tf_e = 0;
+
+  $ptf_a = 0;
+  $ptf_b = 0;
+  $ptf_c = 0;
+  $ptf_d = 0;
+  $ptf_e = 0;
+
+  /*fin contenido tabla*/
+
+  //se configura el ancho de cada columna en automatico solo funciona en el rango A-Z
+  foreach($objPHPExcel->getWorksheetIterator() as $worksheet) {
+
+      $objPHPExcel->setActiveSheetIndex($objPHPExcel->getIndex($worksheet));
+
+      $sheet = $objPHPExcel->getActiveSheet();
+      $cellIterator = $sheet->getRowIterator()->current()->getCellIterator();
+      $cellIterator->setIterateOnlyExistingCells(true);
+      foreach ($cellIterator as $cell) {
+          $sheet->getColumnDimension($cell->getColumn())->setAutoSize(true);
+      }
+  }
+
+  $n = 'Saldo_cartera_est_ventas_'.date('Y-m-d H_i_s');
+
+  header('Content-Type: application/vnd.ms-excel');
+  header('Content-Disposition: attachment;filename="'.$n.'.xlsx"');
+  header('Cache-Control: max-age=0');
+  $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
+  ob_end_clean();
+  $objWriter->save('php://output');
+  exit;
+
+}
 
 ?>

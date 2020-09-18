@@ -78,7 +78,7 @@ $('.search-form form').submit(function(){
             'name'=>'WIP',
     	),
     	array(
-            'name' => 'CADENA',
+            'header' => 'Cadena / Observaciones',
             'type' => 'raw',
             'value' => '$data->desccadena($data->ID)',
         ),
@@ -88,37 +88,9 @@ $('.search-form form').submit(function(){
             'value' => 'substr($data->DESCRIPCION, 0, 35)',
         ),
 		'RESPONSABLE',
-		/*'CANT_OC_AL_DIA',
-		'CANT_PENDIENTE',
-		'CANT_VEND',
-		'INVENTARIO_TOTAL',*/
-		/*'ESTADO_OP',
-		'DE_0_A_30_DIAS',
-		'DE_31_A_60_DIAS',
-		'DE_61_A_90_DIAS',
-		'MAS_DE_90_DIAS',
-		'WIP',
-		'FECHA_SOLICITUD_WIP',
-		'FECHA_ENTREGA_WIP',
-		'CANT_A_ARMAR',
-		'DIAS_VENCIMIENTO',
-		'REDISTRIBUCION',
-		'ESTADO_COMERCIAL',
-		'UN',
-		'SUB_MARCA',
-		'FAMILIA',
-		'SUB_FAMILIA',
-		'GRUPO',
-		'ORACLE',
-		'PTM',
-		'ID_USUARIO_CREACION',
-		'ID_USUARIO_ACTUALIZACION',
-		'FECHA_CREACION',
-		'FECHA_ACTUALIZACION',
-		*/
 		array(
             'class'=>'CButtonColumn',
-            'template'=>'{view}{update}',
+            'template'=>'{view}{update}{notif}',
             'buttons'=>array(
                 'view'=>array(
                     'label'=>'<i class="fa fa-eye actions text-dark"></i>',
@@ -133,16 +105,23 @@ $('.search-form form').submit(function(){
                     'options'=>array('title'=>'Actualizar'),
                     'visible'=> '(Yii::app()->user->getState("permiso_act") == true && $data->vbtnupdate($data->FECHA_CUMPLIDO) == true)',
                     'url'=>'Yii::app()->createUrl("Wip/update", array("id"=>$data->ID))',
+                ),
+                'notif'=>array(
+                    'label'=>'<i class="fa fa-envelope actions text-dark"></i>',
+                    'imageUrl'=>false,
+                    'url'=>'Yii::app()->createUrl("Wip/notifwip", array("id"=>$data->ID))',
+                    'options'=>array('title'=>'Enviar WIP via e-mail'),
+
                 ),   
             )
         ),
-        array(
+        /*array(
 	        'name'=>'',
 	        'type'=>'html',
 	        'value'=>function($data){
 	            echo '<button type="button" class="btn btn-default btn-sm btn-rep text-dar" data-toggle="modal" data-target="#modal-wip" onclick="firmawip('.$data->ID.');"><i class="fas fa-file-signature"></i> Firma / PDF</button>';
 	        },
-	    ),   
+	    ),*/   
 	),
 )); ?>
 

@@ -61,6 +61,10 @@ class Reporte extends CFormModel
     public $periodo_inicial;
     public $periodo_final;
     public $cia;
+    public $un_inicial;
+    public $un_final;
+    public $ev_inicial;
+    public $ev_final;
     
     public function rules() {
         // NOTE: you should only define rules for those attributes that
@@ -73,7 +77,8 @@ class Reporte extends CFormModel
             array('fecha_inicial, fecha_final, des_ora_ini, des_ora_fin, opcion_exp', 'required','on'=>'rent_oracle_item'),
             array('fecha_inicial, fecha_final, cliente_inicial, cliente_final, opcion_exp', 'required','on'=>'rent_cliente'),
             array('fecha_inicial, fecha_final, marca_inicial, marca_final, opcion_exp', 'required','on'=>'nivel_servicio_marca'),
-            array('fecha_inicial, fecha_final, marca_inicial, marca_final, opcion_exp', 'required','on'=>'nivel_servicio_pedido'),
+            array('fecha_inicial, fecha_final, marca_inicial, marca_final, opcion_exp', 'required','on'=>'nivel_servicio_pedido_x_marca'),
+            array('fecha_inicial, fecha_final, ev_inicial, ev_final, opcion_exp', 'required','on'=>'nivel_servicio_pedido_x_ev'),
             array('fecha_inicial, fecha_final, marca_inicial, marca_final, opcion_exp', 'required','on'=>'ventas_periodo_prom'),
             array('fecha_inicial, fecha_final, opcion_exp', 'required','on'=>'rent_criterios'),
             array('ruta_inicial, ruta_final', 'required','on'=>'saldo_cartera_ruta'),
@@ -151,7 +156,7 @@ class Reporte extends CFormModel
             array('consecutivo', 'required','on'=>'act_ept'),
             array('marca_inicial, marca_final', 'required','on'=>'logistica_exterior'),
             array('cons_inicial, cons_final', 'required','on'=>'naf'),
-            array('ev', 'required','on'=>'saldo_cartera_ev'),
+            array('ev, opcion_exp', 'required','on'=>'saldo_cartera_ev'),
             array('opcion_exp', 'required','on'=>'consulta_pagos'),
             array('linea, opcion_exp', 'required','on'=>'pedidos_acum_linea_tot'),
             array('fecha_inicial, fecha_final, opcion_exp', 'required','on'=>'ven_pos_falt'),
@@ -165,7 +170,8 @@ class Reporte extends CFormModel
             array('fecha_inicial, fecha_final', 'required','on'=>'hist_lib_ped'),
             array('fecha_inicial, fecha_final', 'required','on'=>'items_exentos_iva'),
             array('cons_inicial, cons_final', 'required','on'=>'desc_b2b'),
-            array('des_ora_ini, des_ora_fin', 'required','on'=>'logistica_comercial'),
+            array('des_ora_ini, des_ora_fin', 'required','on'=>'logistica_comercial_x_ora'),
+            array('un_inicial, un_final', 'required','on'=>'logistica_comercial_x_un'),
             array('periodo_inicial, periodo_final, opcion', 'required','on'=>'analisis_ventas'),
             array('fecha_inicial, fecha_final, opcion_exp', 'required','on'=>'pedidos_pend_des_req_top'),
             array('tipo, cons_inicial, cons_final, opcion_exp', 'required','on'=>'consulta_fact_elect'),
@@ -262,6 +268,10 @@ class Reporte extends CFormModel
             'periodo_inicial' => 'Periodo inicial',
             'periodo_final' => 'Periodo final',
             'cia'=>'Compañia',
+            'un_inicial' => 'Unidad de negocio inicial',
+            'un_final' => 'Unidad de negocio final',
+            'ev_inicial' => 'Est. de venta inicial',
+            'ev_final' => 'Est. de venta final',
         );
     }
 

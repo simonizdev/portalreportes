@@ -2,12 +2,9 @@
 /* @var $this ReporteController */
 /* @var $model Reporte */
 
-//para combos de marcas
-$lista_marcas = CHtml::listData($marcas, 'M_Descripcion', 'M_Descripcion'); 
-
 ?>
 
-<h4>Pedidos pendientes por despacho / pedido</h4>
+<h4>Pedidos pendientes por despacho - pedido x Est. de venta</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -43,13 +40,13 @@ $lista_marcas = CHtml::listData($marcas, 'M_Descripcion', 'M_Descripcion');
 <div class="row">
     <div class="col-sm-4">
       <div class="form-group">
-        <?php echo $form->error($model,'marca_inicial', array('class' => 'badge badge-warning float-right')); ?>
-        <?php echo $form->label($model,'marca_inicial'); ?>
+        <?php echo $form->error($model,'ev_inicial', array('class' => 'badge badge-warning float-right')); ?>
+        <?php echo $form->label($model,'ev_inicial'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
-            'name'=>'Reporte[marca_inicial]',
-            'id'=>'Reporte_marca_inicial',
-            'data'=>$lista_marcas,
+            'name'=>'Reporte[ev_inicial]',
+            'id'=>'Reporte_ev_inicial',
+            'data'=>$lista_ev,
             'htmlOptions'=>array(),
               'options'=>array(
                 'placeholder'=>'Seleccione...',
@@ -63,13 +60,13 @@ $lista_marcas = CHtml::listData($marcas, 'M_Descripcion', 'M_Descripcion');
     </div>
     <div class="col-sm-4">
       <div class="form-group">
-        <?php echo $form->error($model,'marca_final', array('class' => 'badge badge-warning float-right')); ?>
-        <?php echo $form->label($model,'marca_final'); ?>
+        <?php echo $form->error($model,'ev_final', array('class' => 'badge badge-warning float-right')); ?>
+        <?php echo $form->label($model,'ev_final'); ?>
         <?php
             $this->widget('ext.select2.ESelect2',array(
-            'name'=>'Reporte[marca_final]',
-            'id'=>'Reporte_marca_final',
-            'data'=>$lista_marcas,
+            'name'=>'Reporte[ev_final]',
+            'id'=>'Reporte_ev_final',
+            'data'=>$lista_ev,
             'htmlOptions'=>array(),
               'options'=>array(
                 'placeholder'=>'Seleccione...',
@@ -175,8 +172,8 @@ $(function() {
 function resetfields(){
   $('#Reporte_fecha_inicial').val('');
   $('#Reporte_fecha_final').val('');
-  $('#Reporte_marca_inicial').val('').trigger('change');
-  $('#Reporte_marca_final').val('').trigger('change');
+  $('#Reporte_ev_inicial').val('').trigger('change');
+  $('#Reporte_ev_final').val('').trigger('change');
 }
 
 </script>

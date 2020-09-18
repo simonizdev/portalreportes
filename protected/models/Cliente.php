@@ -89,7 +89,7 @@ class Cliente extends CActiveRecord
 	public function searchByCliente($filtro) {
         
         $resp = Yii::app()->db->createCommand("
-			SELECT TOP 10 C_ROWID_CLIENTE, C_NIT_CLIENTE,C_NOMBRE_CLIENTE FROM TH_CLIENTES WHERE C_CIA = 2 AND (C_NIT_CLIENTE LIKE '".$filtro."%' OR C_NOMBRE_CLIENTE LIKE '".$filtro."%') GROUP BY C_ROWID_CLIENTE, C_NIT_CLIENTE,C_NOMBRE_CLIENTE ORDER BY C_NOMBRE_CLIENTE
+			SELECT TOP 10 C_ROWID_CLIENTE, C_NIT_CLIENTE,C_NOMBRE_CLIENTE FROM TH_CLIENTES WHERE C_CIA = 2 AND (C_NIT_CLIENTE LIKE '".$filtro."%' OR C_NOMBRE_CLIENTE LIKE '%".$filtro."%') GROUP BY C_ROWID_CLIENTE, C_NIT_CLIENTE,C_NOMBRE_CLIENTE ORDER BY C_NOMBRE_CLIENTE
 		")->queryAll();
         return $resp;
         
@@ -97,7 +97,7 @@ class Cliente extends CActiveRecord
 
  	public function searchByClienteCart($filtro) {
         
-        $resp = Yii::app()->db->createCommand("SELECT DISTINCT TOP 10 t2001.f200_razon_social AS CLIENTE FROM UnoEE1.dbo.t201_mm_clientes WITH (NOLOCK) INNER JOIN UnoEE1.dbo.t200_mm_terceros AS t2001 WITH (NOLOCK) ON t2001.f200_rowid = f201_rowid_tercero WHERE f200_id_cia = 2 AND t2001.f200_razon_social LIKE '".$filtro."%' order by CLIENTE
+        $resp = Yii::app()->db->createCommand("SELECT DISTINCT TOP 10 t2001.f200_razon_social AS CLIENTE FROM UnoEE1.dbo.t201_mm_clientes WITH (NOLOCK) INNER JOIN UnoEE1.dbo.t200_mm_terceros AS t2001 WITH (NOLOCK) ON t2001.f200_rowid = f201_rowid_tercero WHERE f200_id_cia = 2 AND t2001.f200_razon_social LIKE '%".$filtro."%' order by CLIENTE
 		")->queryAll();
         return $resp;
         
@@ -105,7 +105,7 @@ class Cliente extends CActiveRecord
 
  	public function searchByClienteCartNit($filtro) {
         
-        $resp = Yii::app()->db->createCommand("SELECT DISTINCT TOP 10 t2001.f200_nit AS NIT, t2001.f200_razon_social AS CLIENTE FROM UnoEE1.dbo.t201_mm_clientes WITH (NOLOCK) INNER JOIN UnoEE1.dbo.t200_mm_terceros AS t2001 WITH (NOLOCK) ON t2001.f200_rowid = f201_rowid_tercero WHERE f200_id_cia = 2 AND (t2001.f200_nit LIKE '".$filtro."%' OR t2001.f200_razon_social LIKE '".$filtro."%') order by CLIENTE
+        $resp = Yii::app()->db->createCommand("SELECT DISTINCT TOP 10 t2001.f200_nit AS NIT, t2001.f200_razon_social AS CLIENTE FROM UnoEE1.dbo.t201_mm_clientes WITH (NOLOCK) INNER JOIN UnoEE1.dbo.t200_mm_terceros AS t2001 WITH (NOLOCK) ON t2001.f200_rowid = f201_rowid_tercero WHERE f200_id_cia = 2 AND (t2001.f200_nit LIKE '%".$filtro."%' OR t2001.f200_razon_social LIKE '%".$filtro."%') order by CLIENTE
 		")->queryAll();
         return $resp;
         

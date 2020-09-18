@@ -32,7 +32,7 @@ class WipController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update', 'export', 'exportexcel'),
+				'actions'=>array('create','update', 'export', 'exportexcel', 'notifwip', 'validemailsadic','envionotifwip'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -307,5 +307,48 @@ class WipController extends Controller
 	{
 		$data = Yii::app()->user->getState('wip-export');
 		$this->renderPartial('wip_export_excel',array('data' => $data));	
+	}
+
+	public function actionNotifWip($id)
+	{
+
+		$model = $this->loadModel($id);
+		$model->scenario = 'notif';
+
+		$this->render('notif_wip',array(
+			'model'=>$model,
+		));
+	
+	}
+
+	public function actionValidEmailsAdic()
+	{
+
+		$cad_emails_adic = $_POST['cad_emails_adic'];
+
+		$validos = 0;
+
+		$analizar = explode(',', $cad_emails_adic);
+    	for($i = 0; $i < sizeof($analizar); $i++){
+        	if(preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $cad_emails_adic)) $validos++;
+    	}
+
+    	if( $validos != sizeof($analizar) ){
+        	echo 0;
+        }else{
+        	echo 1;
+        }
+	}
+
+	public function actionEnvioNotifWip()
+	{
+		$id = $_POST['id'];
+		$firma = $_POST['firma'];
+		$cargo = $_POST['cargo'];
+		$cadena_emails_adic = $_POST['cadena_emails_adic'];
+
+		//se genera un documento con detalle x vendedor y si van correos adic. tambien general
+		$this->renderPartial('save_pdf_wip',array('id' => $id, 'firma' => $firma, 'cargo' => $cargo, 'cadena_emails_adic' => $cadena_emails_adic));	
+		
 	}
 }

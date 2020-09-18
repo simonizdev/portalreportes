@@ -33,8 +33,6 @@ $query ="
   @CLIENTE2 = N'".$cliente_final."'
 ";
 
-//echo $query;die;
-
 $query1 = Yii::app()->db->createCommand($query)->queryAll();
 
 $array_clientes = array();
@@ -48,6 +46,7 @@ foreach ($query1 as $reg) {
   $fecha_doc = $reg['FECHA_DOCUMENTO'];
   $fecha_venc = $reg['FECHA_VENCIDO'];
   $n_documento = $reg['DOCUMENTO'];
+  $vendedor = $reg['RZ_VENDEDOR'];
   $cond_pago = $reg['COND_PAGO'];
   $dias = $reg['DIAS_VCDO'];
   $valor_inicial = $reg['TOTAL_DOCUMENTO'];
@@ -72,6 +71,7 @@ foreach ($query1 as $reg) {
       'fecha_doc' => $fecha_doc, 
       'fecha_venc' => $fecha_venc, 
       'n_documento' => $n_documento,
+      'vendedor' => $vendedor,
       'cond_pago' => $cond_pago, 
       'dias' => $dias,
       'valor_inicial' => $valor_inicial,
@@ -94,6 +94,7 @@ foreach ($query1 as $reg) {
         'fecha_doc' => $fecha_doc, 
         'fecha_venc' => $fecha_venc, 
         'n_documento' => $n_documento,
+        'vendedor' => $vendedor,
         'cond_pago' => $cond_pago, 
         'dias' => $dias,
         'valor_inicial' => $valor_inicial,
@@ -138,9 +139,9 @@ foreach ($query1 as $reg) {
       $this->SetFont('Arial','B',12);
       $this->Cell(200,5,'SALDO DE CARTERA POR CLIENTE',0,0,'L');
       $this->SetFont('Arial','',9);
-      $this->Cell(80,5,utf8_decode($this->fecha_actual),0,0,'R');
+      $this->Cell(140,5,utf8_decode($this->fecha_actual),0,0,'R');
       $this->Ln();
-      $this->SetFont('Arial','',7);
+      $this->SetFont('Arial','',8);
       $this->Cell(280,5,utf8_decode('Criterio de búsqueda: Cliente inicial: '.$this->cliente_inicial.' / Cliente final: '.$this->cliente_final),0,0,'L');
       $this->Ln();
 
@@ -148,6 +149,7 @@ foreach ($query1 as $reg) {
       $this->Cell(18,5, utf8_decode('Fecha doc'),0,0,'L');
       $this->Cell(18,5, utf8_decode('Fecha vcto'),0,0,'L');
       $this->Cell(26,5, utf8_decode('# documento'),0,0,'L');
+      $this->Cell(50,5, utf8_decode('Vendedor'),0,0,'L');
       $this->Cell(50,5, utf8_decode('Condición de pago'),0,0,'L');
       $this->Cell(9,5, utf8_decode('Días'),0,0,'R');
       $this->Cell(23,5, utf8_decode('Valor Inicial'),0,0,'R');
@@ -161,7 +163,7 @@ foreach ($query1 as $reg) {
       $this->Ln();
 
       $this->SetDrawColor(0,0,0);
-      $this->Cell(280,1,'','T');                            
+      $this->Cell(340,1,'','T');                            
       $this->Ln();
       
     }
@@ -194,10 +196,10 @@ foreach ($query1 as $reg) {
         foreach ($array_clientes as $cliente) {
 
           $this->SetFont('Arial','B',9);
-          $this->Cell(70,3, utf8_decode($cliente['desc_cliente']),0,0,'L');
-          $this->Cell(70,3, utf8_decode($cliente['nit_cliente']),0,0,'L');
-          $this->Cell(70,3, utf8_decode($cliente['tel_cliente']),0,0,'L');
-          $this->Cell(70,3, utf8_decode($cliente['dir_cliente']),0,0,'L');
+          $this->Cell(70,5, utf8_decode($cliente['desc_cliente']),0,0,'L');
+          $this->Cell(70,5, utf8_decode($cliente['nit_cliente']),0,0,'L');
+          $this->Cell(70,5, utf8_decode($cliente['tel_cliente']),0,0,'L');
+          $this->Cell(70,5, utf8_decode($cliente['dir_cliente']),0,0,'L');
           $this->Ln();
 
           $t_s = 0;
@@ -215,6 +217,7 @@ foreach ($query1 as $reg) {
             $this->Cell(18,3,$documento['fecha_doc'],0,0,'L');
             $this->Cell(18,3,$documento['fecha_venc'],0,0,'L');
             $this->Cell(26,3,$documento['n_documento'],0,0,'L');
+            $this->Cell(50,3,substr($documento['vendedor'], 0, 26),0,0,'L');
             $this->Cell(50,3,$documento['cond_pago'],0,0,'L');
             $this->Cell(9,3,$documento['dias'],0,0,'R');
             $this->Cell(23,3,number_format(($documento['valor_inicial']),0,".",","),0,0,'R');
@@ -244,7 +247,7 @@ foreach ($query1 as $reg) {
           $this->Cell(33,3,utf8_decode('CUPO TOTAL:'),0,0,'L');
           $this->Cell(34,3,number_format(($cupo),0,".",","),0,0,'L');
           $this->Cell(34,3,utf8_decode('CUPO DISPONIBLE:'),0,0,'L');
-          $this->Cell(34,3,number_format(($cupo_disp),0,".",","),0,0,'L');
+          $this->Cell(84,3,number_format(($cupo_disp),0,".",","),0,0,'L');
           $this->Cell(10,3,'TOTALES',0,0,'R');
           $this->Cell(22,3,number_format(($t_s),0,".",","),0,0,'R');
           $this->Cell(3,3,'',0,0,'L');
@@ -254,14 +257,22 @@ foreach ($query1 as $reg) {
           $this->Cell(22,3,number_format(($t_d),0,".",","),0,0,'R');
           $this->Cell(22,3,number_format(($t_e),0,".",","),0,0,'R');
 
-          $ptp_a = $t_a / $t_s *100;
-          $ptp_b = $t_b / $t_s *100;
-          $ptp_c = $t_c / $t_s *100;
-          $ptp_d = $t_d / $t_s *100;
-          $ptp_e = $t_e / $t_s *100;
+          if($t_s == 0){
+            $ptp_a = 0;
+            $ptp_b = 0;
+            $ptp_c = 0;
+            $ptp_d = 0;
+            $ptp_e = 0;       
+          }else{
+            $ptp_a = $t_a / $t_s *100;
+            $ptp_b = $t_b / $t_s *100;
+            $ptp_c = $t_c / $t_s *100;
+            $ptp_d = $t_d / $t_s *100;
+            $ptp_e = $t_e / $t_s *100;
+          }
 
           $this->Ln();
-          $this->Cell(170,3,'',0,0,'L');
+          $this->Cell(220,3,'',0,0,'L');
           $this->Cell(22,3,number_format(($ptp_a),2,".",",").' %',0,0,'R');
           $this->Cell(22,3,number_format(($ptp_b),2,".",",").' %',0,0,'R');
           $this->Cell(22,3,number_format(($ptp_c),2,".",",").' %',0,0,'R');
@@ -270,7 +281,7 @@ foreach ($query1 as $reg) {
 
           $this->Ln();
           $this->SetDrawColor(0,0,0);
-          $this->Cell(280,1,'','T');                            
+          $this->Cell(340,1,'','T');                            
           $this->Ln();
           $this->Ln();
 
@@ -299,7 +310,7 @@ foreach ($query1 as $reg) {
         $this->Ln();
         $this->Ln();
         $this->SetFont('Arial','B',10);
-        $this->Cell(145,3,utf8_decode('TOTALES'),0,0,'L');
+        $this->Cell(195,3,utf8_decode('TOTALES'),0,0,'L');
         $this->SetFont('Arial','B',8);
         $this->Cell(22,3,number_format(($tf_s),0,".",","),0,0,'R');
         $this->Cell(3,3,'',0,0,'L');
@@ -309,14 +320,22 @@ foreach ($query1 as $reg) {
         $this->Cell(22,3,number_format(($tf_d),0,".",","),0,0,'R');
         $this->Cell(22,3,number_format(($tf_e),0,".",","),0,0,'R');
 
-        $ptf_a = $tf_a / $tf_s *100;
-        $ptf_b = $tf_b / $tf_s *100;
-        $ptf_c = $tf_c / $tf_s *100;
-        $ptf_d = $tf_d / $tf_s *100;
-        $ptf_e = $tf_e / $tf_s *100;
+        if($tf_s == 0){
+          $ptf_a = 0;
+          $ptf_b = 0;
+          $ptf_c = 0;
+          $ptf_d = 0;
+          $ptf_e = 0;      
+        }else{
+          $ptf_a = $tf_a / $tf_s *100;
+          $ptf_b = $tf_b / $tf_s *100;
+          $ptf_c = $tf_c / $tf_s *100;
+          $ptf_d = $tf_d / $tf_s *100;
+          $ptf_e = $tf_e / $tf_s *100;
+        }
 
         $this->Ln();
-        $this->Cell(170,3,'',0,0,'L');
+        $this->Cell(220,3,'',0,0,'L');
         $this->Cell(22,3,number_format(($ptf_a),2,".",",").' %',0,0,'R');
         $this->Cell(22,3,number_format(($ptf_b),2,".",",").' %',0,0,'R');
         $this->Cell(22,3,number_format(($ptf_c),2,".",",").' %',0,0,'R');
@@ -349,7 +368,7 @@ foreach ($query1 as $reg) {
     }
   }
 
-  $pdf = new PDF('L','mm','A4');
+  $pdf = new PDF('L','mm','Legal');
   //se definen las variables extendidas de la libreria FPDF
   $pdf->setFechaActual($fecha_act);
   $pdf->setData($array_clientes);

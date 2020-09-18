@@ -316,7 +316,7 @@ if($opcion == 1){
   $pdf->AddPage();
   $pdf->Tabla();
   ob_end_clean();
-  $pdf->Output('D','Ped_pend_des_pedido_'.date('Y-m-d H_i_s').'.pdf');
+  $pdf->Output('D','Ped_pend_des_pedido_x_marca_'.date('Y-m-d H_i_s').'.pdf');
 }
 
 if($opcion == 2){
@@ -543,7 +543,7 @@ if($opcion == 2){
       }
   }
 
-  $n = 'Ped_pend_des_pedido_'.date('Y-m-d H_i_s');
+  $n = 'Ped_pend_des_pedido_x_marca_'.date('Y-m-d H_i_s');
 
   header('Content-Type: application/vnd.ms-excel');
   header('Content-Disposition: attachment;filename="'.$n.'.xlsx"');

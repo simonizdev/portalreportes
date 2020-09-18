@@ -30,7 +30,7 @@ class ReporteController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform actions
-				'actions'=>array('rentmarca','rentmarcaitem','rentcliente','nivelserviciomarca','nivelserviciopedido','ventasperiodoprom', 'searchcliente','rentoracle', 'rentoracleitem','rentcriterios','saldocarteraruta','saldocarteravendedor','saldocarteracliente','searchclientecart','logmobile','logmobilepant','saldocarteraco','saldocarteraco999','saldocarteracototal','saldocarteracolitigio','clientexfecha','vendedores','vendedorespant','diferenciasrutas','diferenciasrutaspant','diferenciasun','diferenciasunpant','notascredito','rentitem','registroguia','uploadguia','rentiteml560','histcliente','searchclientecartnit','seguimientodoc','uploadseguimientodoc','saldocliente','cambioasesor','facturacomstar','facturapansell','controlpedidoslinea','controlpedidosmarca','controlpedidosoracle','controlpedidossegmento','controlpedidosorigen','pedidosacumlinea','pedidosacummarca','pedidosacumoracle','listasvs560','itemscostos','pqrsdetalle','docsclientespotenciales','clientescrmsiesa','ventaempleado','analisisxproducto','nivelserviciolinea','recaudosvendedor','cobroprejuridico','actualizaciondatos','controlpedidoslinealista','controlpedidosmarcalista','rentinvmarca','rentinvlinea','rentinvoracle','notasdevolucion','notasanulacion','cruceantcli','crucenotcon','errorept','erroreptpant','errortal','errortalpant','errorconectores','errorconectorespant','pedidospenddesreqmarca','docsasesor','pedidospenddesreqlinea','rentxcliente','acttal','acttalpant','actualizartal','rentxcliente560','rentmarcap','rentmarcae','invperu','invperupant','invecuador','invecuadorpant','invcosperu','invcosperupant','invcosecuador','invcosecuadorpant','rentinvmarcap','rentinvmarcae','pedidospenddesmarcap','pedidospenddesmarcae','pedidosacummarcap','pedidosacummarcae','rentmarcaiteml560','listamateriales','listamaterialesdet','listamaterialespant','searchitem','searchitembyid','crucenotcar','actualizaciondatossaldo','revisioncomercial','rentxestructura560','uncomercial','clientespot', 'loadcriterios', 'getopcionplan', 'indpqrs','actept','acteptpant','actualizarbod','logisticaexterior', 'naf','saldocarteraev','fleteguia','uploadfleteguia','cambiofecpedxml','actreca','actrecapant','actualizarreca','consultapagos','consultapagospant','elimrecibo','pedidosacumlineatot','auditoriapedidos','auditoriapedidospant','listap','venposfalt','venposfaltpant','venposentr','venposentrpant','costoxitempos','facturaproforma','elimpedido','fotocart','recxwebservice','facturatitan','rentcriterios560','feeterpeldet','feeterpelcons','cuadrocompraspt','histlibped','itemsexentosiva','descb2b', 'logisticacomercial','analisisventas','pedidospenddesreqtop','estadoitems','uploadestadoitems','consultafactelect','consultafactelectpant','cuadrocomprasmp','pagostiendabinner','uploadpagostiendabinner','printcheq','existcheq','regimpcheq','rprintcheq','verifcheq','regrimpcheq','ingresoswebbinner','uploadingresoswebbinner','facttiendasweb','desptiendasweb','facturapos','confirmacionpagos','uploadconfirmacionpagos','dettranstiendasweb','uploaddettranstiendasweb', 'remisiontugo','elimerrortrans','errortransf','errortransfpant'),
+				'actions'=>array('rentmarca','rentmarcaitem','rentcliente','nivelserviciomarca','nivelserviciopedidoxmarca','nivelserviciopedidoxev','ventasperiodoprom', 'searchcliente','rentoracle', 'rentoracleitem','rentcriterios','saldocarteraruta','saldocarteravendedor','saldocarteracliente','searchclientecart','logmobile','logmobilepant','saldocarteraco','saldocarteraco999','saldocarteracototal','saldocarteracolitigio','clientexfecha','vendedores','vendedorespant','diferenciasrutas','diferenciasrutaspant','diferenciasun','diferenciasunpant','notascredito','rentitem','registroguia','uploadguia','rentiteml560','histcliente','searchclientecartnit','seguimientodoc','uploadseguimientodoc','saldocliente','cambioasesor','facturacomstar','facturapansell','controlpedidoslinea','controlpedidosmarca','controlpedidosoracle','controlpedidossegmento','controlpedidosorigen','pedidosacumlinea','pedidosacummarca','pedidosacumoracle','listasvs560','itemscostos','pqrsdetalle','docsclientespotenciales','clientescrmsiesa','ventaempleado','analisisxproducto','nivelserviciolinea','recaudosvendedor','cobroprejuridico','actualizaciondatos','controlpedidoslinealista','controlpedidosmarcalista','rentinvmarca','rentinvlinea','rentinvoracle','notasdevolucion','notasanulacion','cruceantcli','crucenotcon','errorept','erroreptpant','errortal','errortalpant','errorconectores','errorconectorespant','pedidospenddesreqmarca','docsasesor','pedidospenddesreqlinea','rentxcliente','acttal','acttalpant','actualizartal','rentxcliente560','rentmarcap','rentmarcae','invperu','invperupant','invecuador','invecuadorpant','invcosperu','invcosperupant','invcosecuador','invcosecuadorpant','rentinvmarcap','rentinvmarcae','pedidospenddesmarcap','pedidospenddesmarcae','pedidosacummarcap','pedidosacummarcae','rentmarcaiteml560','listamateriales','listamaterialesdet','listamaterialespant','searchitem','searchitembyid','crucenotcar','actualizaciondatossaldo','revisioncomercial','rentxestructura560','uncomercial','clientespot', 'loadcriterios', 'getopcionplan', 'indpqrs','actept','acteptpant','actualizarbod','logisticaexterior', 'naf','saldocarteraev','fleteguia','uploadfleteguia','cambiofecpedxml','actreca','actrecapant','actualizarreca','consultapagos','consultapagospant','elimrecibo','pedidosacumlineatot','auditoriapedidos','auditoriapedidospant','listap','venposfalt','venposfaltpant','venposentr','venposentrpant','costoxitempos','facturaproforma','elimpedido','fotocart','recxwebservice','facturatitan','rentcriterios560','feeterpeldet','feeterpelcons','cuadrocompraspt','histlibped','itemsexentosiva','descb2b', 'logisticacomercialxora','logisticacomercialxun','analisisventas','pedidospenddesreqtop','estadoitems','uploadestadoitems','consultafactelect','consultafactelectpant','cuadrocomprasmp','pagostiendabinner','uploadpagostiendabinner','printcheq','existcheq','regimpcheq','rprintcheq','verifcheq','regrimpcheq','ingresoswebbinner','uploadingresoswebbinner','facttiendasweb','desptiendasweb','facturapos','confirmacionpagos','uploadconfirmacionpagos','dettranstiendasweb','uploaddettranstiendasweb', 'remisiontugo','elimerrortrans','errortransf','errortransfpant'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -134,22 +134,46 @@ class ReporteController extends Controller
 		));
 	}
 
-	public function actionNivelServicioPedido()
+	public function actionNivelServicioPedidoXmarca()
 	{		
 		$model=new Reporte;
-		$model->scenario = 'nivel_servicio_pedido';
+		$model->scenario = 'nivel_servicio_pedido_x_marca';
 
 		$m_marcas=Marca::model()->findAll(array('order'=>'M_Descripcion'));
 
 		if(isset($_POST['Reporte']))
 		{
 			$model->attributes=$_POST['Reporte'];
-			$this->renderPartial('nivel_servicio_pedido_resp',array('model' => $model));	
+			$this->renderPartial('nivel_servicio_pedido_x_marca_resp',array('model' => $model));	
 		}
 
-		$this->render('nivel_servicio_pedido',array(
+		$this->render('nivel_servicio_pedido_x_marca',array(
 			'model'=>$model,
 			'marcas'=>$m_marcas,
+		));
+	}
+
+	public function actionNivelServicioPedidoXev()
+	{		
+		$model=new Reporte;
+		$model->scenario = 'nivel_servicio_pedido_x_ev';
+
+		$model_ev = Yii::app()->db->createCommand("SELECT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_CLIENTES WHERE Id_Plan=300 Order by Criterio_Descripcion")->queryAll();
+
+		$lista_ev = array();
+		foreach ($model_ev as $m_ev) {
+			$lista_ev[$m_ev['Id_Criterio']] = $m_ev['Criterio_Descripcion'];
+		}
+
+		if(isset($_POST['Reporte']))
+		{
+			$model->attributes=$_POST['Reporte'];
+			$this->renderPartial('nivel_servicio_pedido_x_ev_resp',array('model' => $model));	
+		}
+
+		$this->render('nivel_servicio_pedido_x_ev',array(
+			'model'=>$model,
+			'lista_ev'=>$lista_ev,
 		));
 	}
 
@@ -3327,10 +3351,10 @@ class ReporteController extends Controller
 		));
 	}
 
-	public function actionLogisticaComercial()
+	public function actionLogisticaComercialxOra()
 	{		
 		$model=new Reporte;
-		$model->scenario = 'logistica_comercial';
+		$model->scenario = 'logistica_comercial_x_ora';
 
 		$oracle = Yii::app()->db->createCommand("SELECT M_Rowid, M_Descripcion FROM TH_ORACLE ORDER BY M_Descripcion")->queryAll();
 
@@ -3341,12 +3365,35 @@ class ReporteController extends Controller
 
 		if(isset($_POST['Reporte']))
 		{
-			$this->renderPartial('logistica_comercial_resp',array('model' => $_POST['Reporte']));
+			$this->renderPartial('logistica_comercial_x_ora_resp',array('model' => $_POST['Reporte']));
 		}
 
-		$this->render('logistica_comercial',array(
+		$this->render('logistica_comercial_x_ora',array(
 			'model'=>$model,
 			'lista_oracle'=>$lista_oracle,
+		));
+	}
+
+	public function actionLogisticaComercialxUn()
+	{		
+		$model=new Reporte;
+		$model->scenario = 'logistica_comercial_x_un';
+
+		$un = Yii::app()->db->createCommand("SELECT DISTINCT Criterio_Descripcion AS DESCRIPCION FROM TH_CRITERIOS_ITEMS WHERE Id_Plan=900")->queryAll();
+
+		$lista_un = array();
+		foreach ($un as $lun) {
+			$lista_un[$lun['DESCRIPCION']] = $lun['DESCRIPCION'];
+		}
+
+		if(isset($_POST['Reporte']))
+		{
+			$this->renderPartial('logistica_comercial_x_un_resp',array('model' => $_POST['Reporte']));
+		}
+
+		$this->render('logistica_comercial_x_un',array(
+			'model'=>$model,
+			'lista_un'=>$lista_un,
 		));
 	}
 

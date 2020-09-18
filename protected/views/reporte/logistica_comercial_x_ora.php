@@ -1,10 +1,10 @@
 <?php
-/* @var $this ReporteController */
-/* @var $model Reporte */
+/* @var $this InventarioController */
+/* @var $model Inventario */
 
 ?>
 
-<h4>Saldo de cartera por estructura de ventas</h4>
+<h4>Logistica comercial x cat. oracle</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'reporte-form',
@@ -19,52 +19,50 @@
 )); ?>
 
 <div class="row">
-    <div class="col-sm-6">
+  <div class="col-sm-6">
       <div class="form-group">
-          <?php echo $form->error($model,'ev', array('class' => 'badge badge-warning float-right')); ?>
-          <?php echo $form->label($model,'ev'); ?>
+          <?php echo $form->error($model,'des_ora_ini', array('class' => 'badge badge-warning float-right')); ?>
+          <?php echo $form->label($model,'des_ora_ini'); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
-                  'name'=>'Reporte[ev]',
-                  'id'=>'Reporte_ev',
-                  'data'=> $lista_evs,
-                  'htmlOptions'=>array(),
+                  'name'=>'Reporte[des_ora_ini]',
+                  'id'=>'Reporte_des_ora_ini',
+                  'data'=> $lista_oracle,
                   'options'=>array(
-                    'placeholder'=>'Seleccione...',
-                    'width'=> '100%',
-                    'allowClear'=>true,
+                      'placeholder'=>'Seleccione...',
+                      'width'=> '100%',
+                      'allowClear'=>true,
                   ),
               ));
           ?>
       </div>
-    </div>
-    <div class="col-sm-4">
-      <?php echo $form->error($model,'opcion_exp', array('class' => 'badge badge-warning float-right')); ?>
-      <?php echo $form->label($model,'opcion_exp'); ?><br>
-      <?php 
-        echo $form->radioButtonList($model,'opcion_exp',
-            array('1'=>'<i class="far fa-file-pdf" aria-hidden="true"></i> PDF','2'=>'<i class="far fa-file-excel" aria-hidden="true"></i> EXCEL'),
-            array(
-                'template'=>'{input}{label}',
-                'separator'=>'',
-                'labelOptions'=>array(
-                    'style'=> '
-                        padding-left:1%;
-                        padding-right:5%;
-                  '),
-                )                              
-            );
-      ?>     
-    </div>
+  </div>
+  <div class="col-sm-6">
+      <div class="form-group">
+          <?php echo $form->error($model,'des_ora_fin', array('class' => 'badge badge-warning float-right')); ?>
+          <?php echo $form->label($model,'des_ora_fin'); ?>
+          <?php
+              $this->widget('ext.select2.ESelect2',array(
+                  'name'=>'Reporte[des_ora_fin]',
+                  'id'=>'Reporte_des_ora_fin',
+                  'data'=> $lista_oracle,
+                  'options'=>array(
+                      'placeholder'=>'Seleccione...',
+                      'width'=> '100%',
+                      'allowClear'=>true,
+                  ),
+              ));
+          ?>
+      </div>
+  </div>
 </div>
-    
+
 <div class="row mb-2">
     <div class="col-sm-6">  
       <button type="button" class="btn btn-success btn-sm" onclick="resetfields();"><i class="fa fa-eraser"></i> Limpiar filtros</button>
-      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-cogs"></i> Generar</button>
+      <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-file-excel"></i> Generar</button>
     </div>
 </div>
-
 <?php $this->endWidget(); ?>
 
 <script>
@@ -100,7 +98,8 @@ $(function() {
 });
 
 function resetfields(){
-  $('#Reporte_ev').val('').trigger('change');
+  $('#Reporte_des_ora_ini').val('').trigger('change');
+  $('#Reporte_des_ora_fin').val('').trigger('change');
 }
 
 </script>

@@ -251,4 +251,78 @@ class UtilidadesVarias {
 		return $desc['DESCR'];
 
     }
+
+    public static function envioemailliq($id, $email, $ruta_archivo) {
+
+
+		$modelo_wip = Wip::model()->findByPk($id);
+
+		$info = $modelo_wip->WIP;
+
+		set_time_limit(0); 
+
+		// Se inactiva el autoloader de yii
+		spl_autoload_unregister(array('YiiBase','autoload'));  
+
+		//require_once(Yii::app()->basePath . '\extensions\PHPMailer\class.phpmailer.php');
+		//require_once(Yii::app()->basePath . '\extensions\PHPMailer\class.smtp.php');
+
+		require_once(Yii::app()->basePath . '\extensions\PHPMailer\src\PHPMailer.php');
+		require_once(Yii::app()->basePath . '\extensions\PHPMailer\src\SMTP.php');
+
+		//cuando se termina la accion relacionada con la libreria se activa el autoloader de yii
+		spl_autoload_register(array('YiiBase','autoload'));
+
+		$cuenta = Yii::app()->params->email_send_emails;
+		$password = Yii::app()->params->psw_send_emails;
+		$de = Yii::app()->params->email_send_emails;
+		$de_nombre = Yii::app()->params->name_send_emails_com;
+
+		$para = $email;
+		
+		$asunto = "Detalle WIP ".$info;
+	
+		$hora = date('H');
+
+	    if($hora >= 0 && $hora <= 12){
+	        $mensaje_hora = "Buenos días,";
+	    }
+
+	    if($hora >= 13 && $hora <= 16){
+	        $mensaje_hora = "Buenos tardes,";
+	    }
+
+	    if($hora >= 17 && $hora <= 23){
+	        $mensaje_hora = "Buenos noches,";
+	    }
+		
+		$mensaje = $mensaje_hora."<br><br>
+		Se Adjunta documento PDF con detalle de WIP.<br>";
+
+		$mail = new PHPMailer\PHPMailer\PHPMailer;
+		$mail->IsSMTP();
+		$mail->CharSet = 'UTF-8';
+		$mail->Host = "secure.emailsrvr.com";
+		$mail->SMTPAuth= true;
+		$mail->Port = 465;
+	 	$mail->Username= $cuenta;
+		$mail->Password= $password;
+		$mail->SMTPSecure = 'ssl';
+		$mail->From = $de;
+ 		$mail->FromName= $de_nombre;
+		$mail->isHTML(true);
+		$mail->Subject = $asunto;
+		$mail->Body = $mensaje; 
+
+		$mail->addAddress($email);
+
+		$mail->AddAttachment( $ruta_archivo, "WIP ".$info.'.pdf');
+
+		if(!$mail->send()){
+			echo 0;
+		}else{
+		 	echo 1;
+		}
+	
+	}
 }
