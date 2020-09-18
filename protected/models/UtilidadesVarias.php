@@ -319,9 +319,9 @@ class UtilidadesVarias {
 		$mail->AddAttachment( $ruta_archivo, "WIP ".$info.'.pdf');
 
 		if(!$mail->send()){
-			echo 0;
+			return 0;
 		}else{
-		 	echo 1;
+		 	return 1;
 		}
 	
 	}

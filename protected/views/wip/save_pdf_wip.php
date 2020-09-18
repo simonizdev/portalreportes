@@ -230,11 +230,13 @@ if($cadena_emails_adic != ""){
 
         foreach ($array_emails as $llave => $email) {
             $resp = UtilidadesVarias::envioemailliq($id ,$email, $nombre_archivo_gen);
-            $num_notif = $num_notif + $resp;
+            $num_notif = $num_notif + intval($resp);
         }
 
         unlink(Yii::app()->basePath.'/../images/wip/WIP '.$modelo_wip->WIP.'.pdf');
     }
+
+    echo $num_notif;
 
 }
 
