@@ -41,6 +41,8 @@ $cs->registerScriptFile(Yii::app()->theme->baseUrl."/plugins/bootstrap/js/bootst
   <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/plugins/daterangepicker/daterangepicker.css">
   <!-- bootstrap datepicker -->
   <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/plugins/timepicker/bootstrap-timepicker.min.css">
   <!-- summernote -->
   <link rel="stylesheet" href="<?php echo Yii::app()->theme->baseUrl; ?>/plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
@@ -363,6 +365,8 @@ $(function() {
 <script src="<?php echo Yii::app()->theme->baseUrl; ?>/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- bootstrap datepicker -->
 <script src="<?php echo Yii::app()->theme->baseUrl; ?>/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="<?php echo Yii::app()->theme->baseUrl; ?>/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="<?php echo Yii::app()->theme->baseUrl; ?>/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
@@ -509,6 +513,15 @@ $(function() {
       autoclose: true,
       orientation: "right bottom",
   });
+
+  $('.timepicker').timepicker({
+      template: false,
+      showInputs: true,
+      minuteStep: 15,
+      defaultTime: false,
+      timeFormat: 'h:mm p',
+      //showMeridian: false
+  });
   
 });
 
@@ -534,6 +547,14 @@ function limp_div_msg(){
 
 function formatNumber(num) {
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+
+function soloNumeros(e){
+  var keynum = window.event ? window.event.keyCode : e.which;
+  if ((keynum == 8) || (keynum == 46))
+  return true;
+   
+  return /\d/.test(String.fromCharCode(keynum));
 }
 
 // Validacion de extensiones permitidas
