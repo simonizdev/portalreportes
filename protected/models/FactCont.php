@@ -55,7 +55,7 @@ class FactCont extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Num_Factura, Fecha_Radicado, Proveedor, Fecha_Factura, Valor, Moneda, Empresa, Area', 'required'),
-			array('Num_Factura, Proveedor, Estado', 'ECompositeUniqueValidator', 'attributesToAddError'=>'Num_Factura','message'=>'# Factura - prov. ya existe en el sistema.'),
+			array('Num_Factura, Proveedor', 'ECompositeUniqueValidator', 'attributesToAddError'=>'Num_Factura','message'=>'# Factura - prov. ya existe en el sistema.'),
 			array('Proveedor, Moneda, Empresa, Area, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
 			array('Num_Factura', 'length', 'max'=>20),
 			array('Valor', 'length', 'max'=>18),
