@@ -7,34 +7,12 @@
 <script type="text/javascript">
 $(function() {
 
-	var tipo_producto = $('#FichaItem_Tipo_Producto').val();
-
-	if(tipo_producto == 1){
-		$('#un_gtin').show();
-		$('#log_ep').show();
-		$('#log_se_cad').show();
-
-
-	}else{
-		$('#un_gtin').hide();
-		$('#log_ep').hide();
-		$('#log_se_cad').hide();
-	}
-	   
-	//se llenan las opciones seleccionadas del modelo
-	$('#FichaItem_Instalaciones').val(<?php echo $instalaciones_activas ?>).trigger('change');
-	$('#FichaItem_Bodegas').val(<?php echo $bodegas_activas ?>).trigger('change');
+	$('#FichaItem_Codigo_Item').attr("disabled", true);
 
 });
 </script>
 
 <h4>Solicitud actualización de producto en siesa</h4>
-
-<?php
-
-$estados2 = Yii::app()->params->estados2;
-
-?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'ficha-item-form',
@@ -49,49 +27,62 @@ $estados2 = Yii::app()->params->estados2;
 )); ?>
 
 <div class="row">
-	<div class="col-sm-4">
+    <div class="col-sm-8">
         <div class="form-group">
-            <?php echo $form->label($model,'Tipo_Producto'); ?>
-            <?php echo $form->error($model,'Tipo_Producto', array('class' => 'badge badge-warning float-right')); ?>
-            <?php $tipos_p = array(1 => 'TERMINADO', 2 => 'EN PROCESO', 3 => 'POP' , 4 => 'MATERIA PRIMA'); ?>
+            <?php echo $form->label($model,'Codigo_Item'); ?>
+            <?php echo $form->error($model,'Codigo_Item', array('class' => 'badge badge-warning float-right')); ?>
+            <?php echo $form->textField($model,'Codigo_Item'); ?>
             <?php
-                $this->widget('ext.select2.ESelect2',array(
-                    'name'=>'FichaItem[Tipo_Producto]',
-                    'id'=>'FichaItem_Tipo_Producto',
-                    'data'=>$tipos_p,
-                    'value' => $model->Tipo_Producto,
-                    'htmlOptions'=>array(
-                        'readonly'=>true,
-                    ),
-                    'options'=>array(
-                        'placeholder'=>'Seleccione...',
-                        'width'=> '100%',
-                        'allowClear'=>true,
+                $this->widget('ext.select2.ESelect2', array(
+                    'selector' => '#FichaItem_Codigo_Item',
+                    'options'  => array(
+                        'allowClear' => true,
+                        'minimumInputLength' => 3,
+                        'width' => '100%',
+                        'language' => 'es',
+                        'ajax' => array(
+                            'url' => Yii::app()->createUrl('fichaItem/SearchItem'),
+                            'dataType'=>'json',
+                            'data'=>'js:function(term){return{q: term};}',
+                            'results'=>'js:function(data){ return {results:data};}'                   
+                        ),
+                        'formatNoMatches'=> 'js:function(){ clear_select2_ajax("FichaItem_Codigo_Item"); return "No se encontraron resultados"; }',
+                        'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'FichaItem_Codigo_Item\')\">Limpiar campo</button>"; }',
+                        'initSelection'=>'js:function(element,callback) {
+                            var id=$(element).val(); // read #selector value
+                            if ( id !== "" ) {
+                                $.ajax("'.Yii::app()->createUrl('fichaItem/SearchItemById').'", {
+                                    data: { id: id },
+                                    dataType: "json"
+                                }).done(function(data,textStatus, jqXHR) { callback(data[0]); });
+                           }
+                        }',
                     ),
                 ));
             ?>
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Tiempo_Reposicion'); ?>
-		    <?php echo $form->error($model,'Tiempo_Reposicion', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Tiempo_Reposicion'); ?>
+            <?php echo $form->error($model,'Tiempo_Reposicion', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->textField($model,'Tiempo_Reposicion', array('class' => 'form-control form-control-sm', 'maxlength' => '4', 'onkeypress' => 'return soloNumeros(event);', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'readonly' => true)); ?>
         </div>
     </div>
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Cant_Moq'); ?>
-		    <?php echo $form->error($model,'Cant_Moq', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Cant_Moq'); ?>
+            <?php echo $form->error($model,'Cant_Moq', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->textField($model,'Cant_Moq', array('class' => 'form-control form-control-sm', 'maxlength' => '4', 'onkeypress' => 'return soloNumeros(event);', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'readonly' => true)); ?>
         </div>
     </div>
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Stock_Minimo'); ?>
-		    <?php echo $form->error($model,'Stock_Minimo', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Stock_Minimo'); ?>
+            <?php echo $form->error($model,'Stock_Minimo', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->textField($model,'Stock_Minimo', array('class' => 'form-control form-control-sm', 'maxlength' => '4', 'onkeypress' => 'return soloNumeros(event);', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'readonly' => true)); ?>
         </div>
     </div>
@@ -101,9 +92,9 @@ $estados2 = Yii::app()->params->estados2;
 
 <div class="row">
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_Origen'); ?>
-		    <?php echo $form->error($model,'Crit_Origen', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Origen'); ?>
+            <?php echo $form->error($model,'Crit_Origen', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_Origen]',
@@ -123,9 +114,9 @@ $estados2 = Yii::app()->params->estados2;
         </div>
     </div>
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_Tipo'); ?>
-		    <?php echo $form->error($model,'Crit_Tipo', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Tipo'); ?>
+            <?php echo $form->error($model,'Crit_Tipo', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_Tipo]',
@@ -145,9 +136,9 @@ $estados2 = Yii::app()->params->estados2;
         </div>
     </div>
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_Clasificacion'); ?>
-		    <?php echo $form->error($model,'Crit_Clasificacion', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Clasificacion'); ?>
+            <?php echo $form->error($model,'Crit_Clasificacion', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_Clasificacion]',
@@ -169,9 +160,9 @@ $estados2 = Yii::app()->params->estados2;
 </div>
 <div class="row">
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_Marca'); ?>
-		    <?php echo $form->error($model,'Crit_Marca', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Marca'); ?>
+            <?php echo $form->error($model,'Crit_Marca', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_Marca]',
@@ -191,9 +182,9 @@ $estados2 = Yii::app()->params->estados2;
         </div>
     </div>
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_Submarca'); ?>
-		    <?php echo $form->error($model,'Crit_Submarca', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Submarca'); ?>
+            <?php echo $form->error($model,'Crit_Submarca', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_Submarca]',
@@ -213,9 +204,9 @@ $estados2 = Yii::app()->params->estados2;
         </div>
     </div>
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_Segmento'); ?>
-		    <?php echo $form->error($model,'Crit_Segmento', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Segmento'); ?>
+            <?php echo $form->error($model,'Crit_Segmento', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_Segmento]',
@@ -237,9 +228,9 @@ $estados2 = Yii::app()->params->estados2;
 </div>
 <div class="row">
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_Familia'); ?>
-		    <?php echo $form->error($model,'Crit_Familia', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Familia'); ?>
+            <?php echo $form->error($model,'Crit_Familia', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_Familia]',
@@ -259,9 +250,9 @@ $estados2 = Yii::app()->params->estados2;
         </div>
     </div>
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_Subfamilia'); ?>
-		    <?php echo $form->error($model,'Crit_Subfamilia', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Subfamilia'); ?>
+            <?php echo $form->error($model,'Crit_Subfamilia', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_Subfamilia]',
@@ -281,9 +272,9 @@ $estados2 = Yii::app()->params->estados2;
         </div>
     </div>
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_Linea'); ?>
-		    <?php echo $form->error($model,'Crit_Linea', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Linea'); ?>
+            <?php echo $form->error($model,'Crit_Linea', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_Linea]',
@@ -305,9 +296,9 @@ $estados2 = Yii::app()->params->estados2;
 </div>
 <div class="row">
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_Sublinea'); ?>
-		    <?php echo $form->error($model,'Crit_Sublinea', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Sublinea'); ?>
+            <?php echo $form->error($model,'Crit_Sublinea', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_Sublinea]',
@@ -327,9 +318,9 @@ $estados2 = Yii::app()->params->estados2;
         </div>
     </div>
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_Grupo'); ?>
-		    <?php echo $form->error($model,'Crit_Grupo', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Grupo'); ?>
+            <?php echo $form->error($model,'Crit_Grupo', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_Grupo]',
@@ -349,9 +340,9 @@ $estados2 = Yii::app()->params->estados2;
         </div>
     </div>
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_UN'); ?>
-		    <?php echo $form->error($model,'Crit_UN', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_UN'); ?>
+            <?php echo $form->error($model,'Crit_UN', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_UN]',
@@ -373,9 +364,9 @@ $estados2 = Yii::app()->params->estados2;
 </div>
 <div class="row">
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_Fabrica'); ?>
-		    <?php echo $form->error($model,'Crit_Fabrica', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Fabrica'); ?>
+            <?php echo $form->error($model,'Crit_Fabrica', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_Fabrica]',
@@ -395,9 +386,9 @@ $estados2 = Yii::app()->params->estados2;
         </div>
     </div>
     <div class="col-sm-4">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Crit_Cat_Oracle'); ?>
-		    <?php echo $form->error($model,'Crit_Cat_Oracle', array('class' => 'badge badge-warning float-right')); ?>
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Cat_Oracle'); ?>
+            <?php echo $form->error($model,'Crit_Cat_Oracle', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'FichaItem[Crit_Cat_Oracle]',
@@ -418,57 +409,18 @@ $estados2 = Yii::app()->params->estados2;
     </div>
 </div>
 <div class="row">
-	<div class="col-sm-12">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Instalaciones'); ?>
-		    <?php echo $form->error($model,'Instalaciones', array('class' => 'badge badge-warning float-right')); ?>
-            <?php
-                $this->widget('ext.select2.ESelect2',array(
-                    'name'=>'FichaItem[Instalaciones]',
-                    'id'=>'FichaItem_Instalaciones',
-                    'data'=>$lista_ins,
-                    'value' => $model->Instalaciones,
-                    'htmlOptions'=>array(
-                        'multiple'=>'multiple',
-                        'readonly'=>true,
-                    ),
-                    'options'=>array(
-                        'placeholder'=>'Seleccione...',
-                        'width'=> '100%',
-                        'allowClear'=>true,
+    <?php if($model->Estado_Solicitud == 0){ ?>
 
-                    ),
-                ));
-            ?>
+    <div class="col-sm-9">
+        <div class="form-group">
+            <?php echo $form->label($model,'Observaciones', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Observaciones', array('class' => 'badge badge-warning float-right')); ?>
+            <?php echo $form->textArea($model,'Observaciones',array('class' => 'form-control form-control-sm', 'rows'=>2, 'cols'=>50, 'maxlength'=>400, 'onkeyup' => 'convert_may(this)', 'readonly' => true)); ?>
         </div>
     </div>
-</div>
-<div class="row">   
-    <div class="col-sm-12">
-    	<div class="form-group">
-          	<?php echo $form->label($model,'Bodegas'); ?>
-		    <?php echo $form->error($model,'Bodegas', array('class' => 'badge badge-warning float-right')); ?>
-            <?php
-                $this->widget('ext.select2.ESelect2',array(
-                    'name'=>'FichaItem[Bodegas]',
-                    'id'=>'FichaItem_Bodegas',
-                    'data'=>$lista_bodegas,
-                    'value' => $model->Bodegas,
-                    'htmlOptions'=>array(
-                        'multiple'=>'multiple',
-                        'readonly'=>true,
-                    ),
-                    'options'=>array(
-                        'placeholder'=>'Seleccione...',
-                        'width'=> '100%',
-                        'allowClear'=>true,
-                    ),
-                ));
-            ?>
-        </div>
-    </div>
-</div>
-<div class="row">
+
+    <?php } ?>
+
     <div class="col-sm-3">
         <div class="form-group">
             <?php echo $form->label($model,'Estado_Solicitud', array('class' => 'control-label')); ?>
@@ -503,7 +455,7 @@ $estados2 = Yii::app()->params->estados2;
             <p><?php echo UtilidadesVarias::textofechahora($model->Fecha_Hora_Revision); ?></p>
         </div>
     </div>
-<?php } ?>
+    <?php } ?>
 </div>
 
 <div class="row mb-4">

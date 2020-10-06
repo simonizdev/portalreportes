@@ -29,7 +29,6 @@ $estados2 = Yii::app()->params->estados2;
                 $this->widget('ext.select2.ESelect2', array(
                     'selector' => '#FichaItem_Codigo_Item',
                     'options'  => array(
-                        'readonly'=>true,
                         'allowClear' => true,
                         'minimumInputLength' => 3,
                         'width' => '100%',
@@ -51,9 +50,6 @@ $estados2 = Yii::app()->params->estados2;
                                 }).done(function(data,textStatus, jqXHR) { callback(data[0]); });
                            }
                         }',
-                    ),
-                    'htmlOptions'=>array(
-                        'readonly'=>true,
                     ),
                 ));
             ?>
@@ -410,7 +406,7 @@ $estados2 = Yii::app()->params->estados2;
     <div class="col-sm-6">  
         <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/rev'; ?>';"><i class="fa fa-reply"></i> Volver</button>
         <button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-minus-circle "></i> Rechazar</button>
-        <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-check-circle"></i> Aprobar</button>
+        <button type="button" class="btn btn-success btn-sm" id="aprobar_form"><i class="fas fa-check-circle"></i> Aprobar</button>
     </div>
 </div>
 <?php $this->endWidget(); ?>

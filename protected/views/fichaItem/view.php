@@ -1004,6 +1004,17 @@ $estados2 = Yii::app()->params->estados2;
     </div>
 </div>
 <div class="row">
+    <?php if($model->Estado_Solicitud == 0){ ?>
+
+    <div class="col-sm-9">
+        <div class="form-group">
+            <?php echo $form->label($model,'Observaciones', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Observaciones', array('class' => 'badge badge-warning float-right')); ?>
+            <?php echo $form->textArea($model,'Observaciones',array('class' => 'form-control form-control-sm', 'rows'=>2, 'cols'=>50, 'maxlength'=>400, 'onkeyup' => 'convert_may(this)', 'readonly' => true)); ?>
+        </div>
+    </div>
+
+    <?php } ?>
     <div class="col-sm-3">
         <div class="form-group">
             <?php echo $form->label($model,'Estado_Solicitud', array('class' => 'control-label')); ?>

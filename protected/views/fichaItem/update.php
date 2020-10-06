@@ -26,7 +26,6 @@ $(function() {
 	$('#FichaItem_Bodegas').val(<?php echo $bodegas_activas ?>).trigger('change');
 
 	$("#valida_form").click(function() {
-		debugger;
 
       	var form = $("#ficha-item-form");
 		var settings = form.data('settings') ;
@@ -130,7 +129,7 @@ $(function() {
 		var opcion = confirm("Desea rechazar la solicitud?");
 	    if (opcion == true) {
 	    	loadershow();
-	       	location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/rechazar&id='.$model->Id; ?>';
+	       	location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/notas&id='.$model->Id; ?>';
 	   	} 
 	});
 });

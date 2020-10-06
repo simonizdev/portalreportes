@@ -7,135 +7,19 @@
 <script type="text/javascript">
 $(function() {
 
-	var tipo_producto = $('#FichaItem_Tipo_Producto').val();
-
-	if(tipo_producto == 1){
-		$('#un_gtin').show();
-		$('#log_ep').show();
-		$('#log_se_cad').show();
-
-
-	}else{
-		$('#un_gtin').hide();
-		$('#log_ep').hide();
-		$('#log_se_cad').hide();
-	}
-
-	$("#valida_form").click(function() {
-		debugger;
-
-      	var form = $("#ficha-item-form");
-		var settings = form.data('settings') ;
-
-		var tipo_producto = $("#FichaItem_Tipo_Producto").val();
-
-		var codigo = $("#FichaItem_Codigo_Item").val();
-		var referencia = $("#FichaItem_Referencia").val();
-		var tipo_inv = $("#FichaItem_Tipo_Inventario").val();
-		var grupo_imp = $("#FichaItem_Grupo_Impositivo").val();
-		var un_gtin = $("#FichaItem_Un_Gtin").val();
-		var ep_gtin = $("#FichaItem_Ep_Gtin").val();
-		var cad_gtin = $("#FichaItem_Cad_Gtin").val();
-
-		if(tipo_producto == 1){	
-
-	    	if(un_gtin != "" && ep_gtin != "" && cad_gtin != ""){
-	        	$valid = 1;
-	    	}else{
-	    		if(un_gtin == ""){
-			        $('#FichaItem_Un_Gtin_em_').html('Gtin es requerido.');
-			        $('#FichaItem_Un_Gtin_em_').show(); 
-			    }
-
-			    if(ep_gtin == ""){
-			        $('#FichaItem_Ep_Gtin_em_').html('Gtin es requerido.');
-			        $('#FichaItem_Ep_Gtin_em_').show(); 
-			    }
-
-			    if(cad_gtin == ""){
-			        $('#FichaItem_Cad_Gtin_em_').html('Gtin es requerido.');
-			        $('#FichaItem_Cad_Gtin_em_').show(); 
-			    }
-
-		        $valid = 0;
-
-		    }
-
-		  }else{
-		  	$valid = 1;
-		  }
-
-	      settings.submitting = true ;
-	      $.fn.yiiactiveform.validate(form, function(messages) {
-	          if($.isEmptyObject(messages)) {
-	            $.each(settings.attributes, function () {
-	                $.fn.yiiactiveform.updateInput(this,messages,form); 
-	            });
-
-	            if($valid == 1){
-	            	//se envia el form
-		        	form.submit();
-		        	loadershow();
-	            }else{
-	            	if(un_gtin == ""){
-				        $('#FichaItem_Un_Gtin_em_').html('Gtin es requerido.');
-				        $('#FichaItem_Un_Gtin_em_').show(); 
-				    }
-
-				    if(ep_gtin == ""){
-				        $('#FichaItem_Ep_Gtin_em_').html('Gtin es requerido.');
-				        $('#FichaItem_Ep_Gtin_em_').show(); 
-				    }
-
-				    if(cad_gtin == ""){
-				        $('#FichaItem_Cad_Gtin_em_').html('Gtin es requerido.');
-				        $('#FichaItem_Cad_Gtin_em_').show(); 
-				    }
-	            }
-	             
-	          } else {
-	              settings = form.data('settings'),
-	              $.each(settings.attributes, function () {
-	                 $.fn.yiiactiveform.updateInput(this,messages,form); 
-	              });
-	              settings.submitting = false ;
-
-	              if(tipo_producto == 1){	
-			    		if(un_gtin == ""){
-					        $('#FichaItem_Un_Gtin_em_').html('Gtin es requerido.');
-					        $('#FichaItem_Un_Gtin_em_').show(); 
-					    }
-
-					    if(ep_gtin == ""){
-					        $('#FichaItem_Ep_Gtin_em_').html('Gtin es requerido.');
-					        $('#FichaItem_Ep_Gtin_em_').show(); 
-					    }
-
-					    if(cad_gtin == ""){
-					        $('#FichaItem_Cad_Gtin_em_').html('Gtin es requerido.');
-					        $('#FichaItem_Cad_Gtin_em_').show(); 
-					    }
-
-				        $valid = 0;
-				  }
-	          }
-	      });
-	});
+	$('#FichaItem_Codigo_Item').attr("disabled", true);
 
 	$("#rechazar_form").click(function() {
 		var opcion = confirm("Desea rechazar la solicitud?");
 	    if (opcion == true) {
 	    	loadershow();
-	       	location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/rechazar&id='.$model->Id; ?>';
+	       	location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/notas&id='.$model->Id; ?>';
 	   	} 
 	});
 
 	$("#aprobar_form").click(function() {
-		var opcion = confirm("Desea aprobar la solicitud?");
-	    if (opcion == true) {
-	    	loadershow();
-	       	location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/aprobar&id='.$model->Id; ?>';
-	   	} 
+    	loadershow();
+       	location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/aprobar&id='.$model->Id; ?>';
 	});
 
 });

@@ -28,11 +28,11 @@ class FichaItemController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('view','create','create2','update','update2','rechazar','aprobar','searchitem','searchitembyid'),
+				'actions'=>array('view','view2','create','create2','update','update2','aprobar','searchitem','searchitembyid','getinfoitem'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','rev'),
+				'actions'=>array('admin','rev','notas'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -234,6 +234,137 @@ class FichaItemController extends Controller
 			'instalaciones_activas'=>$instalaciones_activas,
 			'bodegas_activas'=>$bodegas_activas,
 
+		));
+	}
+
+	public function actionView2($id, $opc)
+	{
+		
+		$model = $this->loadModel($id);
+
+		$origen = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 100 ORDER BY 2")->queryAll();
+
+		$lista_origen = array();
+		foreach ($origen as $ori) {
+			$lista_origen[trim($ori['Id_Criterio'])] = $ori['Criterio_Descripcion'];
+		}
+
+		$tipo = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 200 ORDER BY 2")->queryAll();
+
+		$lista_tipo = array();
+		foreach ($tipo as $tip) {
+			$lista_tipo[trim($tip['Id_Criterio'])] = $tip['Criterio_Descripcion'];
+		}
+
+		$clasif = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 300 ORDER BY 2")->queryAll();
+
+		$lista_clasif = array();
+		foreach ($clasif as $clas) {
+			$lista_clasif[trim($clas['Id_Criterio'])] = $clas['Criterio_Descripcion'];
+		}
+
+		$clase = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 400 ORDER BY 2")->queryAll();
+
+		$lista_clase = array();
+		foreach ($clase as $cl) {
+			$lista_clase[trim($cl['Id_Criterio'])] = $cl['Criterio_Descripcion'];
+		}
+
+		$marca = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 500 ORDER BY 2")->queryAll();
+
+		$lista_marca = array();
+		foreach ($marca as $mar) {
+			$lista_marca[trim($mar['Id_Criterio'])] = $mar['Criterio_Descripcion'];
+		}
+
+		$submarca = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 550 ORDER BY 2")->queryAll();
+
+		$lista_submarca = array();
+		foreach ($submarca as $subm) {
+			$lista_submarca[trim($subm['Id_Criterio'])] = $subm['Criterio_Descripcion'];
+		}
+
+		$segmento = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 600 ORDER BY 2")->queryAll();
+
+		$lista_segmento = array();
+		foreach ($segmento as $seg) {
+			$lista_segmento[trim($seg['Id_Criterio'])] = $seg['Criterio_Descripcion'];
+		}
+
+		$familia = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 650 ORDER BY 2")->queryAll();
+
+		$lista_familia = array();
+		foreach ($familia as $fam) {
+			$lista_familia[trim($fam['Id_Criterio'])] = $fam['Criterio_Descripcion'];
+		}
+
+		$linea = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 700 ORDER BY 2")->queryAll();
+
+		$lista_linea = array();
+		foreach ($linea as $lin) {
+			$lista_linea[trim($lin['Id_Criterio'])] = $lin['Criterio_Descripcion'];
+		}
+
+		$subfamilia = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 750 ORDER BY 2")->queryAll();
+
+		$lista_subfamilia = array();
+		foreach ($subfamilia as $subfam) {
+			$lista_subfamilia[trim($subfam['Id_Criterio'])] = $subfam['Criterio_Descripcion'];
+		}
+
+		$sublinea = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 800 ORDER BY 2")->queryAll();
+
+		$lista_sublinea = array();
+		foreach ($sublinea as $sublin) {
+			$lista_sublinea[trim($sublin['Id_Criterio'])] = $sublin['Criterio_Descripcion'];
+		}
+
+		$grupo = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 850 ORDER BY 2")->queryAll();
+
+		$lista_grupo = array();
+		foreach ($grupo as $gr) {
+			$lista_grupo[trim($gr['Id_Criterio'])] = $gr['Criterio_Descripcion'];
+		}
+
+		$uni_neg = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 900 ORDER BY 2")->queryAll();
+
+		$lista_un = array();
+		foreach ($uni_neg as $un) {
+			$lista_un[trim($un['Id_Criterio'])] = $un['Criterio_Descripcion'];
+		}
+
+		$fabrica = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 920 ORDER BY 2")->queryAll();
+
+		$lista_fabrica = array();
+		foreach ($fabrica as $fab) {
+			$lista_fabrica[trim($fab['Id_Criterio'])] = $fab['Criterio_Descripcion'];
+		}
+
+		$oracle = Yii::app()->db->createCommand("SELECT DISTINCT Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_ITEMS WHERE Id_Plan = 950 ORDER BY 2")->queryAll();
+
+		$lista_oracle = array();
+		foreach ($oracle as $ora) {
+			$lista_oracle[trim($ora['Id_Criterio'])] = $ora['Criterio_Descripcion'];
+		}
+
+		$this->render('view2',array(
+			'opc'=>$opc,
+			'model'=>$model,
+			'lista_origen'=>$lista_origen,
+			'lista_tipo'=>$lista_tipo,
+			'lista_clasif'=>$lista_clasif,
+			'lista_clase'=>$lista_clase,
+			'lista_marca'=>$lista_marca,
+			'lista_submarca'=>$lista_submarca,
+			'lista_segmento'=>$lista_segmento,
+			'lista_familia'=>$lista_familia,
+			'lista_linea'=>$lista_linea,
+			'lista_subfamilia'=>$lista_subfamilia,
+			'lista_sublinea'=>$lista_sublinea,
+			'lista_grupo'=>$lista_grupo,
+			'lista_un'=>$lista_un,
+			'lista_fabrica'=>$lista_fabrica,
+			'lista_oracle'=>$lista_oracle,
 		));
 	}
 
@@ -547,6 +678,12 @@ class FichaItemController extends Controller
 		{
 			$model->attributes=$_POST['FichaItem'];
 			$model->Estado_Solicitud = 1;
+
+			$q = Yii::app()->db->createCommand("SELECT  I_REFERENCIA, I_DESCRIPCION FROM TH_ITEMS WHERE I_ID_ITEM = '".$model->Codigo_Item."' ORDER BY 2")->queryRow();
+
+			$model->Referencia = $q['I_REFERENCIA'];
+			$model->Descripcion_Corta = $q['I_DESCRIPCION'];
+
 			$model->Tipo = 2;
 			$model->Id_Usuario_Solicitud = Yii::app()->user->getState('id_user');
 			$model->Fecha_Hora_Solicitud = date('Y-m-d H:i:s');
@@ -901,27 +1038,6 @@ class FichaItemController extends Controller
 			$lista_oracle[trim($ora['Id_Criterio'])] = $ora['Criterio_Descripcion'];
 		}
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['FichaItem']))
-		{
-			/*$model->attributes=$_POST['FichaItem'];
-			$model->Estado_Solicitud = 2;
-			$model->Id_Usuario_Revision = Yii::app()->user->getState('id_user');
-			$model->Fecha_Hora_Revision = date('Y-m-d H:i:s');
-			if($model->Tipo_Producto != 1){
-				$model->Un_Gtin = null;
-				$model->Ep_Gtin = null;
-				$model->Cad_Gtin = null;
-			}
-			if($model->save())	{
-				$this->redirect(array('rev'));
-			}*/
-		}
-
-
-
 		$this->render('update2',array(
 			'model'=>$model,
 			'lista_origen'=>$lista_origen,
@@ -940,18 +1056,6 @@ class FichaItemController extends Controller
 			'lista_fabrica'=>$lista_fabrica,
 			'lista_oracle'=>$lista_oracle,
 		));
-	}
-
-	public function actionRechazar($id)
-	{
-		$model=$this->loadModel($id);
-		$model->Scenario = 'rechazo';
-		$model->Estado_Solicitud = 0;
-		$model->Id_Usuario_Revision = Yii::app()->user->getState('id_user');
-		$model->Fecha_Hora_Revision = date('Y-m-d H:i:s');
-		if($model->save())	{
-			$this->redirect(array('rev'));
-		}
 	}
 
 	public function actionAprobar($id)
@@ -1062,4 +1166,66 @@ class FichaItemController extends Controller
         echo CJSON::encode( $result );
         Yii::app()->end(); 
  	}
+
+ 	public function actionGetInfoItem()
+	{
+		$codigo = $_POST['codigo'];
+
+		$query ="
+		  SET NOCOUNT ON
+		  EXEC [dbo].[CONF_W_CREACION_IT]
+		  @ITEM = N'".$codigo."'
+		";
+
+		$info = Yii::app()->db->createCommand($query)->queryRow();	
+		 
+		$tiempo_repocision = intval($info['TIEMPO_REPO']);
+		$cant_moq = intval($info['CANT_MOQ']);
+		$stock_minimo = intval($info['STOCK_MINIMO']);
+		$origen = trim($info['ORIGEN']);
+		$tipo = trim($info['TIPO']);
+		$clasif = trim($info['CLASIFICACION']); 
+		$marca = trim($info['MARCA']);
+		$submarca = trim($info['SUBMARCA']);
+		$segmento = trim($info['SEGMENTO']);
+		$familia = trim($info['FAMILIA']);
+		$subfamilia = trim($info['SUBFAMILIA']); 
+		$linea = trim($info['LINEA']);
+		$sublinea = trim($info['SUB-LINEA']); 
+		$grupo = trim($info['GRUPO']); 
+		$unidad_negocio = trim($info['UNIDAD NEGOCIO']);
+		$fabrica = trim($info['FABRICA_TERCERO']);  
+		$cat_oracle = trim($info['CATEGORIA ORACLE']);
+		
+		
+		$resp = array('tiempo_repocision' => $tiempo_repocision, 'cant_moq' => $cant_moq, 'stock_minimo' => $stock_minimo, 'origen' => $origen, 'tipo' => $tipo, 'clasif' => $clasif, 'marca' => $marca, 'submarca' => $submarca, 'segmento' => $segmento, 'familia' => $familia, 'subfamilia' => $subfamilia, 'linea' => $linea, 'sublinea' => $sublinea, 'grupo' => $grupo, 'unidad_negocio' => $unidad_negocio, 'fabrica' => $fabrica, 'cat_oracle' => $cat_oracle);
+
+        echo json_encode($resp);	
+	}
+
+	public function actionNotas($id)
+	{
+		$model = $this->loadModel($id);
+		$model->Scenario = 'notas';
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['FichaItem']))
+		{
+			$model->attributes=$_POST['FichaItem'];
+			$model->Estado_Solicitud = 0;
+			$model->Id_Usuario_Revision = Yii::app()->user->getState('id_user');
+			$model->Fecha_Hora_Revision = date('Y-m-d H:i:s');
+			
+			if($model->save())	{
+				$this->redirect(array('rev'));
+			}
+		}
+
+		$this->render('notas',array(
+			'model'=>$model,
+		));
+	}
+
 }

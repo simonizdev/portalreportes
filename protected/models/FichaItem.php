@@ -73,6 +73,7 @@
  * @property integer $Id_Usuario_Revision
  * @property string $Fecha_Hora_Revision
  * @property integer $Estado_Solicitud
+ * @property string $Observaciones
  *
  * The followings are the available model relations:
  * @property THUSUARIOS $idUsuarioSolicitud
@@ -99,10 +100,8 @@ class FichaItem extends CActiveRecord
 			array('Tipo_Producto, Nombre_Funcional, Marca_Producto, Caracteristicas, Contenido, Descripcion_Larga, Unidad_Medida_Prod, Unidad_Medida_Inv, Unidad_Medida_Compra, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Medida, Un_Cant, Un_Peso, Un_Largo, Un_Ancho, Un_Alto, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Subfamilia, Crit_Linea, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle, Instalaciones, Bodegas', 'required','on'=>'create'),
 			array('Codigo_Item, Referencia, Tipo_Inventario, Grupo_Impositivo', 'required','on'=>'update'),
 			array('Codigo_Item, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Subfamilia, Crit_Linea, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle', 'required','on'=>'create2'),
-
-			array('Estado_Solicitud', 'required','on'=>'rechazo'),
+			array('Observaciones', 'required','on'=>'notas'),
 			array('Estado_Solicitud', 'required','on'=>'aprobacion'),
-
 			array('Tipo, Tipo_Producto, Contenido, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Cant, Ep_Cant, Cad_Cant, Id_Usuario_Solicitud, Id_Usuario_Revision, Estado_Solicitud', 'numerical', 'integerOnly'=>true),
 			array('Codigo_Item, Referencia', 'length', 'max'=>20),
 			array('Descripcion_Corta', 'length', 'max'=>40),
@@ -282,6 +281,7 @@ class FichaItem extends CActiveRecord
 			'Id_Usuario_Revision' => 'Usuario que reviso',
 			'Fecha_Hora_Revision' => 'Fecha de creación',
 			'Estado_Solicitud' => 'Estado',
+			'Observaciones' => 'Observaciones',
 		);
 	}
 

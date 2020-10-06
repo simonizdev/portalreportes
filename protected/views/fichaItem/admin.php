@@ -26,7 +26,7 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario');
   </div>
   <div class="col-sm-6 text-right"> 
     <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaItem/create'; ?>';"><i class="fa fa-plus"></i> Solicitud de creación</button>
-    
+    <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaItem/create2'; ?>';"><i class="fa fa-plus"></i> Solicitud de actualización</button> 
     <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
   </div>
 </div>
