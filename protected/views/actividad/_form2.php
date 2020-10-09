@@ -38,6 +38,22 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
+            <?php echo $form->label($model,'Tipo', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Tipo', array('class' => 'badge badge-warning float-right')); ?>
+            <p><?php echo $model->DescEstado($model->Tipo); ?></p>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="form-group">
+            <?php echo $form->label($model,'Id_Usuario', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Id_Usuario', array('class' => 'badge badge-warning float-right')); ?>
+            <p><?php echo $model->idusuario->Nombres; ?></p>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-sm-8">
         <div class="form-group">
             <?php echo $form->label($model,'Actividad', array('class' => 'control-label')); ?>
@@ -90,6 +106,27 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
+            <?php echo $form->label($model,'Tipo', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Tipo', array('class' => 'badge badge-warning float-right')); ?>
+            <?php $tipos = array(1 => 'CAPACITACIÓN', 2 => 'PROYECTO', 3 => 'SOLICITUD', 4 => 'SOPORTE'); ?>
+            <?php
+                $this->widget('ext.select2.ESelect2',array(
+                    'name'=>'Actividad[Tipo]',
+                    'id'=>'Actividad_Tipo',
+                    'data'=>$tipos,
+                    'value' => $model->Tipo,
+                    'htmlOptions'=>array(),
+                    'options'=>array(
+                        'placeholder'=>'Seleccione...',
+                        'width'=> '100%',
+                        'allowClear'=>true,
+                    ),
+                ));
+            ?>
+        </div>
+    </div>
     <div class="col-sm-8">
         <div class="form-group">
             <?php echo $form->label($model,'Id_Usuario', array('class' => 'control-label')); ?>

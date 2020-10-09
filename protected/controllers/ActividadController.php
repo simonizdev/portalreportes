@@ -91,6 +91,7 @@ class ActividadController extends Controller
 		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario', 'condition'=>'Estado=1'));
 
 		$id_usuario_actual = $model->Id_Usuario;
+		$tipo_actual = $model->Tipo;
 		$usuario_actual = $model->idusuario->Nombres;
 		$actividad_actual = $model->Actividad;
 		$estado_actual = $model->Estado;
@@ -100,6 +101,7 @@ class ActividadController extends Controller
 
 		if(isset($_POST['Actividad']))
 		{
+			$tipo_nuevo = $_POST['Actividad']['Tipo'];
 			$id_usuario_nuevo = $_POST['Actividad']['Id_Usuario'];
 			$usuario_nuevo = Usuario::model()->findByPk($_POST['Actividad']['Id_Usuario'])->Nombres;
 			$actividad_nueva = $_POST['Actividad']['Actividad'];
@@ -122,6 +124,12 @@ class ActividadController extends Controller
 
 			$texto_novedad = "";
 			$flag = 0;
+
+			//tipo
+			if($tipo_actual != $tipo_nuevo){
+				$flag = 1;
+				$texto_novedad .= "Tipo: ".$model->DescTipo($tipo_actual)." / ".$model->DescTipo($tipo_nuevo).", ";
+			}
 
 			//usuario
 			if($id_usuario_actual != $id_usuario_nuevo){

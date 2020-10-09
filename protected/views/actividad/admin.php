@@ -60,6 +60,10 @@ $lista_usuarios2 = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario');
             'value' => '$data->HoraAmPm($data->Hora)',
         ),
         array(
+            'name' => 'Tipo',
+            'value' => '$data->DescTipo($data->Tipo)',
+        ),
+        array(
             'name'=>'Id_Usuario',
             'value'=>'$data->idusuario->Nombres',
         ),
