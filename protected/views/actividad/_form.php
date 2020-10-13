@@ -21,7 +21,7 @@
         <div class="form-group">
             <?php echo $form->error($model,'Fecha', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->label($model,'Fecha'); ?>
-            <?php echo $form->textField($model,'Fecha', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
+            <?php echo $form->textField($model,'Fecha', array('class' => 'form-control form-control-sm datepicker', 'readonly' => true)); ?>
         </div>
     </div>
     <div class="col-sm-4">
