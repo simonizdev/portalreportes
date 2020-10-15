@@ -135,7 +135,7 @@
             ?>
         </div>
     </div>
-    <div class="col-sm-4" id="div_Id_Tipo">
+    <div class="col-sm-4" id="div_tipo">
         <div class="form-group">
           <?php echo $form->label($model,'Id_Tipo', array('class' => 'control-label')); ?>
           <?php echo $form->error($model,'Id_Tipo', array('class' => 'badge badge-warning float-right')); ?>
@@ -143,7 +143,7 @@
               $this->widget('ext.select2.ESelect2',array(
                 'name'=>'Actividad[Id_Tipo]',
                 'id'=>'Actividad_Id_Tipo',
-                'data'=>$lista_Id_Tipos,
+                'data'=>$lista_tipos,
                 'value' => $model->Id_Tipo,
                 'htmlOptions'=>array(),
                 'options'=>array(
