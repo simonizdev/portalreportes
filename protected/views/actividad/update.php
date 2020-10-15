@@ -5,11 +5,19 @@
 //para combos de usuarios
 $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
 
+//para combos de Id_Grupos
+$lista_Id_Grupos = CHtml::listData($Id_Grupos, 'Id_Dominio', 'Dominio');
+
+//para combos de Id_Tipos
+$lista_Id_Tipos = CHtml::listData($Id_Tipos, 'Id_Id_Tipo', 'Id_Tipo');
+
 ?>
 
 <script>
 
 $(function() {
+
+	$('#Actividad_Id_Grupo').val(<?php echo $model->Id_Grupo ?>).trigger('change');
 
     $("#valida_form").click(function() {
 
@@ -114,6 +122,31 @@ $(function() {
 	   
 	});
 
+  	$("#Actividad_Id_Grupo").change(function () {
+      vlr = $("#Actividad_Id_Grupo").val();
+      if(vlr != ""){
+        var data = {grupo: vlr}
+        $.ajax({ 
+          type: "POST", 
+          url: "<?php echo Yii::app()->createUrl('actividad/gettipos'); ?>",
+          data: data,
+          dataType: 'json',
+          success: function(data){ 
+            $("#Actividad_Id_Tipo").html('');
+            $("#Actividad_Id_Tipo").append('<option value=""></option>');
+            $.each(data, function(i,item){
+                $("#Actividad_Id_Tipo").append('<option value="'+data[i].id+'">'+data[i].text+'</option>');
+            });
+            $("#Actividad_Id_Tipo").val('').trigger('change');
+            $("#div_tipo").show();
+          }
+        });
+      }else{
+        $("#Actividad_Id_Tipo").val('').trigger('change');
+        $("#div_tipo").hide();
+      }
+    });
+
 });
 
 </script>
@@ -121,4 +154,4 @@ $(function() {
 
 <h4>Resumen de actividad</h4>
 
-<?php $this->renderPartial('_form2', array('model'=>$model, 'hist'=>$hist, 'lista_usuarios'=>$lista_usuarios)); ?>
+<?php $this->renderPartial('_form2', array('model'=>$model, 'hist'=>$hist, 'lista_usuarios'=>$lista_usuarios, 'lista_Id_Grupos'=>$lista_Id_Grupos, 'lista_Id_Tipos'=>$lista_Id_Tipos)); ?>

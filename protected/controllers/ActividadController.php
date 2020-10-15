@@ -28,7 +28,7 @@ class ActividadController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','gettipos'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -52,6 +52,8 @@ class ActividadController extends Controller
 
 		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario', 'condition'=>'Estado=1'));
 
+		$grupos=Dominio::model()->findAll(array('order'=>'Dominio', 'condition'=>'Estado=:estado AND Id_Padre = '.Yii::app()->params->grupos_act, 'params'=>array(':estado'=>1)));
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -70,6 +72,7 @@ class ActividadController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 			'usuarios'=>$usuarios,
+			'grupos'=>$grupos,
 		));
 	}
 
@@ -90,9 +93,16 @@ class ActividadController extends Controller
 
 		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario', 'condition'=>'Estado=1'));
 
+		$grupos=Dominio::model()->findAll(array('order'=>'Dominio', 'condition'=>'Estado=:estado AND Id_Padre = '.Yii::app()->params->grupos_act, 'params'=>array(':estado'=>1)));
+
+		$tipos=TipoAct::model()->findAll(array('order'=>'Tipo', 'condition'=>'Estado=:estado', 'params'=>array(':estado'=>1)));
+
 		$id_usuario_actual = $model->Id_Usuario;
-		$tipo_actual = $model->Tipo;
 		$usuario_actual = $model->idusuario->Nombres;
+		$id_grupo_actual = $model->Grupo;
+		$grupo_actual = $model->idgrupo->Dominio;
+		$id_tipo_actual = $model->Tipo;
+		$tipo_actual = $model->idtipo->Tipo;
 		$actividad_actual = $model->Actividad;
 		$estado_actual = $model->Estado;
 
@@ -101,9 +111,12 @@ class ActividadController extends Controller
 
 		if(isset($_POST['Actividad']))
 		{
-			$tipo_nuevo = $_POST['Actividad']['Tipo'];
 			$id_usuario_nuevo = $_POST['Actividad']['Id_Usuario'];
 			$usuario_nuevo = Usuario::model()->findByPk($_POST['Actividad']['Id_Usuario'])->Nombres;
+			$id_grupo_nuevo = $_POST['Actividad']['Grupo'];
+			$grupo_nuevo = Dominio::model()->findByPk($_POST['Actividad']['Grupo'])->Dominio;
+			$id_tipo_nuevo = $_POST['Actividad']['Tipo'];
+			$tipo_nuevo = TipoAct::model()->findByPk($_POST['Actividad']['Tipo'])->Tipo;
 			$actividad_nueva = $_POST['Actividad']['Actividad'];
 			$estado_nuevo = $_POST['Actividad']['Estado'];
 			
@@ -125,10 +138,16 @@ class ActividadController extends Controller
 			$texto_novedad = "";
 			$flag = 0;
 
-			//tipo
-			if($tipo_actual != $tipo_nuevo){
+			//grupo
+			if($id_grupo_actual != $id_grupo_nuevo){
 				$flag = 1;
-				$texto_novedad .= "Tipo: ".$model->DescTipo($tipo_actual)." / ".$model->DescTipo($tipo_nuevo).", ";
+				$texto_novedad .= "Grupo: ".$grupo_actual." / ".$grupo_nuevo.", ";
+			}
+
+			//tipo
+			if($id_tipo_actual != $id_tipo_nuevo){
+				$flag = 1;
+				$texto_novedad .= "Tipo: ".$tipo_actual." / ".$tipo_nuevo.", ";
 			}
 
 			//usuario
@@ -173,7 +192,9 @@ class ActividadController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 			'hist'=>$hist,
-			'usuarios'=>$usuarios,	
+			'usuarios'=>$usuarios,
+			'grupos'=>$grupos,
+			'tipos'=>$tipos,	
 		));
 	}
 
@@ -184,6 +205,7 @@ class ActividadController extends Controller
 	{
 		$model=new Actividad('search');
 		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario'));
+		$grupos=Dominio::model()->findAll(array('order'=>'Dominio', 'condition'=>'Id_Padre = '.Yii::app()->params->grupos_act));
 
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Actividad']))
@@ -192,6 +214,7 @@ class ActividadController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 			'usuarios'=>$usuarios,
+			'grupos'=>$grupos,
 		));
 	}
 
@@ -221,5 +244,23 @@ class ActividadController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	public function actionGetTipos()
+	{	
+		$grupo = $_POST['grupo'];
+
+		$tipos=TipoAct::model()->findAll(array('order'=>'Tipo', 'condition'=>'Estado=:estado AND Id_Grupo = '.$grupo, 'params'=>array(':estado'=>1)));
+
+		$i = 0;
+		$array_tipos = array();
+		foreach ($tipos as $t) {
+    		$array_tipos[$i] = array('id' => $t->Id_Tipo,  'text' => $t->Tipo);
+    		$i++; 
+	    }
+
+		//se retorna un json con las opciones
+		echo json_encode($array_tipos);
+
 	}
 }

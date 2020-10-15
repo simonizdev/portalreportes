@@ -40,11 +40,20 @@
 <div class="row">
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->label($model,'Tipo', array('class' => 'control-label')); ?>
-            <?php echo $form->error($model,'Tipo', array('class' => 'badge badge-warning float-right')); ?>
-            <p><?php echo $model->DescEstado($model->Tipo); ?></p>
+            <?php echo $form->label($model,'Id_Grupo', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Id_Grupo', array('class' => 'badge badge-warning float-right')); ?>
+            <p><?php echo $model->idId_Grupo->Dominio; ?></p>
         </div>
     </div>
+    <div class="col-sm-4" id="div_tipo">
+        <div class="form-group">
+          <?php echo $form->label($model,'Tipo', array('class' => 'control-label')); ?>
+          <?php echo $form->error($model,'Tipo', array('class' => 'badge badge-warning float-right')); ?>
+          <p><?php echo $model->idtipo->Tipo; ?></p>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-sm-8">
         <div class="form-group">
             <?php echo $form->label($model,'Id_Usuario', array('class' => 'control-label')); ?>
@@ -108,15 +117,14 @@
 <div class="row">
     <div class="col-sm-4">
         <div class="form-group">
-            <?php echo $form->label($model,'Tipo', array('class' => 'control-label')); ?>
-            <?php echo $form->error($model,'Tipo', array('class' => 'badge badge-warning float-right')); ?>
-            <?php $tipos = array(1 => 'CAPACITACIÓN', 2 => 'PROYECTO', 3 => 'SOLICITUD', 4 => 'SOPORTE'); ?>
+            <?php echo $form->label($model,'Id_Grupo', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Id_Grupo', array('class' => 'badge badge-warning float-right')); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
-                    'name'=>'Actividad[Tipo]',
-                    'id'=>'Actividad_Tipo',
-                    'data'=>$tipos,
-                    'value' => $model->Tipo,
+                    'name'=>'Actividad[Id_Grupo]',
+                    'id'=>'Actividad_Id_Grupo',
+                    'data'=>$lista_grupos,
+                    'value' => $model->Id_Grupo,
                     'htmlOptions'=>array(),
                     'options'=>array(
                         'placeholder'=>'Seleccione...',
@@ -127,6 +135,28 @@
             ?>
         </div>
     </div>
+    <div class="col-sm-4" id="div_tipo">
+        <div class="form-group">
+          <?php echo $form->label($model,'Tipo', array('class' => 'control-label')); ?>
+          <?php echo $form->error($model,'Tipo', array('class' => 'badge badge-warning float-right')); ?>
+          <?php
+              $this->widget('ext.select2.ESelect2',array(
+                'name'=>'Actividad[Tipo]',
+                'id'=>'Actividad_Tipo',
+                'data'=>$lista_tipos,
+                'value' => $model->Tipo,
+                'htmlOptions'=>array(),
+                'options'=>array(
+                    'placeholder'=>'Seleccione...',
+                    'width'=> '100%',
+                    'allowClear'=>true,
+                ),
+              ));
+          ?>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-sm-8">
         <div class="form-group">
             <?php echo $form->label($model,'Id_Usuario', array('class' => 'control-label')); ?>

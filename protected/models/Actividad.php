@@ -16,7 +16,8 @@
  * @property string $Fecha_Creacion
  * @property integer $Id_Usuario_Actualizacion
  * @property string $Fecha_Actualizacion
- * @property integer $Tipo
+ * @property integer $Id_Tipo
+ * @property integer $Id_Grupo
  *
  * The followings are the available model relations:
  * @property THUSUARIOS $idUsuarioCreacion
@@ -42,14 +43,14 @@ class Actividad extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Fecha, Hora, Id_Usuario, Actividad, Tipo, Estado', 'required','on'=>'create'),
-			array('Actividad, Estado, Tipo','required','on'=>'update'),
-			array('Id_Usuario, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion, Tipo', 'numerical', 'integerOnly'=>true),
+			array('Fecha, Hora, Id_Usuario, Actividad, Id_Tipo, Id_Grupo, Estado', 'required','on'=>'create'),
+			array('Actividad, Estado, Id_Tipo, Id_Grupo','required','on'=>'update'),
+			array('Id_Usuario, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion, Id_Tipo, Id_Grupo', 'numerical', 'integerOnly'=>true),
 			array('Actividad', 'length', 'max'=>300),
 			array('Fecha_Cierre', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, Fecha, Hora, Id_Usuario, Actividad, Estado, Fecha_Cierre, Hora_Cierre, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, Tipo, orderby', 'safe', 'on'=>'search'),
+			array('Id, Fecha, Hora, Id_Usuario, Actividad, Estado, Fecha_Cierre, Hora_Cierre, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, Id_Tipo, Id_Grupo, orderby', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -85,28 +86,6 @@ class Actividad extends CActiveRecord
 
 	}
 
-	public function DescTipo($tipo){
-
-		switch ($tipo) {
-		    case 1:
-		        $texto_tipo = 'CAPACITACIÓN';
-		        break;
-		    case 2:
-		        $texto_tipo = 'PROYECTO';
-		        break;
-		    case 3:
-		        $texto_tipo = 'SOLICITUD';
-		        break;
-		    case 4:
-		        $texto_tipo = 'SOPORTE';
-		        break;
-		    
-		}
-
-		return $texto_tipo;
-
-	}
-
 	/**
 	 * @return array relational rules.
 	 */
@@ -118,6 +97,8 @@ class Actividad extends CActiveRecord
 			'idusuario' => array(self::BELONGS_TO, 'Usuario', 'Id_Usuario'),
 			'idusuariocre' => array(self::BELONGS_TO, 'Usuario', 'Id_Usuario_Creacion'),
 			'idusuarioact' => array(self::BELONGS_TO, 'Usuario', 'Id_Usuario_Actualizacion'),
+			'idgrupo' => array(self::BELONGS_TO, 'Dominio', 'Id_Grupo'),
+			'idtipo' => array(self::BELONGS_TO, 'TipoAct', 'Id_Tipo'),
 		);
 	}
 
@@ -140,7 +121,8 @@ class Actividad extends CActiveRecord
 			'Fecha_Creacion' => 'Fecha de creación',
 			'Fecha_Actualizacion' => 'Fecha de actualización',
 			'orderby' => 'Orden de resultados',
-			'Tipo' => 'Tipo',
+			'Id_Tipo' => 'Tipo',
+			'Id_Grupo' => 'Grupo',
 		);
 	}
 
@@ -163,15 +145,16 @@ class Actividad extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->together  =  true;
-	   	$criteria->with=array('idusuariocre','idusuarioact');
+	   	$criteria->with=array('idusuariocre','idusuarioact','idgrupo','idtipo');
 
-		$criteria->compare('Id',$this->Id);
-		$criteria->compare('Fecha',$this->Fecha,true);
-		$criteria->compare('Actividad',$this->Actividad,true);
-		$criteria->compare('Estado',$this->Estado);
-		$criteria->compare('Fecha_Cierre',$this->Fecha_Cierre,true);
-		$criteria->compare('Hora_Cierre',$this->Hora_Cierre,true);
-		$criteria->compare('Tipo',$this->Tipo);
+		$criteria->compare('t.Id',$this->Id);
+		$criteria->compare('t.Fecha',$this->Fecha,true);
+		$criteria->compare('t.Actividad',$this->Actividad,true);
+		$criteria->compare('t.Estado',$this->Estado);
+		$criteria->compare('t.Fecha_Cierre',$this->Fecha_Cierre,true);
+		$criteria->compare('t.Hora_Cierre',$this->Hora_Cierre,true);
+		$criteria->compare('t.Id_Tipo',$this->Id_Tipo);
+		$criteria->compare('t.Id_Grupo',$this->Id_Grupo);
 
 		if($this->Id_Usuario != ""){
 			$criteria->AddCondition("t.Id_Usuario = ".$this->Id_Usuario); 
@@ -210,11 +193,17 @@ class Actividad extends CActiveRecord
 			    case 6:
 			        $criteria->order = 't.Actividad DESC'; 
 			        break;
-		        case 7:
-			        $criteria->order = 't.Tipo ASC'; 
+			    case 7:
+			        $criteria->order = 'idgrupo.Dominio ASC'; 
 			        break;
 			    case 8:
-			        $criteria->order = 't.Tipo DESC'; 
+			        $criteria->order = 'idgrupo.Dominio DESC'; 
+			        break;
+		        case 7:
+			        $criteria->order = 'idtipo.Tipo ASC'; 
+			        break;
+			    case 8:
+			        $criteria->order = 'idtipo.Tipo DESC'; 
 			        break;
 			    case 9:
 			        $criteria->order = 'idusuario.Nombres ASC'; 

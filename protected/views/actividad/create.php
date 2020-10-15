@@ -5,6 +5,9 @@
 $fecha_act = date("Y-m-d");
 $fecha = date("Y-m-d",strtotime($fecha_act."- 1 days")); 
 
+//para combos de Id_Grupos
+$lista_Id_Grupos = CHtml::listData($Id_Grupos, 'Id_Dominio', 'Dominio');
+
 //para combos de usuarios
 $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
 
@@ -39,10 +42,34 @@ $(function() {
       });
     });
 
+    $("#Actividad_Id_Grupo").change(function () {
+      vlr = $("#Actividad_Id_Grupo").val();
+      if(vlr != ""){
+        var data = {grupo: vlr}
+        $.ajax({ 
+          type: "POST", 
+          url: "<?php echo Yii::app()->createUrl('actividad/gettipos'); ?>",
+          data: data,
+          dataType: 'json',
+          success: function(data){ 
+            $("#Actividad_Id_Tipo").html('');
+            $("#Actividad_Id_Tipo").append('<option value=""></option>');
+            $.each(data, function(i,item){
+                $("#Actividad_Id_Tipo").append('<option value="'+data[i].id+'">'+data[i].text+'</option>');
+            });
+            $("#div_tipo").show();
+          }
+        });
+      }else{
+        $("#Actividad_Id_Tipo").val('');
+        $("#div_tipo").hide();
+      }
+    });
+
 });
 
 </script>
 
 <h4>Creación de actividad</h4>
 
-<?php $this->renderPartial('_form', array('model'=>$model, 'lista_usuarios'=>$lista_usuarios)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model, 'lista_usuarios'=>$lista_usuarios, 'lista_Id_Grupos'=>$lista_Id_Grupos)); ?>
