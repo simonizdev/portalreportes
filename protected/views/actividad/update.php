@@ -9,7 +9,7 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
 $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
 
 //para combos de tipos
-$lista_tipos = CHtml::listData($tipos, 'Id_Tipo', 'Id_Tipo');
+$lista_tipos = CHtml::listData($tipos, 'Id_Tipo', 'Tipo');
 
 ?>
 
