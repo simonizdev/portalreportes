@@ -42,14 +42,14 @@
         <div class="form-group">
             <?php echo $form->label($model,'Id_Grupo', array('class' => 'control-label')); ?>
             <?php echo $form->error($model,'Id_Grupo', array('class' => 'badge badge-warning float-right')); ?>
-            <p><?php echo $model->idId_Grupo->Dominio; ?></p>
+            <p><?php echo $model->idgrupo->Dominio; ?></p>
         </div>
     </div>
     <div class="col-sm-4" id="div_Id_Tipo">
         <div class="form-group">
           <?php echo $form->label($model,'Id_Tipo', array('class' => 'control-label')); ?>
           <?php echo $form->error($model,'Id_Tipo', array('class' => 'badge badge-warning float-right')); ?>
-          <p><?php echo $model->idId_Tipo->Id_Tipo; ?></p>
+          <p><?php echo $model->idtipo->Id_Tipo; ?></p>
         </div>
     </div>
 </div>
