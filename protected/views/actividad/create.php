@@ -72,4 +72,4 @@ $(function() {
 
 <h4>Creación de actividad</h4>
 
-<?php $this->renderPartial('_form', array('model'=>$model, 'lista_usuarios'=>$lista_usuarios, 'lista_Id_Grupos'=>$lista_Id_Grupos)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model, 'lista_usuarios'=>$lista_usuarios, 'lista_grupos'=>$lista_grupos)); ?>

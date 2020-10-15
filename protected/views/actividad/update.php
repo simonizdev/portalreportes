@@ -154,4 +154,4 @@ $(function() {
 
 <h4>Resumen de actividad</h4>
 
-<?php $this->renderPartial('_form2', array('model'=>$model, 'hist'=>$hist, 'lista_usuarios'=>$lista_usuarios, 'lista_Id_Grupos'=>$lista_Id_Grupos, 'lista_Id_Tipos'=>$lista_Id_Tipos)); ?>
+<?php $this->renderPartial('_form2', array('model'=>$model, 'hist'=>$hist, 'lista_usuarios'=>$lista_usuarios, 'lista_grupos'=>$lista_grupos, 'lista_tipos'=>$lista_tipos)); ?>
