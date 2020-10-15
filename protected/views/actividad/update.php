@@ -5,11 +5,11 @@
 //para combos de usuarios
 $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
 
-//para combos de Id_Grupos
-$lista_Id_Grupos = CHtml::listData($Id_Grupos, 'Id_Dominio', 'Dominio');
+//para combos de grupos
+$lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
 
-//para combos de Id_Tipos
-$lista_Id_Tipos = CHtml::listData($Id_Tipos, 'Id_Id_Tipo', 'Id_Tipo');
+//para combos de tipos
+$lista_tipos = CHtml::listData($tipos, 'Id_Tipo', 'Id_Tipo');
 
 ?>
 

@@ -5,8 +5,8 @@
 $fecha_act = date("Y-m-d");
 $fecha = date("Y-m-d",strtotime($fecha_act."- 1 days")); 
 
-//para combos de Id_Grupos
-$lista_Id_Grupos = CHtml::listData($Id_Grupos, 'Id_Dominio', 'Dominio');
+//para combos de grupos
+$lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
 
 //para combos de usuarios
 $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
