@@ -114,9 +114,9 @@ class ActividadController extends Controller
 			$id_usuario_nuevo = $_POST['Actividad']['Id_Usuario'];
 			$usuario_nuevo = Usuario::model()->findByPk($_POST['Actividad']['Id_Usuario'])->Nombres;
 			$id_grupo_nuevo = $_POST['Actividad']['Id_Grupo'];
-			$grupo_nuevo = Dominio::model()->findByPk($_POST['Actividad']['Grupo'])->Dominio;
+			$grupo_nuevo = Dominio::model()->findByPk($_POST['Actividad']['Id_Grupo'])->Dominio;
 			$id_tipo_nuevo = $_POST['Actividad']['Id_Tipo'];
-			$tipo_nuevo = TipoAct::model()->findByPk($_POST['Actividad']['Tipo'])->Tipo;
+			$tipo_nuevo = TipoAct::model()->findByPk($_POST['Actividad']['Id_Tipo'])->Tipo;
 			$actividad_nueva = $_POST['Actividad']['Actividad'];
 			$estado_nuevo = $_POST['Actividad']['Estado'];
 			
