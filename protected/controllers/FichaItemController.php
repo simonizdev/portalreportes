@@ -681,14 +681,16 @@ class FichaItemController extends Controller
 
 			$q = Yii::app()->db->createCommand("SELECT  I_REFERENCIA, I_DESCRIPCION FROM TH_ITEMS WHERE I_ID_ITEM = '".$model->Codigo_Item."' ORDER BY 2")->queryRow();
 
-			$model->Referencia = $q['I_REFERENCIA'];
-			$model->Descripcion_Corta = $q['I_DESCRIPCION'];
+			$model->Referencia = substr($q['I_REFERENCIA'], 0, 19);
+			$model->Descripcion_Corta = substr($q['I_DESCRIPCION'], 0, 39);
 
 			$model->Tipo = 2;
 			$model->Id_Usuario_Solicitud = Yii::app()->user->getState('id_user');
 			$model->Fecha_Hora_Solicitud = date('Y-m-d H:i:s');
 			if($model->save())	{
 				$this->redirect(array('admin'));
+			}else{
+				print_r($model->getErrors());die;
 			}
 		}
 
@@ -1185,6 +1187,7 @@ class FichaItemController extends Controller
 		$origen = trim($info['ORIGEN']);
 		$tipo = trim($info['TIPO']);
 		$clasif = trim($info['CLASIFICACION']); 
+		$clase = trim($info['CLASE']); 
 		$marca = trim($info['MARCA']);
 		$submarca = trim($info['SUBMARCA']);
 		$segmento = trim($info['SEGMENTO']);
@@ -1198,7 +1201,7 @@ class FichaItemController extends Controller
 		$cat_oracle = trim($info['CATEGORIA ORACLE']);
 		
 		
-		$resp = array('tiempo_repocision' => $tiempo_repocision, 'cant_moq' => $cant_moq, 'stock_minimo' => $stock_minimo, 'origen' => $origen, 'tipo' => $tipo, 'clasif' => $clasif, 'marca' => $marca, 'submarca' => $submarca, 'segmento' => $segmento, 'familia' => $familia, 'subfamilia' => $subfamilia, 'linea' => $linea, 'sublinea' => $sublinea, 'grupo' => $grupo, 'unidad_negocio' => $unidad_negocio, 'fabrica' => $fabrica, 'cat_oracle' => $cat_oracle);
+		$resp = array('tiempo_repocision' => $tiempo_repocision, 'cant_moq' => $cant_moq, 'stock_minimo' => $stock_minimo, 'origen' => $origen, 'tipo' => $tipo, 'clasif' => $clasif, 'clase' => $clase, 'marca' => $marca, 'submarca' => $submarca, 'segmento' => $segmento, 'familia' => $familia, 'subfamilia' => $subfamilia, 'linea' => $linea, 'sublinea' => $sublinea, 'grupo' => $grupo, 'unidad_negocio' => $unidad_negocio, 'fabrica' => $fabrica, 'cat_oracle' => $cat_oracle);
 
         echo json_encode($resp);	
 	}

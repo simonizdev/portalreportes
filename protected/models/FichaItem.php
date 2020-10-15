@@ -54,6 +54,7 @@
  * @property string $Crit_Origen
  * @property string $Crit_Tipo
  * @property string $Crit_Clasificacion
+ * @property string $Crit_Clase
  * @property string $Crit_Marca
  * @property string $Crit_Submarca
  * @property string $Crit_Segmento
@@ -97,16 +98,16 @@ class FichaItem extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Tipo_Producto, Nombre_Funcional, Marca_Producto, Caracteristicas, Contenido, Descripcion_Larga, Unidad_Medida_Prod, Unidad_Medida_Inv, Unidad_Medida_Compra, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Medida, Un_Cant, Un_Peso, Un_Largo, Un_Ancho, Un_Alto, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Subfamilia, Crit_Linea, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle, Instalaciones, Bodegas', 'required','on'=>'create'),
+			array('Tipo_Producto, Nombre_Funcional, Marca_Producto, Caracteristicas, Contenido, Descripcion_Larga, Unidad_Medida_Prod, Unidad_Medida_Inv, Unidad_Medida_Compra, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Medida, Un_Cant, Un_Peso, Un_Largo, Un_Ancho, Un_Alto, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Clase, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Subfamilia, Crit_Linea, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle, Instalaciones, Bodegas', 'required','on'=>'create'),
 			array('Codigo_Item, Referencia, Tipo_Inventario, Grupo_Impositivo', 'required','on'=>'update'),
-			array('Codigo_Item, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Subfamilia, Crit_Linea, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle', 'required','on'=>'create2'),
+			array('Codigo_Item, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Clase, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Subfamilia, Crit_Linea, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle', 'required','on'=>'create2'),
 			array('Observaciones', 'required','on'=>'notas'),
 			array('Estado_Solicitud', 'required','on'=>'aprobacion'),
 			array('Tipo, Tipo_Producto, Contenido, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Cant, Ep_Cant, Cad_Cant, Id_Usuario_Solicitud, Id_Usuario_Revision, Estado_Solicitud', 'numerical', 'integerOnly'=>true),
 			array('Codigo_Item, Referencia', 'length', 'max'=>20),
 			array('Descripcion_Corta', 'length', 'max'=>40),
 			array('Nombre_Funcional, Marca_Producto, Caracteristicas', 'length', 'max'=>10),
-			array('Unidad_Medida_Prod, Unidad_Medida_Inv, Unidad_Medida_Compra, Grupo_Impositivo, Un_Medida, Ep_Medida, Cad_Medida, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Linea, Crit_Subfamilia, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle', 'length', 'max'=>4),
+			array('Unidad_Medida_Prod, Unidad_Medida_Inv, Unidad_Medida_Compra, Grupo_Impositivo, Un_Medida, Ep_Medida, Cad_Medida, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Clase, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Linea, Crit_Subfamilia, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle', 'length', 'max'=>4),
 			array('Tipo_Inventario', 'length', 'max'=>12),
 			array('Un_Peso, Un_Largo, Un_Ancho, Un_Alto, Un_Volumen, Ep_Peso, Ep_Largo, Ep_Ancho, Ep_Alto, Ep_Volumen, Cad_Peso, Cad_Largo, Cad_Ancho, Cad_Alto, Cad_Volumen', 'length', 'max'=>18),
 			array('Un_Gtin, Ep_Gtin, Cad_Gtin', 'length', 'max'=>14),
@@ -114,7 +115,7 @@ class FichaItem extends CActiveRecord
 			array('Instalaciones, Bodegas, Fecha_Hora_Solicitud, Fecha_Hora_Revision', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, Tipo, Tipo_Producto, Codigo_Item, Referencia, Descripcion_Corta, Nombre_Funcional, Marca_Producto, Caracteristicas, Contenido, Unidad_Medida_Prod, Unidad_Medida_Inv, Unidad_Medida_Compra, Tipo_Inventario, Grupo_Impositivo, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Medida, Un_Cant, Un_Peso, Un_Largo, Un_Ancho, Un_Alto, Un_Volumen, Un_Gtin, Ep_Medida, Ep_Cant, Ep_Peso, Ep_Largo, Ep_Ancho, Ep_Alto, Ep_Volumen, Ep_Gtin, Cad_Medida, Cad_Cant, Cad_Peso, Cad_Largo, Cad_Ancho, Cad_Alto, Cad_Volumen, Cad_Gtin, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Linea, Crit_Subfamilia, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle, Descripcion_Larga, Instalaciones, Bodegas, Id_Usuario_Solicitud, Fecha_Hora_Solicitud, Id_Usuario_Revision, Fecha_Hora_Revision, Estado_Solicitud', 'safe', 'on'=>'search'),
+			array('Id, Tipo, Tipo_Producto, Codigo_Item, Referencia, Descripcion_Corta, Nombre_Funcional, Marca_Producto, Caracteristicas, Contenido, Unidad_Medida_Prod, Unidad_Medida_Inv, Unidad_Medida_Compra, Tipo_Inventario, Grupo_Impositivo, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Medida, Un_Cant, Un_Peso, Un_Largo, Un_Ancho, Un_Alto, Un_Volumen, Un_Gtin, Ep_Medida, Ep_Cant, Ep_Peso, Ep_Largo, Ep_Ancho, Ep_Alto, Ep_Volumen, Ep_Gtin, Cad_Medida, Cad_Cant, Cad_Peso, Cad_Largo, Cad_Ancho, Cad_Alto, Cad_Volumen, Cad_Gtin, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Clase, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Linea, Crit_Subfamilia, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle, Descripcion_Larga, Instalaciones, Bodegas, Id_Usuario_Solicitud, Fecha_Hora_Solicitud, Id_Usuario_Revision, Fecha_Hora_Revision, Estado_Solicitud', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -261,6 +262,7 @@ class FichaItem extends CActiveRecord
 			'Cad_Gtin' => 'Gtin',
 			'Crit_Origen' => 'Origen',
 			'Crit_Tipo' => 'Tipo',
+			'Crit_Clase' => 'Clase',
 			'Crit_Clasificacion' => 'Clasificación',
 			'Crit_Marca' => 'Marca',
 			'Crit_Submarca' => 'Sub-marca',

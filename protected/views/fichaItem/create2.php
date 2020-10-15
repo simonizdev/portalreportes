@@ -52,6 +52,7 @@ $(function() {
                     $('#FichaItem_Crit_Origen').val(data.origen).trigger('change');
                     $('#FichaItem_Crit_Tipo').val(data.tipo).trigger('change');
                     $('#FichaItem_Crit_Clasificacion').val(data.clasif).trigger('change');
+                    $('#FichaItem_Crit_Clase').val(data.clase).trigger('change');
                     $('#FichaItem_Crit_Marca').val(data.marca).trigger('change');
                     $('#FichaItem_Crit_Submarca').val(data.submarca).trigger('change');
                     $('#FichaItem_Crit_Segmento').val(data.segmento).trigger('change');
@@ -73,6 +74,7 @@ $(function() {
             $('#FichaItem_Crit_Origen').val('').trigger('change');
             $('#FichaItem_Crit_Tipo').val('').trigger('change');
             $('#FichaItem_Crit_Clasificacion').val('').trigger('change');
+            $('#FichaItem_Crit_Clase').val('').trigger('change');
             $('#FichaItem_Crit_Marca').val('').trigger('change');
             $('#FichaItem_Crit_Submarca').val('').trigger('change');
             $('#FichaItem_Crit_Segmento').val('').trigger('change');

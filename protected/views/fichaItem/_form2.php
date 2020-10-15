@@ -671,6 +671,28 @@ $estados2 = Yii::app()->params->estados2;
 </div>
 <div class="row">
     <div class="col-sm-4">
+        <div class="form-group">
+            <?php echo $form->label($model,'Crit_Clase'); ?>
+            <?php echo $form->error($model,'Crit_Clase', array('class' => 'badge badge-warning float-right')); ?>
+            <?php
+                $this->widget('ext.select2.ESelect2',array(
+                    'name'=>'FichaItem[Crit_Clase]',
+                    'id'=>'FichaItem_Crit_Clase',
+                    'data'=>$lista_clase,
+                    'value' => $model->Crit_Clase,
+                    'htmlOptions'=>array(
+                        'readonly'=>true,
+                    ),
+                    'options'=>array(
+                        'placeholder'=>'Seleccione...',
+                        'width'=> '100%',
+                        'allowClear'=>true,
+                    ),
+                ));
+            ?>
+        </div>
+    </div>
+    <div class="col-sm-4">
     	<div class="form-group">
           	<?php echo $form->label($model,'Crit_Marca'); ?>
 		    <?php echo $form->error($model,'Crit_Marca', array('class' => 'badge badge-warning float-right')); ?>
@@ -714,6 +736,8 @@ $estados2 = Yii::app()->params->estados2;
             ?>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
           	<?php echo $form->label($model,'Crit_Segmento'); ?>
@@ -736,8 +760,6 @@ $estados2 = Yii::app()->params->estados2;
             ?>
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
           	<?php echo $form->label($model,'Crit_Familia'); ?>
@@ -782,6 +804,8 @@ $estados2 = Yii::app()->params->estados2;
             ?>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
           	<?php echo $form->label($model,'Crit_Linea'); ?>
@@ -804,8 +828,6 @@ $estados2 = Yii::app()->params->estados2;
             ?>
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
           	<?php echo $form->label($model,'Crit_Sublinea'); ?>
@@ -850,6 +872,8 @@ $estados2 = Yii::app()->params->estados2;
             ?>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
           	<?php echo $form->label($model,'Crit_UN'); ?>
@@ -872,8 +896,6 @@ $estados2 = Yii::app()->params->estados2;
             ?>
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-sm-4">
     	<div class="form-group">
           	<?php echo $form->label($model,'Crit_Fabrica'); ?>

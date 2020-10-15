@@ -161,6 +161,28 @@ $(function() {
 <div class="row">
     <div class="col-sm-4">
         <div class="form-group">
+            <?php echo $form->label($model,'Crit_Clase'); ?>
+            <?php echo $form->error($model,'Crit_Clase', array('class' => 'badge badge-warning float-right')); ?>
+            <?php
+                $this->widget('ext.select2.ESelect2',array(
+                    'name'=>'FichaItem[Crit_Clase]',
+                    'id'=>'FichaItem_Crit_Clase',
+                    'data'=>$lista_clase,
+                    'value' => $model->Crit_Clase,
+                    'htmlOptions'=>array(
+                        'readonly'=>true,
+                    ),
+                    'options'=>array(
+                        'placeholder'=>'Seleccione...',
+                        'width'=> '100%',
+                        'allowClear'=>true,
+                    ),
+                ));
+            ?>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
             <?php echo $form->label($model,'Crit_Marca'); ?>
             <?php echo $form->error($model,'Crit_Marca', array('class' => 'badge badge-warning float-right')); ?>
             <?php
@@ -203,6 +225,8 @@ $(function() {
             ?>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->label($model,'Crit_Segmento'); ?>
@@ -225,8 +249,6 @@ $(function() {
             ?>
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->label($model,'Crit_Familia'); ?>
@@ -271,6 +293,8 @@ $(function() {
             ?>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->label($model,'Crit_Linea'); ?>
@@ -293,8 +317,6 @@ $(function() {
             ?>
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->label($model,'Crit_Sublinea'); ?>
@@ -339,6 +361,8 @@ $(function() {
             ?>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->label($model,'Crit_UN'); ?>
@@ -361,8 +385,6 @@ $(function() {
             ?>
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->label($model,'Crit_Fabrica'); ?>
