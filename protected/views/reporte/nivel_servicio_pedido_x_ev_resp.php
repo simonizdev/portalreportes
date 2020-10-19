@@ -12,14 +12,6 @@ $ev_final = trim($model->ev_final);
 //opcion: 1. PDF, 2. EXCEL
 $opcion = $model->opcion_exp;
 
-//ev
-$q_ev_inicial = Yii::app()->db->createCommand("SELECT Id_Plan, Plan_Descripcion, Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_CLIENTES WHERE Id_Plan = 300 AND  Id_Criterio = ".$ev_inicial."")->queryRow();
-
-$q_ev_final = Yii::app()->db->createCommand("SELECT Id_Plan, Plan_Descripcion, Id_Criterio, Criterio_Descripcion FROM TH_CRITERIOS_CLIENTES WHERE Id_Plan = 300 AND  Id_Criterio = ".$ev_final."")->queryRow();
-
-$texto_ev_inicial = $q_ev_inicial['Criterio_Descripcion'];
-$texto_ev_final = $q_ev_final['Criterio_Descripcion'];
-
 //se obtiene la cadena de la fecha actual
 $diatxt=date('l');
 $dianro=date('d');
@@ -48,8 +40,6 @@ EXEC [dbo].[COM_REDES_PED_FECH_ESTRUCTURA]
     @FECHA1 = N'".$FechaM1."',
     @FECHA2 = N'".$FechaM2."'
 ";
-
-//echo $query;die;
 
 /*fin configuración array de datos*/
 
@@ -87,18 +77,18 @@ if($opcion == 1){
 
     function Header(){
       $this->SetFont('Arial','B',9);
-      $this->Cell(200,5,'PEDIDOS PENDIENTES POR DESPACHO - PEDIDO X EST. DE VENTA',0,0,'L');
+      $this->Cell(280,5,'PEDIDOS PENDIENTES POR DESPACHO - PEDIDO X EST. DE VENTA',0,0,'L');
       $this->SetFont('Arial','',7);
-      $this->Cell(80,5,utf8_decode($this->fecha_actual),0,0,'R');
+      $this->Cell(60,5,utf8_decode($this->fecha_actual),0,0,'R');
       $this->Ln();
       $this->SetFont('Arial','',7);
-      $this->Cell(280,5,utf8_decode('Criterio de búsqueda: Fecha del '.$this->fecha_inicial.' al '.$this->fecha_final.' / Est. de Venta de '.$this->ev_inicial.' a '.$this->ev_final),0,0,'L');
+      $this->Cell(340,5,utf8_decode('Criterio de búsqueda: Fecha del '.$this->fecha_inicial.' al '.$this->fecha_final.' / Est. de Venta de '.$this->ev_inicial.' a '.$this->ev_final),0,0,'L');
       $this->Ln();
       $this->Ln();
       
       //linea superior a la cabecera de la tabla
       $this->SetDrawColor(0,0,0);
-      $this->Cell(280,1,'','T');
+      $this->Cell(340,1,'','T');
       $this->SetFillColor(224,235,255);
       $this->SetTextColor(0);
       $this->Ln();  
@@ -108,13 +98,14 @@ if($opcion == 1){
   
       $this->Cell(8,2,utf8_decode('EV'),0,0,'L');
       $this->Cell(23,2,utf8_decode('REFERENCIA'),0,0,'L');
-      $this->Cell(47,2,utf8_decode('DESCRIPCIÓN'),0,0,'L');
-      $this->Cell(10,2,utf8_decode('ESTADO'),0,0,'L');
-      $this->Cell(12,2,utf8_decode('FECHA'),0,0,'L');
+      $this->Cell(50,2,utf8_decode('DESCRIPCIÓN'),0,0,'L');
+      $this->Cell(20,2,utf8_decode('UNIDAD'),0,0,'L');
+      $this->Cell(12,2,utf8_decode('ESTADO'),0,0,'L');
+      $this->Cell(16,2,utf8_decode('FECHA'),0,0,'L');
       $this->Cell(16,2,utf8_decode('DOCUMENTO'),0,0,'L');
       $this->Cell(7,2,utf8_decode('SUC.'),0,0,'L');
       $this->Cell(15,2,utf8_decode('NIT'),0,0,'L');
-      $this->Cell(35,2,utf8_decode('RAZÓN SOCIAL'),0,0,'L');
+      $this->Cell(45,2,utf8_decode('RAZÓN SOCIAL'),0,0,'L');
       $this->Cell(14,2,utf8_decode('CANT.'),0,0,'R');
       $this->Cell(14,2,utf8_decode('CANT.'),0,0,'R');
       $this->Cell(14,2,utf8_decode('CANT.'),0,0,'R');
@@ -127,13 +118,14 @@ if($opcion == 1){
       
       $this->Cell(8,2,utf8_decode('ITEM'),0,0,'L');
       $this->Cell(23,2,utf8_decode(''),0,0,'L');
-      $this->Cell(47,2,utf8_decode(''),0,0,'L');
-      $this->Cell(10,2,utf8_decode(''),0,0,'L');
+      $this->Cell(50,2,utf8_decode(''),0,0,'L');
+      $this->Cell(20,2,utf8_decode('NEGOCIO'),0,0,'L');
       $this->Cell(12,2,utf8_decode(''),0,0,'L');
+      $this->Cell(16,2,utf8_decode(''),0,0,'L');
       $this->Cell(16,2,utf8_decode(''),0,0,'L');
       $this->Cell(7,2,utf8_decode(''),0,0,'L');
       $this->Cell(15,2,utf8_decode(''),0,0,'L');
-      $this->Cell(35,2,utf8_decode(''),0,0,'L');
+      $this->Cell(45,2,utf8_decode(''),0,0,'L');
       $this->Cell(14,2,utf8_decode('PEDIDO'),0,0,'R');
       $this->Cell(14,2,utf8_decode('ENVIADO'),0,0,'R');
       $this->Cell(14,2,utf8_decode('REDESP.'),0,0,'R');
@@ -147,7 +139,7 @@ if($opcion == 1){
       
       //linea inferior a la cabecera de la tabla
       $this->SetDrawColor(0,0,0);
-      $this->Cell(280,1,'','T');
+      $this->Cell(340,1,'','T');
       $this->SetFillColor(224,235,255);
       $this->SetTextColor(0);
       
@@ -183,7 +175,8 @@ if($opcion == 1){
         
         $ITEM               = $reg1 ['ITEM'];
         $REFERENCIA        = $reg1 ['REFERENCIA'];    
-        $DESCRIPCION        = $reg1 ['DESCRIPCION'];    
+        $DESCRIPCION        = $reg1 ['DESCRIPCION']; 
+        $UNIDAD_NEGOCIO     = $reg1 ['UNIDAD_NEGOCIO'];     
         $LINEA              = $reg1 ['LINEA'];    
         $ESTADO             = $reg1 ['ESTADO'];    
         $Cant_Ped           = $reg1 ['Cant_Ped'];    
@@ -205,7 +198,7 @@ if($opcion == 1){
           
           if($ev != ""){
             $this->SetFont('Arial','B',5);
-            $this->Cell(173,5,'TOTAL '.$ev,0,0,'R');
+            $this->Cell(196,5,'TOTAL '.$ev,0,0,'R');
             $this->Cell(14,5,number_format(($Cant_Ped_sp),0,".",","),0,0,'R');
             $this->Cell(14,5,number_format(($Cant_Env_sp),0,".",","),0,0,'R');
             $this->Cell(14,5,number_format(($Cant_Redes_sp),0,".",","),0,0,'R');
@@ -234,13 +227,14 @@ if($opcion == 1){
         $this->SetFont('Arial','',5);
         $this->Cell(8,3,$ITEM,0,0,'L');
         $this->Cell(23,3,substr(utf8_decode($REFERENCIA),0, 20) ,0,0,'L');
-        $this->Cell(47,3,substr(utf8_decode($DESCRIPCION), 0, 40),0,0,'L');
-        $this->Cell(10,3,substr(utf8_decode($ESTADO), 0, 8),0,0,'L');
-        $this->Cell(12,3,utf8_decode($fecha),0,0,'L');
+        $this->Cell(50,3,substr(utf8_decode($DESCRIPCION), 0, 40),0,0,'L');
+        $this->Cell(20,3,substr(utf8_decode($UNIDAD_NEGOCIO), 0, 8),0,0,'L');
+        $this->Cell(12,3,substr(utf8_decode($ESTADO), 0, 8),0,0,'L');
+        $this->Cell(16,3,utf8_decode($fecha),0,0,'L');
         $this->Cell(16,3,utf8_decode($documento),0,0,'L');
         $this->Cell(7,3,utf8_decode($sucursal),0,0,'L');
         $this->Cell(15,3,utf8_decode($nit),0,0,'L');
-        $this->Cell(35,3,substr(utf8_decode($razon_social),0 , 35),0,0,'L');
+        $this->Cell(45,3,substr(utf8_decode($razon_social),0 , 35),0,0,'L');
         $this->Cell(14,3,number_format(($Cant_Ped),0,".",","),0,0,'R');
         $this->Cell(14,3,number_format(($Cant_Env),0,".",","),0,0,'R');
         $this->Cell(14,3,number_format(($Cant_Redes),0,".",","),0,0,'R');
@@ -271,7 +265,7 @@ if($opcion == 1){
 
       //se imprime el total de la ultima marca
       $this->SetFont('Arial','B',5);
-      $this->Cell(173,5,'TOTAL '.$ev,0,0,'R');
+      $this->Cell(212,5,'TOTAL '.$ev,0,0,'R');
       $this->Cell(14,5,number_format(($Cant_Ped_sp),0,".",","),0,0,'R');
       $this->Cell(14,5,number_format(($Cant_Env_sp),0,".",","),0,0,'R');
       $this->Cell(14,5,number_format(($Cant_Redes_sp),0,".",","),0,0,'R');
@@ -284,12 +278,12 @@ if($opcion == 1){
       $this->SetDrawColor(0,0,0);
       $this->Ln();
       $this->SetDrawColor(0,0,0);
-      $this->Cell(280,0,'','T');
+      $this->Cell(340,0,'','T');
       $this->SetDrawColor(255,255,255);
       $this->Ln();
 
       $this->SetFont('Arial','B',5);
-      $this->Cell(173,5,'TOTAL GENERAL',0,0,'R');
+      $this->Cell(212,5,'TOTAL GENERAL',0,0,'R');
       $this->Cell(14,5,number_format(($Cant_Ped_st),0,".",","),0,0,'R');
       $this->Cell(14,5,number_format(($Cant_Env_st),0,".",","),0,0,'R');
       $this->Cell(14,5,number_format(($Cant_Redes_st),0,".",","),0,0,'R');
@@ -300,7 +294,7 @@ if($opcion == 1){
 
       $this->Ln();
       $this->SetDrawColor(0,0,0);
-      $this->Cell(280,0,'','T');                            
+      $this->Cell(340,0,'','T');                            
       $this->Ln();
 
     }//fin tabla
@@ -313,12 +307,12 @@ if($opcion == 1){
     }
   }
 
-  $pdf = new PDF('L','mm','A4');
+  $pdf = new PDF('L','mm','Legal');
   //se definen las variables extendidas de la libreria FPDF
   $pdf->setFechaInicial($fecha_inicial);
   $pdf->setFechaFinal($fecha_final);
-  $pdf->setEvInicial($texto_ev_inicial);
-  $pdf->setEvFinal($texto_ev_final);
+  $pdf->setEvInicial($ev_inicial);
+  $pdf->setEvFinal($ev_final);
   $pdf->setFechaActual($fecha_act);
   $pdf->setSql($query);
   $pdf->AliasNbPages();
@@ -345,7 +339,7 @@ if($opcion == 2){
   $objPHPExcel->setActiveSheetIndex();
 
   $objPHPExcel->getActiveSheet()->mergeCells('A1:E1');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('A1', 'Criterio de búsqueda: Fecha del '.$fecha_inicial.' al '.$fecha_final.' / Est. de venta de '.$texto_ev_inicial.' a '.$texto_ev_final);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('A1', 'Criterio de búsqueda: Fecha del '.$fecha_inicial.' al '.$fecha_final.' / Est. de venta de '.$ev_inicial.' a '.$ev_final);
   $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
 
   /*Cabecera tabla*/
@@ -353,6 +347,7 @@ if($opcion == 2){
   $objPHPExcel->setActiveSheetIndex()->setCellValue('A3', 'EST. DE VENTA / ITEM');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('B3', 'REFERENCIA');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('C3', 'DESCRIPCIÓN');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('C3', 'UNIDAD DE NEGOCIO');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('D3', 'ESTADO');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('E3', 'FECHA');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('F3', 'DOCUMENTO');
@@ -399,7 +394,8 @@ if($opcion == 2){
     
     $ITEM               = $reg1 ['ITEM'];
     $REFERENCIA        = $reg1 ['REFERENCIA'];    
-    $DESCRIPCION        = $reg1 ['DESCRIPCION'];    
+    $DESCRIPCION        = $reg1 ['DESCRIPCION'];
+    $UNIDAD_NEGOCIO     = $reg1 ['UNIDAD_NEGOCIO'];    
     $LINEA              = $reg1 ['LINEA'];    
     $ESTADO             = $reg1 ['ESTADO'];    
     $Cant_Ped           = $reg1 ['Cant_Ped'];    

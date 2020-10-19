@@ -162,7 +162,7 @@ class ReporteController extends Controller
 
 		$lista_ev = array();
 		foreach ($model_ev as $m_ev) {
-			$lista_ev[$m_ev['Id_Criterio']] = $m_ev['Criterio_Descripcion'];
+			$lista_ev[$m_ev['Criterio_Descripcion']] = $m_ev['Criterio_Descripcion'];
 		}
 
 		if(isset($_POST['Reporte']))
