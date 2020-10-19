@@ -35,6 +35,9 @@ class TipoActController extends Controller
 				'actions'=>array('admin'),
 				'users'=>array('@'),
 			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
 		);
 	}
 
