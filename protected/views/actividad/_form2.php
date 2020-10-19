@@ -49,7 +49,11 @@
         <div class="form-group">
           <?php echo $form->label($model,'Id_Tipo', array('class' => 'control-label')); ?>
           <?php echo $form->error($model,'Id_Tipo', array('class' => 'badge badge-warning float-right')); ?>
-          <p><?php echo $model->idtipo->Tipo; ?></p>
+          <?php if($model->idtipo->Cantidad != ""){ ?>
+            <p><?php echo $model->idtipo->Cantidad." - ".$model->idtipo->Tipo; ?></p>
+          <?php }else{ ?>
+            <p><?php echo $model->idtipo->Tipo; ?></p>
+          <?php } ?>
         </div>
     </div>
 </div>

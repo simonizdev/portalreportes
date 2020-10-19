@@ -28,7 +28,7 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
     <h4>Administración tipos de actividad</h4>
   </div>
   <div class="col-sm-6 text-right">  
-      <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=TipoAct/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
+      <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=tipoact/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
     <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
   </div>
 </div>
@@ -56,6 +56,11 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
             'value'=>'$data->idgrupo->Dominio',
         ),
 		'Tipo',
+        array(
+            'name' => 'Cantidad',
+            'type' => 'raw',
+            'value' => '($data->Cantidad == "") ? "-" : $data->Cantidad',
+        ),
 		array(
             'name' => 'Estado',
             'value' => 'UtilidadesVarias::textoestado1($data->Estado)',

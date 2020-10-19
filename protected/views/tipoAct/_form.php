@@ -46,6 +46,15 @@
     </div>
     <div class="col-sm-4">
         <div class="form-group">
+            <?php echo $form->label($model,'Cantidad'); ?>
+            <?php echo $form->error($model,'Cantidad', array('class' => 'badge badge-warning float-right')); ?>
+            <?php echo $form->numberField($model,'Cantidad', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
             <?php echo $form->label($model,'Estado'); ?>
             <?php echo $form->error($model,'Estado', array('class' => 'badge badge-warning float-right')); ?>
             <?php $estados = Yii::app()->params->estados; ?>

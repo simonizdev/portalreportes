@@ -1,4 +1,4 @@
-<?php
+¿<?php
 
 class TipoActController extends Controller
 {
@@ -32,7 +32,7 @@ class TipoActController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin',),
+				'actions'=>array('admin'),
 				'users'=>array('@'),
 			),
 		);

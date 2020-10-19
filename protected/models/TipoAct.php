@@ -7,6 +7,7 @@
  * @property integer $Id_Tipo
  * @property integer $Id_Grupo
  * @property string $Tipo
+ * @property integer $Cantidad
  * @property integer $Estado
  * @property integer $Id_Usuario_Creacion
  * @property string $Fecha_Creacion
@@ -39,11 +40,12 @@ class TipoAct extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Id_Grupo, Tipo, Estado, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion', 'required'),
-			array('Id_Tipo, Id_Grupo, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
+			array('Id_Tipo, Id_Grupo, Cantidad, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
 			array('Tipo', 'length', 'max'=>100),
+			//array('Cantidad', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id_Tipo, Id_Grupo, Tipo, Estado, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, orderby', 'safe', 'on'=>'search'),
+			array('Id_Tipo, Id_Grupo, Tipo, Cantidad, Estado, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, orderby', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,6 +72,7 @@ class TipoAct extends CActiveRecord
 			'Id_Tipo' => 'ID',
 			'Id_Grupo' => 'Grupo',
 			'Tipo' => 'Tipo',
+			'Cantidad' => 'Cantidad',
 			'Estado' => 'Estado',
 			'Id_Usuario_Creacion' => 'Usuario que creo',
 			'Id_Usuario_Actualizacion' => 'Ultimo usuario que actualizó',
@@ -100,10 +103,10 @@ class TipoAct extends CActiveRecord
 		$criteria->together  =  true;
 	   	$criteria->with=array('idusuariocre','idusuarioact', 'idgrupo');
 
-		$criteria->compare('Id_Tipo',$this->Id_Tipo);
-		$criteria->compare('Id_Grupo',$this->Id_Grupo);
-		$criteria->compare('Tipo',$this->Tipo,true);
-		$criteria->compare('Estado',$this->Estado);
+		$criteria->compare('t.Id_Tipo',$this->Id_Tipo);
+		$criteria->compare('t.Id_Grupo',$this->Id_Grupo);
+		$criteria->compare('t.Tipo',$this->Tipo,true);
+		$criteria->compare('t.Estado',$this->Estado);
 		
 		if($this->Fecha_Creacion != ""){
       		$fci = $this->Fecha_Creacion." 00:00:00";

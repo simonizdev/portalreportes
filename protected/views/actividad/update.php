@@ -8,8 +8,16 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
 //para combos de grupos
 $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
 
+$lista_tipos = array();
+
 //para combos de tipos
-$lista_tipos = CHtml::listData($tipos, 'Id_Tipo', 'Tipo');
+foreach ($tipos as $t) {
+  if($t->Cantidad != ""){
+    $lista_tipos[$t->Id_Tipo] = $t->Cantidad." - ".$t->Tipo; 
+  }else{
+    $lista_tipos[$t->Id_Tipo] = $t->Tipo;
+  }
+}
 
 ?>
 

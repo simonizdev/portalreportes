@@ -82,7 +82,22 @@ class Actividad extends CActiveRecord
 		    
 		}
 
+
 		return $texto_estado;
+
+	}
+		
+	public function DescTipo($tipo){
+
+		$tipo=TipoAct::model()->findByPk($tipo);
+
+		if($tipo->Cantidad != ""){
+			$texto = $tipo->Cantidad." - ".$tipo->Tipo;
+		}else{
+			$texto = $tipo->Tipo;	
+		}
+    		
+		return $texto;
 
 	}
 
@@ -150,11 +165,21 @@ class Actividad extends CActiveRecord
 		$criteria->compare('t.Id',$this->Id);
 		$criteria->compare('t.Fecha',$this->Fecha,true);
 		$criteria->compare('t.Actividad',$this->Actividad,true);
-		$criteria->compare('t.Estado',$this->Estado);
+		
 		$criteria->compare('t.Fecha_Cierre',$this->Fecha_Cierre,true);
 		$criteria->compare('t.Hora_Cierre',$this->Hora_Cierre,true);
 		$criteria->compare('t.Id_Tipo',$this->Id_Tipo);
 		$criteria->compare('t.Id_Grupo',$this->Id_Grupo);
+
+		if($this->Estado == ""){
+			$criteria->AddCondition("t.Estado != 2"); 
+	    }else{
+	    	if($this->Estado == 0){
+	    		$criteria->AddCondition("t.Estado IN (1,3,4)"); 	
+	    	}else{
+	    		$criteria->compare('t.Estado',$this->Estado);
+	    	}
+	    }
 
 		if($this->Id_Usuario != ""){
 			$criteria->AddCondition("t.Id_Usuario = ".$this->Id_Usuario); 
@@ -171,7 +196,7 @@ class Actividad extends CActiveRecord
 			$criteria->AddCondition("t.Id_Usuario_Creacion = ".$this->Id_Usuario_Creacion); 
 	    }
 
-	     if(empty($this->orderby)){
+	    if(empty($this->orderby)){
 			$criteria->order = 't.Id DESC'; 	
 		}else{
 			switch ($this->orderby) {
