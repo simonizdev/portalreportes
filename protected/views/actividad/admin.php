@@ -69,7 +69,7 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
         ),
         array(
             'name' => 'Tipo',
-            'value' => '$data->DescTipo($data->Id_Tipo)',
+            'value' => '$data->idtipo->Tipo',
         ),
         array(
             'name'=>'Id_Usuario',

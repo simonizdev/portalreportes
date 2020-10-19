@@ -102,11 +102,7 @@ class ActividadController extends Controller
 		$id_grupo_actual = $model->Id_Grupo;
 		$grupo_actual = $model->idgrupo->Dominio;
 		$id_tipo_actual = $model->Id_Tipo;
-		if($model->idtipo->Cantidad != ""){
-			$tipo_actual = $model->idtipo->Cantidad." - ".$model->idtipo->Tipo;
-		}else{
-			$tipo_actual = $model->idtipo->Tipo;
-		}
+		$tipo_actual = $model->idtipo->Tipo;
 		$actividad_actual = $model->Actividad;
 		$estado_actual = $model->Estado;
 
@@ -120,12 +116,7 @@ class ActividadController extends Controller
 			$id_grupo_nuevo = $_POST['Actividad']['Id_Grupo'];
 			$grupo_nuevo = Dominio::model()->findByPk($_POST['Actividad']['Id_Grupo'])->Dominio;
 			$id_tipo_nuevo = $_POST['Actividad']['Id_Tipo'];
-			$t_nuevo = TipoAct::model()->findByPk($_POST['Actividad']['Id_Tipo']);
-			if($t_nuevo->Cantidad != ""){
-				$tipo_nuevo = $t_nuevo->Cantidad." - ".$t_nuevo->Tipo;
-			}else{
-				$tipo_nuevo = $t_nuevo->Tipo;
-			}
+			$tipo_nuevo = TipoAct::model()->findByPk($_POST['Actividad']['Id_Tipo'])->Tipo;
 			$actividad_nueva = $_POST['Actividad']['Actividad'];
 			$estado_nuevo = $_POST['Actividad']['Estado'];
 			
@@ -264,12 +255,7 @@ class ActividadController extends Controller
 		$i = 0;
 		$array_tipos = array();
 		foreach ($tipos as $t) {
-			if($t->Cantidad != ""){
-				$array_tipos[$i] = array('id' => $t->Id_Tipo,  'text' => $t->Cantidad." - ".$t->Tipo);
-			}else{
-				$array_tipos[$i] = array('id' => $t->Id_Tipo,  'text' => $t->Tipo);	
-			}
-    		
+			$array_tipos[$i] = array('id' => $t->Id_Tipo,  'text' => $t->Tipo);	
     		$i++; 
 	    }
 

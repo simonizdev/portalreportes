@@ -86,20 +86,6 @@ class Actividad extends CActiveRecord
 		return $texto_estado;
 
 	}
-		
-	public function DescTipo($tipo){
-
-		$tipo=TipoAct::model()->findByPk($tipo);
-
-		if($tipo->Cantidad != ""){
-			$texto = $tipo->Cantidad." - ".$tipo->Tipo;
-		}else{
-			$texto = $tipo->Tipo;	
-		}
-    		
-		return $texto;
-
-	}
 
 	/**
 	 * @return array relational rules.
