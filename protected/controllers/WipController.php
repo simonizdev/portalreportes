@@ -109,6 +109,21 @@ class WipController extends Controller
 
 			$num_reg = count($array_item);
 
+
+			if($model->CADENA != ""){
+
+				$q_cad = Yii::app()->db->createCommand("SELECT DISTINCT C_NIT_CLIENTE FROM TH_CLIENTES WHERE C_ESTRUCTURA = 106 AND C_CIA = 2 AND C_NOMBRE_CLIENTE ='".$model->CADENA."'")->queryRow();
+
+				$nit_cadena = $q_cad['C_NIT_CLIENTE'];
+				$razon_cadena = $model->CADENA;
+
+			}else{
+
+				$nit_cadena = "";
+				$razon_cadena = "";
+
+			}
+
 			for ($i = 0; $i < $num_reg; $i++) {
 			  	
 			  	$cons = $i + 1;
@@ -122,11 +137,12 @@ class WipController extends Controller
 					@fecha_s = '".$_POST['Wip']['FECHA_SOLICITUD_WIP']."',
 					@fecha_e = '".$_POST['Wip']['FECHA_ENTREGA_WIP']."',
 					@cant = ".$array_cant[$i].",
-					@cadena = N'".$model->CADENA."',
+					@cadena = '".$razon_cadena."',
 					@responsable = N'".$model->RESPONSABLE."',
 					@usuario_cre = ".$user.",
 					@usuario_act = ".$user.",
-					@observaciones = '".$_POST['Wip']['OBSERVACIONES']."'
+					@observaciones = '".$_POST['Wip']['OBSERVACIONES']."',
+					@nit = '".$nit_cadena."'
 				");
 
 				$command->execute();
