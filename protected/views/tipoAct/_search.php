@@ -43,6 +43,26 @@
 	    </div>
 	</div>
 	<div class="row">
+    <div class="col-sm-3">
+        <div class="form-group">
+            <?php echo $form->label($model,'Ind_Alto'); ?>
+            <?php echo $form->numberField($model,'Ind_Alto', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group">
+            <?php echo $form->label($model,'Ind_Medio'); ?>
+            <?php echo $form->numberField($model,'Ind_Medio', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group">
+            <?php echo $form->label($model,'Ind_Bajo'); ?>
+            <?php echo $form->numberField($model,'Ind_Bajo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
+        </div>
+    </div>
+</div>
+	<div class="row">
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Id_Usuario_Creacion'); ?>
@@ -162,6 +182,9 @@
 		$('#TipoAct_Id_Tipo').val('');
 		$('#TipoAct_Id_Grupo').val('');
 		$('#TipoAct_Tipo').val('');
+		$('#TipoAct_Ind_Alto').val('');
+		$('#TipoAct_Ind_Medio').val('');
+		$('#TipoAct_Ind_Bajo').val('');
 		$('#TipoAct_Id_Usuario_Creacion').val('').trigger('change');
 		$('#TipoAct_Fecha_Creacion').val('');
 		$('#TipoAct_Id_Usuario_Actualizacion').val('').trigger('change');

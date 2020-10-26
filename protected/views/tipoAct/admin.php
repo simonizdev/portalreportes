@@ -58,8 +58,19 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
 		'Tipo',
         array(
             'name' => 'Cantidad',
-            'type' => 'raw',
             'value' => '($data->Cantidad == "") ? "-" : $data->Cantidad',
+        ),
+        array(
+            'name' => 'Ind_Alto',
+            'value' => '($data->Ind_Alto == "") ? "-" : number_format($data->Ind_Alto, 2)',
+        ),
+        array(
+            'name' => 'Ind_Medio',
+            'value' => '($data->Ind_Medio == "") ? "-" : number_format($data->Ind_Medio, 2)',
+        ),
+        array(
+            'name' => 'Ind_Bajo',
+            'value' => '($data->Ind_Bajo == "") ? "-" : number_format($data->Ind_Bajo, 2)',
         ),
 		array(
             'name' => 'Estado',

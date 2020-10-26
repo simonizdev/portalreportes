@@ -8,6 +8,9 @@
  * @property integer $Id_Grupo
  * @property string $Tipo
  * @property integer $Cantidad
+ * @property string $Ind_Alto
+ * @property string $Ind_Medio
+ * @property string $Ind_Bajo
  * @property integer $Estado
  * @property integer $Id_Usuario_Creacion
  * @property string $Fecha_Creacion
@@ -39,7 +42,7 @@ class TipoAct extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_Grupo, Tipo, Estado, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion', 'required'),
+			array('Id_Grupo, Tipo, Estado, Cantidad, Ind_Alto, Ind_Medio, Ind_Bajo, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion', 'required'),
 			array('Id_Tipo, Id_Grupo, Cantidad, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
 			array('Tipo', 'length', 'max'=>100),
 			//array('Cantidad', 'safe'),
@@ -73,6 +76,9 @@ class TipoAct extends CActiveRecord
 			'Id_Grupo' => 'Grupo',
 			'Tipo' => 'Tipo',
 			'Cantidad' => 'Cantidad',
+			'Ind_Alto' => 'Ind. alto',
+			'Ind_Medio' => 'Ind. medio',
+			'Ind_Bajo' => 'Ind. bajo',
 			'Estado' => 'Estado',
 			'Id_Usuario_Creacion' => 'Usuario que creo',
 			'Id_Usuario_Actualizacion' => 'Ultimo usuario que actualizó',
@@ -105,6 +111,9 @@ class TipoAct extends CActiveRecord
 
 		$criteria->compare('t.Id_Tipo',$this->Id_Tipo);
 		$criteria->compare('t.Id_Grupo',$this->Id_Grupo);
+		$criteria->compare('t.Ind_Alto',$this->Ind_Alto);
+		$criteria->compare('t.Ind_Medio',$this->Ind_Medio);
+		$criteria->compare('t.Ind_Bajo',$this->Ind_Bajo);
 		$criteria->compare('t.Tipo',$this->Tipo,true);
 		$criteria->compare('t.Estado',$this->Estado);
 		

@@ -55,6 +55,29 @@
 <div class="row">
     <div class="col-sm-4">
         <div class="form-group">
+            <?php echo $form->label($model,'Ind_Alto'); ?>
+            <?php echo $form->error($model,'Ind_Alto', array('class' => 'badge badge-warning float-right')); ?>
+            <?php echo $form->numberField($model,'Ind_Alto', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <?php echo $form->label($model,'Ind_Medio'); ?>
+            <?php echo $form->error($model,'Ind_Medio', array('class' => 'badge badge-warning float-right')); ?>
+            <?php echo $form->numberField($model,'Ind_Medio', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <?php echo $form->label($model,'Ind_Bajo'); ?>
+            <?php echo $form->error($model,'Ind_Bajo', array('class' => 'badge badge-warning float-right')); ?>
+            <?php echo $form->numberField($model,'Ind_Bajo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
             <?php echo $form->label($model,'Estado'); ?>
             <?php echo $form->error($model,'Estado', array('class' => 'badge badge-warning float-right')); ?>
             <?php $estados = Yii::app()->params->estados; ?>
