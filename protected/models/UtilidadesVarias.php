@@ -252,7 +252,7 @@ class UtilidadesVarias {
 
     }
 
-    public static function envioemailliq($id, $email, $ruta_archivo) {
+    public static function envioemailwip($id, $email, $ruta_archivo) {
 
 
 		$modelo_wip = Wip::model()->findByPk($id);
@@ -289,11 +289,11 @@ class UtilidadesVarias {
 	    }
 
 	    if($hora >= 13 && $hora <= 16){
-	        $mensaje_hora = "Buenos tardes,";
+	        $mensaje_hora = "Buenas tardes,";
 	    }
 
 	    if($hora >= 17 && $hora <= 23){
-	        $mensaje_hora = "Buenos noches,";
+	        $mensaje_hora = "Buenas noches,";
 	    }
 		
 		$mensaje = $mensaje_hora."<br><br>
@@ -323,6 +323,158 @@ class UtilidadesVarias {
 		}else{
 		 	return 1;
 		}
+	
+	}
+
+	public static function envioemailfichaitem($id, $tipo, $step, $array_emails, $obs) {
+
+		//tipo -  0 revision, 1 avance en proceso
+		//steps -  al proceso que se va a enviar el correo
+
+		$modelo_fi = FichaItem::model()->findByPk($id);
+
+		$hora = date('H');
+
+	    if($hora >= 0 && $hora <= 12){
+	        $mensaje_hora = "Buenos días,";
+	    }
+
+	    if($hora >= 13 && $hora <= 16){
+	        $mensaje_hora = "Buenas tardes,";
+	    }
+
+	    if($hora >= 17 && $hora <= 23){
+	        $mensaje_hora = "Buenas noches,";
+	    }
+		
+		if($step == 10){
+			if($modelo_fi->Tipo == 1){
+				$asunto = "Se ha creado el producto ".$modelo_fi->Codigo_Item;
+				$mensaje = $mensaje_hora."<br><br>
+				Se ha creado el producto (".$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto)." / ".$modelo_fi->Codigo_Item." - ".$modelo_fi->Descripcion_Corta.").<br><br>";
+			}else{
+				$asunto = "Se ha actualizado el producto ".$modelo_fi->Codigo_Item;
+				$mensaje = $mensaje_hora."<br><br>
+				Se ha actualizado el producto con Código ".$modelo_fi->Codigo_Item.".<br><br>";
+			}
+		}else{
+			if($modelo_fi->Tipo == 1){
+				if($tipo == 0){
+					$asunto = "Solicitud revisión de datos para creación de producto ";
+					$mensaje = $mensaje_hora."<br><br>
+					Se ha solicitado una revisión de los datos registrados para la creación del producto (".$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto)." / ".$modelo_fi->Descripcion_Corta.").<br><br>
+					Observaciones de datos maestros: ".$obs;
+				}else{
+					$asunto = "Solicitud de información para creación de producto";
+					$mensaje = $mensaje_hora."<br><br>
+					Se ha solicitado que registre / revise los datos correpondientes a la creación del producto (".$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto)." / ".$modelo_fi->Descripcion_Corta.").<br><br>";
+				}
+			}else{
+				if($tipo == 0){
+					$asunto = "Solicitud revisión de datos para actualización de producto";
+					$mensaje = $mensaje_hora."<br><br>
+					Se ha solicitado una revisión de los datos registrados para la actualización del producto con Código ".$modelo_fi->Codigo_Item.".<br><br>
+					Observaciones de datos maestros: ".$obs;
+				}else{
+					$asunto = "Solicitud revisión de datos para actualización de producto";
+					$mensaje = $mensaje_hora."<br><br>
+					Se ha solicitado que registre / revise los datos correpondientes a la actualización del producto con Código ".$modelo_fi->Codigo_Item.".<br><br>";
+				}
+			}
+		}
+
+		set_time_limit(0); 
+
+		// Se inactiva el autoloader de yii
+		spl_autoload_unregister(array('YiiBase','autoload'));  
+
+		//require_once(Yii::app()->basePath . '\extensions\PHPMailer\class.phpmailer.php');
+		//require_once(Yii::app()->basePath . '\extensions\PHPMailer\class.smtp.php');
+
+		require_once(Yii::app()->basePath . '\extensions\PHPMailer\src\PHPMailer.php');
+		require_once(Yii::app()->basePath . '\extensions\PHPMailer\src\SMTP.php');
+
+		//cuando se termina la accion relacionada con la libreria se activa el autoloader de yii
+		spl_autoload_register(array('YiiBase','autoload'));
+
+		$cuenta = Yii::app()->params->email_send_emails;
+		$password = Yii::app()->params->psw_send_emails;
+		$de = Yii::app()->params->email_send_emails;
+		$de_nombre = Yii::app()->params->name_send_emails_com;
+
+		$mail = new PHPMailer\PHPMailer\PHPMailer;
+		$mail->IsSMTP();
+		$mail->CharSet = 'UTF-8';
+		$mail->Host = "secure.emailsrvr.com";
+		$mail->SMTPAuth= true;
+		$mail->Port = 465;
+	 	$mail->Username= $cuenta;
+		$mail->Password= $password;
+		$mail->SMTPSecure = 'ssl';
+		$mail->From = $de;
+ 		$mail->FromName= $de_nombre;
+		$mail->isHTML(true);
+		$mail->Subject = $asunto;
+		$mail->Body = $mensaje;
+
+		$num_notif = 0;
+
+		foreach ($array_emails as $llave => $email) {
+            $mail->addAddress($email);
+            $num_notif++;
+        }
+
+		if(!$mail->send()){
+			return 0;
+		}else{
+		 	return $num_notif;
+		}
+	
+	}
+
+	public static function emailsfichaitem($step) {
+		switch ($step) {
+		   	case 2:
+		   		$array_user = Yii::app()->params->usuarios_desarrollo;
+		        break;
+		    case 3:
+		   		$array_user = Yii::app()->params->usuarios_finanzas;
+		        break;
+		    case 4:
+		        $array_user = Yii::app()->params->usuarios_finanzas;
+		        break;
+		    case 5:
+		        $array_user = Yii::app()->params->usuarios_comercial;
+		        break;
+		    case 6:
+				$array_user = Yii::app()->params->usuarios_comercial;
+		        break;
+		    case 7:
+				$array_user = Yii::app()->params->usuarios_ingenieria;
+		        break;
+		    case 8:
+		        $array_user = Yii::app()->params->usuarios_ingenieria; 
+		        break;
+		    case 9:
+				$array_user = Yii::app()->params->usuarios_comercial;
+		        break; 
+		    case 9:
+				$array_user = Yii::app()->params->usuarios_dat_maestros;
+		        break;
+		    case 10:
+				$array_user = Yii::app()->params->usuarios_env_aprob;
+		        break; 
+		}
+
+		$users = implode(",", $array_user);
+		$q_emails = Yii::app()->db->createCommand("SELECT Correo FROM TH_USUARIOS WHERE Id_Usuario IN (".$users.")")->queryAll();
+
+		$lista_email = array();
+		foreach ($q_emails as $e) {
+			$lista_email[] = $e['Correo'];
+		}
+
+		return $lista_email;
 	
 	}
 }

@@ -25,8 +25,12 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario');
     <h4>Solicitudes creación / actualización de productos</h4>
   </div>
   <div class="col-sm-6 text-right"> 
-    <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaItem/create'; ?>';"><i class="fa fa-plus"></i> Solicitud de creación</button>
-    <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaItem/create2'; ?>';"><i class="fa fa-plus"></i> Solicitud de actualización</button> 
+    <?php if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_desarrollo)){ ?>
+    <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaItem/create&s=1'; ?>';"><i class="fa fa-plus"></i> Solicitud de creación</button>
+    <?php } ?>
+    <?php if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_comercial)){ ?>
+    <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaItem/create2&s=1'; ?>';"><i class="fa fa-plus"></i> Solicitud de actualización</button> 
+    <?php } ?>
     <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
   </div>
 </div>
@@ -91,12 +95,8 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario');
 
 		),
 		array(
-            'name'=>'Fecha_Hora_Solicitud',
-            'value'=>'UtilidadesVarias::textofechahora($data->Fecha_Hora_Solicitud)',
-        ),
-        array(
-            'name'=>'Id_Usuario_Solicitud',
-            'value'=>'$data->idusuariosol->Usuario',
+            'name'=>'Step',
+            'value'=>'$data->DescStep($data->Step)',
         ),
         array(
             'name'=>'Estado_Solicitud',
@@ -104,20 +104,21 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario');
         ),
         array(
             'class'=>'CButtonColumn',
-            'template'=>'{vc}{vu}',
+            'template'=>'{update}{update2}',
             'buttons'=>array(
-                'vc'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
+                
+                'update'=>array(
+                    'label'=>'<i class="fa fa-pen actions text-dark"></i>',
                     'imageUrl'=>false,
-                    'options'=>array('title'=>'Visualizar'),
-                    'url'=>'Yii::app()->createUrl("fichaItem/view", array("id"=>$data->Id, "opc"=>1))',
+                    'options'=>array('title'=>'Revisar'),
+                    'url'=>'Yii::app()->createUrl("fichaItem/update", array("id"=>$data->Id, "s"=>$data->Step))',
                     'visible'=> '($data->Tipo == 1)',
                 ),
-                'vu'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
+                'update2'=>array(
+                    'label'=>'<i class="fa fa-pen actions text-dark"></i>',
                     'imageUrl'=>false,
-                    'options'=>array('title'=>'Visualizar'),
-                    'url'=>'Yii::app()->createUrl("fichaItem/view2", array("id"=>$data->Id, "opc"=>1))',
+                    'options'=>array('title'=>'Revisar'),
+                    'url'=>'Yii::app()->createUrl("fichaItem/update2", array("id"=>$data->Id, "s"=>$data->Step))',
                     'visible'=> '($data->Tipo == 2)',
                 ),
             )

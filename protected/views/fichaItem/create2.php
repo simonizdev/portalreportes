@@ -8,6 +8,10 @@
 
 $(function() {
 
+    var step = <?php echo $s; ?>;
+    var e = <?php echo $e; ?>;
+    div_step(step, e);
+
     $("#valida_form").click(function() {
       var form = $("#ficha-item-form");
       var settings = form.data('settings') ;
@@ -90,16 +94,41 @@ $(function() {
         }
     });
 
+function div_step(step, e){
+
+    if(step == 1){
+        //inicio
+        $('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
+        $('#FichaItem_Cant_Moq').removeAttr('disabled');
+        $('#FichaItem_Stock_Minimo').removeAttr('disabled');
+        $('#FichaItem_Crit_Origen').removeAttr('disabled');
+        $('#FichaItem_Crit_Tipo').removeAttr('disabled');
+        $('#FichaItem_Crit_Clasificacion').removeAttr('disabled');
+        $('#FichaItem_Crit_Clase').removeAttr('disabled');
+        $('#FichaItem_Crit_Marca').removeAttr('disabled');
+        $('#FichaItem_Crit_Submarca').removeAttr('disabled');
+        $('#FichaItem_Crit_Segmento').removeAttr('disabled');
+        $('#FichaItem_Crit_Familia').removeAttr('disabled');
+        $('#FichaItem_Crit_Subfamilia').removeAttr('disabled');
+        $('#FichaItem_Crit_Linea').removeAttr('disabled');
+        $('#FichaItem_Crit_Sublinea').removeAttr('disabled');
+        $('#FichaItem_Crit_Grupo').removeAttr('disabled');
+        $('#FichaItem_Crit_UN').removeAttr('disabled');
+        $('#FichaItem_Crit_Fabrica').removeAttr('disabled');
+        $('#FichaItem_Crit_Cat_Oracle').removeAttr('disabled');
+        
+    }
+}
 
 });
 
 </script>
 
-<h4>Solicitud actualización de producto en siesa</h4>
+<h4>Solicitud actualización de producto</h4>
 
 <?php 
 
-$this->renderPartial('_form3', array(
+$this->renderPartial('_form2', array(
 	'model'=>$model,	
 	'lista_origen'=>$lista_origen,
 	'lista_tipo'=>$lista_tipo,

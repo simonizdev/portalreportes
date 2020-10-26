@@ -7,10 +7,40 @@
 <script type="text/javascript">
 $(function() {
 
+	var step = <?php echo $s; ?>;
+    var e = <?php echo $e; ?>;
+    div_step(step, e);
+
 	$('#FichaItem_Codigo_Item').attr("disabled", true);
+	$('#div_info').show();
+
+	$("#valida_form").click(function() {
+      var form = $("#ficha-item-form");
+      var settings = form.data('settings') ;
+
+      settings.submitting = true ;
+      $.fn.yiiactiveform.validate(form, function(messages) {
+          if($.isEmptyObject(messages)) {
+            $.each(settings.attributes, function () {
+                $.fn.yiiactiveform.updateInput(this,messages,form); 
+            });
+
+        	//se envia el form
+        	form.submit();
+        	loadershow();
+             
+          } else {
+              settings = form.data('settings'),
+              $.each(settings.attributes, function () {
+                 $.fn.yiiactiveform.updateInput(this,messages,form); 
+              });
+              settings.submitting = false ;
+          }
+      });
+    });
 
 	$("#rechazar_form").click(function() {
-		var opcion = confirm("Desea rechazar la solicitud?");
+		var opcion = confirm("Desea solicitar una revisión de los datos registrados?");
 	    if (opcion == true) {
 	    	loadershow();
 	       	location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/notas&id='.$model->Id; ?>';
@@ -23,12 +53,56 @@ $(function() {
 	});
 
 });
+
+function div_step(step, e){
+
+    if(step == 6){
+        //verificación comercial
+        if(e == 1){
+		  	//campos habilitados
+		  	$('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
+	        $('#FichaItem_Cant_Moq').removeAttr('disabled');
+	        $('#FichaItem_Stock_Minimo').removeAttr('disabled');
+	        $('#FichaItem_Crit_Origen').removeAttr('disabled');
+	        $('#FichaItem_Crit_Tipo').removeAttr('disabled');
+	        $('#FichaItem_Crit_Clasificacion').removeAttr('disabled');
+	        $('#FichaItem_Crit_Clase').removeAttr('disabled');
+	        $('#FichaItem_Crit_Marca').removeAttr('disabled');
+	        $('#FichaItem_Crit_Submarca').removeAttr('disabled');
+	        $('#FichaItem_Crit_Segmento').removeAttr('disabled');
+	        $('#FichaItem_Crit_Familia').removeAttr('disabled');
+	        $('#FichaItem_Crit_Subfamilia').removeAttr('disabled');
+	        $('#FichaItem_Crit_Linea').removeAttr('disabled');
+	        $('#FichaItem_Crit_Sublinea').removeAttr('disabled');
+	        $('#FichaItem_Crit_Grupo').removeAttr('disabled');
+	        $('#FichaItem_Crit_UN').removeAttr('disabled');
+	        $('#FichaItem_Crit_Fabrica').removeAttr('disabled');
+	        $('#FichaItem_Crit_Cat_Oracle').removeAttr('disabled');
+	  	}else{
+	  		$("#buttons_1").html('');
+	  	}
+           
+    }
+
+    if(step == 9){
+        //verificación comercial
+        if(e == 0){
+	  		$("#buttons_1").html('');
+	  	}
+           
+    }
+
+    if(step == 10){
+    	$("#buttons_1").html('');
+    }
+}
+
 </script>
 
-<h4>Revisión solicitud actualización de producto en siesa</h4>
+<h4>Revisión solicitud actualización de producto</h4>
 
 <?php 
-$this->renderPartial('_form4', array(
+$this->renderPartial('_form2', array(
 	'model'=>$model,
 	'lista_origen'=>$lista_origen,
 	'lista_tipo'=>$lista_tipo,

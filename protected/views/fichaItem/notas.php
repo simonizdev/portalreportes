@@ -9,6 +9,13 @@
 
 $(function() {
 
+    var t = <?php echo $t; ?>;
+
+    if(t ==2){
+      $('#FichaItem_Step').val(6).trigger('change');
+      $('#FichaItem_Step').attr("readonly", true); 
+    }
+
     $("#valida_form").click(function() {
       var form = $("#ficha-item-form");
       var settings = form.data('settings') ;
@@ -37,7 +44,7 @@ $(function() {
 
 </script>
 
-<h4>Rechazo de solicitud</h4>
+<h4>Revisión de solicitud</h4>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'ficha-item-form',
@@ -52,21 +59,40 @@ $(function() {
 )); ?>
 
 <div class="row">
-	<div class="col-sm-8">
-        <div class="form-group">
-            <?php echo $form->label($model,'Observaciones', array('class' => 'control-label')); ?>
-            <?php echo $form->error($model,'Observaciones', array('class' => 'badge badge-warning float-right')); ?>
-            <?php echo $form->textArea($model,'Observaciones',array('class' => 'form-control form-control-sm', 'rows'=>2, 'cols'=>50, 'maxlength'=>400, 'onkeyup' => 'convert_may(this)')); ?>
-        </div>
+  <div class="col-sm-4">
+    <div class="form-group">
+      <?php echo $form->label($model,'Step'); ?>
+      <?php echo $form->error($model,'Step', array('class' => 'badge badge-warning float-right')); ?>
+      <?php $steps = array(2 => 'Verificación Desarrollo / Innovación', 4 => 'Verificación Finanzas / Contabilidad', 6 => 'Verificación Comercial / Mercadeo' , 8 => 'Verificación Ingeniería'); ?>
+      <?php
+          $this->widget('ext.select2.ESelect2',array(
+              'name'=>'FichaItem[Step]',
+              'id'=>'FichaItem_Step',
+              'data'=>$steps,
+              'options'=>array(
+                  'placeholder'=>'Seleccione...',
+                  'width'=> '100%',
+                  'allowClear'=>true,
+              ),
+          ));
+      ?>
     </div>
+  </div>
+	<div class="col-sm-8">
+    <div class="form-group">
+        <?php echo $form->label($model,'Observaciones', array('class' => 'control-label')); ?>
+        <?php echo $form->error($model,'Observaciones', array('class' => 'badge badge-warning float-right')); ?>
+        <?php echo $form->textArea($model,'Observaciones',array('class' => 'form-control form-control-sm', 'rows'=>2, 'cols'=>50, 'maxlength'=>400, 'onkeyup' => 'convert_may(this)')); ?>
+    </div>
+  </div>
 </div>
 
 <div class="row mb-4">
     <div class="col-sm-6"> 
         <?php if($model->Tipo == 1){ ?>
-        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/update&id='.$model->Id; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/update&id='.$model->Id.'&s=9'; ?>';"><i class="fa fa-reply"></i> Volver</button>
         <?php }else{ ?>
-        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/update2&id='.$model->Id; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/update2&id='.$model->Id.'&s=9'; ?>';"><i class="fa fa-reply"></i> Volver</button>
         <?php } ?>
         <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
     </div>

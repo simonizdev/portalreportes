@@ -42,7 +42,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Tipo_Producto'); ?>
-	          	<?php $tipos_p = array(1 => 'TERMINADO', 2 => 'EN PROCESO', 3 => 'POP' , 4 => 'MATERIA PRIMA'); ?>
+	          	<?php $tipos_p = array(1 => 'TERMINADO', 2 => 'EN PROCESO', 3 => 'POP' , 4 => 'MATERIA PRIMA', 5 => 'PROMOCIÓN'); ?>
             	<?php
             		$this->widget('ext.select2.ESelect2',array(
 						'name'=>'FichaItem[Tipo_Producto]',
@@ -80,12 +80,13 @@
 	<div class="row">
 	    <div class="col-sm-3">
 	    	<div class="form-group">
-	          	<?php echo $form->label($model,'Id_Usuario_Solicitud'); ?>
+	          	<?php echo $form->label($model,'Step'); ?>
+	          	<?php $lista_procesos = array(2 => 'Verificación Desarrollo / Innovación', 3 => 'Finanzas / Contabilidad' , 4 => 'Verificación Finanzas / Contabilidad', 5 => 'Comercial / Mercadeo', 6 => 'Verificación Comercial / Mercadeo', 7 => 'Ingeniería', 8 => 'Verificación Ingeniería', 9 => 'Datos Maestros', 10 => 'Finalizado'); ?>
             	<?php
             		$this->widget('ext.select2.ESelect2',array(
-						'name'=>'FichaItem[Id_Usuario_Solicitud]',
-						'id'=>'FichaItem_Id_Usuario_Solicitud',
-						'data'=>$lista_usuarios,
+						'name'=>'FichaItem[Step]',
+						'id'=>'FichaItem_Step',
+						'data'=>$lista_procesos,
 						'htmlOptions'=>array(),
 					  	'options'=>array(
     						'placeholder'=>'Seleccione...',
