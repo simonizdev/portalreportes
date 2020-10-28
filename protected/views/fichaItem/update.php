@@ -7,6 +7,8 @@
 <script type="text/javascript">
 $(function() {
 
+	$(".ajax-loader").show();
+
 	var tipo_producto = $('#FichaItem_Tipo_Producto').val();
 
 	if(tipo_producto == 1){
@@ -27,6 +29,8 @@ $(function() {
 
 	$("#valida_form").click(function() {
 
+		debugger;
+
       	var form = $("#ficha-item-form");
 		var settings = form.data('settings') ;
 		var step = <?php echo $s; ?>;
@@ -36,28 +40,17 @@ $(function() {
 		var contenido = $("#FichaItem_Contenido").val();
 		var und_prod = $("#FichaItem_Unidad_Medida_Prod").val();
 
-		if(step ==2){
+		if(step == 2){
 
 			$valid = 0;
 
 			if(tipo_producto == 1){   
 
-			if(contenido != "" && und_prod != ""){
-			    $valid = 1;
-			}else{
-			    if(contenido == ""){
-			        $('#FichaItem_Contenido_em_').html('Contenido es requerido.');
-			        $('#FichaItem_Contenido_em_').show(); 
-			    }
-
-			    if(und_prod == ""){
-			        $('#FichaItem_Unidad_Medida_Prod_em_').html('Und. medida producto es requerido.');
-			        $('#FichaItem_Unidad_Medida_Prod_em_').show(); 
-			    }
-
-			    $valid = 0;
-
-			}
+				if(contenido != "" && und_prod != ""){
+				    $valid = 1;
+				}else{
+				    $valid = 0;
+				}
 
 			}else{
 				$valid = 1;
@@ -78,6 +71,27 @@ $(function() {
                 //se envia el form
                 form.submit();
                 loadershow();
+            }else{
+            	if(tipo_producto == 1){   
+
+					if(contenido != "" && und_prod != ""){
+					    $valid = 1;
+					}else{
+					    if(contenido == ""){
+					        $('#FichaItem_Contenido_em_').html('Contenido es requerido.');
+					        $('#FichaItem_Contenido_em_').show(); 
+					    }
+
+					    if(und_prod == ""){
+					        $('#FichaItem_Unidad_Medida_Prod_em_').html('Und. medida producto es requerido.');
+					        $('#FichaItem_Unidad_Medida_Prod_em_').show(); 
+					    }
+
+					    $valid = 0;
+
+					}
+
+				}	
             }
 		    
 		  } else {
@@ -86,9 +100,61 @@ $(function() {
 		         $.fn.yiiactiveform.updateInput(this,messages,form); 
 		      });
 		      settings.submitting = false ;
+
+		      if(tipo_producto == 1){
+                if(contenido == ""){
+                    $('#FichaItem_Contenido_em_').html('Contenido es requerido.');
+                    $('#FichaItem_Contenido_em_').show(); 
+                }
+
+                if(und_prod == ""){
+                    $('#FichaItem_Unidad_Medida_Prod_em_').html('Und. medida producto es requerido.');
+                    $('#FichaItem_Unidad_Medida_Prod_em_').show(); 
+                }
+              }
 		  }
 		});
 	});
+
+	$('#FichaItem_Contenido').change(function() {
+        var tipo_producto = $("#FichaItem_Tipo_Producto").val();
+        var val = $('#FichaItem_Contenido').val();
+        if(tipo_producto == 1){   
+            if(val == ""){
+                $('#FichaItem_Contenido_em_').html('Contenido es requerido.');
+                $('#FichaItem_Contenido_em_').show(); 
+            }else{
+                $('#FichaItem_Contenido_em_').html('');
+                $('#FichaItem_Contenido_em_').hide(); 
+            }
+
+        }else{
+            $('#FichaItem_Contenido_em_').html('');
+            $('#FichaItem_Contenido_em_').hide(); 
+        
+        }
+      
+    });
+
+    $('#FichaItem_Unidad_Medida_Prod').change(function() {
+        var tipo_producto = $("#FichaItem_Tipo_Producto").val();
+        var val = $('#FichaItem_Unidad_Medida_Prod').val();
+        if(tipo_producto == 1){   
+            if(val == ""){
+                $('#FichaItem_Unidad_Medida_Prod_em_').html('Und. medida producto es requerido.');
+                $('#FichaItem_Unidad_Medida_Prod_em_').show(); 
+            }else{
+                $('#FichaItem_Unidad_Medida_Prod_em_').html('');
+                $('#FichaItem_Unidad_Medida_Prod_em_').hide(); 
+            }
+
+        }else{
+            $('#FichaItem_Contenido_em_').html('');
+            $('#FichaItem_Contenido_em_').hide(); 
+        
+        }
+        
+    });
 
 	$('#FichaItem_Tipo_Producto').change(function() {
 
@@ -199,24 +265,21 @@ function div_step(step, e){
 	  		$('#FichaItem_Stock_Minimo').removeAttr('disabled');
 	  		$('#FichaItem_Instalaciones').removeAttr('disabled');
 	  		$('#FichaItem_Bodegas').removeAttr('disabled');
-	  	}else{
-	  		$("#buttons_1").html('');
+	  		$("#buttons_1").html('<button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>');
 	  	}
 
-        //verificación desarrollo
-        $('#collapse_1').collapse({
-          toggle: true
-        });
         $("#collapse_2").hide();
         $("#collapse_3").hide();
         $("#collapse_4").hide();
         $("#collapse_5").hide();
 
-        $('#img_info_1').addClass('fas fa-circle');
-        $("#img_info_2").addClass("fas fa-clock");
-        $("#img_info_3").addClass("fas fa-clock");
-        $("#img_info_4").addClass("fas fa-clock");
-        $("#img_info_5").addClass("fas fa-clock");
+        $('#link_collapse_1').addClass('text-warning').removeClass('text-secondary');
+        $('#link_collapse_2').addClass('text-danger').removeClass('text-secondary');
+        $('#link_collapse_3').addClass('text-danger').removeClass('text-secondary');
+        $('#link_collapse_4').addClass('text-danger').removeClass('text-secondary');
+        $('#link_collapse_5').addClass('text-danger').removeClass('text-secondary');
+
+        $('#img_info_1').addClass('fa-circle').removeClass('fa-clock');
     }
 
     if(step == 3){
@@ -226,26 +289,21 @@ function div_step(step, e){
 	    	//campos habilitados
 	  		$('#FichaItem_Tipo_Inventario').removeAttr('disabled');
   			$('#FichaItem_Grupo_Impositivo').removeAttr('disabled');
-	  	}else{
-	  		$("#buttons_2").html('');
+  			$("#buttons_2").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>');
 	  	}
 
-        $("#buttons_1").html('');
-        $("#buttons_3").html('');
-        $("#buttons_4").html('');
-        $("#buttons_5").html('');
-        $('#collapse_2').collapse({
-          toggle: true
-        });
         $("#collapse_3").hide();
         $("#collapse_4").hide();
         $("#collapse_5").hide();
 
-        $('#img_info_1').addClass('fas fa-check-circle');
-        $("#img_info_2").addClass("fas fa-circle");
-        $("#img_info_3").addClass("fas fa-clock");
-        $("#img_info_4").addClass("fas fa-clock");
-        $("#img_info_5").addClass("fas fa-clock");
+        $('#link_collapse_1').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_2').addClass('text-warning').removeClass('text-secondary');
+        $('#link_collapse_3').addClass('text-danger').removeClass('text-secondary');
+        $('#link_collapse_4').addClass('text-danger').removeClass('text-secondary');
+        $('#link_collapse_5').addClass('text-danger').removeClass('text-secondary');
+
+        $('#img_info_1').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_2').addClass('fa-circle').removeClass('fa-clock');
     }
 
     if(step == 4){
@@ -255,26 +313,21 @@ function div_step(step, e){
 	    	//campos habilitados
 	  		$('#FichaItem_Tipo_Inventario').removeAttr('disabled');
   			$('#FichaItem_Grupo_Impositivo').removeAttr('disabled');
-	  	}else{
-	  		$("#buttons_2").html('');
+  			$("#buttons_2").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>');
 	  	}
 
-        $("#buttons_1").html('');
-        $("#buttons_3").html('');
-        $("#buttons_4").html('');
-        $("#buttons_5").html('');
-        $('#collapse_2').collapse({
-          toggle: true
-        });
         $("#collapse_3").hide();
         $("#collapse_4").hide();
         $("#collapse_5").hide();
 
-        $('#img_info_1').addClass('fas fa-check-circle');
-        $("#img_info_2").addClass("fas fa-circle");
-        $("#img_info_3").addClass("fas fa-clock");
-        $("#img_info_4").addClass("fas fa-clock");
-        $("#img_info_5").addClass("fas fa-clock");
+        $('#link_collapse_1').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_2').addClass('text-warning').removeClass('text-secondary');
+        $('#link_collapse_3').addClass('text-danger').removeClass('text-secondary');
+        $('#link_collapse_4').addClass('text-danger').removeClass('text-secondary');
+        $('#link_collapse_5').addClass('text-danger').removeClass('text-secondary');
+
+        $('#img_info_1').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_2').addClass('fa-circle').removeClass('fa-clock');
     }
 
     if(step == 5){
@@ -297,25 +350,21 @@ function div_step(step, e){
 	  		$('#FichaItem_Crit_UN').removeAttr('disabled');
 	  		$('#FichaItem_Crit_Fabrica').removeAttr('disabled');
 	  		$('#FichaItem_Crit_Cat_Oracle').removeAttr('disabled');
-	  	}else{
-	  		$("#buttons_3").html('');
+	  		$("#buttons_3").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>');
 	  	}
 
-        $("#buttons_1").html('');
-        $("#buttons_2").html('');
-        $("#buttons_4").html('');
-        $("#buttons_5").html('');
-        $('#collapse_3').collapse({
-          toggle: true
-        });
         $("#collapse_4").hide();
         $("#collapse_5").hide();
 
-        $('#img_info_1').addClass('fas fa-check-circle');
-        $("#img_info_2").addClass("fas fa-check-circle");
-        $("#img_info_3").addClass("fas fa-circle");
-        $("#img_info_4").addClass("fas fa-clock");
-        $("#img_info_5").addClass("fas fa-clock");
+        $('#link_collapse_1').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_2').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_3').addClass('text-warning').removeClass('text-secondary');
+        $('#link_collapse_4').addClass('text-danger').removeClass('text-secondary');
+        $('#link_collapse_5').addClass('text-danger').removeClass('text-secondary');
+
+        $('#img_info_1').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_2').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_3').addClass('fa-circle').removeClass('fa-clock');
     }
 
     if(step == 6){
@@ -338,25 +387,21 @@ function div_step(step, e){
 	  		$('#FichaItem_Crit_UN').removeAttr('disabled');
 	  		$('#FichaItem_Crit_Fabrica').removeAttr('disabled');
 	  		$('#FichaItem_Crit_Cat_Oracle').removeAttr('disabled');
-	  	}else{
-	  		$("#buttons_3").html('');
+	  		$("#buttons_3").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>');
 	  	}
 
-        $("#buttons_1").html('');
-        $("#buttons_2").html('');
-        $("#buttons_4").html('');
-        $("#buttons_5").html('');
-        $('#collapse_3').collapse({
-          toggle: true
-        });
         $("#collapse_4").hide();
         $("#collapse_5").hide();
 
-        $('#img_info_1').addClass('fas fa-check-circle');
-        $("#img_info_2").addClass("fas fa-check-circle");
-        $("#img_info_3").addClass("fas fa-circle");
-        $("#img_info_4").addClass("fas fa-clock");
-        $("#img_info_5").addClass("fas fa-clock");
+        $('#link_collapse_1').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_2').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_3').addClass('text-warning').removeClass('text-secondary');
+        $('#link_collapse_4').addClass('text-danger').removeClass('text-secondary');
+        $('#link_collapse_5').addClass('text-danger').removeClass('text-secondary');
+
+        $('#img_info_1').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_2').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_3').addClass('fa-circle').removeClass('fa-clock');
     }
 
     if(step == 7){
@@ -385,8 +430,7 @@ function div_step(step, e){
 		  		$('#FichaItem_Cad_Largo').removeAttr('disabled');
 		  		$('#FichaItem_Cad_Ancho').removeAttr('disabled');
 		  		$('#FichaItem_Cad_Alto').removeAttr('disabled');
-		  	}else{
-		  		$("#buttons_4").html('');
+		  		$("#buttons_4").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>');
 		  	}
 		}else{
 			$('#log_ep').hide();
@@ -399,25 +443,22 @@ function div_step(step, e){
 		  		$('#FichaItem_Un_Largo').removeAttr('disabled');
 		  		$('#FichaItem_Un_Ancho').removeAttr('disabled');
 		  		$('#FichaItem_Un_Alto').removeAttr('disabled');
-		  	}else{
-		  		$("#buttons_4").html('');
+		  		$("#buttons_4").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>');
 		  	}
 		}
 
-        $("#buttons_1").html('');
-        $("#buttons_2").html('');
-        $("#buttons_3").html('');
-        $("#buttons_5").html('');
-        $('#collapse_4').collapse({
-          toggle: true
-        });
         $("#collapse_5").hide();
 
-        $('#img_info_1').addClass('fas fa-check-circle');
-        $("#img_info_2").addClass("fas fa-check-circle");
-        $("#img_info_3").addClass("fas fa-check-circle");
-        $("#img_info_4").addClass("fas fa-circle");
-        $("#img_info_5").addClass("fas fa-clock");
+        $('#link_collapse_1').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_2').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_3').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_4').addClass('text-warning').removeClass('text-secondary');
+        $('#link_collapse_5').addClass('text-danger').removeClass('text-secondary');
+
+        $('#img_info_1').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_2').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_3').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_4').addClass('fa-circle').removeClass('fa-clock');
     }
 
     if(step == 8){
@@ -446,8 +487,7 @@ function div_step(step, e){
 		  		$('#FichaItem_Cad_Largo').removeAttr('disabled');
 		  		$('#FichaItem_Cad_Ancho').removeAttr('disabled');
 		  		$('#FichaItem_Cad_Alto').removeAttr('disabled');
-		  	}else{
-		  		$("#buttons_4").html('');
+		  		$("#buttons_4").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>');
 		  	}
 		}else{
 			$('#log_ep').hide();
@@ -460,25 +500,22 @@ function div_step(step, e){
 		  		$('#FichaItem_Un_Largo').removeAttr('disabled');
 		  		$('#FichaItem_Un_Ancho').removeAttr('disabled');
 		  		$('#FichaItem_Un_Alto').removeAttr('disabled');
-		  	}else{
-		  		$("#buttons_4").html('');
+		  		$("#buttons_4").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>');
 		  	}
 		}
 
-        $("#buttons_1").html('');
-        $("#buttons_2").html('');
-        $("#buttons_3").html('');
-        $("#buttons_5").html('');
-        $('#collapse_4').collapse({
-          toggle: true
-        });
         $("#collapse_5").hide();
 
-        $('#img_info_1').addClass('fas fa-check-circle');
-        $("#img_info_2").addClass("fas fa-check-circle");
-        $("#img_info_3").addClass("fas fa-check-circle");
-        $("#img_info_4").addClass("fas fa-circle");
-        $("#img_info_5").addClass("fas fa-clock");
+       	$('#link_collapse_1').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_2').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_3').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_4').addClass('text-warning').removeClass('text-secondary');
+        $('#link_collapse_5').addClass('text-danger').removeClass('text-secondary');
+
+        $('#img_info_1').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_2').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_3').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_4').addClass('fa-circle').removeClass('fa-clock');
     }
 
     if(step == 9){
@@ -497,8 +534,7 @@ function div_step(step, e){
 				$('#FichaItem_Un_Gtin').removeAttr('disabled');
 				$('#FichaItem_Ep_Gtin').removeAttr('disabled');
 				$('#FichaItem_Cad_Gtin').removeAttr('disabled');
-		  	}else{
-		  		$("#buttons_5").html('');
+				$("#buttons_5").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-check-circle"></i> Aprobar</button>');
 		  	}
 		}else{
 			$('#log_ep').hide();
@@ -510,24 +546,21 @@ function div_step(step, e){
 		  		//campos habilitados
 		  		$('#FichaItem_Codigo_Item').removeAttr('disabled');
 				$('#FichaItem_Referencia').removeAttr('disabled');
-		  	}else{
-		  		$("#buttons_5").html('');
+				$("#buttons_5").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-check-circle"></i> Aprobar</button>');
 		  	}	
 		}
 
-        $("#buttons_1").html('');
-        $("#buttons_2").html('');
-        $("#buttons_3").html('');
-        $("#buttons_4").html('');
-        $('#collapse_5').collapse({
-          toggle: true
-        });
+        $('#link_collapse_1').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_2').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_3').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_4').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_5').addClass('text-warning').removeClass('text-secondary');
 
-        $('#img_info_1').addClass('fas fa-check-circle');
-        $("#img_info_2").addClass("fas fa-check-circle");
-        $("#img_info_3").addClass("fas fa-check-circle");
-        $("#img_info_4").addClass("fas fa-check-circle");
-        $("#img_info_5").addClass("fas fa-circle");
+        $('#img_info_1').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_2').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_3').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_4').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_5').addClass('fa-circle').removeClass('fa-clock');
     }
 
     if(step == 10){
@@ -553,17 +586,33 @@ function div_step(step, e){
         $("#buttons_3").html('');
         $("#buttons_4").html('');
         $("#buttons_5").html('');
-        $('#img_info_1').addClass('fas fa-check-circle');
-        $("#img_info_2").addClass("fas fa-check-circle");
-        $("#img_info_3").addClass("fas fa-check-circle");
-        $("#img_info_4").addClass("fas fa-check-circle");
-        $("#img_info_5").addClass("fas fa-check-circle");
+
+        $('#link_collapse_1').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_2').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_3').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_4').addClass('text-success').removeClass('text-secondary');
+        $('#link_collapse_5').addClass('text-success').removeClass('text-secondary');
+
+        $('#img_info_1').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_2').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_3').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_4').addClass('fa-check-circle').removeClass('fa-clock');
+        $('#img_info_5').addClass('fa-check-circle').removeClass('fa-clock');
     }
+
+    $(".ajax-loader").fadeOut('fast');
 }
 
 </script>
 
-<h4>Revisión solicitud creación de producto en siesa</h4>
+<div class="row mb-2">
+  <div class="col-sm-9">
+    <h4>Revisión solicitud creación de producto en siesa</h4>
+  </div>
+  <div class="col-sm-3 text-right"> 
+    <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+  </div>
+</div>
 
 <?php 
 $this->renderPartial('_form', array(

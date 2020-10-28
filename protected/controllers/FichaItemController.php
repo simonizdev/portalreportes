@@ -48,7 +48,7 @@ class FichaItemController extends Controller
 
 		$e = 0;
 
-		if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_desarrollo)){
+		if(in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(1))){
 			$e = 1;
 		}
 
@@ -258,7 +258,9 @@ class FichaItemController extends Controller
 			
 			if($model->save()){
 				$emails_envio = UtilidadesVarias::emailsfichaitem($model->Step);
-			    $resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');
+				if(!empty($emails_envio)){
+					$resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');	
+				}
 				Yii::app()->user->setFlash('success', "Solicitud creada correctamente.");
 				$this->redirect(array('admin'));
 			}
@@ -298,7 +300,7 @@ class FichaItemController extends Controller
 
 		$e = 0;
 
-		if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_comercial)){
+		if(in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(3))){
 			$e = 1;
 		}
 
@@ -431,7 +433,9 @@ class FichaItemController extends Controller
 
 			if($model->save())	{
 				$emails_envio = UtilidadesVarias::emailsfichaitem($model->Step);
-			    $resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');
+				if(!empty($emails_envio)){
+					$resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');	
+				}
 				Yii::app()->user->setFlash('success', "Solicitud creada correctamente.");
 				$this->redirect(array('admin'));
 			}
@@ -468,6 +472,7 @@ class FichaItemController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$tipo_producto_actual = $model->Tipo_Producto;
+		$step_rev = $model->Step_Rev;
 
 		//permiso editar
 		$e = 0;
@@ -479,31 +484,31 @@ class FichaItemController extends Controller
 				}else{
 					$model->Scenario = 'v_desarrollo';
 				}
-				if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_desarrollo)){
+				if(in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(1))){
 		        	$e = 1;
 		        }		        
 		        break;
 		    case 3:
 		        $model->Scenario = 'finanzas';
-		        if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_finanzas)){
+		        if(in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(2)) || in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(5))){
 		        	$e = 1;
 		        }
 		        break;
 		    case 4:
 		        $model->Scenario  = 'v_finanzas';
-		        if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_finanzas)){
+		        if(in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(2))){
 		        	$e = 1;
 		        }
 		        break;
 		   	case 5:
 		        $model->Scenario  = 'comercial';
-		        if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_comercial)){
+		        if(in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(3)) || in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(5))){
 		        	$e = 1;
 		        }
 		        break;
 		    case 6:
 		        $model->Scenario  = 'v_comercial';
-		        if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_comercial)){
+		        if(in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(3))){
 		        	$e = 1;
 		        }
 		        break;
@@ -513,7 +518,7 @@ class FichaItemController extends Controller
 				}else{
 					$model->Scenario = 'ingenieria';
 				}
-				if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_ingenieria)){
+				if(in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(4)) || in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(5))){
 		        	$e = 1;
 		        }
 		        break;
@@ -523,7 +528,7 @@ class FichaItemController extends Controller
 				}else{
 					$model->Scenario = 'v_ingenieria';	
 				}
-				if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_ingenieria)){
+				if(in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(4))){
 		        	$e = 1;
 		        }
 		        break;
@@ -533,7 +538,7 @@ class FichaItemController extends Controller
 				}else{
 					$model->Scenario = 'dat_maestros';
 				}
-				if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_dat_maestros)){
+				if(in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(5))){
 		        	$e = 1;
 		        }
 		        break;
@@ -705,125 +710,308 @@ class FichaItemController extends Controller
 
 		if(isset($_POST['FichaItem']))
 		{
+			//print_r($_POST['FichaItem']);die;
 			$model->attributes=$_POST['FichaItem'];
 			
 			switch ($s) {
 			    case 2:
-					$model->Instalaciones = implode(",", $_POST['FichaItem']['Instalaciones']);
-					$model->Bodegas = implode(",", $_POST['FichaItem']['Bodegas']);
-					$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
-					if($tipo_producto_actual != 1 && $model->Tipo_Producto == 1){
-						$model->Step = 8;
+			    	if($step_rev == 9){
+						$model->Instalaciones = implode(",", $_POST['FichaItem']['Instalaciones']);
+						$model->Bodegas = implode(",", $_POST['FichaItem']['Bodegas']);
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+						if($tipo_producto_actual != 1 && $model->Tipo_Producto == 1){
+							$model->Step = 8;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = null;
+							$model->Cad_Volumen = null;
+						}else{
+							$model->Step = 9;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+
+						}
+						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
+						if($model->Tipo_Producto != 1){
+							$model->Contenido = null;
+							$model->Unidad_Medida_Prod = null;
+							$model->Ep_Medida = null;
+							$model->Ep_Cant = null;
+							$model->Ep_Peso = null;
+							$model->Ep_Largo = null;
+							$model->Ep_Ancho = null;
+							$model->Ep_Alto = null;
+							$model->Ep_Volumen = null;
+							$model->Cad_Medida = null;
+							$model->Cad_Cant = null;
+							$model->Cad_Peso = null;
+							$model->Cad_Largo = null;
+							$model->Cad_Ancho = null;
+							$model->Cad_Alto = null;
+							$model->Cad_Volumen = null;
+						}
 					}else{
-						$model->Step = 9;
-					}
-					$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
-					$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
-					if($model->Tipo_Producto != 1){
-						$model->Contenido = null;
-						$model->Unidad_Medida_Prod = null;
-						$model->Ep_Medida = null;
-						$model->Ep_Cant = null;
-						$model->Ep_Peso = null;
-						$model->Ep_Largo = null;
-						$model->Ep_Ancho = null;
-						$model->Ep_Alto = null;
+						$model->Step = 4;
+						$model->Instalaciones = implode(",", $_POST['FichaItem']['Instalaciones']);
+						$model->Bodegas = implode(",", $_POST['FichaItem']['Bodegas']);
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+						$model->Un_Volumen = null;
 						$model->Ep_Volumen = null;
-						$model->Cad_Medida = null;
-						$model->Cad_Cant = null;
-						$model->Cad_Peso = null;
-						$model->Cad_Largo = null;
-						$model->Cad_Ancho = null;
-						$model->Cad_Alto = null;
 						$model->Cad_Volumen = null;
+						if($model->Tipo_Producto != 1){
+							$model->Contenido = null;
+							$model->Unidad_Medida_Prod = null;
+							$model->Ep_Medida = null;
+							$model->Ep_Cant = null;
+							$model->Ep_Peso = null;
+							$model->Ep_Largo = null;
+							$model->Ep_Ancho = null;
+							$model->Ep_Alto = null;
+							$model->Ep_Volumen = null;
+							$model->Cad_Medida = null;
+							$model->Cad_Cant = null;
+							$model->Cad_Peso = null;
+							$model->Cad_Largo = null;
+							$model->Cad_Ancho = null;
+							$model->Cad_Alto = null;
+							$model->Cad_Volumen = null;
+						}
+						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');	
 					}
-					$model->Un_Volumen = null;
-					$model->Ep_Volumen = null;
-					$model->Cad_Volumen = null;
+					$model->Step_Rev = null;
+					$model->Estado_Solicitud = 1;
 					$model->Observaciones = null;
 			        break;
 			    case 3:
-					$model->Step = 5;
-					$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
-					$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
-					$model->Un_Volumen = null;
-					$model->Ep_Volumen = null;
-					$model->Cad_Volumen = null;
-			        break;
-			    case 4:
-			        $model->Step = 9;
-					$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
-					$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
-					$model->Un_Volumen = null;
-					$model->Ep_Volumen = null;
-					$model->Cad_Volumen = null;
-					$model->Observaciones = null;
-			        break;
-			   	case 5:
-			        $model->Step = 7;
-					$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
-					$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
-					$model->Un_Volumen = null;
-					$model->Ep_Volumen = null;
-					$model->Cad_Volumen = null;
-			        break;
-			    case 6:
-			        $model->Step = 9;
-					$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
-					$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
-					$model->Un_Volumen = null;
-					$model->Ep_Volumen = null;
-					$model->Cad_Volumen = null;
-					$model->Observaciones = null;
-			        break;
-			    case 7:
-			        if($model->Tipo_Producto == 1){
-						$model->Step = 9;
-						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
-						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');	
-					}else{
-						$model->Step = 9;
+			    	$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+			    	if($step_rev == 9){
+						if($model->Tipo_Producto == 1){
+							$model->Step = 9;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = null;
+							$model->Cad_Volumen = null;
+						}else{
+							$model->Step = 9;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+
+						}
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
+						
+					}else{
+						$model->Step = 5;
+						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
+						$model->Un_Volumen = null;
+						$model->Ep_Volumen = null;
+						$model->Cad_Volumen = null;	
+					}
+					$model->Step_Rev = null;
+					$model->Estado_Solicitud = 1;
+					$model->Observaciones = null;
+			        break;
+			    case 4:
+			    	$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+			        if($step_rev == 9){
+	
+						if($model->Tipo_Producto == 1){
+							$model->Step = 9;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = null;
+							$model->Cad_Volumen = null;
+						}else{
+							$model->Step = 9;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+
+						}
+						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
+						
+					}else{
+						$model->Step = 6;
+						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
+						$model->Un_Volumen = null;
 						$model->Ep_Volumen = null;
 						$model->Cad_Volumen = null;
 					}
+					$model->Step_Rev = null;
+					$model->Estado_Solicitud = 1;
+					$model->Observaciones = null;
 			        break;
-			    case 8:
-			        if($model->Tipo_Producto == 1){
-						$model->Step = 9;
+			   	case 5:
+			   		$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+					if($step_rev == 9){						
+						if($model->Tipo_Producto == 1){
+							$model->Step = 9;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = null;
+							$model->Cad_Volumen = null;
+						}else{
+							$model->Step = 9;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+
+						}
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
-						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');	
+						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
+						
+					}else{
+						$model->Step = 7;
+						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
+						$model->Un_Volumen = null;
+						$model->Ep_Volumen = null;
+						$model->Cad_Volumen = null;
+					}
+					$model->Step_Rev = null;
+					$model->Estado_Solicitud = 1;
+					$model->Observaciones = null;
+			        break;
+			    case 6:
+					$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+			        if($step_rev == 9){
+	
+						if($model->Tipo_Producto == 1){
+							$model->Step = 9;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = null;
+							$model->Cad_Volumen = null;
+						}else{
+							$model->Step = 9;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+
+						}
+						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
+						
+					}else{
+						$model->Step = 8;
+						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
+						$model->Un_Volumen = null;
+						$model->Ep_Volumen = null;
+						$model->Cad_Volumen = null;
+					}
+					$model->Step_Rev = null;
+					$model->Estado_Solicitud = 1;
+					$model->Observaciones = null;
+			        break;
+			    case 7:
+					$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+					if($step_rev == 9){	
+						$model->Step = 9;					
+						if($model->Tipo_Producto == 1){
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = null;
+							$model->Cad_Volumen = null;
+						}else{
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+
+						}
+						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
+						
 					}else{
 						$model->Step = 9;
+						if($model->Tipo_Producto == 1){
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = null;
+							$model->Cad_Volumen = null;
+						}else{
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+
+						}
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
-						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');	
+						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
 					}
+					$model->Step_Rev = null;
+					$model->Estado_Solicitud = 1;
+					$model->Observaciones = null;
+			        break;
+			    case 8:
+			        $model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+					if($step_rev == 9){	
+						$model->Step = 9;					
+						if($model->Tipo_Producto == 1){
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = null;
+							$model->Cad_Volumen = null;
+						}else{
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+
+						}
+						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
+						
+					}else{
+						$model->Step = 9;
+						if($model->Tipo_Producto == 1){
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = null;
+							$model->Cad_Volumen = null;
+						}else{
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+
+						}
+						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
+					}
+					$model->Step_Rev = null;
+					$model->Estado_Solicitud = 1;
 					$model->Observaciones = null;
 			        break;
 			    case 9:
+			    	$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
 			        if($model->Tipo_Producto == 1){
-						$model->Step = 9;
+						$model->Step = 10;
+						$model->Estado_Solicitud = 2;
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
+						$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+						$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
+						$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
 							
 					}else{
-						$model->Step = 9;
+						$model->Step = 10;
+						$model->Estado_Solicitud = 2;
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
-						$model->Un_Gtin = null;
-						$model->Ep_Gtin = null;
-						$model->Cad_Gtin = null;	
+						$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+						$model->Ep_Volumen = null;
+						$model->Cad_Volumen = null;	
 					}
-			        break; 
+			        break;
+
 			}
 
 			if($model->save()){
 				$emails_envio = UtilidadesVarias::emailsfichaitem($model->Step);
-			    $resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');
+				if(!empty($emails_envio)){
+					$resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');	
+				}
 				Yii::app()->user->setFlash('success', "Solicitud actualizada correctamente.");
 				$this->redirect(array('admin'));	
-			}
+			}else{
+			print_r($model->getErrors());die;
+		}
 		}
 
 		$this->render('update',array(
@@ -866,19 +1054,19 @@ class FichaItemController extends Controller
 		switch ($s) {
 		   	case 5:
 		        $model->Scenario  = 'comercial';
-		        if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_comercial)){
+		        if(in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(3))){
 		        	$e = 1;
 		        }
 		        break;
 		    case 6:
 		        $model->Scenario  = 'v_comercial';
-		        if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_comercial)){
+		        if(in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(3))){
 		        	$e = 1;
 		        }
 		        break;
 		    case 9:
 				$model->Scenario = 'dat_maestros';
-				if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_dat_maestros)){
+				if(in_array(Yii::app()->user->getState('id_user'), UtilidadesVarias::usuariosfichaitem(5))){
 		        	$e = 1;
 		        }
 		        break;
@@ -1002,7 +1190,9 @@ class FichaItemController extends Controller
 					
 			if($model->save()){
 				$emails_envio = UtilidadesVarias::emailsfichaitem($model->Step);
-			    $resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');
+			    if(!empty($emails_envio)){
+					$resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');	
+				}
 				Yii::app()->user->setFlash('success', "Solicitud actualizada correctamente.");
 				$this->redirect(array('admin'));	
 			}
@@ -1156,15 +1346,20 @@ class FichaItemController extends Controller
 		$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
 		if($model->save())	{
 			$emails_envio = UtilidadesVarias::emailsfichaitem($model->Step);
-			$resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');
+			if(!empty($emails_envio)){
+				$resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');	
+			}
 			Yii::app()->user->setFlash('success', "Solicitud actualizada correctamente.");
 			$this->redirect(array('admin'));
+		}else{
+			print_r($model->GetErrors());die;
 		}
 	}
 
 	public function actionNotas($id)
 	{
 		$model = $this->loadModel($id);
+		$step_rev = $model->Step;
 		$model->Scenario = 'notas';
 
 		// Uncomment the following line if AJAX validation is needed
@@ -1178,12 +1373,17 @@ class FichaItemController extends Controller
 			$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
 			if($model->Tipo == 2){
 				$model->Step = 6;
+			}else{
+				$model->Step_Rev = $step_rev;
 			}
 		
 			if($model->save())	{
-
 				$emails_envio = UtilidadesVarias::emailsfichaitem($model->Step);
-			    $resp = UtilidadesVarias::envioemailfichaitem($id, 0, $model->Step, $emails_envio, $model->Observaciones);
+			    if(!empty($emails_envio)){
+					$resp = UtilidadesVarias::envioemailfichaitem($id, 0, $model->Step, $emails_envio, $model->Observaciones);	
+				}
+				$model->Observaciones = null;
+				$model->update();
 				Yii::app()->user->setFlash('success', "Solicitud actualizada correctamente.");
 				$this->redirect(array('admin'));
 			}

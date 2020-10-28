@@ -23,7 +23,7 @@ $estados2 = Yii::app()->params->estados2;
   <div class="card">
       <div class="card-header" id="info_1">
         <h5 class="mb-0">
-        <a class="btn-link text-success" data-toggle="collapse" href="#collapse_1" role="button" aria-expanded="false" aria-controls="collapse_1"><i id="img_info_1"></i>
+        <a class="btn-link text-secondary" id="link_collapse_1" data-toggle="collapse" href="#collapse_1" role="button" aria-expanded="false" aria-controls="collapse_1"><i id="img_info_1" class="fas fa-clock"></i>
         Desarrollo / Innovación
         </a>
         </h5>
@@ -358,10 +358,8 @@ $estados2 = Yii::app()->params->estados2;
                   </div>
               </div>
           </div>
-          <div class="row mb-4" id="buttons_1">
-            <div class="col-sm-6">  
-                <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-                <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Crear</button>
+          <div class="row mb-2">
+            <div class="col-sm-6" id="buttons_1">
             </div>
           </div>
         </div>
@@ -370,7 +368,7 @@ $estados2 = Yii::app()->params->estados2;
   <div class="card">
       <div class="card-header" id="info_2">
         <h5 class="mb-0">
-        <a class="btn-link text-success" data-toggle="collapse" href="#collapse_2" role="button" aria-expanded="false" aria-controls="collapse_2"><i id="img_info_2"></i>
+        <a class="btn-link text-secondary" id="link_collapse_2" data-toggle="collapse" href="#collapse_2" role="button" aria-expanded="false" aria-controls="collapse_2"><i id="img_info_2" class="fas fa-clock"></i>
         Finanzas / Contabilidad
         </a>
         </h5>
@@ -423,10 +421,8 @@ $estados2 = Yii::app()->params->estados2;
                   </div>
               </div>
           </div>
-          <div class="row mb-4" id="buttons_2">
-            <div class="col-sm-6">  
-                <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-                <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>
+          <div class="row mb-2">
+            <div class="col-sm-6" id="buttons_2">  
             </div>
           </div> 
         </div>
@@ -435,7 +431,7 @@ $estados2 = Yii::app()->params->estados2;
   <div class="card">
       <div class="card-header" id="info_3">
         <h5 class="mb-0">
-          <a class="btn-link text-success" data-toggle="collapse" href="#collapse_3" role="button" aria-expanded="false" aria-controls="collapse_3"><i id="img_info_3"></i>
+          <a class="btn-link text-secondary" id="link_collapse_3" data-toggle="collapse" href="#collapse_3" role="button" aria-expanded="false" aria-controls="collapse_3"><i id="img_info_3" class="fas fa-clock"></i>
           Comercial / Mercadeo
           </a>
         </h5>
@@ -782,10 +778,8 @@ $estados2 = Yii::app()->params->estados2;
                   </div>
               </div>
           </div>
-          <div class="row mb-4" id="buttons_3">
-            <div class="col-sm-6">  
-                <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-                <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>
+          <div class="row mb-4">
+            <div class="col-sm-6" id="buttons_3"> 
             </div>
           </div>
         </div>
@@ -794,7 +788,7 @@ $estados2 = Yii::app()->params->estados2;
   <div class="card">
       <div class="card-header" id="info_4">
         <h5 class="mb-0">
-          <a class="btn-link text-success" data-toggle="collapse" href="#collapse_4" role="button" aria-expanded="false" aria-controls="collapse_4"><i id="img_info_4"></i>
+          <a class="btn-link text-secondary" id="link_collapse_4" data-toggle="collapse" href="#collapse_4" role="button" aria-expanded="false" aria-controls="collapse_4"><i id="img_info_4" class="fas fa-clock"></i>
           Ingeniería
           </a>
         </h5>
@@ -1024,10 +1018,8 @@ $estados2 = Yii::app()->params->estados2;
                 </div>
             </div>
           </div>
-          <div class="row mb-4" id="buttons_4">
-            <div class="col-sm-6">  
-                <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-                <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>
+          <div class="row mb-4">
+            <div class="col-sm-6" id="buttons_4">  
             </div>
           </div>
         </div>
@@ -1036,7 +1028,7 @@ $estados2 = Yii::app()->params->estados2;
   <div class="card">
       <div class="card-header" id="info_5">
         <h5 class="mb-0">
-          <a class="btn-link text-success" data-toggle="collapse" href="#collapse_5" role="button" aria-expanded="false" aria-controls="collapse_5"><i id="img_info_5"></i>
+          <a class="btn-link text-secondary" id="link_collapse_5" data-toggle="collapse" href="#collapse_5" role="button" aria-expanded="false" aria-controls="collapse_5"><i id="img_info_5" class="fas fa-clock"></i>
           Datos Maestros
           </a>
         </h5>
@@ -1082,11 +1074,8 @@ $estados2 = Yii::app()->params->estados2;
                 </div>
             </div>
           </div>
-          <div class="row mb-4" id="buttons_5">
-            <div class="col-sm-6">  
-                <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-                <button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button>
-                <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-check-circle"></i> Aprobar</button>
+          <div class="row mb-4">
+            <div class="col-sm-6" id="buttons_5">                  
             </div>
           </div>
         </div>
@@ -1098,7 +1087,7 @@ $estados2 = Yii::app()->params->estados2;
     <div class="col-sm-3">
         <div class="form-group">
             <?php echo $form->label($model,'Id_Usuario_Solicitud', array('class' => 'control-label')); ?>
-            <p><?php echo $model->idusuariosol->Usuario; ?></p>
+            <p><?php echo $model->idusuariosol->Nombres; ?></p>
         </div>
     </div>
     <div class="col-sm-3">
@@ -1110,7 +1099,7 @@ $estados2 = Yii::app()->params->estados2;
     <div class="col-sm-3">
         <div class="form-group">
             <?php echo $form->label($model,'Id_Usuario_Actualizacion', array('class' => 'control-label')); ?>
-            <p><?php echo $model->idusuarioact->Usuario; ?></p>
+            <p><?php echo $model->idusuarioact->Nombres; ?></p>
         </div>
     </div>
     <div class="col-sm-3">

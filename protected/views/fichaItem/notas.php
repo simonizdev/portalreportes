@@ -3,6 +3,27 @@
 /* @var $model FichaItem */
 /* @var $form CActiveForm */
 
+if($model->Tipo == 1){
+
+  if($model->Step == 3 || $model->Step == 4){
+    $steps = array(2 => 'Verificación Desarrollo / Innovación');
+  }
+
+  if($model->Step == 5 || $model->Step == 6){
+    $steps = array(2 => 'Verificación Desarrollo / Innovación', 4 => 'Verificación Finanzas / Contabilidad');
+  }
+
+  if($model->Step == 7 || $model->Step == 8){
+    $steps = array(2 => 'Verificación Desarrollo / Innovación', 4 => 'Verificación Finanzas / Contabilidad', 6 => 'Verificación Comercial / Mercadeo' );
+  }
+
+  if($model->Step == 9){
+    $steps = array(2 => 'Verificación Desarrollo / Innovación', 4 => 'Verificación Finanzas / Contabilidad', 6 => 'Verificación Comercial / Mercadeo' , 8 => 'Verificación Ingeniería');
+  }
+}else{
+  $steps = array(2 => 'Verificación Desarrollo / Innovación', 4 => 'Verificación Finanzas / Contabilidad', 6 => 'Verificación Comercial / Mercadeo' , 8 => 'Verificación Ingeniería');
+}
+
 ?>
 
 <script>
@@ -11,10 +32,10 @@ $(function() {
 
     var t = <?php echo $t; ?>;
 
-    if(t ==2){
+    /*if(t ==2){
       $('#FichaItem_Step').val(6).trigger('change');
       $('#FichaItem_Step').attr("readonly", true); 
-    }
+    }*/
 
     $("#valida_form").click(function() {
       var form = $("#ficha-item-form");
@@ -63,7 +84,6 @@ $(function() {
     <div class="form-group">
       <?php echo $form->label($model,'Step'); ?>
       <?php echo $form->error($model,'Step', array('class' => 'badge badge-warning float-right')); ?>
-      <?php $steps = array(2 => 'Verificación Desarrollo / Innovación', 4 => 'Verificación Finanzas / Contabilidad', 6 => 'Verificación Comercial / Mercadeo' , 8 => 'Verificación Ingeniería'); ?>
       <?php
           $this->widget('ext.select2.ESelect2',array(
               'name'=>'FichaItem[Step]',

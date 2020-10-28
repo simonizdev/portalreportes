@@ -331,6 +331,8 @@ class UtilidadesVarias {
 		//tipo -  0 revision, 1 avance en proceso
 		//steps -  al proceso que se va a enviar el correo
 
+		$url = Yii::app()->getBaseUrl(true).'/index.php?r=fichaItem';
+
 		$modelo_fi = FichaItem::model()->findByPk($id);
 
 		$hora = date('H');
@@ -360,25 +362,33 @@ class UtilidadesVarias {
 		}else{
 			if($modelo_fi->Tipo == 1){
 				if($tipo == 0){
-					$asunto = "Solicitud revisión de datos para creación de producto ";
-					$mensaje = $mensaje_hora."<br><br>
-					Se ha solicitado una revisión de los datos registrados para la creación del producto (".$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto)." / ".$modelo_fi->Descripcion_Corta.").<br><br>
-					Observaciones de datos maestros: ".$obs;
+					$asunto = 'Solicitud revisión de datos para creación de producto';
+					$mensaje = $mensaje_hora.'<br><br>
+					Se ha solicitado una revisión de los datos registrados para la creación del producto ('.$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto).' / '.$modelo_fi->Descripcion_Corta.').<br><br>
+					Observaciones: '.$obs.'<br><br>
+					Pulse <a href="'.$url.'/update&id='.$id.'&s='.$step.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
+					Usuario que solicita: '.$modelo_fi->idusuarioact->Nombres.'.';
 				}else{
-					$asunto = "Solicitud de información para creación de producto";
-					$mensaje = $mensaje_hora."<br><br>
-					Se ha solicitado que registre / revise los datos correpondientes a la creación del producto (".$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto)." / ".$modelo_fi->Descripcion_Corta.").<br><br>";
+					$asunto = 'Solicitud de información para creación de producto';
+					$mensaje = $mensaje_hora.'<br><br>
+					Se ha solicitado que registre / revise los datos correpondientes a la creación del producto ('.$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto).' / '.$modelo_fi->Descripcion_Corta.').<br><br>
+					Pulse <a href="'.$url.'/update&id='.$id.'&s='.$step.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
+					Usuario que solicita: '.$modelo_fi->idusuarioact->Nombres.'.';
 				}
 			}else{
 				if($tipo == 0){
-					$asunto = "Solicitud revisión de datos para actualización de producto";
-					$mensaje = $mensaje_hora."<br><br>
-					Se ha solicitado una revisión de los datos registrados para la actualización del producto con Código ".$modelo_fi->Codigo_Item.".<br><br>
-					Observaciones de datos maestros: ".$obs;
+					$asunto = 'Solicitud revisión de datos para actualización de producto';
+					$mensaje = $mensaje_hora.'<br><br>
+					Se ha solicitado una revisión de los datos registrados para la actualización del producto con Código '.$modelo_fi->Codigo_Item.'.<br><br>
+					Observaciones: '.$obs.'<br><br>
+					Pulse <a href="'.$url.'/update2&id='.$id.'&s='.$step.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
+					Usuario que solicita: '.$modelo_fi->idusuarioact->Nombres.'.';
 				}else{
-					$asunto = "Solicitud revisión de datos para actualización de producto";
-					$mensaje = $mensaje_hora."<br><br>
-					Se ha solicitado que registre / revise los datos correpondientes a la actualización del producto con Código ".$modelo_fi->Codigo_Item.".<br><br>";
+					$asunto = 'Solicitud revisión de datos para actualización de producto';
+					$mensaje = $mensaje_hora.'<br><br>
+					Se ha solicitado que registre / revise los datos correpondientes a la actualización del producto con Código '.$modelo_fi->Codigo_Item.'.<br><br>
+					Pulse <a href="'.$url.'/update2&id='.$id.'&s='.$step.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
+					Usuario que solicita: '.$modelo_fi->idusuarioact->Nombres.'.';
 				}
 			}
 		}
@@ -435,38 +445,34 @@ class UtilidadesVarias {
 	public static function emailsfichaitem($step) {
 		switch ($step) {
 		   	case 2:
-		   		$array_user = Yii::app()->params->usuarios_desarrollo;
+		   		$users = FichaItemUsuario::model()->findByPk(1)->Id_Users_Notif;
 		        break;
 		    case 3:
-		   		$array_user = Yii::app()->params->usuarios_finanzas;
+		   		$users = FichaItemUsuario::model()->findByPk(2)->Id_Users_Notif;
 		        break;
 		    case 4:
-		        $array_user = Yii::app()->params->usuarios_finanzas;
+		        $users = FichaItemUsuario::model()->findByPk(2)->Id_Users_Notif;
 		        break;
 		    case 5:
-		        $array_user = Yii::app()->params->usuarios_comercial;
+		        $users = FichaItemUsuario::model()->findByPk(3)->Id_Users_Notif;
 		        break;
 		    case 6:
-				$array_user = Yii::app()->params->usuarios_comercial;
+				$users = FichaItemUsuario::model()->findByPk(3)->Id_Users_Notif;
 		        break;
 		    case 7:
-				$array_user = Yii::app()->params->usuarios_ingenieria;
+				$users = FichaItemUsuario::model()->findByPk(4)->Id_Users_Notif;
 		        break;
 		    case 8:
-		        $array_user = Yii::app()->params->usuarios_ingenieria; 
+		        $users = FichaItemUsuario::model()->findByPk(4)->Id_Users_Notif;
 		        break;
 		    case 9:
-				$array_user = Yii::app()->params->usuarios_comercial;
-		        break; 
-		    case 9:
-				$array_user = Yii::app()->params->usuarios_dat_maestros;
+				$users = FichaItemUsuario::model()->findByPk(5)->Id_Users_Notif;
 		        break;
 		    case 10:
-				$array_user = Yii::app()->params->usuarios_env_aprob;
+				$users = FichaItemUsuario::model()->findByPk(6)->Id_Users_Notif;
 		        break; 
 		}
 
-		$users = implode(",", $array_user);
 		$q_emails = Yii::app()->db->createCommand("SELECT Correo FROM TH_USUARIOS WHERE Id_Usuario IN (".$users.")")->queryAll();
 
 		$lista_email = array();
@@ -477,4 +483,28 @@ class UtilidadesVarias {
 		return $lista_email;
 	
 	}
+
+	public static function usuariosfichaitem($step) {
+		switch ($step) {
+		   	case 1:
+		   		$users = FichaItemUsuario::model()->findByPk(1)->Id_Users_Reg;
+		        break;
+		    case 2:
+		   		$users = FichaItemUsuario::model()->findByPk(2)->Id_Users_Reg;
+		        break;
+		    case 3:
+		        $users = FichaItemUsuario::model()->findByPk(3)->Id_Users_Reg;
+		        break;
+		    case 4:
+		        $users = FichaItemUsuario::model()->findByPk(4)->Id_Users_Reg;
+		        break;
+		   	case 5:
+		        $users = FichaItemUsuario::model()->findByPk(5)->Id_Users_Reg;
+		        break; 
+		}
+
+		return explode(",", $users);
+	
+	}
+
 }

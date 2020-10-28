@@ -8,6 +8,8 @@
 
 $(function() {
 
+    $(".ajax-loader").show();
+
     var step = <?php echo $s; ?>;
     var e = <?php echo $e; ?>;
     div_step(step, e);
@@ -140,29 +142,36 @@ function div_step(step, e){
             $('#FichaItem_Stock_Minimo').removeAttr('disabled');
             $('#FichaItem_Instalaciones').removeAttr('disabled');
             $('#FichaItem_Bodegas').removeAttr('disabled');
-        }else{
-            $("#buttons_1").html('');
+            $("#buttons_1").html('<button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Crear</button>');
         }
 
-        $('#collapse_1').collapse({
-          toggle: true
-        });
         $("#collapse_2").hide();
         $("#collapse_3").hide();
         $("#collapse_4").hide();
         $("#collapse_5").hide();
 
-        $('#img_info_1').addClass('fas fa-circle');
-        $("#img_info_2").addClass("fas fa-clock");
-        $("#img_info_3").addClass("fas fa-clock");
-        $("#img_info_4").addClass("fas fa-clock");
-        $("#img_info_5").addClass("fas fa-clock");
+        $('#link_collapse_1').addClass('text-warning').removeClass('text-secondary');
+        $('#link_collapse_2').addClass('text-danger').removeClass('text-secondary');
+        $('#link_collapse_3').addClass('text-danger').removeClass('text-secondary');
+        $('#link_collapse_4').addClass('text-danger').removeClass('text-secondary');
+        $('#link_collapse_5').addClass('text-danger').removeClass('text-secondary');
+
+        $('#img_info_1').addClass('fa-circle').removeClass('fa-clock');
     }
+
+    $(".ajax-loader").fadeOut('fast');
 }
 
 </script>
 
-<h4>Solicitud creación de producto en siesa</h4>
+<div class="row mb-2">
+  <div class="col-sm-9">
+    <h4>Solicitud creación de producto en siesa</h4>
+  </div>
+  <div class="col-sm-3 text-right"> 
+    <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+  </div>
+</div>
 
 <?php 
 

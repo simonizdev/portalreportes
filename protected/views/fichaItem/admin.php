@@ -15,6 +15,9 @@ $('.search-form form').submit(function(){
 });
 ");
 
+$usuarios_desarrollo = UtilidadesVarias::usuariosfichaitem(1);
+$usuarios_comercial = UtilidadesVarias::usuariosfichaitem(3);
+
 //para combos de usuarios
 $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario');
 
@@ -25,10 +28,10 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario');
     <h4>Solicitudes creación / actualización de productos</h4>
   </div>
   <div class="col-sm-6 text-right"> 
-    <?php if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_desarrollo)){ ?>
+    <?php if(in_array(Yii::app()->user->getState('id_user'), $usuarios_desarrollo)){ ?>
     <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaItem/create&s=1'; ?>';"><i class="fa fa-plus"></i> Solicitud de creación</button>
     <?php } ?>
-    <?php if(in_array(Yii::app()->user->getState('id_user'), Yii::app()->params->usuarios_comercial)){ ?>
+    <?php if(in_array(Yii::app()->user->getState('id_user'), $usuarios_comercial)){ ?>
     <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaItem/create2&s=1'; ?>';"><i class="fa fa-plus"></i> Solicitud de actualización</button> 
     <?php } ?>
     <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>

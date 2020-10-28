@@ -76,6 +76,8 @@
  * @property integer $Estado_Solicitud
  * @property string $Observaciones
  * @property integer $Estado_Solicitud
+ * @property integer $Step
+ * @property integer $Step_Rev
  *
  * The followings are the available model relations:
  * @property THUSUARIOS $idUsuarioSolicitud

@@ -428,7 +428,7 @@ $estados2 = Yii::app()->params->estados2;
         <div class="col-sm-3">
             <div class="form-group">
                 <?php echo $form->label($model,'Id_Usuario_Solicitud', array('class' => 'control-label')); ?>
-                <p><?php echo $model->idusuariosol->Usuario; ?></p>
+                <p><?php echo $model->idusuariosol->Nombres; ?></p>
             </div>
         </div>
         <div class="col-sm-3">
@@ -440,7 +440,7 @@ $estados2 = Yii::app()->params->estados2;
         <div class="col-sm-3">
             <div class="form-group">
                 <?php echo $form->label($model,'Id_Usuario_Actualizacion', array('class' => 'control-label')); ?>
-                <p><?php echo $model->idusuarioact->Usuario; ?></p>
+                <p><?php echo $model->idusuarioact->Nombres; ?></p>
             </div>
         </div>
         <div class="col-sm-3">
@@ -453,13 +453,12 @@ $estados2 = Yii::app()->params->estados2;
     <?php } ?>
 
     <div class="row mb-4" id="buttons_1">
-        <div class="col-sm-6">  
-            <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <div class="col-sm-6">
             <?php if($model->Step != 9){ ?>
-            <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>
+                <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>
             <?php }else{ ?>
-            <button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button>
-            <button type="button" class="btn btn-success btn-sm" id="aprobar_form"><i class="fas fa-check-circle"></i> Aprobar</button>
+                <button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button>
+                <button type="button" class="btn btn-success btn-sm" id="aprobar_form"><i class="fas fa-check-circle"></i> Aprobar</button>
             <?php } ?>
         </div>
     </div>

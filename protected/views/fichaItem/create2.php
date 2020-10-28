@@ -97,25 +97,30 @@ $(function() {
 function div_step(step, e){
 
     if(step == 1){
-        //inicio
-        $('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
-        $('#FichaItem_Cant_Moq').removeAttr('disabled');
-        $('#FichaItem_Stock_Minimo').removeAttr('disabled');
-        $('#FichaItem_Crit_Origen').removeAttr('disabled');
-        $('#FichaItem_Crit_Tipo').removeAttr('disabled');
-        $('#FichaItem_Crit_Clasificacion').removeAttr('disabled');
-        $('#FichaItem_Crit_Clase').removeAttr('disabled');
-        $('#FichaItem_Crit_Marca').removeAttr('disabled');
-        $('#FichaItem_Crit_Submarca').removeAttr('disabled');
-        $('#FichaItem_Crit_Segmento').removeAttr('disabled');
-        $('#FichaItem_Crit_Familia').removeAttr('disabled');
-        $('#FichaItem_Crit_Subfamilia').removeAttr('disabled');
-        $('#FichaItem_Crit_Linea').removeAttr('disabled');
-        $('#FichaItem_Crit_Sublinea').removeAttr('disabled');
-        $('#FichaItem_Crit_Grupo').removeAttr('disabled');
-        $('#FichaItem_Crit_UN').removeAttr('disabled');
-        $('#FichaItem_Crit_Fabrica').removeAttr('disabled');
-        $('#FichaItem_Crit_Cat_Oracle').removeAttr('disabled');
+        if(e == 1){
+            //campos habilitados
+            //inicio
+            $('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
+            $('#FichaItem_Cant_Moq').removeAttr('disabled');
+            $('#FichaItem_Stock_Minimo').removeAttr('disabled');
+            $('#FichaItem_Crit_Origen').removeAttr('disabled');
+            $('#FichaItem_Crit_Tipo').removeAttr('disabled');
+            $('#FichaItem_Crit_Clasificacion').removeAttr('disabled');
+            $('#FichaItem_Crit_Clase').removeAttr('disabled');
+            $('#FichaItem_Crit_Marca').removeAttr('disabled');
+            $('#FichaItem_Crit_Submarca').removeAttr('disabled');
+            $('#FichaItem_Crit_Segmento').removeAttr('disabled');
+            $('#FichaItem_Crit_Familia').removeAttr('disabled');
+            $('#FichaItem_Crit_Subfamilia').removeAttr('disabled');
+            $('#FichaItem_Crit_Linea').removeAttr('disabled');
+            $('#FichaItem_Crit_Sublinea').removeAttr('disabled');
+            $('#FichaItem_Crit_Grupo').removeAttr('disabled');
+            $('#FichaItem_Crit_UN').removeAttr('disabled');
+            $('#FichaItem_Crit_Fabrica').removeAttr('disabled');
+            $('#FichaItem_Crit_Cat_Oracle').removeAttr('disabled');
+        }else{
+            $("#buttons_1").html('');
+        }
         
     }
 }
@@ -124,7 +129,14 @@ function div_step(step, e){
 
 </script>
 
-<h4>Solicitud actualización de producto</h4>
+<div class="row mb-2">
+  <div class="col-sm-9">
+    <h4>Solicitud actualización de producto</h4>
+  </div>
+  <div class="col-sm-3 text-right"> 
+    <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+  </div>
+</div>
 
 <?php 
 

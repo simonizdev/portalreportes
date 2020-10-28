@@ -99,7 +99,14 @@ function div_step(step, e){
 
 </script>
 
-<h4>Revisión solicitud actualización de producto</h4>
+<div class="row mb-2">
+  <div class="col-sm-9">
+    <h4>Revisión solicitud actualización de producto</h4>
+  </div>
+  <div class="col-sm-3 text-right"> 
+    <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+  </div>
+</div>
 
 <?php 
 $this->renderPartial('_form2', array(
