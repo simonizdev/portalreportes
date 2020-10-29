@@ -19,7 +19,7 @@ $usuarios_desarrollo = UtilidadesVarias::usuariosfichaitem(1);
 $usuarios_comercial = UtilidadesVarias::usuariosfichaitem(3);
 
 //para combos de usuarios
-$lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario');
+$lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
 
 ?>
 
@@ -71,6 +71,10 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario');
     'enableSorting' => false,
 	'columns'=>array(
 		'Id',
+        array(
+            'name' => 'Pais',
+            'value' => '$data->DescPais($data->Pais)',
+        ),
 		array(
             'name' => 'Tipo',
             'value' => '$data->DescTipo($data->Tipo)',
@@ -86,17 +90,27 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario');
 
 		),
 		array(
-		    'name'=>'Referencia',
-		    'type'=>'raw',
-		    'value'=>'($data->Referencia) == "" ? "-" : $data->Referencia	',
-
-		),
-		array(
 		    'name'=>'Descripcion_Corta',
 		    'type'=>'raw',
 		    'value'=>'($data->Descripcion_Corta) == "" ? "-" : $data->Descripcion_Corta	',
 
 		),
+        array(
+            'name'=>'Id_Usuario_Solicitud',
+            'value'=>'$data->idusuariosol->Nombres',
+        ),
+        array(
+            'name'=>'Fecha_Hora_Solicitud',
+            'value'=>'UtilidadesVarias::textofechahora($data->Fecha_Hora_Solicitud)',
+        ),
+        array(
+            'name'=>'Id_Usuario_Actualizacion',
+            'value'=>'$data->idusuarioact->Nombres',
+        ),
+        array(
+            'name'=>'Fecha_Hora_Actualizacion',
+            'value'=>'UtilidadesVarias::textofechahora($data->Fecha_Hora_Actualizacion)',
+        ),
 		array(
             'name'=>'Step',
             'value'=>'$data->DescStep($data->Step)',
@@ -105,6 +119,7 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario');
             'name'=>'Estado_Solicitud',
             'value'=>'$data->DescEstado($data->Estado_Solicitud)',
         ),
+
         array(
             'class'=>'CButtonColumn',
             'template'=>'{update}{update2}',

@@ -12,6 +12,8 @@ $(function() {
     var e = <?php echo $e; ?>;
     div_step(step, e);
 
+    $('#FichaItem_Pais').val(1).trigger('change');
+
     $("#valida_form").click(function() {
       var form = $("#ficha-item-form");
       var settings = form.data('settings') ;

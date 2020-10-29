@@ -33,6 +33,29 @@ $estados2 = Yii::app()->params->estados2;
           <div class="row">
               <div class="col-sm-4">
                   <div class="form-group">
+                      <?php echo $form->label($model,'Pais'); ?>
+                      <?php echo $form->error($model,'Pais', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php $paises = array(1 => 'COLOMBIA', 2 => 'ECUADOR', 3 => 'PERÚ'); ?>
+                      <?php
+                          $this->widget('ext.select2.ESelect2',array(
+                              'name'=>'FichaItem[Pais]',
+                              'id'=>'FichaItem_Pais',
+                              'data'=>$paises,
+                              'value' => $model->Pais,
+                              'htmlOptions'=>array(
+                                  'disabled'=>true,
+                              ),
+                              'options'=>array(
+                                  'placeholder'=>'Seleccione...',
+                                  'width'=> '100%',
+                                  'allowClear'=>true,
+                              ),
+                          ));
+                      ?>
+                  </div>
+              </div>
+              <div class="col-sm-4">
+                  <div class="form-group">
                       <?php echo $form->label($model,'Tipo_Producto'); ?>
                       <?php echo $form->error($model,'Tipo_Producto', array('class' => 'badge badge-warning float-right')); ?>
                       <?php $tipos_p = array(1 => 'TERMINADO', 2 => 'EN PROCESO', 3 => 'POP' , 4 => 'MATERIA PRIMA', 5 => 'PROMOCIÓN'); ?>

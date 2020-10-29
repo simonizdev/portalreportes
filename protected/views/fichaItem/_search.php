@@ -19,6 +19,28 @@
 	        </div>
 	    </div>
 	    <div class="col-sm-3">
+	      <div class="form-group">
+	          <?php echo $form->label($model,'Pais'); ?>
+	          <?php echo $form->error($model,'Pais', array('class' => 'badge badge-warning float-right')); ?>
+	          <?php $paises = array(1 => 'COLOMBIA', 2 => 'ECUADOR', 3 => 'PERÚ'); ?>
+	          <?php
+	              $this->widget('ext.select2.ESelect2',array(
+	                  'name'=>'FichaItem[Pais]',
+	                  'id'=>'FichaItem_Pais',
+	                  'data'=>$paises,
+	                  'value' => $model->Pais,
+	                  'htmlOptions'=>array(
+	                  ),
+	                  'options'=>array(
+	                      'placeholder'=>'Seleccione...',
+	                      'width'=> '100%',
+	                      'allowClear'=>true,
+	                  ),
+	              ));
+	          ?>
+	      </div>
+	    </div>
+	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Tipo'); ?>
 	          	<?php $tipos = array(1 => 'CREACIÓN', 2 => 'ACTUALIZACIÓN'); ?>
@@ -74,6 +96,56 @@
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Descripcion_Corta'); ?>
 			    <?php echo $form->textField($model,'Descripcion_Corta', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off')); ?>
+	        </div>
+	    </div>
+	</div>
+	<div class="row">
+	    <div class="col-sm-3">
+	    	<div class="form-group">
+	          	<?php echo $form->label($model,'Id_Usuario_Solicitud'); ?>
+            	<?php
+            		$this->widget('ext.select2.ESelect2',array(
+						'name'=>'FichaItem[Id_Usuario_Solicitud]',
+						'id'=>'FichaItem_Id_Usuario_Solicitud',
+						'data'=>$lista_usuarios,
+						'htmlOptions'=>array(),
+					  	'options'=>array(
+    						'placeholder'=>'Seleccione...',
+    						'width'=> '100%',
+    						'allowClear'=>true,
+						),
+					));
+				?>
+	        </div>
+	    </div>
+	    <div class="col-sm-3">
+	    	<div class="form-group">
+	          	<?php echo $form->label($model,'Fecha_Hora_Solicitud'); ?>
+			    <?php echo $form->textField($model,'Fecha_Hora_Solicitud', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+	        </div>
+	    </div>
+	    <div class="col-sm-3">
+	    	<div class="form-group">
+	          	<?php echo $form->label($model,'Id_Usuario_Actualizacion'); ?>
+            	<?php
+            		$this->widget('ext.select2.ESelect2',array(
+						'name'=>'FichaItem[Id_Usuario_Actualizacion]',
+						'id'=>'FichaItem_Id_Usuario_Actualizacion',
+						'data'=>$lista_usuarios,
+						'htmlOptions'=>array(),
+					  	'options'=>array(
+    						'placeholder'=>'Seleccione...',
+    						'width'=> '100%',
+    						'allowClear'=>true,
+						),
+					));
+				?>
+	        </div>
+	    </div>
+	    <div class="col-sm-3">
+	    	<div class="form-group">
+	          	<?php echo $form->label($model,'Fecha_Hora_Actualizacion'); ?>
+			    <?php echo $form->textField($model,'Fecha_Hora_Actualizacion', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
 	</div>
@@ -142,6 +214,7 @@
 
 	function resetfields(){
 		$('#FichaItem_Id').val('');
+		$('#FichaItem_Pais').val('').trigger('change');
 		$('#FichaItem_Tipo').val('').trigger('change');
 		$('#FichaItem_Tipo_Producto').val('').trigger('change');
 		$('#FichaItem_Codigo_Item').val('');
@@ -149,6 +222,9 @@
 		$('#FichaItem_Descripcion_Corta').val('');
 		$('#FichaItem_Id_Usuario_Solicitud').val('').trigger('change');
 		$('#FichaItem_Fecha_Hora_Solicitud').val('');
+		$('#FichaItem_Id_Usuario_Actualizacion').val('').trigger('change');
+		$('#FichaItem_Fecha_Hora_Actualizacion').val('');
+		$('#FichaItem_Step').val('').trigger('change');
 		$('#FichaItem_Estado').val('').trigger('change');
 		$('#yt0').click();
 	}

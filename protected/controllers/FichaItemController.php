@@ -423,7 +423,7 @@ class FichaItemController extends Controller
 
 			$model->Referencia = substr($q['I_REFERENCIA'], 0, 19);
 			$model->Descripcion_Corta = substr($q['I_DESCRIPCION'], 0, 39);
-
+			$model->Pais = 1;
 			$model->Step = 9;
 			$model->Tipo = 2;
 			$model->Id_Usuario_Solicitud = Yii::app()->user->getState('id_user');

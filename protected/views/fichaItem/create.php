@@ -123,6 +123,7 @@ function div_step(step, e){
 
         if(e == 1){
             //campos habilitados
+            $('#FichaItem_Pais').removeAttr('disabled');
             $('#FichaItem_Tipo_Producto').removeAttr('disabled');
             $('#FichaItem_Nombre_Funcional').removeAttr('disabled');
             $('#FichaItem_Marca_Producto').removeAttr('disabled');

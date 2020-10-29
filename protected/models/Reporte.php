@@ -65,6 +65,7 @@ class Reporte extends CFormModel
     public $un_final;
     public $ev_inicial;
     public $ev_final;
+    public $n_oc;
     
     public function rules() {
         // NOTE: you should only define rules for those attributes that
@@ -184,6 +185,7 @@ class Reporte extends CFormModel
             array('c_o, tipo, consecutivo', 'required','on'=>'remision_tu_go'),
             array('tipo, consecutivo', 'required','on'=>'elim_error_trans'),
             array('fecha, opcion_exp', 'required','on'=>'error_transf'),
+            array('n_oc, opcion_exp', 'required','on'=>'log_crossdocking'),
         );  
     }
 
@@ -272,6 +274,7 @@ class Reporte extends CFormModel
             'un_final' => 'Unidad de negocio final',
             'ev_inicial' => 'Est. de venta inicial',
             'ev_final' => 'Est. de venta final',
+            'n_oc' => '# Orden(es) de compra',
         );
     }
 

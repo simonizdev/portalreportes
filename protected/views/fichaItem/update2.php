@@ -11,6 +11,7 @@ $(function() {
     var e = <?php echo $e; ?>;
     div_step(step, e);
 
+    $('#FichaItem_Pais').val(1).trigger('change');
 	$('#FichaItem_Codigo_Item').attr("disabled", true);
 	$('#div_info').show();
 

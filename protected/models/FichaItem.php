@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'TH_FICHA_ITEM':
  * @property integer $Id
+ * @property integer $Pais 
  * @property integer $Tipo
  * @property integer $Tipo_Producto
  * @property string $Codigo_Item
@@ -101,9 +102,9 @@ class FichaItem extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Tipo_Producto, Nombre_Funcional, Marca_Producto, Caracteristicas, Descripcion_Larga, Unidad_Medida_Inv, Unidad_Medida_Compra, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Instalaciones, Bodegas', 'required','on'=>'desarrollo'),
+			array('Pais, Tipo_Producto, Nombre_Funcional, Marca_Producto, Caracteristicas, Descripcion_Larga, Unidad_Medida_Inv, Unidad_Medida_Compra, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Instalaciones, Bodegas', 'required','on'=>'desarrollo'),
 
-			array('Tipo_Producto, Nombre_Funcional, Marca_Producto, Caracteristicas, Descripcion_Larga , Unidad_Medida_Inv, Unidad_Medida_Compra, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Instalaciones, Bodegas', 'required','on'=>'v_desarrollo_pt'),
+			array('Pais, Tipo_Producto, Nombre_Funcional, Marca_Producto, Caracteristicas, Descripcion_Larga , Unidad_Medida_Inv, Unidad_Medida_Compra, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Instalaciones, Bodegas', 'required','on'=>'v_desarrollo_pt'),
 
 			array('Tipo_Producto, Nombre_Funcional, Marca_Producto, Caracteristicas, Descripcion_Larga, Unidad_Medida_Inv, Unidad_Medida_Compra, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Instalaciones, Bodegas', 'required','on'=>'v_desarrollo'),
 
@@ -125,7 +126,7 @@ class FichaItem extends CActiveRecord
 
 			array('Step, Observaciones', 'required','on'=>'notas'),
 
-			array('Tipo, Tipo_Producto, Contenido, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Cant, Ep_Cant, Cad_Cant, Id_Usuario_Solicitud, Estado_Solicitud, Step', 'numerical', 'integerOnly'=>true),
+			array('Pais, Tipo, Tipo_Producto, Contenido, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Cant, Ep_Cant, Cad_Cant, Id_Usuario_Solicitud, Estado_Solicitud, Step', 'numerical', 'integerOnly'=>true),
 			array('Codigo_Item, Referencia', 'length', 'max'=>20),
 			array('Descripcion_Corta', 'length', 'max'=>40),
 			array('Nombre_Funcional, Marca_Producto, Caracteristicas', 'length', 'max'=>10),
@@ -137,7 +138,7 @@ class FichaItem extends CActiveRecord
 			array('Instalaciones, Bodegas, Fecha_Hora_Solicitud', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, Tipo, Tipo_Producto, Codigo_Item, Referencia, Descripcion_Corta, Nombre_Funcional, Marca_Producto, Caracteristicas, Contenido, Unidad_Medida_Prod, Unidad_Medida_Inv, Unidad_Medida_Compra, Tipo_Inventario, Grupo_Impositivo, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Medida, Un_Cant, Un_Peso, Un_Largo, Un_Ancho, Un_Alto, Un_Volumen, Un_Gtin, Ep_Medida, Ep_Cant, Ep_Peso, Ep_Largo, Ep_Ancho, Ep_Alto, Ep_Volumen, Ep_Gtin, Cad_Medida, Cad_Cant, Cad_Peso, Cad_Largo, Cad_Ancho, Cad_Alto, Cad_Volumen, Cad_Gtin, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Clase, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Linea, Crit_Subfamilia, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle, Descripcion_Larga, Instalaciones, Bodegas, Id_Usuario_Solicitud, Fecha_Hora_Solicitud, Estado_Solicitud', 'safe', 'on'=>'search'),
+			array('Id, Pais, Tipo, Tipo_Producto, Codigo_Item, Referencia, Descripcion_Corta, Nombre_Funcional, Marca_Producto, Caracteristicas, Contenido, Unidad_Medida_Prod, Unidad_Medida_Inv, Unidad_Medida_Compra, Tipo_Inventario, Grupo_Impositivo, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Medida, Un_Cant, Un_Peso, Un_Largo, Un_Ancho, Un_Alto, Un_Volumen, Un_Gtin, Ep_Medida, Ep_Cant, Ep_Peso, Ep_Largo, Ep_Ancho, Ep_Alto, Ep_Volumen, Ep_Gtin, Cad_Medida, Cad_Cant, Cad_Peso, Cad_Largo, Cad_Ancho, Cad_Alto, Cad_Volumen, Cad_Gtin, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Clase, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Linea, Crit_Subfamilia, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle, Descripcion_Larga, Instalaciones, Bodegas, Id_Usuario_Solicitud, Fecha_Hora_Solicitud, Estado_Solicitud', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -180,6 +181,25 @@ class FichaItem extends CActiveRecord
 		}
 
 		return $texto_tipo_producto;
+
+	}
+
+	public function DescPais($pais){
+
+		switch ($pais) {
+		    case 1:
+		        $texto_pais = 'COLOMBIA';
+		        break;
+		    case 2:
+		        $texto_pais = 'ECUADOR';
+		        break;
+		    case 3:
+		        $texto_pais = 'PERÚ';
+		        break;
+		    
+		}
+
+		return $texto_pais;
 
 	}
 
@@ -346,6 +366,8 @@ class FichaItem extends CActiveRecord
 			'Estado_Solicitud' => 'Estado',
 			'Observaciones' => 'Observaciones',
 			'Step' => 'Proceso',
+			'Step_Rev' => 'Proceso que solicita reversión',
+			'Pais' => 'País',
 		);
 	}
 
@@ -370,14 +392,15 @@ class FichaItem extends CActiveRecord
 		$criteria->together  =  true;
 	   	$criteria->with=array('idusuariosol');
 
-		$criteria->compare('Id',$this->Id);
-		$criteria->compare('Tipo',$this->Tipo);
-		$criteria->compare('Tipo_Producto',$this->Tipo_Producto);
-		$criteria->compare('Codigo_Item',$this->Codigo_Item,true);
-		$criteria->compare('Referencia',$this->Referencia,true);
-		$criteria->compare('Descripcion_Corta',$this->Descripcion_Corta,true);
-		$criteria->compare('Estado_Solicitud',$this->Estado_Solicitud);
-		$criteria->compare('Step',$this->Step);
+		$criteria->compare('t.Id',$this->Id);
+		$criteria->compare('t.Pais',$this->Pais);
+		$criteria->compare('t.Tipo',$this->Tipo);
+		$criteria->compare('t.Tipo_Producto',$this->Tipo_Producto);
+		$criteria->compare('t.Codigo_Item',$this->Codigo_Item,true);
+		$criteria->compare('t.Referencia',$this->Referencia,true);
+		$criteria->compare('t.Descripcion_Corta',$this->Descripcion_Corta,true);
+		$criteria->compare('t.Estado_Solicitud',$this->Estado_Solicitud);
+		$criteria->compare('t.Step',$this->Step);
 
 		if($this->Fecha_Hora_Solicitud != ""){
       		$fci = $this->Fecha_Hora_Solicitud." 00:00:00";
@@ -388,6 +411,17 @@ class FichaItem extends CActiveRecord
 
 		if($this->Id_Usuario_Solicitud != ""){
 			$criteria->AddCondition("t.Id_Usuario_Solicitud = ".$this->Id_Usuario_Solicitud); 
+	    }
+
+	    if($this->Fecha_Hora_Actualizacion != ""){
+      		$fci = $this->Fecha_Hora_Actualizacion." 00:00:00";
+      		$fcf = $this->Fecha_Hora_Actualizacion." 23:59:59";
+
+      		$criteria->addBetweenCondition('t.Fecha_Hora_Actualizacion', $fci, $fcf);
+    	}
+
+		if($this->Id_Usuario_Actualizacion != ""){
+			$criteria->AddCondition("t.Id_Usuario_Actualizacion = ".$this->Id_Usuario_Actualizacion); 
 	    }
 
 	    $criteria->order = 't.Id DESC';
