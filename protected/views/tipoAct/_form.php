@@ -38,17 +38,53 @@
         </div>
     </div>
     <div class="col-sm-4">
+        <div class="form-group">
+            <?php echo $form->label($model,'Padre', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Padre', array('class' => 'badge badge-warning float-right')); ?>
+            <?php
+                $this->widget('ext.select2.ESelect2',array(
+                    'name'=>'TipoAct[Padre]',
+                    'id'=>'TipoAct_Padre',
+                    'data'=>$lista_opciones_p,
+                    'value' => $model->Padre,
+                    'htmlOptions'=>array(),
+                    'options'=>array(
+                        'placeholder'=>'Seleccione...',
+                        'width'=> '100%',
+                        'allowClear'=>true,
+                    ),
+                ));
+            ?>
+        </div>
+    </div>
+    <div class="col-sm-4">
     	<div class="form-group">
           	<?php echo $form->label($model,'Tipo'); ?>
             <?php echo $form->error($model,'Tipo', array('class' => 'badge badge-warning float-right')); ?>
 		    <?php echo $form->textField($model,'Tipo', array('class' => 'form-control form-control-sm', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->label($model,'Cantidad'); ?>
             <?php echo $form->error($model,'Cantidad', array('class' => 'badge badge-warning float-right')); ?>
             <?php echo $form->numberField($model,'Cantidad', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <?php echo $form->error($model,'Fecha_Inicio', array('class' => 'badge badge-warning float-right')); ?>
+        <?php echo $form->label($model,'Fecha_Inicio'); ?>
+            <?php echo $form->textField($model,'Fecha_Inicio', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <?php echo $form->error($model,'Fecha_Fin', array('class' => 'badge badge-warning float-right')); ?>
+        <?php echo $form->label($model,'Fecha_Fin'); ?>
+            <?php echo $form->textField($model,'Fecha_Fin', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
         </div>
     </div>
 </div>

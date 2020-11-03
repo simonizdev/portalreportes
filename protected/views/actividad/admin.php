@@ -75,6 +75,10 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
             'name'=>'Id_Usuario',
             'value'=>'$data->idusuario->Nombres',
         ),
+        array(
+            'name'=>'Id_Usuario_Deleg',
+            'value' => '($data->Id_Usuario_Deleg == "") ? "-" : $data->idusuariodeleg->Nombres',
+        ),
 		'Actividad',
 		array(
             'name' => 'Estado',

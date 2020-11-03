@@ -36,7 +36,6 @@ $(function() {
 		var step = <?php echo $s; ?>;
 		var tipo_producto = $("#FichaItem_Tipo_Producto").val();
 
-
 		var contenido = $("#FichaItem_Contenido").val();
 		var und_prod = $("#FichaItem_Unidad_Medida_Prod").val();
 
@@ -73,23 +72,16 @@ $(function() {
                 loadershow();
             }else{
             	if(tipo_producto == 1){   
+			
+				    if(contenido == ""){
+				        $('#FichaItem_Contenido_em_').html('Contenido es requerido.');
+				        $('#FichaItem_Contenido_em_').show(); 
+				    }
 
-					if(contenido != "" && und_prod != ""){
-					    $valid = 1;
-					}else{
-					    if(contenido == ""){
-					        $('#FichaItem_Contenido_em_').html('Contenido es requerido.');
-					        $('#FichaItem_Contenido_em_').show(); 
-					    }
-
-					    if(und_prod == ""){
-					        $('#FichaItem_Unidad_Medida_Prod_em_').html('Und. medida producto es requerido.');
-					        $('#FichaItem_Unidad_Medida_Prod_em_').show(); 
-					    }
-
-					    $valid = 0;
-
-					}
+				    if(und_prod == ""){
+				        $('#FichaItem_Unidad_Medida_Prod_em_').html('Und. medida producto es requerido.');
+				        $('#FichaItem_Unidad_Medida_Prod_em_').show(); 
+				    }
 
 				}	
             }

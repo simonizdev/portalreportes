@@ -37,31 +37,61 @@
 	    </div>
 	    <div class="col-sm-3">
 	    	<div class="form-group">
+	          	<?php echo $form->label($model,'Padre'); ?>
+            	<?php
+            		$this->widget('ext.select2.ESelect2',array(
+						'name'=>'TipoAct[Padre]',
+						'id'=>'TipoAct_Padre',
+						'data'=>$lista_opciones_p,
+						'htmlOptions'=>array(),
+					  	'options'=>array(
+    						'placeholder'=>'Seleccione...',
+    						'width'=> '100%',
+    						'allowClear'=>true,
+						),
+					));
+				?>
+	        </div>
+	    </div>
+	    <div class="col-sm-3">
+	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Tipo'); ?>
 			    <?php echo $form->textField($model,'Tipo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off')); ?>
 	        </div>
 	    </div>
 	</div>
 	<div class="row">
-    <div class="col-sm-3">
-        <div class="form-group">
-            <?php echo $form->label($model,'Ind_Alto'); ?>
-            <?php echo $form->numberField($model,'Ind_Alto', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="form-group">
-            <?php echo $form->label($model,'Ind_Medio'); ?>
-            <?php echo $form->numberField($model,'Ind_Medio', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="form-group">
-            <?php echo $form->label($model,'Ind_Bajo'); ?>
-            <?php echo $form->numberField($model,'Ind_Bajo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
-        </div>
-    </div>
-</div>
+	    <div class="col-sm-3">
+	    	<div class="form-group">
+	          	<?php echo $form->label($model,'Fecha_Inicio'); ?>
+			    <?php echo $form->textField($model,'Fecha_Inicio', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+	        </div>
+	    </div>
+	    <div class="col-sm-3">
+	    	<div class="form-group">
+	          	<?php echo $form->label($model,'Fecha_Fin'); ?>
+			    <?php echo $form->textField($model,'Fecha_Fin', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
+	        </div>
+	    </div>
+	    <div class="col-sm-2">
+	        <div class="form-group">
+	            <?php echo $form->label($model,'Ind_Alto'); ?>
+	            <?php echo $form->numberField($model,'Ind_Alto', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
+	        </div>
+	    </div>
+	    <div class="col-sm-2">
+	        <div class="form-group">
+	            <?php echo $form->label($model,'Ind_Medio'); ?>
+	            <?php echo $form->numberField($model,'Ind_Medio', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
+	        </div>
+	    </div>
+	    <div class="col-sm-2">
+	        <div class="form-group">
+	            <?php echo $form->label($model,'Ind_Bajo'); ?>
+	            <?php echo $form->numberField($model,'Ind_Bajo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
+	        </div>
+	    </div>
+	</div>
 	<div class="row">
 	    <div class="col-sm-3">
 	    	<div class="form-group">
@@ -181,6 +211,7 @@
 	function resetfields(){
 		$('#TipoAct_Id_Tipo').val('');
 		$('#TipoAct_Id_Grupo').val('');
+		$('#TipoAct_Padre').val('').trigger('change');
 		$('#TipoAct_Tipo').val('');
 		$('#TipoAct_Ind_Alto').val('');
 		$('#TipoAct_Ind_Medio').val('');

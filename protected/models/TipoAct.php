@@ -5,9 +5,12 @@
  *
  * The followings are the available columns in table 'TH_TIPO_ACT':
  * @property integer $Id_Tipo
+ * @property integer $Padre
  * @property integer $Id_Grupo
  * @property string $Tipo
  * @property integer $Cantidad
+ * @property string $Fecha_Inicio
+ * @property string $Fecha_Fin
  * @property string $Ind_Alto
  * @property string $Ind_Medio
  * @property string $Ind_Bajo
@@ -42,13 +45,13 @@ class TipoAct extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_Grupo, Tipo, Estado, Cantidad, Ind_Alto, Ind_Medio, Ind_Bajo, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion', 'required'),
+			array('Id_Grupo, Tipo, Estado, Cantidad, Fecha_Inicio, Fecha_Fin, Ind_Alto, Ind_Medio, Ind_Bajo, Id_Usuario_Creacion', 'required'),
 			array('Id_Tipo, Id_Grupo, Cantidad, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
 			array('Tipo', 'length', 'max'=>100),
-			//array('Cantidad', 'safe'),
+			array('Padre', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id_Tipo, Id_Grupo, Tipo, Cantidad, Estado, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, orderby', 'safe', 'on'=>'search'),
+			array('Id_Tipo, Id_Grupo, Padre, Tipo, Cantidad, Estado, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, orderby', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,6 +66,7 @@ class TipoAct extends CActiveRecord
 			'idgrupo' => array(self::BELONGS_TO, 'Dominio', 'Id_Grupo'),
 			'idusuariocre' => array(self::BELONGS_TO, 'Usuario', 'Id_Usuario_Creacion'),
 			'idusuarioact' => array(self::BELONGS_TO, 'Usuario', 'Id_Usuario_Actualizacion'),
+			'idpadre' => array(self::BELONGS_TO, 'TipoAct', 'Padre'),
 		);
 	}
 
@@ -73,9 +77,12 @@ class TipoAct extends CActiveRecord
 	{
 		return array(
 			'Id_Tipo' => 'ID',
+			'Padre' => 'Padre',
 			'Id_Grupo' => 'Grupo',
 			'Tipo' => 'Tipo',
 			'Cantidad' => 'Cantidad',
+			'Fecha_Inicio' => 'Fecha inicial',
+			'Fecha_Fin' => 'Fecha final',
 			'Ind_Alto' => 'Ind. alto',
 			'Ind_Medio' => 'Ind. medio',
 			'Ind_Bajo' => 'Ind. bajo',

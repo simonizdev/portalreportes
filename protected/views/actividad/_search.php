@@ -75,11 +75,11 @@
 	<div class="row">
 	    <div class="col-sm-9">
 	    	<div class="form-group">
-	          	<?php echo $form->label($model,'Id_Usuario'); ?>
+	          	<?php echo $form->label($model,'user_enc'); ?>
             	<?php
             		$this->widget('ext.select2.ESelect2',array(
-						'name'=>'Actividad[Id_Usuario]',
-						'id'=>'Actividad_Id_Usuario',
+						'name'=>'Actividad[user_enc]',
+						'id'=>'Actividad_user_enc',
 						'data'=>$lista_usuarios1,
 						'htmlOptions'=>array(),
 					  	'options'=>array(
@@ -134,7 +134,7 @@
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'orderby'); ?>
 			    <?php 
-                	$array_orden = array(1 => 'ID ASC', 2 => 'ID DESC', 3 => 'Fecha ASC', 4 => 'Fecha DESC', 5 => 'Actividad ASC', 6 => 'Actividad DESC', 7 => 'Id_Tipo ASC', 8 => 'Id_Tipo DESC', 9 => 'Responsable ASC', 10 => 'Responsable DESC', 11 => 'Estado ASC', 12 => 'Estado DESC',
+                	$array_orden = array(1 => 'ID ASC', 2 => 'ID DESC', 3 => 'Fecha ASC', 4 => 'Fecha DESC', 5 => 'Actividad ASC', 6 => 'Actividad DESC', 7 => 'Id_Tipo ASC', 8 => 'Id_Tipo DESC', 9 => 'Estado ASC', 10 => 'Estado DESC',
 					);
             	?>
             	<?php
@@ -209,7 +209,7 @@
 		$('#Actividad_Fecha').val('');
 		$('#Actividad_Actividad').val('');
 		$('#Actividad_Id_Grupo').val('').trigger('change');
-		$('#Actividad_Id_Usuario').val('').trigger('change');
+		$('#Actividad_user_enc').val('').trigger('change');
 		$('#Actividad_Id_Usuario_Creacion').val('').trigger('change');
 		$('#Actividad_Fecha_Creacion').val('');
 		$('#Actividad_Estado').val('').trigger('change');

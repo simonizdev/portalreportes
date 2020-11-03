@@ -65,6 +65,13 @@ class ActividadController extends Controller
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Creacion = date('Y-m-d H:i:s');
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
+
+			if($model->Estado == 3){
+				$model->Id_Usuario_Deleg = $_POST['Actividad']['Id_Usuario_Deleg'];
+			}else{
+				$model->Id_Usuario_Deleg = null;
+			}
+
 			if($model->save())	
 				$this->redirect(array('admin'));
 		}
@@ -105,6 +112,13 @@ class ActividadController extends Controller
 		$tipo_actual = $model->idtipo->Tipo;
 		$actividad_actual = $model->Actividad;
 		$estado_actual = $model->Estado;
+		if($model->Estado == 3){
+			$id_usuario_deleg_actual = $model->Id_Usuario_Deleg;
+			$usuario_deleg_actual = $model->idusuariodeleg->Nombres;
+		}else{
+			$id_usuario_deleg_actual = null;
+			$usuario_deleg_actual = '-';	
+		}
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -128,11 +142,29 @@ class ActividadController extends Controller
 				$model->Hora_Cierre = date('H:i:s', strtotime($_POST['Actividad']['Hora_Cierre']));
 				$fecha_cierre_nueva = $_POST['Actividad']['Fecha_Cierre'];
 				$hora_cierre_nueva = $model->HoraAmPm(date('H:i:s', strtotime($_POST['Actividad']['Hora_Cierre'])));
-			}else{
+				$model->Id_Usuario_Deleg = null;
+				$id_usuario_deleg_nuevo = null;
+				$usuario_deleg_nuevo = '-';
+			}
+
+			if($model->Estado == 3){
 				$model->Fecha_Cierre = null;
 				$model->Hora_Cierre = null;
 				$fecha_cierre_nueva = null;
 				$hora_cierre_nueva = null;
+				$model->Id_Usuario_Deleg = $_POST['Actividad']['Id_Usuario_Deleg'];
+				$id_usuario_deleg_nuevo = $_POST['Actividad']['Id_Usuario_Deleg'];
+				$usuario_deleg_nuevo = Usuario::model()->findByPk($_POST['Actividad']['Id_Usuario_Deleg'])->Nombres;
+			}
+
+			if($model->Estado == 1 || $model->Estado == 4){
+				$model->Fecha_Cierre = null;
+				$model->Hora_Cierre = null;
+				$fecha_cierre_nueva = null;
+				$hora_cierre_nueva = null;
+				$model->Id_Usuario_Deleg = null;
+				$id_usuario_deleg_nuevo = null;
+				$usuario_deleg_nuevo = '-';
 			}
 
 			$texto_novedad = "";
@@ -154,6 +186,12 @@ class ActividadController extends Controller
 			if($id_usuario_actual != $id_usuario_nuevo){
 				$flag = 1;
 				$texto_novedad .= "Usuario: ".$usuario_actual." / ".$usuario_nuevo.", ";
+			}
+
+			//usuario al que cede
+			if($id_usuario_deleg_actual != $id_usuario_deleg_nuevo){
+				$flag = 1;
+				$texto_novedad .= "Cedido a: ".$usuario_deleg_actual." / ".$usuario_deleg_nuevo.", ";
 			}
 
 			//actividad

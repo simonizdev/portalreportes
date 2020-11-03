@@ -51,6 +51,8 @@ class TipoActController extends Controller
 
 		$grupos=Dominio::model()->findAll(array('order'=>'Dominio', 'condition'=>'Estado=:estado AND Id_Padre = '.Yii::app()->params->grupos_act, 'params'=>array(':estado'=>1)));
 
+		$opciones_p=TipoAct::model()->findAll(array('order'=>'Tipo', 'condition'=>'Estado=:estado', 'params'=>array(':estado'=>1)));
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -69,6 +71,7 @@ class TipoActController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 			'grupos'=>$grupos,
+			'opciones_p'=>$opciones_p,
 		));
 	}
 
@@ -82,6 +85,8 @@ class TipoActController extends Controller
 		$model=$this->loadModel($id);
 
 		$grupos=Dominio::model()->findAll(array('order'=>'Dominio', 'condition'=>'Estado=:estado AND Id_Padre = '.Yii::app()->params->grupos_act, 'params'=>array(':estado'=>1)));
+
+		$opciones_p=TipoAct::model()->findAll(array('order'=>'Tipo', 'condition'=>'Estado=:estado', 'params'=>array(':estado'=>1)));
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -99,6 +104,7 @@ class TipoActController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 			'grupos'=>$grupos,
+			'opciones_p'=>$opciones_p,
 		));
 	}
 
@@ -112,6 +118,13 @@ class TipoActController extends Controller
 
 		$grupos=Dominio::model()->findAll(array('order'=>'Dominio', 'condition'=>'Id_Padre = '.Yii::app()->params->grupos_act));
 
+		$opciones_p= Yii::app()->db->createCommand('
+		    SELECT t.Id_Tipo, t.Tipo 
+		    FROM TH_TIPO_ACT t
+		    WHERE EXISTS (SELECT COUNT(*) FROM TH_TIPO_ACT tp WHERE tp.Padre = t.Id_Tipo HAVING COUNT(*) > 0)
+		    GROUP BY t.Id_Tipo, t.Tipo ORDER BY t.Tipo
+		')->queryAll();
+
 		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario'));
 
 		$model->unsetAttributes();  // clear any default values
@@ -120,8 +133,9 @@ class TipoActController extends Controller
 
 		$this->render('admin',array(
 			'model'=>$model,
-			'usuarios'=>$usuarios,
 			'grupos'=>$grupos,
+			'opciones_p'=>$opciones_p,
+			'usuarios'=>$usuarios,
 		));
 	}
 

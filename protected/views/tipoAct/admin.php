@@ -19,7 +19,10 @@ $('.search-form form').submit(function(){
 $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario'); 
 
 //para combos de grupos
-$lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio'); 
+$lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
+
+//para combo de opciones padre
+$lista_opciones_p = CHtml::listData($opciones_p, 'Id_Tipo', 'Tipo');  
 
 ?>
 
@@ -38,6 +41,7 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
 	'model'=>$model,
     'lista_usuarios' => $lista_usuarios,
     'lista_grupos' => $lista_grupos,
+    'lista_opciones_p' => $lista_opciones_p,
 )); ?>
 </div><!-- search-form -->
 
@@ -55,10 +59,22 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
             'name'=>'Grupo',
             'value'=>'$data->idgrupo->Dominio',
         ),
+        array(
+            'name' => 'Padre',
+            'value' => '($data->Padre == "") ? "-" : $data->idpadre->Tipo',
+        ),
 		'Tipo',
         array(
             'name' => 'Cantidad',
             'value' => '($data->Cantidad == "") ? "-" : $data->Cantidad',
+        ),
+        array(
+            'name' => 'Fecha_Inicio',
+            'value' => 'UtilidadesVarias::textofecha($data->Fecha_Inicio)',
+        ),
+        array(
+            'name' => 'Fecha_Fin',
+            'value' => 'UtilidadesVarias::textofecha($data->Fecha_Fin)',
         ),
         array(
             'name' => 'Ind_Alto',

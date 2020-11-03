@@ -74,7 +74,7 @@
     </div>
 </div>  
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-6">
         <div class="form-group">
             <?php echo $form->label($model,'Id_Usuario', array('class' => 'control-label')); ?>
             <?php echo $form->error($model,'Id_Usuario', array('class' => 'badge badge-warning float-right')); ?>
@@ -84,6 +84,26 @@
                     'id'=>'Actividad_Id_Usuario',
                     'data'=>$lista_usuarios,
                     'value' => $model->Estado,
+                    'htmlOptions'=>array(),
+                    'options'=>array(
+                        'placeholder'=>'Seleccione...',
+                        'width'=> '100%',
+                        'allowClear'=>true,
+                    ),
+                ));
+            ?>
+        </div>
+    </div>
+    <div class="col-sm-6" id="user_deleg" style="display: none;">
+        <div class="form-group">
+            <?php echo $form->label($model,'Id_Usuario_Deleg', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Id_Usuario_Deleg', array('class' => 'badge badge-warning float-right')); ?>
+            <?php
+                $this->widget('ext.select2.ESelect2',array(
+                    'name'=>'Actividad[Id_Usuario_Deleg]',
+                    'id'=>'Actividad_Id_Usuario_Deleg',
+                    'data'=>$lista_usuarios,
+                    'value' => $model->Id_Usuario_Deleg,
                     'htmlOptions'=>array(),
                     'options'=>array(
                         'placeholder'=>'Seleccione...',
