@@ -45,7 +45,7 @@ class TipoAct extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_Grupo, Tipo, Estado, Cantidad, Fecha_Inicio, Fecha_Fin, Ind_Alto, Ind_Medio, Ind_Bajo, Id_Usuario_Creacion', 'required'),
+			array('Id_Grupo, Tipo, Estado, Cantidad, Ind_Alto, Ind_Medio, Ind_Bajo, Id_Usuario_Creacion', 'required'),
 			array('Id_Tipo, Id_Grupo, Cantidad, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
 			array('Tipo', 'length', 'max'=>100),
 			array('Padre', 'safe'),
@@ -118,6 +118,7 @@ class TipoAct extends CActiveRecord
 
 		$criteria->compare('t.Id_Tipo',$this->Id_Tipo);
 		$criteria->compare('t.Id_Grupo',$this->Id_Grupo);
+		$criteria->compare('t.Padre',$this->Padre);
 		$criteria->compare('t.Ind_Alto',$this->Ind_Alto);
 		$criteria->compare('t.Ind_Medio',$this->Ind_Medio);
 		$criteria->compare('t.Ind_Bajo',$this->Ind_Bajo);

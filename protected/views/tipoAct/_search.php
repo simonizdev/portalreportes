@@ -35,14 +35,13 @@
 				?>
 	        </div>
 	    </div>
-	    <div class="col-sm-3">
+	    <div class="col-sm-3" id="div_padre" style="display: none;">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Padre'); ?>
             	<?php
             		$this->widget('ext.select2.ESelect2',array(
 						'name'=>'TipoAct[Padre]',
 						'id'=>'TipoAct_Padre',
-						'data'=>$lista_opciones_p,
 						'htmlOptions'=>array(),
 					  	'options'=>array(
     						'placeholder'=>'Seleccione...',
@@ -208,10 +207,26 @@
 
 <script type="text/javascript">
 
+	$(function() {
+
+		  $('#TipoAct_Id_Grupo').change(function() {
+	        
+	        $("#TipoAct_Padre").html('');
+	        $("#TipoAct_Padre").append('<option value=""></option>');  
+
+	        if($(this).val() != ""){
+	            $('#div_padre').show();
+	            loadopc($(this).val());
+	        }else{
+	            $('#div_padre').hide();
+	        }
+	    });
+
+	});
+
 	function resetfields(){
 		$('#TipoAct_Id_Tipo').val('');
-		$('#TipoAct_Id_Grupo').val('');
-		$('#TipoAct_Padre').val('').trigger('change');
+		$('#TipoAct_Id_Grupo').val('').trigger('change');
 		$('#TipoAct_Tipo').val('');
 		$('#TipoAct_Ind_Alto').val('');
 		$('#TipoAct_Ind_Medio').val('');
@@ -223,6 +238,30 @@
 		$('#TipoAct_Estado').val('').trigger('change');
 		$('#TipoAct_orderby').val('').trigger('change');
 		$('#yt0').click();
+	}
+
+	function loadopc(grupo){
+
+	    var data = {grupo: grupo, id: ""}
+	    $.ajax({ 
+	      type: "POST", 
+	      url: "<?php echo Yii::app()->createUrl('tipoAct/loadopc'); ?>",
+	      data: data,
+	      dataType: 'json',
+	      success: function(data){ 
+	        var opcs = data;
+	        $("#TipoAct_Padre").html('');
+	        $("#TipoAct_Padre").append('<option value=""></option>');
+	        $('#TipoAct_Padre').val('').trigger('change');
+	        $.each(opcs, function(i,item){
+	            $("#TipoAct_Padre").append('<option value="'+opcs[i].id+'">'+opcs[i].text+'</option>');
+	        });
+
+	        $("#div_padre").show();
+
+	      }  
+	    });
+
 	}
 	
 </script>

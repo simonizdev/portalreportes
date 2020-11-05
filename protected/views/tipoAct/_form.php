@@ -37,7 +37,7 @@
             ?>
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4" id="div_padre" style="display: none;">
         <div class="form-group">
             <?php echo $form->label($model,'Padre', array('class' => 'control-label')); ?>
             <?php echo $form->error($model,'Padre', array('class' => 'badge badge-warning float-right')); ?>
@@ -45,7 +45,6 @@
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'TipoAct[Padre]',
                     'id'=>'TipoAct_Padre',
-                    'data'=>$lista_opciones_p,
                     'value' => $model->Padre,
                     'htmlOptions'=>array(),
                     'options'=>array(

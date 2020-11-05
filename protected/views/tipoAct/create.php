@@ -5,9 +5,6 @@
 //para combos de grupos
 $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
 
-//para combos de opciones p
-$lista_opciones_p = CHtml::listData($opciones_p, 'Id_Tipo', 'Tipo');
-
 ?>
 
 <script>
@@ -70,10 +67,48 @@ $(function() {
       $('#TipoAct_Fecha_Inicio').datepicker('setEndDate', maxDate);
     });
 
+    $('#TipoAct_Id_Grupo').change(function() {
+        
+        $("#TipoAct_Padre").html('');
+        $("#TipoAct_Padre").append('<option value=""></option>');  
+
+        if($(this).val() != ""){
+            $('#div_padre').show();
+            loadopc($(this).val());
+        }else{
+            $('#div_padre').hide();
+        }
+    });
+
 });
+
+function loadopc(grupo){
+
+    
+    var data = {grupo: grupo, id: ""}
+    $.ajax({ 
+      type: "POST", 
+      url: "<?php echo Yii::app()->createUrl('tipoAct/loadopc'); ?>",
+      data: data,
+      dataType: 'json',
+      success: function(data){ 
+        var opcs = data;
+        $("#TipoAct_Padre").html('');
+        $("#TipoAct_Padre").append('<option value=""></option>');
+        $('#TipoAct_Padre').val('').trigger('change');
+        $.each(opcs, function(i,item){
+            $("#TipoAct_Padre").append('<option value="'+opcs[i].id+'">'+opcs[i].text+'</option>');
+        });
+
+        $("#div_padre").show();
+
+      }  
+    });
+
+}
    	
 </script>
 
 <h4>Creación tipo de actividad</h4>
 
-<?php $this->renderPartial('_form', array('model'=>$model, 'lista_grupos' => $lista_grupos, 'lista_opciones_p' => $lista_opciones_p)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model, 'lista_grupos' => $lista_grupos)); ?>
