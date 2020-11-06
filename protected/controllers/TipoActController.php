@@ -91,6 +91,8 @@ class TipoActController extends Controller
 		if(isset($_POST['TipoAct']))
 		{
 			$model->attributes=$_POST['TipoAct'];
+			if($_POST['TipoAct']['Fecha_Inicio']  != ""){$model->Fecha_Inicio = $_POST['TipoAct']['Fecha_Inicio'];}else{$model->Fecha_Inicio = null;}
+			if($_POST['TipoAct']['Fecha_Fin']  != ""){$model->Fecha_Fin = $_POST['TipoAct']['Fecha_Fin'];}else{$model->Fecha_Fin = null;}
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
 			if($model->save()){
@@ -168,7 +170,7 @@ class TipoActController extends Controller
 		}
  
 
-		$q_opc = Yii::app()->db->createCommand("SELECT Id_Tipo, Tipo FROM TH_TIPO_ACT WHERE  Id_Grupo = '".$grupo."' AND Estado = 1 ".$condicion." ORDER BY Tipo")->queryAll();
+		$q_opc = Yii::app()->db->createCommand("SELECT Id_Tipo, Tipo FROM TH_TIPO_ACT WHERE  Id_Grupo = ".$grupo." AND Estado = 1 ".$condicion." ORDER BY Tipo")->queryAll();
 
 		$i = 0;
 		$array_opc = array();

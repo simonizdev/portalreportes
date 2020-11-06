@@ -76,14 +76,14 @@
         <div class="form-group">
             <?php echo $form->error($model,'Fecha_Inicio', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'Fecha_Inicio'); ?>
-            <?php echo $form->textField($model,'Fecha_Inicio', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
+            <?php echo $form->textField($model,'Fecha_Inicio', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off')); ?>
         </div>
     </div>
     <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->error($model,'Fecha_Fin', array('class' => 'badge badge-warning float-right')); ?>
         <?php echo $form->label($model,'Fecha_Fin'); ?>
-            <?php echo $form->textField($model,'Fecha_Fin', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
+            <?php echo $form->textField($model,'Fecha_Fin', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off')); ?>
         </div>
     </div>
 </div>

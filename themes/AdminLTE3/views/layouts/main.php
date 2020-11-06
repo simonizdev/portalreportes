@@ -412,6 +412,11 @@ td.button-column {
   white-space: nowrap;
 }
 
+.datepicker-dropdown { 
+    font-size: 90% !important;
+    font-weight: 400 !important;
+}
+
 .select2-results .select2-highlighted {
   background-image: linear-gradient(to bottom,#08c,#04c);
 
@@ -517,7 +522,7 @@ $(function() {
   $('.timepicker').timepicker({
       template: false,
       showInputs: true,
-      minuteStep: 15,
+      minuteStep: 5,
       defaultTime: false,
       timeFormat: 'h:mm p',
       //showMeridian: false

@@ -53,7 +53,7 @@
             ?>
         </div>
     </div>
-    <div class="col-sm-4" id="div_tipo" style="display: none;">
+    <div class="col-sm-8" id="div_tipo" style="display: none;">
         <div class="form-group">
           <?php echo $form->label($model,'Id_Tipo', array('class' => 'control-label')); ?>
           <?php echo $form->error($model,'Id_Tipo', array('class' => 'badge badge-warning float-right')); ?>
@@ -123,6 +123,29 @@
             <?php echo $form->textArea($model,'Actividad',array('class' => 'form-control form-control-sm', 'rows'=>2, 'cols'=>50, 'maxlength'=>300, 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <?php echo $form->label($model,'Prioridad', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Prioridad', array('class' => 'badge badge-warning float-right')); ?>
+            <?php $prioridades = array(1 => 'ALTA', 2 => 'MEDIA', 3 => 'BAJA'); ?>
+            <?php
+                $this->widget('ext.select2.ESelect2',array(
+                    'name'=>'Actividad[Prioridad]',
+                    'id'=>'Actividad_Prioridad',
+                    'data'=>$prioridades,
+                    'value' => $model->Prioridad,
+                    'htmlOptions'=>array(),
+                    'options'=>array(
+                        'placeholder'=>'Seleccione...',
+                        'width'=> '100%',
+                        'allowClear'=>true,
+                    ),
+                ));
+            ?>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->label($model,'Estado', array('class' => 'control-label')); ?>

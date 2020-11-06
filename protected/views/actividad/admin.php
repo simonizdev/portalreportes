@@ -80,6 +80,10 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
             'value' => '($data->Id_Usuario_Deleg == "") ? "-" : $data->idusuariodeleg->Nombres',
         ),
 		'Actividad',
+        array(
+            'name' => 'Prioridad',
+            'value' => '$data->DescPrioridad($data->Prioridad)',
+        ),
 		array(
             'name' => 'Estado',
             'value' => '$data->DescEstado($data->Estado)',

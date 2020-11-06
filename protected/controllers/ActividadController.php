@@ -102,15 +102,19 @@ class ActividadController extends Controller
 
 		$grupos=Dominio::model()->findAll(array('order'=>'Dominio', 'condition'=>'Estado=:estado AND Id_Padre = '.Yii::app()->params->grupos_act, 'params'=>array(':estado'=>1)));
 
-		$tipos=TipoAct::model()->findAll(array('order'=>'Tipo', 'condition'=>'Estado=:estado', 'params'=>array(':estado'=>1)));
+		$q_tipos = Yii::app()->db->createCommand("SELECT TA.Id_Tipo, TA.Tipo FROM TH_TIPO_ACT TA WHERE TA.Estado = 1 AND TA.Id_Grupo = ".$model->Id_Grupo." AND (SELECT COUNT (*) FROM TH_TIPO_ACT C WHERE C.Padre = TA.Id_Tipo) = 0")->queryAll();
 
-		$id_usuario_actual = $model->Id_Usuario;
-		$usuario_actual = $model->idusuario->Nombres;
+		$tipos = array();
+		foreach ($q_tipos as $t) {
+			$tipos[$t['Id_Tipo']] = $t['Tipo'];	
+	    }
+
 		$id_grupo_actual = $model->Id_Grupo;
 		$grupo_actual = $model->idgrupo->Dominio;
 		$id_tipo_actual = $model->Id_Tipo;
-		$tipo_actual = $model->idtipo->Tipo;
+		$tipo_actual = $model->idtipo->Tipo;	
 		$actividad_actual = $model->Actividad;
+		$prioridad_actual = $model->Prioridad;
 		$estado_actual = $model->Estado;
 		if($model->Estado == 3){
 			$id_usuario_deleg_actual = $model->Id_Usuario_Deleg;
@@ -125,13 +129,12 @@ class ActividadController extends Controller
 
 		if(isset($_POST['Actividad']))
 		{
-			$id_usuario_nuevo = $_POST['Actividad']['Id_Usuario'];
-			$usuario_nuevo = Usuario::model()->findByPk($_POST['Actividad']['Id_Usuario'])->Nombres;
 			$id_grupo_nuevo = $_POST['Actividad']['Id_Grupo'];
 			$grupo_nuevo = Dominio::model()->findByPk($_POST['Actividad']['Id_Grupo'])->Dominio;
 			$id_tipo_nuevo = $_POST['Actividad']['Id_Tipo'];
 			$tipo_nuevo = TipoAct::model()->findByPk($_POST['Actividad']['Id_Tipo'])->Tipo;
 			$actividad_nueva = $_POST['Actividad']['Actividad'];
+			$prioridad_nueva = $_POST['Actividad']['Prioridad'];
 			$estado_nuevo = $_POST['Actividad']['Estado'];
 			
 			$model->attributes=$_POST['Actividad'];
@@ -157,7 +160,7 @@ class ActividadController extends Controller
 				$usuario_deleg_nuevo = Usuario::model()->findByPk($_POST['Actividad']['Id_Usuario_Deleg'])->Nombres;
 			}
 
-			if($model->Estado == 1 || $model->Estado == 4){
+			if($model->Estado == 1 || $model->Estado == 4 ||  $model->Estado == 5){
 				$model->Fecha_Cierre = null;
 				$model->Hora_Cierre = null;
 				$fecha_cierre_nueva = null;
@@ -182,12 +185,6 @@ class ActividadController extends Controller
 				$texto_novedad .= "Tipo: ".$tipo_actual." / ".$tipo_nuevo.", ";
 			}
 
-			//usuario
-			if($id_usuario_actual != $id_usuario_nuevo){
-				$flag = 1;
-				$texto_novedad .= "Usuario: ".$usuario_actual." / ".$usuario_nuevo.", ";
-			}
-
 			//usuario al que cede
 			if($id_usuario_deleg_actual != $id_usuario_deleg_nuevo){
 				$flag = 1;
@@ -198,6 +195,12 @@ class ActividadController extends Controller
 			if($actividad_actual != $actividad_nueva){
 				$flag = 1;
 				$texto_novedad .= "Actividad: ".$actividad_actual." / ".$actividad_nueva.", ";
+			}
+
+			//Prioridad
+			if($prioridad_actual != $prioridad_nueva){
+				$flag = 1;
+				$texto_novedad .= "Prioridad: ".$model->DescPrioridad($prioridad_actual)." / ".$model->DescPrioridad($prioridad_nueva).", ";
 			}
 
 			//Estado
@@ -288,12 +291,12 @@ class ActividadController extends Controller
 	{	
 		$grupo = $_POST['grupo'];
 
-		$tipos=TipoAct::model()->findAll(array('order'=>'Tipo', 'condition'=>'Estado=:estado AND Id_Grupo = '.$grupo, 'params'=>array(':estado'=>1)));
+		$tipos = Yii::app()->db->createCommand("SELECT TA.Id_Tipo, TA.Tipo FROM TH_TIPO_ACT TA WHERE TA.Estado = 1 AND TA.Id_Grupo = ".$grupo." AND (SELECT COUNT (*) FROM TH_TIPO_ACT C WHERE C.Padre = TA.Id_Tipo) = 0")->queryAll();
 
 		$i = 0;
 		$array_tipos = array();
 		foreach ($tipos as $t) {
-			$array_tipos[$i] = array('id' => $t->Id_Tipo,  'text' => $t->Tipo);	
+			$array_tipos[$i] = array('id' => $t['Id_Tipo'],  'text' => $t['Tipo']);	
     		$i++; 
 	    }
 

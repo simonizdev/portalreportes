@@ -32,7 +32,7 @@
 	    </div>
 	</div>
 	<div class="row">
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 	        <div class="form-group">
 	            <?php echo $form->label($model,'Id_Grupo', array('class' => 'control-label')); ?>
 	            <?php echo $form->error($model,'Id_Grupo', array('class' => 'badge badge-warning float-right')); ?>
@@ -52,7 +52,7 @@
 	            ?>
 	        </div>
 	    </div>
-	    <div class="col-sm-4" id="div_tipo" style="display: none;">
+	    <div class="col-sm-9" id="div_tipo" style="display: none;">
 	        <div class="form-group">
 	          <?php echo $form->label($model,'Id_Tipo', array('class' => 'control-label')); ?>
 	          <?php echo $form->error($model,'Id_Tipo', array('class' => 'badge badge-warning float-right')); ?>
@@ -93,28 +93,30 @@
 	    </div>
 	</div>
 	<div class="row">
-	    <div class="col-sm-3">
-	    	<div class="form-group">
-	          	<?php echo $form->label($model,'Id_Usuario_Creacion'); ?>
-            	<?php
-            		$this->widget('ext.select2.ESelect2',array(
-						'name'=>'Actividad[Id_Usuario_Creacion]',
-						'id'=>'Actividad_Id_Usuario_Creacion',
-						'data'=>$lista_usuarios2,
-						'htmlOptions'=>array(),
-					  	'options'=>array(
-    						'placeholder'=>'Seleccione...',
-    						'width'=> '100%',
-    						'allowClear'=>true,
-						),
-					));
-				?>
+		<div class="col-sm-3">
+		    <div class="form-group">
+	            <?php echo $form->label($model,'Prioridad', array('class' => 'control-label')); ?>
+	            <?php $prioridades = array(1 => 'ALTA', 2 => 'MEDIA', 3 => 'BAJA'); ?>
+	            <?php
+	                $this->widget('ext.select2.ESelect2',array(
+	                    'name'=>'Actividad[Prioridad]',
+	                    'id'=>'Actividad_Prioridad',
+	                    'data'=>$prioridades,
+	                    'value' => $model->Prioridad,
+	                    'htmlOptions'=>array(),
+	                    'options'=>array(
+	                        'placeholder'=>'Seleccione...',
+	                        'width'=> '100%',
+	                        'allowClear'=>true,
+	                    ),
+	                ));
+	            ?>
 	        </div>
-	    </div>
+        </div>
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Estado'); ?>
-			    <?php $estados = array(0 => 'PENDIENTES', 1 => 'ABIERTA', 2 => 'CERRADA', 3 => 'EN ESPERA', 4 => 'EN PROCESO'); ?>
+			    <?php $estados = array(0 => 'PENDIENTES', 1 => 'ABIERTA', 2 => 'CERRADA', 3 => 'EN ESPERA', 4 => 'EN PROCESO', 5 => 'ANULADA'); ?>
             	<?php
             		$this->widget('ext.select2.ESelect2',array(
 						'name'=>'Actividad[Estado]',
@@ -134,7 +136,7 @@
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'orderby'); ?>
 			    <?php 
-                	$array_orden = array(1 => 'ID ASC', 2 => 'ID DESC', 3 => 'Fecha ASC', 4 => 'Fecha DESC', 5 => 'Actividad ASC', 6 => 'Actividad DESC', 7 => 'Id_Tipo ASC', 8 => 'Id_Tipo DESC', 9 => 'Estado ASC', 10 => 'Estado DESC',
+                	$array_orden = array(1 => 'ID ASC', 2 => 'ID DESC', 3 => 'Fecha ASC', 4 => 'Fecha DESC', 5 => 'Actividad ASC', 6 => 'Actividad DESC', 7 => 'Prioridad ASC', 8 => 'Prioridad DESC'
 					);
             	?>
             	<?php

@@ -17,6 +17,8 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
 
 $(function() {
 
+    $('#Actividad_Prioridad').val(3).trigger('change');
+
     $("#valida_form").click(function() {
       var form = $("#actividad-form");
       var settings = form.data('settings') ;

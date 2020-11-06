@@ -19,7 +19,7 @@
 
 ?>
 
-<?php if($model->Estado == 2){ ?>
+<?php if($model->Estado == 2 || $model->Estado == 5){ ?>
 
 <div class="row">
     <div class="col-sm-4">
@@ -45,7 +45,7 @@
             <p><?php echo $model->idgrupo->Dominio; ?></p>
         </div>
     </div>
-    <div class="col-sm-4" id="div_Id_Tipo">
+    <div class="col-sm-8" id="div_Id_Tipo">
         <div class="form-group">
           <?php echo $form->label($model,'Id_Tipo', array('class' => 'control-label')); ?>
           <?php echo $form->error($model,'Id_Tipo', array('class' => 'badge badge-warning float-right')); ?>
@@ -54,7 +54,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-6">
         <div class="form-group">
             <?php echo $form->label($model,'Id_Usuario', array('class' => 'control-label')); ?>
             <?php echo $form->error($model,'Id_Usuario', array('class' => 'badge badge-warning float-right')); ?>
@@ -72,21 +72,24 @@
     </div>
     <div class="col-sm-4">
         <div class="form-group">
+            <?php echo $form->label($model,'Prioridad', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Prioridad', array('class' => 'badge badge-warning float-right')); ?>
+            <p><?php echo $model->DescPrioridad($model->Prioridad); ?></p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
             <?php echo $form->label($model,'Estado', array('class' => 'control-label')); ?>
             <?php echo $form->error($model,'Estado', array('class' => 'badge badge-warning float-right')); ?>
             <p><?php echo $model->DescEstado($model->Estado); ?></p>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-8" id="user_deleg" style="display: none;">
-        <div class="form-group">
-            <?php echo $form->label($model,'Id_Usuario_Deleg', array('class' => 'control-label')); ?>
-            <?php echo $form->error($model,'Id_Usuario_Deleg', array('class' => 'badge badge-warning float-right')); ?>
-            <p><?php echo $model->idusuariodeleg->Nombres; ?></p>
-        </div>
-    </div>
-</div>
+
+<?php if($model->Estado == 2){ ?>
+
 <div class="row">
     <div class="col-sm-4">
         <div class="form-group">
@@ -104,6 +107,7 @@
     </div>
 </div>
 
+<?php } ?>
 
 <?php }else{ ?>
 
@@ -144,7 +148,7 @@
             ?>
         </div>
     </div>
-    <div class="col-sm-4" id="div_tipo">
+    <div class="col-sm-8" id="div_tipo">
         <div class="form-group">
           <?php echo $form->label($model,'Id_Tipo', array('class' => 'control-label')); ?>
           <?php echo $form->error($model,'Id_Tipo', array('class' => 'badge badge-warning float-right')); ?>
@@ -170,20 +174,7 @@
         <div class="form-group">
             <?php echo $form->label($model,'Id_Usuario', array('class' => 'control-label')); ?>
             <?php echo $form->error($model,'Id_Usuario', array('class' => 'badge badge-warning float-right')); ?>
-            <?php
-                $this->widget('ext.select2.ESelect2',array(
-                    'name'=>'Actividad[Id_Usuario]',
-                    'id'=>'Actividad_Id_Usuario',
-                    'data'=>$lista_usuarios,
-                    'value' => $model->Id_Usuario,
-                    'htmlOptions'=>array(),
-                    'options'=>array(
-                        'placeholder'=>'Seleccione...',
-                        'width'=> '100%',
-                        'allowClear'=>true,
-                    ),
-                ));
-            ?>
+            <p><?php echo $model->idusuario->Nombres; ?></p>
         </div>
     </div>
     <div class="col-sm-6" id="user_deleg" style="display: none;">
@@ -217,9 +208,32 @@
     </div>
     <div class="col-sm-4">
         <div class="form-group">
+            <?php echo $form->label($model,'Prioridad', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Prioridad', array('class' => 'badge badge-warning float-right')); ?>
+            <?php $prioridades = array(1 => 'ALTA', 2 => 'MEDIA', 3 => 'BAJA'); ?>
+            <?php
+                $this->widget('ext.select2.ESelect2',array(
+                    'name'=>'Actividad[Prioridad]',
+                    'id'=>'Actividad_Prioridad',
+                    'data'=>$prioridades,
+                    'value' => $model->Prioridad,
+                    'htmlOptions'=>array(),
+                    'options'=>array(
+                        'placeholder'=>'Seleccione...',
+                        'width'=> '100%',
+                        'allowClear'=>true,
+                    ),
+                ));
+            ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
             <?php echo $form->label($model,'Estado', array('class' => 'control-label')); ?>
             <?php echo $form->error($model,'Estado', array('class' => 'badge badge-warning float-right')); ?>
-            <?php $estados = array(1 => 'ABIERTA', 2 => 'CERRADA', 3 => 'EN ESPERA', 4 => 'EN PROCESO'); ?>
+            <?php $estados = array(1 => 'ABIERTA', 2 => 'CERRADA', 3 => 'EN ESPERA', 4 => 'EN PROCESO', 5 => 'ANULADA'); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'Actividad[Estado]',
@@ -286,7 +300,7 @@
 <div class="row mb-4">
     <div class="col-sm-6">  
         <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=actividad/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
-        <?php if($model->Estado != 2){ ?>
+        <?php if($model->Estado != 2 && $model->Estado != 5){ ?>
         <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> <?php if($model->isNewRecord){echo 'Crear';}else{ echo 'Guardar';} ?></button>
         <?php } ?>
     </div>

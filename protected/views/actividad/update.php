@@ -9,7 +9,7 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
 $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
 
 //para combos de tipos
-$lista_tipos = CHtml::listData($tipos, 'Id_Tipo', 'Tipo');
+$lista_tipos = $tipos;
 
 ?>
 
@@ -59,7 +59,7 @@ $(function() {
 
       }
 
-      if(estado == 1 || estado == 4){   
+      if(estado == 1 || estado == 4 || estado == 5){   
         $valid = 1;
       }
 
@@ -160,8 +160,8 @@ $(function() {
           $('#hora_cierre').hide();
         }
 
-        if(value == 1 || value == 4){
-          //EN PROCESO, ABIERTA
+        if(value == 1 || value == 4 || value == 5){
+          //EN PROCESO, ABIERTA, ANULADA
           $('#user_deleg').hide();
           $('#fecha_cierre').hide();
           $('#hora_cierre').hide();
