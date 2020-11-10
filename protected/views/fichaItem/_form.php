@@ -43,6 +43,7 @@ $estados2 = Yii::app()->params->estados2;
                               'data'=>$paises,
                               'value' => $model->Pais,
                               'htmlOptions'=>array(
+                                  'multiple'=>'multiple',
                                   'disabled'=>true,
                               ),
                               'options'=>array(
@@ -83,21 +84,21 @@ $estados2 = Yii::app()->params->estados2;
                   <div class="form-group">
                       <?php echo $form->label($model,'Nombre_Funcional'); ?>
                       <?php echo $form->error($model,'Nombre_Funcional', array('class' => 'badge badge-warning float-right')); ?>
-                      <?php echo $form->textField($model,'Nombre_Funcional', array('class' => 'form-control form-control-sm', 'maxlength' => '10', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'onchange' => 'desc_corta()', 'disabled' => true)); ?>
+                      <?php echo $form->textField($model,'Nombre_Funcional', array('class' => 'form-control form-control-sm', 'maxlength' => '20', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'onchange' => 'desc_corta()', 'disabled' => true)); ?>
                   </div>
               </div>
               <div class="col-sm-4">
                   <div class="form-group">
                       <?php echo $form->label($model,'Marca_Producto'); ?>
                       <?php echo $form->error($model,'Marca_Producto', array('class' => 'badge badge-warning float-right')); ?>
-                      <?php echo $form->textField($model,'Marca_Producto', array('class' => 'form-control form-control-sm', 'maxlength' => '9', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'onchange' => 'desc_corta()', 'disabled' => true)); ?>
+                      <?php echo $form->textField($model,'Marca_Producto', array('class' => 'form-control form-control-sm', 'maxlength' => '20', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'onchange' => 'desc_corta()', 'disabled' => true)); ?>
                   </div>
               </div>
               <div class="col-sm-4">
                   <div class="form-group">
                       <?php echo $form->label($model,'Caracteristicas'); ?>
                       <?php echo $form->error($model,'Caracteristicas', array('class' => 'badge badge-warning float-right')); ?>
-                      <?php echo $form->textField($model,'Caracteristicas', array('class' => 'form-control form-control-sm', 'maxlength' => '9', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'onchange' => 'desc_corta()', 'disabled' => true)); ?>
+                      <?php echo $form->textField($model,'Caracteristicas', array('class' => 'form-control form-control-sm', 'maxlength' => '20', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'onchange' => 'desc_corta()', 'disabled' => true)); ?>
                   </div>
               </div>
           </div>
@@ -137,7 +138,7 @@ $estados2 = Yii::app()->params->estados2;
                   <div class="form-group">
                       <?php echo $form->label($model,'Descripcion_Corta'); ?>
                       <?php echo $form->error($model,'Descripcion_Corta', array('class' => 'badge badge-warning float-right')); ?>
-                      <?php echo $form->textField($model,'Descripcion_Corta', array('class' => 'form-control form-control-sm', 'maxlength' => '40', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'disabled' => true)); ?>
+                      <?php echo $form->textField($model,'Descripcion_Corta', array('class' => 'form-control form-control-sm', 'maxlength' => '60', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'disabled' => true)); ?>
                   </div>
               </div>
               <div class="col-sm-6">
@@ -1079,7 +1080,7 @@ $estados2 = Yii::app()->params->estados2;
                 <div class="form-group">
                     <?php echo $form->label($model,'Un_Gtin'); ?>
                     <?php echo $form->error($model,'Un_Gtin', array('class' => 'badge badge-warning float-right')); ?>
-                    <?php echo $form->textField($model,'Un_Gtin', array('class' => 'form-control form-control-sm', 'maxlength' => '14', 'onkeypress' => 'return soloNumeros(event);', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'disabled' => true)); ?>
+                    <?php echo $form->textField($model,'Un_Gtin', array('class' => 'form-control form-control-sm', 'maxlength' => '13', 'onkeypress' => 'return soloNumeros(event);', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'disabled' => true)); ?>
                 </div>
             </div>
             <div id="ep_gtin" class="col-sm-4">

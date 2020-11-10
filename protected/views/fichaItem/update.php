@@ -24,6 +24,7 @@ $(function() {
     div_step(step, e);
    
 	//se llenan las opciones seleccionadas del modelo
+	$('#FichaItem_Pais').val(<?php echo $paises_activos ?>).trigger('change');
 	$('#FichaItem_Instalaciones').val(<?php echo $instalaciones_activas ?>).trigger('change');
 	$('#FichaItem_Bodegas').val(<?php echo $bodegas_activas ?>).trigger('change');
 
@@ -196,7 +197,7 @@ function calculo_volumen(opc){
 		var alto = $('#FichaItem_Un_Alto').val();
 
 		if(largo != "" && ancho != "" && alto != ""){
-			var volumen = largo * ancho * alto;
+			var volumen = largo * ancho * alto / 1000000;
 			$('#FichaItem_Un_Volumen').val(volumen.toFixed(4));	
 		}else{
 			$('#FichaItem_Un_Volumen').val('');	
@@ -209,7 +210,7 @@ function calculo_volumen(opc){
 		var alto = $('#FichaItem_Ep_Alto').val();
 
 		if(largo != "" && ancho != "" && alto != ""){
-			var volumen = largo * ancho * alto;
+			var volumen = largo * ancho * alto / 1000000;
 			$('#FichaItem_Ep_Volumen').val(volumen.toFixed(4));	
 		}else{
 			$('#FichaItem_Ep_Volumen').val('');	
@@ -222,7 +223,7 @@ function calculo_volumen(opc){
 		var alto = $('#FichaItem_Cad_Alto').val();
 
 		if(largo != "" && ancho != "" && alto != ""){
-			var volumen = largo * ancho * alto;
+			var volumen = largo * ancho * alto / 1000000;
 			$('#FichaItem_Cad_Volumen').val(volumen.toFixed(4));	
 		}else{
 			$('#FichaItem_Cad_Volumen').val('');	
@@ -628,6 +629,7 @@ $this->renderPartial('_form', array(
 	'lista_un'=>$lista_un,
 	'lista_fabrica'=>$lista_fabrica,
 	'lista_oracle'=>$lista_oracle,
+	'paises_activos'=>$paises_activos,
 	'lista_ins'=>$lista_ins,
 	'lista_bodegas'=>$lista_bodegas,
 )); 

@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'TH_FICHA_ITEM':
  * @property integer $Id
- * @property integer $Pais 
+ * @property string $Pais 
  * @property integer $Tipo
  * @property integer $Tipo_Producto
  * @property string $Codigo_Item
@@ -126,10 +126,10 @@ class FichaItem extends CActiveRecord
 
 			array('Step, Observaciones', 'required','on'=>'notas'),
 
-			array('Pais, Tipo, Tipo_Producto, Contenido, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Cant, Ep_Cant, Cad_Cant, Id_Usuario_Solicitud, Estado_Solicitud, Step', 'numerical', 'integerOnly'=>true),
+			array('Tipo, Tipo_Producto, Contenido, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Cant, Ep_Cant, Cad_Cant, Id_Usuario_Solicitud, Estado_Solicitud, Step', 'numerical', 'integerOnly'=>true),
 			array('Codigo_Item, Referencia', 'length', 'max'=>20),
-			array('Descripcion_Corta', 'length', 'max'=>40),
-			array('Nombre_Funcional, Marca_Producto, Caracteristicas', 'length', 'max'=>10),
+			array('Descripcion_Corta', 'length', 'max'=>70),
+			array('Nombre_Funcional, Marca_Producto, Caracteristicas', 'length', 'max'=>20),
 			array('Unidad_Medida_Prod, Unidad_Medida_Inv, Unidad_Medida_Compra, Grupo_Impositivo, Un_Medida, Ep_Medida, Cad_Medida, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Clase, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Linea, Crit_Subfamilia, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle', 'length', 'max'=>4),
 			array('Tipo_Inventario', 'length', 'max'=>12),
 			array('Un_Peso, Un_Largo, Un_Ancho, Un_Alto, Un_Volumen, Ep_Peso, Ep_Largo, Ep_Ancho, Ep_Alto, Ep_Volumen, Cad_Peso, Cad_Largo, Cad_Ancho, Cad_Alto, Cad_Volumen', 'length', 'max'=>18),
@@ -184,22 +184,31 @@ class FichaItem extends CActiveRecord
 
 	}
 
-	public function DescPais($pais){
+	public function DescPais($paises){
 
-		switch ($pais) {
-		    case 1:
-		        $texto_pais = 'COLOMBIA';
-		        break;
-		    case 2:
-		        $texto_pais = 'ECUADOR';
-		        break;
-		    case 3:
-		        $texto_pais = 'PERÚ';
-		        break;
-		    
+		$array_paises = explode(",", $paises);
+
+		$texto_pais = "";
+
+		foreach ($array_paises as $key => $value) {
+			
+			switch ($value) {
+			    case 1:
+			        $pais = 'COLOMBIA';
+			        break;
+			    case 2:
+			        $pais = 'ECUADOR';
+			        break;
+			    case 3:
+			        $pais = 'PERÚ';
+			        break;
+			}
+
+			$texto_pais .= $pais.", ";
 		}
 
-		return $texto_pais;
+		$texto = substr ($texto_pais, 0, -2);
+		return $texto;
 
 	}
 
@@ -393,7 +402,17 @@ class FichaItem extends CActiveRecord
 	   	$criteria->with=array('idusuariosol');
 
 		$criteria->compare('t.Id',$this->Id);
-		$criteria->compare('t.Pais',$this->Pais);
+
+		if($this->Pais != ""){
+
+			$array_paises = $this->Pais;
+
+			foreach ($array_paises as $key => $value) {
+				
+				$criteria->AddCondition("t.Pais LIKE ('%".$value."%')", "OR");
+			}
+	    }
+
 		$criteria->compare('t.Tipo',$this->Tipo);
 		$criteria->compare('t.Tipo_Producto',$this->Tipo_Producto);
 		$criteria->compare('t.Codigo_Item',$this->Codigo_Item,true);

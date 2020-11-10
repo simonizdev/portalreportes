@@ -30,6 +30,7 @@
 	                  'data'=>$paises,
 	                  'value' => $model->Pais,
 	                  'htmlOptions'=>array(
+	                  	'multiple'=>'multiple',
 	                  ),
 	                  'options'=>array(
 	                      'placeholder'=>'Seleccione...',

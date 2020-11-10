@@ -687,6 +687,15 @@ class FichaItemController extends Controller
 			$lista_bodegas[trim($bod['f150_id'])] = $bod['f150_id'].' - '.$bod['f150_descripcion_corta'];
 		}
 
+		$array_pa_activos = array();
+		//opciones activas en el combo paises
+		$p =  explode(",", $model->Pais);
+		foreach ($p as $pa => $id) {
+			array_push($array_pa_activos, $id);
+		}
+
+		$paises_activos = json_encode($array_pa_activos);
+
 		$array_inst_activas = array();
 		//opciones activas en el combo perfiles
 		$instalaciones =  explode(",", $model->Instalaciones);
@@ -721,14 +730,14 @@ class FichaItemController extends Controller
 						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
 						if($tipo_producto_actual != 1 && $model->Tipo_Producto == 1){
 							$model->Step = 8;
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
 							$model->Ep_Volumen = null;
 							$model->Cad_Volumen = null;
 						}else{
 							$model->Step = 9;
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
-							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
-							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto / 1000000;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto / 1000000;
 
 						}
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
@@ -789,14 +798,14 @@ class FichaItemController extends Controller
 			    	if($step_rev == 9){
 						if($model->Tipo_Producto == 1){
 							$model->Step = 9;
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
 							$model->Ep_Volumen = null;
 							$model->Cad_Volumen = null;
 						}else{
 							$model->Step = 9;
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
-							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
-							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto/ 1000000;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto / 1000000;
 
 						}
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
@@ -820,14 +829,14 @@ class FichaItemController extends Controller
 	
 						if($model->Tipo_Producto == 1){
 							$model->Step = 9;
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
 							$model->Ep_Volumen = null;
 							$model->Cad_Volumen = null;
 						}else{
 							$model->Step = 9;
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
-							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
-							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto / 1000000;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto / 1000000;
 
 						}
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
@@ -850,14 +859,14 @@ class FichaItemController extends Controller
 					if($step_rev == 9){						
 						if($model->Tipo_Producto == 1){
 							$model->Step = 9;
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
 							$model->Ep_Volumen = null;
 							$model->Cad_Volumen = null;
 						}else{
 							$model->Step = 9;
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
-							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
-							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto / 1000000;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto / 1000000;
 
 						}
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
@@ -881,14 +890,14 @@ class FichaItemController extends Controller
 	
 						if($model->Tipo_Producto == 1){
 							$model->Step = 9;
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
 							$model->Ep_Volumen = null;
 							$model->Cad_Volumen = null;
 						}else{
 							$model->Step = 9;
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
-							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
-							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto / 1000000;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto / 1000000;
 
 						}
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
@@ -911,13 +920,13 @@ class FichaItemController extends Controller
 					if($step_rev == 9){	
 						$model->Step = 9;					
 						if($model->Tipo_Producto == 1){
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
 							$model->Ep_Volumen = null;
 							$model->Cad_Volumen = null;
 						}else{
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
-							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
-							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto / 1000000;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto / 1000000;
 
 						}
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
@@ -926,13 +935,13 @@ class FichaItemController extends Controller
 					}else{
 						$model->Step = 9;
 						if($model->Tipo_Producto == 1){
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
 							$model->Ep_Volumen = null;
 							$model->Cad_Volumen = null;
 						}else{
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
-							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
-							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto / 1000000;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto / 1000000;
 
 						}
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
@@ -947,13 +956,13 @@ class FichaItemController extends Controller
 					if($step_rev == 9){	
 						$model->Step = 9;					
 						if($model->Tipo_Producto == 1){
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
 							$model->Ep_Volumen = null;
 							$model->Cad_Volumen = null;
 						}else{
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
-							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
-							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto / 1000000;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto / 1000000;
 
 						}
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
@@ -962,13 +971,13 @@ class FichaItemController extends Controller
 					}else{
 						$model->Step = 9;
 						if($model->Tipo_Producto == 1){
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
 							$model->Ep_Volumen = null;
 							$model->Cad_Volumen = null;
 						}else{
-							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
-							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
-							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+							$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
+							$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto / 1000000;
+							$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto / 1000000;
 
 						}
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
@@ -985,16 +994,16 @@ class FichaItemController extends Controller
 						$model->Estado_Solicitud = 2;
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
-						$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
-						$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto;
-						$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto;
+						$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
+						$model->Ep_Volumen = $model->Ep_Largo * $model->Ep_Ancho * $model->Ep_Alto / 1000000;
+						$model->Cad_Volumen = $model->Cad_Largo * $model->Cad_Ancho * $model->Cad_Alto / 1000000;
 							
 					}else{
 						$model->Step = 10;
 						$model->Estado_Solicitud = 2;
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
-						$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto;
+						$model->Un_Volumen = $model->Un_Largo * $model->Un_Ancho * $model->Un_Alto / 1000000;
 						$model->Ep_Volumen = null;
 						$model->Cad_Volumen = null;	
 					}
@@ -1038,6 +1047,7 @@ class FichaItemController extends Controller
 			'lista_oracle'=>$lista_oracle,
 			'lista_ins'=>$lista_ins,
 			'lista_bodegas'=>$lista_bodegas,
+			'paises_activos'=>$paises_activos,
 			'instalaciones_activas'=>$instalaciones_activas,
 			'bodegas_activas'=>$bodegas_activas,
 		));

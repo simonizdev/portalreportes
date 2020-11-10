@@ -116,6 +116,48 @@ function desc_corta(){
     }       
 }
 
+function calculo_volumen(opc){
+
+    if(opc ==  1){
+        var largo = $('#FichaItem_Un_Largo').val();
+        var ancho = $('#FichaItem_Un_Ancho').val();
+        var alto = $('#FichaItem_Un_Alto').val();
+
+        if(largo != "" && ancho != "" && alto != ""){
+            var volumen = largo * ancho * alto / 1000000;
+            $('#FichaItem_Un_Volumen').val(volumen.toFixed(4)); 
+        }else{
+            $('#FichaItem_Un_Volumen').val(''); 
+        }       
+    }
+
+    if(opc ==  2){
+        var largo = $('#FichaItem_Ep_Largo').val();
+        var ancho = $('#FichaItem_Ep_Ancho').val();
+        var alto = $('#FichaItem_Ep_Alto').val();
+
+        if(largo != "" && ancho != "" && alto != ""){
+            var volumen = largo * ancho * alto / 1000000;
+            $('#FichaItem_Ep_Volumen').val(volumen.toFixed(4)); 
+        }else{
+            $('#FichaItem_Ep_Volumen').val(''); 
+        }   
+    }
+
+    if(opc ==  3){
+        var largo = $('#FichaItem_Cad_Largo').val();
+        var ancho = $('#FichaItem_Cad_Ancho').val();
+        var alto = $('#FichaItem_Cad_Alto').val();
+
+        if(largo != "" && ancho != "" && alto != ""){
+            var volumen = largo * ancho * alto / 1000000;
+            $('#FichaItem_Cad_Volumen').val(volumen.toFixed(4));    
+        }else{
+            $('#FichaItem_Cad_Volumen').val('');    
+        }   
+    }
+}
+
 function div_step(step, e){
 
     if(step == 1){
