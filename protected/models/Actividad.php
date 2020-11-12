@@ -49,7 +49,7 @@ class Actividad extends CActiveRecord
 			array('Fecha, Hora, Id_Usuario, Actividad, Id_Tipo, Id_Grupo, Prioridad, Estado', 'required','on'=>'create'),
 			array('Actividad, Estado, Id_Tipo, Id_Grupo, Prioridad','required','on'=>'update'),
 			array('Id_Usuario, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion, Id_Tipo, Id_Grupo', 'numerical', 'integerOnly'=>true),
-			array('Actividad', 'length', 'max'=>300),
+			array('Actividad', 'length', 'max'=>1000),
 			array('Fecha_Cierre', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

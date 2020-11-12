@@ -203,7 +203,7 @@
         <div class="form-group">
             <?php echo $form->label($model,'Actividad', array('class' => 'control-label')); ?>
             <?php echo $form->error($model,'Actividad', array('class' => 'badge badge-warning float-right')); ?>
-            <?php echo $form->textArea($model,'Actividad',array('class' => 'form-control form-control-sm', 'rows'=>2, 'cols'=>50, 'maxlength'=>300, 'onkeyup' => 'convert_may(this)')); ?>
+            <?php echo $form->textArea($model,'Actividad',array('class' => 'form-control form-control-sm', 'rows'=>2, 'cols'=>50, 'maxlength'=>1000, 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
     <div class="col-sm-4">
