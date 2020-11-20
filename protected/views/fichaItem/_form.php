@@ -5,6 +5,10 @@
 
 $estados2 = Yii::app()->params->estados2;
 
+echo $model->Scenario.'<br>';
+
+echo $s;
+
 ?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -102,36 +106,64 @@ $estados2 = Yii::app()->params->estados2;
                   </div>
               </div>
           </div>
-          <div class="row" id="con_und_med_prod" style="display: none;">
-              <div class="col-sm-4">
+          <div class="row">
+              <div class="col-sm-4" id="pres" style="display: none;">
                   <div class="form-group">
-                      <?php echo $form->label($model,'Contenido'); ?>
-                      <?php echo $form->error($model,'Contenido', array('class' => 'badge badge-warning float-right')); ?>
-                      <?php echo $form->numberField($model,'Contenido', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'min' => '0', 'step' => '1', 'disabled' => true)); ?>
+                      <?php echo $form->label($model,'Presentacion'); ?>
+                      <?php echo $form->error($model,'Presentacion', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php echo $form->textField($model,'Presentacion', array('class' => 'form-control form-control-sm', 'maxlength' => '10', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'disabled' => true)); ?>
                   </div>
               </div>
-              <div class="col-sm-4">
-                  <div class="form-group">
-                      <?php echo $form->label($model,'Unidad_Medida_Prod'); ?>
-                      <?php echo $form->error($model,'Unidad_Medida_Prod', array('class' => 'badge badge-warning float-right')); ?>
-                      <?php
-                          $this->widget('ext.select2.ESelect2',array(
-                              'name'=>'FichaItem[Unidad_Medida_Prod]',
-                              'id'=>'FichaItem_Unidad_Medida_Prod',
-                              'data'=>$lista_unidad,
-                              'value' => $model->Unidad_Medida_Prod,
-                              'htmlOptions'=>array(
-                                  'disabled'=>true,
-                              ),
-                              'options'=>array(
-                                  'placeholder'=>'Seleccione...',
-                                  'width'=> '100%',
-                                  'allowClear'=>true,
-                              ),
-                          ));
-                      ?>
-                  </div>
-              </div>
+          </div>
+          <div class="row" id="comp" style="display: none;">
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <?php echo $form->label($model,'comp'); ?>
+                    <?php echo $form->error($model,'comp', array('class' => 'badge badge-warning float-right')); ?>
+                    <?php echo $form->textField($model,'comp'); ?>
+                    <?php
+                        $this->widget('ext.select2.ESelect2', array(
+                            'selector' => '#FichaItem_comp',
+                            'options'  => array(
+                                'allowClear' => true,
+                                'minimumInputLength' => 3,
+                                'width' => '100%',
+                                'language' => 'es',
+                                'ajax' => array(
+                                    'url' => Yii::app()->createUrl('fichaItem/SearchItem'),
+                                    'dataType'=>'json',
+                                    'data'=>'js:function(term){return{q: term};}',
+                                    'results'=>'js:function(data){ return {results:data};}'                   
+                                ),
+                                'formatNoMatches'=> 'js:function(){ clear_select2_ajax("FichaItem_Codigo_Item"); return "No se encontraron resultados"; }',
+                                'formatInputTooShort' =>  'js:function(){ return "Digite más de 3 caracteres para iniciar busqueda <button type=\"button\" class=\"btn btn-success btn-xs float-right\" onclick=\"clear_select2_ajax(\'FichaItem_Codigo_Item\')\">Limpiar campo</button>"; }',
+                                'initSelection'=>'js:function(element,callback) {
+                                    var id=$(element).val(); // read #selector value
+                                    if ( id !== "" ) {
+                                        $.ajax("'.Yii::app()->createUrl('fichaItem/SearchItemById').'", {
+                                            data: { id: id },
+                                            dataType: "json"
+                                        }).done(function(data,textStatus, jqXHR) { callback(data[0]); });
+                                   }
+                                }',
+                            ),
+                        ));
+                    ?>
+                </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                    <?php echo $form->label($model,'cant'); ?>
+                    <?php echo $form->error($model,'cant', array('class' => 'badge badge-warning float-right')); ?>
+                    <?php echo $form->numberField($model,'cant', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'min' => '0', 'step' => '1', 'disabled' => true)); ?>
+
+                </div>
+            </div>
+            <div class="col-sm-1 mt-4">
+              <div class="form-group">
+                    <button type="button" class="btn btn-success btn-sm" id="addcomp"><i class="fas fa-plus"></i> Añadir</button>
+                </div>
+            </div>          
           </div>
           <div class="row">  
               <div class="col-sm-6">
@@ -263,88 +295,19 @@ $estados2 = Yii::app()->params->estados2;
                   </div>
               </div>
           </div>
+          <?php if($s != 7 && $s != 8 && $s != 9 && $s != 10){ ?>
           <div class="row">
               <div class="col-sm-4">
-                  <div class="form-group">
-                      <?php echo $form->label($model,'Maneja_Lote'); ?>
-                      <?php echo $form->error($model,'Maneja_Lote', array('class' => 'badge badge-warning float-right')); ?>
-                      <?php
-                          $this->widget('ext.select2.ESelect2',array(
-                              'name'=>'FichaItem[Maneja_Lote]',
-                              'id'=>'FichaItem_Maneja_Lote',
-                              'data'=>$estados2,
-                              'value' => $model->Maneja_Lote,
-                              'htmlOptions'=>array(
-                                  'disabled'=>true,
-                              ),
-                              'options'=>array(
-                                  'placeholder'=>'Seleccione...',
-                                  'width'=> '100%',
-                                  'allowClear'=>true,
-                              ),
-                          ));
-                      ?>
-                  </div>
-              </div>
-              <div class="col-sm-4">
-                  <div class="form-group">
-                      <?php echo $form->label($model,'Exento_Impuesto'); ?>
-                      <?php echo $form->error($model,'Exento_Impuesto', array('class' => 'badge badge-warning float-right')); ?>
-                      <?php
-                          $this->widget('ext.select2.ESelect2',array(
-                              'name'=>'FichaItem[Exento_Impuesto]',
-                              'id'=>'FichaItem_Exento_Impuesto',
-                              'data'=>$estados2,
-                              'value' => $model->Exento_Impuesto,
-                              'htmlOptions'=>array(
-                                  'disabled'=>true,
-                              ),
-                              'options'=>array(
-                                  'placeholder'=>'Seleccione...',
-                                  'width'=> '100%',
-                                  'allowClear'=>true,
-                              ),
-                          ));
-                      ?>
-                  </div>
-              </div>
-          </div>
-          <div class="row">
-              <div class="col-sm-4">
-                  <div class="form-group">
-                      <?php echo $form->label($model,'Tiempo_Reposicion'); ?>
-                      <?php echo $form->error($model,'Tiempo_Reposicion', array('class' => 'badge badge-warning float-right')); ?>
-                      <?php echo $form->numberField($model,'Tiempo_Reposicion', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'min' => '0', 'step' => '1', 'disabled' => true)); ?>
-                  </div>
-              </div>
-              <div class="col-sm-4">
-                  <div class="form-group">
-                      <?php echo $form->label($model,'Cant_Moq'); ?>
-                      <?php echo $form->error($model,'Cant_Moq', array('class' => 'badge badge-warning float-right')); ?>
-                      <?php echo $form->numberField($model,'Cant_Moq', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'min' => '0', 'step' => '1', 'disabled' => true)); ?>
-                  </div>
-              </div>
-              <div class="col-sm-4">
-                  <div class="form-group">
-                      <?php echo $form->label($model,'Stock_Minimo'); ?>
-                      <?php echo $form->error($model,'Stock_Minimo', array('class' => 'badge badge-warning float-right')); ?>
-                      <?php echo $form->numberField($model,'Stock_Minimo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'min' => '0', 'step' => '1', 'disabled' => true)); ?>
-                  </div>
-              </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-12">
                 <div class="form-group">
-                      <?php echo $form->label($model,'Instalaciones'); ?>
-                  <?php echo $form->error($model,'Instalaciones', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php echo $form->label($model,'Un_Medida'); ?>
+                      <?php echo $form->error($model,'Un_Medida', array('class' => 'badge badge-warning float-right')); ?>
                       <?php
                           $this->widget('ext.select2.ESelect2',array(
-                              'name'=>'FichaItem[Instalaciones]',
-                              'id'=>'FichaItem_Instalaciones',
-                              'data'=>$lista_ins,
-                              'value' => $model->Instalaciones,
+                              'name'=>'FichaItem[Un_Medida]',
+                              'id'=>'FichaItem_Un_Medida',
+                              'data'=>$lista_unidad,
+                              'value' => $model->Un_Medida,
                               'htmlOptions'=>array(
-                                  'multiple'=>'multiple',
                                   'disabled'=>true,
                               ),
                               'options'=>array(
@@ -356,21 +319,40 @@ $estados2 = Yii::app()->params->estados2;
                       ?>
                   </div>
               </div>
-          </div>
-          <div class="row">   
-              <div class="col-sm-12">
+              <div class="col-sm-4" id="und_ep" style="display: none;">
                 <div class="form-group">
-                      <?php echo $form->label($model,'Bodegas'); ?>
-                  <?php echo $form->error($model,'Bodegas', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php echo $form->label($model,'Ep_Medida'); ?>
+                  <?php echo $form->error($model,'Ep_Medida', array('class' => 'badge badge-warning float-right')); ?>
                       <?php
                           $this->widget('ext.select2.ESelect2',array(
-                              'name'=>'FichaItem[Bodegas]',
-                              'id'=>'FichaItem_Bodegas',
-                              'data'=>$lista_bodegas,
-                              'value' => $model->Bodegas,
+                              'name'=>'FichaItem[Ep_Medida]',
+                              'id'=>'FichaItem_Ep_Medida',
+                              'data'=>$lista_unidad,
+                              'value' => $model->Ep_Medida,
                               'htmlOptions'=>array(
-                                  'multiple'=>'multiple',
-                                  'disabled'=>true,
+                                'disabled'=>true,
+                              ),
+                              'options'=>array(
+                                  'placeholder'=>'Seleccione...',
+                                  'width'=> '100%',
+                                  'allowClear'=>true,
+                              ),
+                          ));
+                      ?>
+                </div>
+              </div>
+              <div class="col-sm-4" id="und_cad" style="display: none;">
+                  <div class="form-group">
+                    <?php echo $form->label($model,'Cad_Medida'); ?>
+                    <?php echo $form->error($model,'Cad_Medida', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php
+                          $this->widget('ext.select2.ESelect2',array(
+                              'name'=>'FichaItem[Cad_Medida]',
+                              'id'=>'FichaItem_Cad_Medida',
+                              'data'=>$lista_unidad,
+                              'value' => $model->Cad_Medida,
+                              'htmlOptions'=>array(
+                                'disabled'=>true,
                               ),
                               'options'=>array(
                                   'placeholder'=>'Seleccione...',
@@ -381,7 +363,8 @@ $estados2 = Yii::app()->params->estados2;
                       ?>
                   </div>
               </div>
-          </div>
+            </div>
+          <?php } ?>
           <div class="row mb-2">
             <div class="col-sm-6" id="buttons_1">
             </div>
@@ -432,6 +415,30 @@ $estados2 = Yii::app()->params->estados2;
                               'id'=>'FichaItem_Grupo_Impositivo',
                               'data'=>$lista_grupo_imp,
                               'value' => $model->Grupo_Impositivo,
+                              'htmlOptions'=>array(
+                                  'disabled'=>true,
+                              ),
+                              'options'=>array(
+                                  'placeholder'=>'Seleccione...',
+                                  'width'=> '100%',
+                                  'allowClear'=>true,
+                              ),
+                          ));
+                      ?>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-sm-4">
+                  <div class="form-group">
+                      <?php echo $form->label($model,'Exento_Impuesto'); ?>
+                      <?php echo $form->error($model,'Exento_Impuesto', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php
+                          $this->widget('ext.select2.ESelect2',array(
+                              'name'=>'FichaItem[Exento_Impuesto]',
+                              'id'=>'FichaItem_Exento_Impuesto',
+                              'data'=>$estados2,
+                              'value' => $model->Exento_Impuesto,
                               'htmlOptions'=>array(
                                   'disabled'=>true,
                               ),
@@ -824,6 +831,7 @@ $estados2 = Yii::app()->params->estados2;
           <p>Peso (KG) / Largo, Ancho Y Alto (CM)</p>
 
           <div class="row">
+              <?php if($s == 7 || $s == 8 || $s == 9 || $s == 10){ ?>
               <div class="col-sm-4">
                 <div class="form-group">
                       <?php echo $form->label($model,'Un_Medida'); ?>
@@ -846,6 +854,7 @@ $estados2 = Yii::app()->params->estados2;
                       ?>
                   </div>
               </div>
+            <?php } ?>
               <div class="col-sm-3">
                 <div class="form-group">
                       <?php echo $form->label($model,'Un_Cant'); ?>
@@ -899,6 +908,7 @@ $estados2 = Yii::app()->params->estados2;
             <p>Peso (KG) / Largo, Ancho Y Alto (CM)</p>
 
             <div class="row">
+                <?php if($s == 7 || $s == 8 || $s == 9 || $s == 10){ ?>
                 <div class="col-sm-4">
                   <div class="form-group">
                         <?php echo $form->label($model,'Ep_Medida'); ?>
@@ -921,6 +931,7 @@ $estados2 = Yii::app()->params->estados2;
                         ?>
                     </div>
                 </div>
+                <?php } ?>
                 <div class="col-sm-4">
                   <div class="form-group">
                         <?php echo $form->label($model,'Ep_Cant'); ?>
@@ -974,6 +985,7 @@ $estados2 = Yii::app()->params->estados2;
             <p>Peso (KG) / Largo, Ancho Y Alto (CM)</p>
 
             <div class="row">
+                <?php if($s == 7 || $s == 8 || $s == 9 || $s == 10){ ?>
                 <div class="col-sm-4">
                   <div class="form-group">
                         <?php echo $form->label($model,'Cad_Medida'); ?>
@@ -996,6 +1008,7 @@ $estados2 = Yii::app()->params->estados2;
                         ?>
                     </div>
                 </div>
+                <?php } ?>
                 <div class="col-sm-4">
                   <div class="form-group">
                         <?php echo $form->label($model,'Cad_Cant'); ?>
@@ -1074,6 +1087,101 @@ $estados2 = Yii::app()->params->estados2;
                     <?php echo $form->textField($model,'Referencia', array('class' => 'form-control form-control-sm', 'maxlength' => '20', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'disabled' => true)); ?>
                 </div>
             </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <?php echo $form->label($model,'Maneja_Lote'); ?>
+                    <?php echo $form->error($model,'Maneja_Lote', array('class' => 'badge badge-warning float-right')); ?>
+                    <?php
+                        $this->widget('ext.select2.ESelect2',array(
+                            'name'=>'FichaItem[Maneja_Lote]',
+                            'id'=>'FichaItem_Maneja_Lote',
+                            'data'=>$estados2,
+                            'value' => $model->Maneja_Lote,
+                            'htmlOptions'=>array(
+                                'disabled'=>true,
+                            ),
+                            'options'=>array(
+                                'placeholder'=>'Seleccione...',
+                                'width'=> '100%',
+                                'allowClear'=>true,
+                            ),
+                        ));
+                    ?>
+                </div>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-sm-4">
+                  <div class="form-group">
+                      <?php echo $form->label($model,'Tiempo_Reposicion'); ?>
+                      <?php echo $form->error($model,'Tiempo_Reposicion', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php echo $form->numberField($model,'Tiempo_Reposicion', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'min' => '0', 'step' => '1', 'disabled' => true)); ?>
+                  </div>
+              </div>
+              <div class="col-sm-4">
+                  <div class="form-group">
+                      <?php echo $form->label($model,'Cant_Moq'); ?>
+                      <?php echo $form->error($model,'Cant_Moq', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php echo $form->numberField($model,'Cant_Moq', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'min' => '0', 'step' => '1', 'disabled' => true)); ?>
+                  </div>
+              </div>
+              <div class="col-sm-4">
+                  <div class="form-group">
+                      <?php echo $form->label($model,'Stock_Minimo'); ?>
+                      <?php echo $form->error($model,'Stock_Minimo', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php echo $form->numberField($model,'Stock_Minimo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'min' => '0', 'step' => '1', 'disabled' => true)); ?>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                      <?php echo $form->label($model,'Instalaciones'); ?>
+                  <?php echo $form->error($model,'Instalaciones', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php
+                          $this->widget('ext.select2.ESelect2',array(
+                              'name'=>'FichaItem[Instalaciones]',
+                              'id'=>'FichaItem_Instalaciones',
+                              'data'=>$lista_ins,
+                              'value' => $model->Instalaciones,
+                              'htmlOptions'=>array(
+                                  'multiple'=>'multiple',
+                                  'disabled'=>true,
+                              ),
+                              'options'=>array(
+                                  'placeholder'=>'Seleccione...',
+                                  'width'=> '100%',
+                                  'allowClear'=>true,
+                              ),
+                          ));
+                      ?>
+                  </div>
+              </div>
+          </div>
+          <div class="row">   
+              <div class="col-sm-12">
+                <div class="form-group">
+                      <?php echo $form->label($model,'Bodegas'); ?>
+                  <?php echo $form->error($model,'Bodegas', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php
+                          $this->widget('ext.select2.ESelect2',array(
+                              'name'=>'FichaItem[Bodegas]',
+                              'id'=>'FichaItem_Bodegas',
+                              'data'=>$lista_bodegas,
+                              'value' => $model->Bodegas,
+                              'htmlOptions'=>array(
+                                  'multiple'=>'multiple',
+                                  'disabled'=>true,
+                              ),
+                              'options'=>array(
+                                  'placeholder'=>'Seleccione...',
+                                  'width'=> '100%',
+                                  'allowClear'=>true,
+                              ),
+                          ));
+                      ?>
+                  </div>
+              </div>
           </div>
           <div class="row">
             <div id="un_gtin" class="col-sm-4">

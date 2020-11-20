@@ -21,7 +21,7 @@ if($model->Tipo == 1){
     $steps = array(2 => 'Verificación Desarrollo / Innovación', 4 => 'Verificación Finanzas / Contabilidad', 6 => 'Verificación Comercial / Mercadeo' , 8 => 'Verificación Ingeniería');
   }
 }else{
-  $steps = array(2 => 'Verificación Desarrollo / Innovación', 4 => 'Verificación Finanzas / Contabilidad', 6 => 'Verificación Comercial / Mercadeo' , 8 => 'Verificación Ingeniería');
+  $steps = array(6 => 'Verificación Comercial / Mercadeo');
 }
 
 ?>
@@ -31,11 +31,6 @@ if($model->Tipo == 1){
 $(function() {
 
     var t = <?php echo $t; ?>;
-
-    /*if(t ==2){
-      $('#FichaItem_Step').val(6).trigger('change');
-      $('#FichaItem_Step').attr("readonly", true); 
-    }*/
 
     $("#valida_form").click(function() {
       var form = $("#ficha-item-form");

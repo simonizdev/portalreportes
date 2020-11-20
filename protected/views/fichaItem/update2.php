@@ -61,9 +61,9 @@ function div_step(step, e){
         //verificación comercial
         if(e == 1){
 		  	//campos habilitados
-		  	$('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
-	        $('#FichaItem_Cant_Moq').removeAttr('disabled');
-	        $('#FichaItem_Stock_Minimo').removeAttr('disabled');
+		  	//$('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
+	        //$('#FichaItem_Cant_Moq').removeAttr('disabled');
+	        //$('#FichaItem_Stock_Minimo').removeAttr('disabled');
 	        $('#FichaItem_Crit_Origen').removeAttr('disabled');
 	        $('#FichaItem_Crit_Tipo').removeAttr('disabled');
 	        $('#FichaItem_Crit_Clasificacion').removeAttr('disabled');
@@ -82,6 +82,8 @@ function div_step(step, e){
 	  	}else{
 	  		$("#buttons_1").html('');
 	  	}
+
+	  	$('#div_cants').hide();
            
     }
 
@@ -89,6 +91,10 @@ function div_step(step, e){
         //verificación comercial
         if(e == 0){
 	  		$("#buttons_1").html('');
+	  	}else{
+	  		$('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
+	        $('#FichaItem_Cant_Moq').removeAttr('disabled');
+	        $('#FichaItem_Stock_Minimo').removeAttr('disabled');
 	  	}
            
     }
@@ -127,6 +133,7 @@ $this->renderPartial('_form2', array(
 	'lista_un'=>$lista_un,
 	'lista_fabrica'=>$lista_fabrica,
 	'lista_oracle'=>$lista_oracle,
+	's'=>$s,
 )); 
 
 ?>

@@ -5,6 +5,10 @@
 
 $estados2 = Yii::app()->params->estados2;
 
+echo $model->Scenario.'<br>';
+
+echo $s;
+
 ?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -80,7 +84,7 @@ $estados2 = Yii::app()->params->estados2;
     </div>
 </div>
 <div id="div_info" style="display: none;">
-    <div class="row">
+    <div class="row" id="div_cants">
       <div class="col-sm-4">
           <div class="form-group">
               <?php echo $form->label($model,'Tiempo_Reposicion'); ?>
@@ -481,7 +485,7 @@ $estados2 = Yii::app()->params->estados2;
                 <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>
             <?php }else{ ?>
                 <button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button>
-                <button type="button" class="btn btn-success btn-sm" id="aprobar_form"><i class="fas fa-check-circle"></i> Aprobar</button>
+                <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-check-circle"></i> Aprobar</button>
             <?php } ?>
         </div>
     </div>

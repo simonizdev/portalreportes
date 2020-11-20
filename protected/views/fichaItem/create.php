@@ -15,27 +15,33 @@ $(function() {
     div_step(step, e);
 
     $("#valida_form").click(function() {
+        
       var form = $("#ficha-item-form");
       var settings = form.data('settings');
 
       var tipo_producto = $("#FichaItem_Tipo_Producto").val();
-      
-      var contenido = $("#FichaItem_Contenido").val();
-      var und_prod = $("#FichaItem_Unidad_Medida_Prod").val();
+      var pres = $("#FichaItem_Presentacion").val();
+      var und_ep = $("#FichaItem_Ep_Medida").val();
+      var und_cad = $("#FichaItem_Cad_Medida").val();
 
       if(tipo_producto == 1){   
-
-        if(contenido != "" && und_prod != ""){
+        //producto terminado
+        if(pres != "" && und_ep != "" && und_cad != ""){
             $valid = 1;
         }else{
-            if(contenido == ""){
-                $('#FichaItem_Contenido_em_').html('Contenido es requerido.');
-                $('#FichaItem_Contenido_em_').show(); 
+            if(pres == ""){
+                $('#FichaItem_Presentacion_em_').html('Presentación es requerido.');
+                $('#FichaItem_Presentacion_em_').show(); 
             }
 
-            if(und_prod == ""){
-                $('#FichaItem_Unidad_Medida_Prod_em_').html('Und. medida producto es requerido.');
-                $('#FichaItem_Unidad_Medida_Prod_em_').show(); 
+            if(und_ep == ""){
+                $('#FichaItem_Ep_Medida_em_').html('Und. medida emp. principal es requerido.');
+                $('#FichaItem_Ep_Medida_em_').show(); 
+            }
+
+            if(und_cad == ""){
+                $('#FichaItem_Cad_Medida_em_').html('Und. medida subemp. cadena es requerido.');
+                $('#FichaItem_Cad_Medida_em_').show(); 
             }
 
             $valid = 0;
@@ -43,7 +49,30 @@ $(function() {
         }
 
       }else{
-        $valid = 1;
+
+        if(tipo_producto == 5){
+            //promoción
+            if(und_ep != "" && und_cad != ""){
+                $valid = 1;
+            }else{
+
+                if(und_ep == ""){
+                    $('#FichaItem_Ep_Medida_em_').html('Und. medida emp. principal es requerido.');
+                    $('#FichaItem_Ep_Medida_em_').show(); 
+                }
+
+                if(und_cad == ""){
+                    $('#FichaItem_Cad_Medida_em_').html('Und. medida subemp. cadena es requerido.');
+                    $('#FichaItem_Cad_Medida_em_').show(); 
+                }
+
+                $valid = 0;
+
+            }
+
+        }else{
+            $valid = 1;  
+        }
       }
 
       settings.submitting = true ;
@@ -67,15 +96,37 @@ $(function() {
               settings.submitting = false ;
 
               if(tipo_producto == 1){
-                if(contenido == ""){
-                    $('#FichaItem_Contenido_em_').html('Contenido es requerido.');
-                    $('#FichaItem_Contenido_em_').show(); 
+                //producto terminado
+                if(pres == ""){
+                    $('#FichaItem_Presentacion_em_').html('Presentación es requerido.');
+                    $('#FichaItem_Presentacion_em_').show(); 
                 }
 
-                if(und_prod == ""){
-                    $('#FichaItem_Unidad_Medida_Prod_em_').html('Und. medida producto es requerido.');
-                    $('#FichaItem_Unidad_Medida_Prod_em_').show(); 
+                if(und_ep == ""){
+                    $('#FichaItem_Ep_Medida_em_').html('Und. medida emp. principal es requerido.');
+                    $('#FichaItem_Ep_Medida_em_').show(); 
                 }
+
+                if(und_cad == ""){
+                    $('#FichaItem_Cad_Medida_em_').html('Und. medida subemp. cadena es requerido.');
+                    $('#FichaItem_Cad_Medida_em_').show(); 
+                }
+
+              }
+
+              if(tipo_producto == 5){
+                //promoción
+                if(und_ep == ""){
+                    $('#FichaItem_Ep_Medida_em_').html('Und. medida emp. principal es requerido.');
+                    $('#FichaItem_Ep_Medida_em_').show(); 
+                }
+
+                if(und_cad == ""){
+                    $('#FichaItem_Cad_Medida_em_').html('Und. medida subemp. cadena es requerido.');
+                    $('#FichaItem_Cad_Medida_em_').show(); 
+                }
+
+
               }
 
           }
@@ -87,17 +138,47 @@ $(function() {
 
         var value = $(this).val();
 
-        $('#Actividad_Fecha_Cierre_em_').html('');
-        $('#Actividad_Hora_Cierre_em_').html('');
-        $('#Actividad_Fecha_Cierre').val('');
-        $('#Actividad_Hora_Cierre').val('');
-
         if(value == 1){
-            $('#con_und_med_prod').show();
-        }else{
-            $('#con_und_med_prod').hide();
+            $('#pres').show();
+            $('#comp').hide();
+            $('#und_ep').show();
+            $('#und_cad').show();
+        }
+
+        if(value == 5){
+            $('#pres').hide();
+            $('#comp').show();
+            $('#und_ep').show();
+            $('#und_cad').show();
+        }
+
+        if(value == 2 || value == 3 || value == 4){
+            $('#pres').hide();
+            $('#comp').hide();
+            $('#und_ep').hide();
+            $('#und_cad').hide();
         }
        
+    });
+
+    $("#addcomp").click(function() {
+        var comp = $("#FichaItem_comp").val();
+        var cant = $("#FichaItem_cant").val();
+
+        if(comp != "" && cant != ""){
+            var comp_c = cant+' '+comp;
+            var cont = $('#FichaItem_Descripcion_Larga').val();
+            if(cont != ""){
+                $('#FichaItem_Descripcion_Larga').val(cont+', '+comp_c); 
+            }else{
+                $('#FichaItem_Descripcion_Larga').val(comp_c);    
+            }
+
+            $('#FichaItem_comp').val('').trigger('change');
+            $('#s2id_FichaItem_comp span').html(""); 
+            $("#FichaItem_cant").val('');
+        }  
+
     });
 
 });
@@ -125,7 +206,7 @@ function calculo_volumen(opc){
 
         if(largo != "" && ancho != "" && alto != ""){
             var volumen = largo * ancho * alto / 1000000;
-            $('#FichaItem_Un_Volumen').val(volumen.toFixed(4)); 
+            $('#FichaItem_Un_Volumen').val(volumen.toFixed(6)); 
         }else{
             $('#FichaItem_Un_Volumen').val(''); 
         }       
@@ -138,7 +219,7 @@ function calculo_volumen(opc){
 
         if(largo != "" && ancho != "" && alto != ""){
             var volumen = largo * ancho * alto / 1000000;
-            $('#FichaItem_Ep_Volumen').val(volumen.toFixed(4)); 
+            $('#FichaItem_Ep_Volumen').val(volumen.toFixed(6)); 
         }else{
             $('#FichaItem_Ep_Volumen').val(''); 
         }   
@@ -151,7 +232,7 @@ function calculo_volumen(opc){
 
         if(largo != "" && ancho != "" && alto != ""){
             var volumen = largo * ancho * alto / 1000000;
-            $('#FichaItem_Cad_Volumen').val(volumen.toFixed(4));    
+            $('#FichaItem_Cad_Volumen').val(volumen.toFixed(6));    
         }else{
             $('#FichaItem_Cad_Volumen').val('');    
         }   
@@ -170,21 +251,17 @@ function div_step(step, e){
             $('#FichaItem_Nombre_Funcional').removeAttr('disabled');
             $('#FichaItem_Marca_Producto').removeAttr('disabled');
             $('#FichaItem_Caracteristicas').removeAttr('disabled');
-            $('#FichaItem_Contenido').removeAttr('disabled');
             $('#FichaItem_Descripcion_Larga').removeAttr('disabled');
-            $('#FichaItem_Unidad_Medida_Prod').removeAttr('disabled');
             $('#FichaItem_Unidad_Medida_Inv').removeAttr('disabled');
             $('#FichaItem_Unidad_Medida_Compra').removeAttr('disabled');
             $('#FichaItem_Ind_Compra').removeAttr('disabled');
             $('#FichaItem_Ind_Manufactura').removeAttr('disabled');
             $('#FichaItem_Ind_Venta').removeAttr('disabled');
-            $('#FichaItem_Maneja_Lote').removeAttr('disabled');
-            $('#FichaItem_Exento_Impuesto').removeAttr('disabled');
-            $('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
-            $('#FichaItem_Cant_Moq').removeAttr('disabled');
-            $('#FichaItem_Stock_Minimo').removeAttr('disabled');
-            $('#FichaItem_Instalaciones').removeAttr('disabled');
-            $('#FichaItem_Bodegas').removeAttr('disabled');
+            $("#FichaItem_Un_Medida").removeAttr('disabled');
+            $("#FichaItem_Ep_Medida").removeAttr('disabled');
+            $("#FichaItem_Cad_Medida").removeAttr('disabled');
+            $("#FichaItem_cant").removeAttr('disabled');
+            $('#FichaItem_Presentacion').removeAttr('disabled');
             $("#buttons_1").html('<button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Crear</button>');
         }
 
@@ -240,6 +317,7 @@ $this->renderPartial('_form', array(
     'lista_oracle'=>$lista_oracle,
     'lista_ins'=>$lista_ins,
     'lista_bodegas'=>$lista_bodegas,
+    's'=>$s,
 )); 
 
 ?>

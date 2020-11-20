@@ -123,6 +123,8 @@ function div_step(step, e){
         }else{
             $("#buttons_1").html('');
         }
+
+        $('#div_cants').hide();
         
     }
 }
@@ -159,6 +161,7 @@ $this->renderPartial('_form2', array(
 	'lista_un'=>$lista_un,
 	'lista_fabrica'=>$lista_fabrica,
 	'lista_oracle'=>$lista_oracle,
+    's'=>$s,
 )); 
 
 ?>
