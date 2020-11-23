@@ -133,7 +133,7 @@ class FichaItem extends CActiveRecord
 
 			array('Tipo, Tipo_Producto, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Cant, Ep_Cant, Cad_Cant, Id_Usuario_Solicitud, Estado_Solicitud, Step', 'numerical', 'integerOnly'=>true),
 			array('Codigo_Item, Referencia', 'length', 'max'=>20),
-			array('Descripcion_Corta', 'length', 'max'=>70),
+			array('Descripcion_Corta', 'length', 'max'=>75),
 			array('Nombre_Funcional, Marca_Producto, Caracteristicas', 'length', 'max'=>20),
 			array('Unidad_Medida_Inv, Unidad_Medida_Compra, Grupo_Impositivo, Un_Medida, Ep_Medida, Cad_Medida, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Clase, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Linea, Crit_Subfamilia, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle', 'length', 'max'=>4),
 			array('Tipo_Inventario', 'length', 'max'=>12),

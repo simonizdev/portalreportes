@@ -292,6 +292,8 @@ $(function() {
             $('#und_ep').hide();
             $('#und_cad').hide();
         }
+
+        desc_corta();
        
     });
 
@@ -327,16 +329,33 @@ $(function() {
 
 function desc_corta(){
 
+    var tp = $('#FichaItem_Tipo_Producto').val();
+
     var nf = $('#FichaItem_Nombre_Funcional').val();
     var marca = $('#FichaItem_Marca_Producto').val();
     var caract = $('#FichaItem_Caracteristicas').val();
+    var present = $('#FichaItem_Presentacion').val();
 
-    if(nf != "" && marca != "" && caract != ""){
-        var desc_corta = nf+' '+marca+' '+caract;
-        $('#FichaItem_Descripcion_Corta').val(desc_corta);  
+    if(tp == 1){
+        if(nf != "" && marca != "" && caract != "" && present != ""){
+            var desc_corta = nf+' '+marca+' '+caract+' '+present;
+            $('#FichaItem_Descripcion_Corta').val(desc_corta);  
+        }else{
+            $('#FichaItem_Descripcion_Corta').val('');  
+        }
     }else{
-        $('#FichaItem_Descripcion_Corta').val('');  
-    }       
+        if(tp == 2 || tp == 3 || tp == 4 || tp == 5){
+            if(nf != "" && marca != "" && caract != ""){
+                var desc_corta = nf+' '+marca+' '+caract;
+                $('#FichaItem_Descripcion_Corta').val(desc_corta);  
+            }else{
+                $('#FichaItem_Descripcion_Corta').val('');  
+            }   
+        }else{
+            $('#FichaItem_Descripcion_Corta').val('');     
+        }   
+    }
+        
 }
 
 function calculo_volumen(opc){

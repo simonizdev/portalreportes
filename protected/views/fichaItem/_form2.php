@@ -5,10 +5,6 @@
 
 $estados2 = Yii::app()->params->estados2;
 
-echo $model->Scenario.'<br>';
-
-echo $s;
-
 ?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(

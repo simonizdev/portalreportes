@@ -186,6 +186,7 @@ class Reporte extends CFormModel
             array('tipo, consecutivo', 'required','on'=>'elim_error_trans'),
             array('fecha, opcion_exp', 'required','on'=>'error_transf'),
             array('n_oc, opcion_exp', 'required','on'=>'log_crossdocking'),
+            array('opcion', 'required','on'=>'cuadro_compras_pt2'),
         );  
     }
 

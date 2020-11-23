@@ -197,10 +197,8 @@ class FichaItemController extends Controller
 
 		if(isset($_POST['FichaItem']))
 		{
-			//print_r($_POST['FichaItem']);die;
 			$model->attributes=$_POST['FichaItem'];
 			$model->Pais = implode(",", $_POST['FichaItem']['Pais']);
-			$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
 			$model->Estado_Solicitud = 1;
 			$model->Step = 3;
 			$model->Tipo = 1;
@@ -211,6 +209,9 @@ class FichaItemController extends Controller
 			
 			if($model->Tipo_Producto != 1){
 				$model->Presentacion = null;
+				$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+			}else{
+				$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas." ".$model->Presentacion;
 			}
 
 			if($model->Tipo_Producto != 1 && $model->Tipo_Producto != 5){
@@ -738,7 +739,6 @@ class FichaItemController extends Controller
 			    case 2:
 			    	if($step_rev == 9){
 			    		$model->Pais = implode(",", $_POST['FichaItem']['Pais']);
-						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
 						if(($tipo_producto_actual != 1 && $model->Tipo_Producto == 1) || ($tipo_producto_actual != 1 && $model->Tipo_Producto == 5)){
 							$model->Step = 8;
 							if($model->Tipo_Producto != 1 && $model->Tipo_Producto != 5){
@@ -787,6 +787,9 @@ class FichaItemController extends Controller
 
 						if($model->Tipo_Producto != 1){
 							$model->Presentacion = null;
+							$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+						}else{
+							$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas." ".$model->Presentacion;
 						}
 
 					}else{
@@ -795,7 +798,6 @@ class FichaItemController extends Controller
 						$model->Cad_Volumen = null;
 						$model->Step = 4;
 						$model->Pais = implode(",", $_POST['FichaItem']['Pais']);
-						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
 						
 						if($model->Tipo_Producto != 1 && $model->Tipo_Producto != 5){
 							$model->Ep_Medida = null;
@@ -804,7 +806,11 @@ class FichaItemController extends Controller
 
 						if($model->Tipo_Producto != 1){
 							$model->Presentacion = null;
+							$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+						}else{
+							$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas." ".$model->Presentacion;
 						}
+
 						$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 						$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');	
 					}
@@ -813,7 +819,14 @@ class FichaItemController extends Controller
 					$model->Observaciones = null;
 			        break;
 			    case 3:
-			    	$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+			    	
+			    	if($model->Tipo_Producto != 1){
+						$model->Presentacion = null;
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+					}else{
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas." ".$model->Presentacion;
+					}	
+
 			    	if($step_rev == 9){
 
 						if($model->Tipo_Producto != 1 && $model->Tipo_Producto != 5){
@@ -845,7 +858,14 @@ class FichaItemController extends Controller
 					$model->Observaciones = null;
 			        break;
 			    case 4:
-			    	$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+
+			    	if($model->Tipo_Producto != 1){
+						$model->Presentacion = null;
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+					}else{
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas." ".$model->Presentacion;
+					}	
+
 			        if($step_rev == 9){
 						
 						if($model->Tipo_Producto != 1 && $model->Tipo_Producto != 5){
@@ -877,7 +897,14 @@ class FichaItemController extends Controller
 					$model->Observaciones = null;
 			        break;
 			   	case 5:
-			   		$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+
+			   		if($model->Tipo_Producto != 1){
+						$model->Presentacion = null;
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+					}else{
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas." ".$model->Presentacion;
+					}	
+
 					if($step_rev == 9){	
 
 						if($model->Tipo_Producto != 1 && $model->Tipo_Producto != 5){
@@ -909,7 +936,14 @@ class FichaItemController extends Controller
 					$model->Observaciones = null;
 			        break;
 			    case 6:
-					$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+			        
+		        	if($model->Tipo_Producto != 1){
+						$model->Presentacion = null;
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+					}else{
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas." ".$model->Presentacion;
+					}	
+
 			        if($step_rev == 9){
 						
 						if($model->Tipo_Producto != 1 && $model->Tipo_Producto != 5){
@@ -942,7 +976,14 @@ class FichaItemController extends Controller
 					$model->Observaciones = null;
 			        break;
 			    case 7:
-					$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+					
+			    	if($model->Tipo_Producto != 1){
+						$model->Presentacion = null;
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+					}else{
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas." ".$model->Presentacion;
+					}	
+
 					if($step_rev == 9){	
 						
 						if($model->Tipo_Producto != 1 && $model->Tipo_Producto != 5){
@@ -981,7 +1022,14 @@ class FichaItemController extends Controller
 					$model->Observaciones = null;
 			        break;
 			    case 8:
-			        $model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+					
+			    	if($model->Tipo_Producto != 1){
+						$model->Presentacion = null;
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+					}else{
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas." ".$model->Presentacion;
+					}	
+
 					if($step_rev == 9){	
 						
 						if($model->Tipo_Producto != 1 && $model->Tipo_Producto != 5){
@@ -1020,7 +1068,14 @@ class FichaItemController extends Controller
 					$model->Observaciones = null;
 			        break;
 			    case 9:
-			    	$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+
+			    	if($model->Tipo_Producto != 1){
+						$model->Presentacion = null;
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
+					}else{
+						$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas." ".$model->Presentacion;
+					}	
+
 			    	$model->Instalaciones = implode(",", $_POST['FichaItem']['Instalaciones']);
 			    	$model->Bodegas = implode(",", $_POST['FichaItem']['Bodegas']);
 			        

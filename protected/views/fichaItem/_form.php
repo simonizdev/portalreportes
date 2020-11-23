@@ -5,10 +5,6 @@
 
 $estados2 = Yii::app()->params->estados2;
 
-echo $model->Scenario.'<br>';
-
-echo $s;
-
 ?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -111,7 +107,7 @@ echo $s;
                   <div class="form-group">
                       <?php echo $form->label($model,'Presentacion'); ?>
                       <?php echo $form->error($model,'Presentacion', array('class' => 'badge badge-warning float-right')); ?>
-                      <?php echo $form->textField($model,'Presentacion', array('class' => 'form-control form-control-sm', 'maxlength' => '10', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'disabled' => true)); ?>
+                      <?php echo $form->textField($model,'Presentacion', array('class' => 'form-control form-control-sm', 'maxlength' => '10', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'onchange' => 'desc_corta()', 'disabled' => true)); ?>
                   </div>
               </div>
           </div>
@@ -170,7 +166,7 @@ echo $s;
                   <div class="form-group">
                       <?php echo $form->label($model,'Descripcion_Corta'); ?>
                       <?php echo $form->error($model,'Descripcion_Corta', array('class' => 'badge badge-warning float-right')); ?>
-                      <?php echo $form->textField($model,'Descripcion_Corta', array('class' => 'form-control form-control-sm', 'maxlength' => '60', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'disabled' => true)); ?>
+                      <?php echo $form->textField($model,'Descripcion_Corta', array('class' => 'form-control form-control-sm', 'maxlength' => '75', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'disabled' => true)); ?>
                   </div>
               </div>
               <div class="col-sm-6">
