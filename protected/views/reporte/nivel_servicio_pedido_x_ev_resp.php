@@ -347,23 +347,23 @@ if($opcion == 2){
   $objPHPExcel->setActiveSheetIndex()->setCellValue('A3', 'EST. DE VENTA / ITEM');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('B3', 'REFERENCIA');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('C3', 'DESCRIPCIÓN');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('C3', 'UNIDAD DE NEGOCIO');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('D3', 'ESTADO');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('E3', 'FECHA');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('F3', 'DOCUMENTO');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('G3', 'SUCURSAL');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('H3', 'NIT');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('I3', 'RAZÓN SOCIAL');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('J3', 'CANT. PEDIDO');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('K3', 'CANT. ENVIADO');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('L3', 'CANT. REDESP.');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('M3', 'CANT. PEND.');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('N3', 'VALOR PEDIDO');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('O3', 'PEND. POR ENTRAR');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('P3', 'EN EXIST.');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('D3', 'UNIDAD DE NEGOCIO');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('E3', 'ESTADO');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('F3', 'FECHA');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('G3', 'DOCUMENTO');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('H3', 'SUCURSAL');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('I3', 'NIT');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('J3', 'RAZÓN SOCIAL');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('K3', 'CANT. PEDIDO');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('L3', 'CANT. ENVIADO');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('M3', 'CANT. REDESP.');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('N3', 'CANT. PEND.');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('O3', 'VALOR PEDIDO');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('P3', 'PEND. POR ENTRAR');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('Q3', 'EN EXIST.');
 
-  $objPHPExcel->getActiveSheet()->getStyle('A3:P3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-  $objPHPExcel->getActiveSheet()->getStyle('A3:P3')->getFont()->setBold(true);
+  $objPHPExcel->getActiveSheet()->getStyle('A3:Q3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet()->getStyle('A3:Q3')->getFont()->setBold(true);
 
   /*Inicio contenido tabla*/
 
@@ -458,25 +458,27 @@ if($opcion == 2){
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, $ITEM);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, substr($REFERENCIA,0,20));
     $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, substr($DESCRIPCION,0,40));
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, substr($ESTADO, 0, 8));
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $fecha);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $documento);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $sucursal);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $nit);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, substr($razon_social,0 , 35));
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, $Cant_Ped);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $Cant_Env);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $Cant_Redes);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, $Cant_Pend);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$Fila, $Vlr_Pedido);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$Fila, $P_Entrar);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('P'.$Fila, $Existencia);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, substr($UNIDAD_NEGOCIO, 0, 8));
 
-    $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila.':M'.$Fila)->getNumberFormat()->setFormatCode('0');        
-    $objPHPExcel->getActiveSheet()->getStyle('N'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-    $objPHPExcel->getActiveSheet()->getStyle('O'.$Fila.':P'.$Fila)->getNumberFormat()->setFormatCode('0');
-    $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':I'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-    $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila.':P'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, substr($ESTADO, 0, 8));
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $fecha);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $documento);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $sucursal);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, $nit);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, substr($razon_social,0 , 35));
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $Cant_Ped);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $Cant_Env);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, $Cant_Redes);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$Fila, $Cant_Pend);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$Fila, $Vlr_Pedido);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('P'.$Fila, $P_Entrar);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('Q'.$Fila, $Existencia);
+
+    $objPHPExcel->getActiveSheet()->getStyle('K'.$Fila.':N'.$Fila)->getNumberFormat()->setFormatCode('0');        
+    $objPHPExcel->getActiveSheet()->getStyle('O'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+    $objPHPExcel->getActiveSheet()->getStyle('P'.$Fila.':Q'.$Fila)->getNumberFormat()->setFormatCode('0');
+    $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':J'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $objPHPExcel->getActiveSheet()->getStyle('K'.$Fila.':Q'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 
     $Fila = $Fila + 1;
 
@@ -499,37 +501,37 @@ if($opcion == 2){
   }
 
   //se imprime el total de la ultima marca
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, 'TOTAL '.$ev);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, $Cant_Ped_sp);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $Cant_Env_sp);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $Cant_Redes_sp);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, $Cant_Pend_sp);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$Fila, $Vlr_Pedido_sp);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$Fila, $P_Entrar_sp);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('P'.$Fila, $Existencia_sp);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, 'TOTAL '.$ev);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $Cant_Ped_sp);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $Cant_Env_sp);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, $Cant_Redes_sp);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$Fila, $Cant_Pend_sp);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$Fila, $Vlr_Pedido_sp);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('P'.$Fila, $P_Entrar_sp);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('Q'.$Fila, $Existencia_sp);
 
-  $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila.':M'.$Fila)->getNumberFormat()->setFormatCode('0');        
-  $objPHPExcel->getActiveSheet()->getStyle('N'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-  $objPHPExcel->getActiveSheet()->getStyle('O'.$Fila.':P'.$Fila)->getNumberFormat()->setFormatCode('0');
-  $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila.':P'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila.':P'.$Fila)->getFont()->setBold(true);
+  $objPHPExcel->getActiveSheet()->getStyle('K'.$Fila.':N'.$Fila)->getNumberFormat()->setFormatCode('0');        
+  $objPHPExcel->getActiveSheet()->getStyle('O'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+  $objPHPExcel->getActiveSheet()->getStyle('P'.$Fila.':Q'.$Fila)->getNumberFormat()->setFormatCode('0');
+  $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila.':Q'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila.':Q'.$Fila)->getFont()->setBold(true);
 
   $Fila = $Fila + 1;
 
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, 'TOTAL GENERAL');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, $Cant_Ped_st);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $Cant_Env_st);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $Cant_Redes_st);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, $Cant_Pend_st);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$Fila, $Vlr_Pedido_st);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$Fila, $P_Entrar_st);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('P'.$Fila, $Existencia_st);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, 'TOTAL GENERAL');
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $Cant_Ped_st);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $Cant_Env_st);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, $Cant_Redes_st);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('N'.$Fila, $Cant_Pend_st);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$Fila, $Vlr_Pedido_st);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('P'.$Fila, $P_Entrar_st);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('Q'.$Fila, $Existencia_st);
 
-  $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila.':M'.$Fila)->getNumberFormat()->setFormatCode('0');        
-  $objPHPExcel->getActiveSheet()->getStyle('N'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
-  $objPHPExcel->getActiveSheet()->getStyle('O'.$Fila.':P'.$Fila)->getNumberFormat()->setFormatCode('0');
-  $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila.':P'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  $objPHPExcel->getActiveSheet()->getStyle('I'.$Fila.':P'.$Fila)->getFont()->setBold(true);
+  $objPHPExcel->getActiveSheet()->getStyle('K'.$Fila.':N'.$Fila)->getNumberFormat()->setFormatCode('0');        
+  $objPHPExcel->getActiveSheet()->getStyle('O'.$Fila)->getNumberFormat()->setFormatCode('#,##0.00');
+  $objPHPExcel->getActiveSheet()->getStyle('P'.$Fila.':Q'.$Fila)->getNumberFormat()->setFormatCode('0');
+  $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila.':Q'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+  $objPHPExcel->getActiveSheet()->getStyle('J'.$Fila.':Q'.$Fila)->getFont()->setBold(true);
 
   $Fila = $Fila + 1;
 
