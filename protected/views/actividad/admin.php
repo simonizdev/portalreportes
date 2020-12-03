@@ -64,6 +64,10 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
             'value' => '$data->HoraAmPm($data->Hora)',
         ),
         array(
+            'name' => 'Pais',
+            'value' => '$data->DescPais($data->Pais)',
+        ),
+        array(
             'name' => 'Grupo',
             'value' => '$data->idgrupo->Dominio',
         ),

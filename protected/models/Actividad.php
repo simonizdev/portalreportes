@@ -20,6 +20,7 @@
  * @property integer $Id_Grupo
  * @property integer $Id_Usuario_Deleg
  * @property integer $Prioridad
+ * @property string $Pais
  *
  * The followings are the available model relations:
  * @property THUSUARIOS $idUsuarioCreacion
@@ -46,15 +47,43 @@ class Actividad extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Fecha, Hora, Id_Usuario, Actividad, Id_Tipo, Id_Grupo, Prioridad, Estado', 'required','on'=>'create'),
+			array('Fecha, Hora, Pais, Id_Usuario, Actividad, Id_Tipo, Id_Grupo, Prioridad, Estado', 'required','on'=>'create'),
 			array('Actividad, Estado, Id_Tipo, Id_Grupo, Prioridad','required','on'=>'update'),
 			array('Id_Usuario, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion, Id_Tipo, Id_Grupo', 'numerical', 'integerOnly'=>true),
-			array('Actividad', 'length', 'max'=>1000),
+			array('Actividad', 'length', 'max'=>5000),
 			array('Fecha_Cierre', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, Fecha, Hora, user_enc, Actividad, Estado, Fecha_Cierre, Hora_Cierre, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, Id_Tipo, Id_Grupo, Prioridad, orderby', 'safe', 'on'=>'search'),
+			array('Id, Fecha, Hora, Pais, user_enc, Actividad, Estado, Fecha_Cierre, Hora_Cierre, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, Id_Tipo, Id_Grupo, Prioridad, orderby', 'safe', 'on'=>'search'),
 		);
+	}
+
+	public function DescPais($paises){
+
+		$array_paises = explode(",", $paises);
+
+		$texto_pais = "";
+
+		foreach ($array_paises as $key => $value) {
+			
+			switch ($value) {
+			    case 1:
+			        $pais = 'COLOMBIA';
+			        break;
+			    case 2:
+			        $pais = 'ECUADOR';
+			        break;
+			    case 3:
+			        $pais = 'PERÚ';
+			        break;
+			}
+
+			$texto_pais .= $pais.", ";
+		}
+
+		$texto = substr ($texto_pais, 0, -2);
+		return $texto;
+
 	}
 
 	public function HoraAmPm($hora) {
@@ -154,6 +183,7 @@ class Actividad extends CActiveRecord
 			'Id_Usuario_Deleg' => 'Cedido a',
 			'user_enc' => 'Responsable / Cedido a',
 			'Prioridad' => 'Prioridad',
+			'Pais' => 'País',
 		);
 	}
 
@@ -184,6 +214,16 @@ class Actividad extends CActiveRecord
 		$criteria->compare('t.Id_Grupo',$this->Id_Grupo);
 		$criteria->compare('t.Id_Tipo',$this->Id_Tipo);
 		$criteria->compare('t.Prioridad',$this->Prioridad);
+
+		if($this->Pais != ""){
+
+			$array_paises = $this->Pais;
+
+			foreach ($array_paises as $key => $value) {
+				
+				$criteria->AddCondition("t.Pais LIKE ('%".$value."%')", "OR");
+			}
+	    }
 		
 		if($this->user_enc != ""){
 			$criteria->AddCondition("t.Id_Usuario = ".$this->user_enc." OR t.Id_Usuario_Deleg = ".$this->user_enc); 

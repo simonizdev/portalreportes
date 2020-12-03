@@ -24,6 +24,29 @@
 			    <?php echo $form->textField($model,'Fecha', array('class' => 'form-control form-control-sm datepicker', 'autocomplete' => 'off', 'readonly' => true)); ?>
 	        </div>
 	    </div>
+	    <div class="col-sm-3">
+	      <div class="form-group">
+	          <?php echo $form->label($model,'Pais'); ?>
+	          <?php echo $form->error($model,'Pais', array('class' => 'badge badge-warning float-right')); ?>
+	          <?php $paises = array(1 => 'COLOMBIA', 2 => 'ECUADOR', 3 => 'PERÚ'); ?>
+	          <?php
+	              $this->widget('ext.select2.ESelect2',array(
+	                  'name'=>'FichaItem[Pais]',
+	                  'id'=>'FichaItem_Pais',
+	                  'data'=>$paises,
+	                  'value' => $model->Pais,
+	                  'htmlOptions'=>array(
+	                  	'multiple'=>'multiple',
+	                  ),
+	                  'options'=>array(
+	                      'placeholder'=>'Seleccione...',
+	                      'width'=> '100%',
+	                      'allowClear'=>true,
+	                  ),
+	              ));
+	          ?>
+	      </div>
+	    </div>
 	   	<div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Actividad'); ?>

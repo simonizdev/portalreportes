@@ -60,6 +60,7 @@ class ActividadController extends Controller
 		if(isset($_POST['Actividad']))
 		{
 			$model->attributes=$_POST['Actividad'];
+			$model->Pais = implode(",", $_POST['Actividad']['Pais']);
 			$model->Hora = date('H:i:s', strtotime($model->Hora));
 			$model->Id_Usuario_Creacion = Yii::app()->user->getState('id_user');
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');

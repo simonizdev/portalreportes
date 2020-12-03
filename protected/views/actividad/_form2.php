@@ -36,6 +36,13 @@
             <p><?php echo $model->HoraAmPm($model->Hora); ?></p>
         </div>
     </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+          <?php echo $form->label($model,'Pais'); ?>
+          <?php echo $form->error($model,'Pais', array('class' => 'badge badge-warning float-right')); ?>
+          <p><?php echo $model->DescPais($model->Pais); ?></p>
+      </div>
+    </div>
 </div>
 <div class="row">
     <div class="col-sm-4">
@@ -126,6 +133,13 @@
             <p><?php echo $model->HoraAmPm($model->Hora); ?></p>
         </div>
     </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+          <?php echo $form->label($model,'Pais'); ?>
+          <?php echo $form->error($model,'Pais', array('class' => 'badge badge-warning float-right')); ?>
+          <p><?php echo $model->DescPais($model->Pais); ?></p>
+      </div>
+    </div>
 </div>
 <div class="row">
     <div class="col-sm-4">
@@ -203,7 +217,7 @@
         <div class="form-group">
             <?php echo $form->label($model,'Actividad', array('class' => 'control-label')); ?>
             <?php echo $form->error($model,'Actividad', array('class' => 'badge badge-warning float-right')); ?>
-            <?php echo $form->textArea($model,'Actividad',array('class' => 'form-control form-control-sm', 'rows'=>2, 'cols'=>50, 'maxlength'=>1000, 'onkeyup' => 'convert_may(this)')); ?>
+            <?php echo $form->textArea($model,'Actividad',array('class' => 'form-control form-control-sm', 'rows'=>2, 'cols'=>50, 'maxlength'=>5000, 'onkeyup' => 'convert_may(this)')); ?>
         </div>
     </div>
     <div class="col-sm-4">
