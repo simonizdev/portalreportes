@@ -36,6 +36,7 @@ $query_e ="
   @TIPO = '".$ti."'
 ";
 
+
 $data_e = Yii::app()->db->createCommand($query_e)->queryAll();
 
 //total registros
@@ -141,10 +142,13 @@ if($n_items > 0){
             $ref = $info['Referencia'];
             $cant = number_format(floatval($info['Cantidad']),2,".",",");
             $um = $info['UM'];
-            $vlr_uni = number_format(floatval($info['Vlr_Uni']),0,".",",");
-            $vlr_total = number_format(floatval($info['Vlr_Total']),0,".",",");
+            $vlr_uni = $info['Vlr_Uni'];
+            $vlr_bruto = $info['Vlr_Bruto'];
+            $vlr_dsto = $info['Vlr_Dsto'];
+            $vlr_iva = $info['Vlr_Iva'];
+            $vlr_total = $info['Vlr_Total'];
 
-            $array_data[$cons][] = array($desc, $ref, $cant, $um, $vlr_uni, $vlr_total);
+            $array_data[$cons][] = array($desc, $ref, $cant, $um, $vlr_uni, $vlr_bruto, $vlr_dsto, $vlr_iva, $vlr_total);
         }
 
         //formas de pago
@@ -152,7 +156,7 @@ if($n_items > 0){
 
             $tipo = utf8_decode($info_fp['TIPO']);
             $aux = $info_fp['Tarjeta'];
-            $vlr = number_format(floatval($info_fp['Vlr_Tipo']),0,".",",");
+            $vlr = $info_fp['Vlr_Tipo'];
 
             $array_f_pago[$cons][] = array($tipo, $aux, $vlr);
         }
@@ -302,29 +306,44 @@ class PDF extends FPDF{
             $this->Cell(14,3,'Total',0,0,'R');
             $this->Ln();
             $this->MultiCell(60,3,'----------------------------------------------------------------------',0,'C');
+
+            $venta = 0;
+            $descuentos = 0;
+            $iva = 0;
+            $total = 0;
+
             foreach ($data[$cons] as $info_item) {
                 $this->Cell(60,3,$info_item[0],0,0,'L');
                 $this->Ln();
                 $this->Cell(16,3,$info_item[1],0,0,'L');
                 $this->Cell(8,3,$info_item[2],0,0,'L');
                 $this->Cell(8,3,$info_item[3],0,0,'L');
-                $this->Cell(14,3,'$'.$info_item[4],0,0,'R');
-                $this->Cell(14,3,'$'.$info_item[5],0,0,'R');
+                $this->Cell(14,3,'$'.number_format(floatval($info_item[4]),0,".",","),0,0,'R');
+                $this->Cell(14,3,'$'.number_format(floatval($info_item[8]),0,".",","),0,0,'R');
+                $venta = $venta + $info_item[5];
+                $descuentos = $descuentos + $info_item[6];
+                $iva = $iva + $info_item[7];
+                $total = $total + $info_item[8];
                 $this->Ln();
             }
-            $this->MultiCell(60,3,'----------------------------------------------------------------------',0,'C');
-            $this->Cell(46,3,'TOTAL  ..........',0,0,'L');
-            $this->Cell(14,3,'$'.$data_header[$cons][13],0,0,'R');
-            $this->Ln();
             $this->MultiCell(60,3,'-----------------[DETALLE DE VALORES]------------------',0,'C');
-            $this->Cell(46,3,'Venta excluida  ..........',0,0,'L');
-            $this->Cell(14,3,'$'.$data_header[$cons][13],0,0,'R');
+            $this->Cell(46,3,'VENTA',0,0,'L');
+            $this->Cell(14,3,'$'.number_format(floatval($venta),0,".",","),0,0,'R');
+            $this->Ln();
+            $this->Cell(46,3,'DESCUENTO',0,0,'L');
+            $this->Cell(14,3,'$'.number_format(floatval($descuentos),0,".",","),0,0,'R');
+            $this->Ln();
+            $this->Cell(46,3,'IVA',0,0,'L');
+            $this->Cell(14,3,'$'.number_format(floatval($iva),0,".",","),0,0,'R');
+            $this->Ln();
+            $this->Cell(46,3,'TOTAL',0,0,'L');
+            $this->Cell(14,3,'$'.number_format(floatval($total),0,".",","),0,0,'R');
             $this->Ln();
             $this->MultiCell(60,3,'----------------------------------------------------------------------',0,'C');
             foreach ($data_fp[$cons] as $info_f_pago) {
                 $this->Cell(36,3,$info_f_pago[0],0,0,'L');
                 $this->Cell(10,3,$info_f_pago[1],0,0,'L');
-                $this->Cell(14,3,$info_f_pago[2],0,0,'R');
+                $this->Cell(14,3,number_format(floatval($info_f_pago[2]),0,".",","),0,0,'R');
                 $this->Ln();
             }
             $this->MultiCell(60,3,'----------------------------------------------------------------------',0,'C');
@@ -380,7 +399,7 @@ class PDF extends FPDF{
 
             $n_r = $n_items + $n_fp;
 
-            if($n_r > 12){
+            if($n_r > 11){
                 $this->AddPage();
             }else{
                 $pagesize = array(297, 80);
