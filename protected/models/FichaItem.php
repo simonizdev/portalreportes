@@ -208,6 +208,9 @@ class FichaItem extends CActiveRecord
 			    case 3:
 			        $pais = 'PERÚ';
 			        break;
+			    case 4:
+			        $pais = 'CHILE';
+			        break;
 			}
 
 			$texto_pais .= $pais.", ";

@@ -24,7 +24,7 @@ $estados2 = Yii::app()->params->estados2;
       <div class="form-group">
           <?php echo $form->label($model,'Pais'); ?>
           <?php echo $form->error($model,'Pais', array('class' => 'badge badge-warning float-right')); ?>
-          <?php $paises = array(1 => 'COLOMBIA', 2 => 'ECUADOR', 3 => 'PERÚ'); ?>
+          <?php $paises = array(1 => 'COLOMBIA', 2 => 'ECUADOR', 3 => 'PERÚ', 4 => 'CHILE'); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
                   'name'=>'FichaItem[Pais]',

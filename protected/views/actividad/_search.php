@@ -28,11 +28,11 @@
 	      <div class="form-group">
 	          <?php echo $form->label($model,'Pais'); ?>
 	          <?php echo $form->error($model,'Pais', array('class' => 'badge badge-warning float-right')); ?>
-	          <?php $paises = array(1 => 'COLOMBIA', 2 => 'ECUADOR', 3 => 'PERÚ'); ?>
+	          <?php $paises = array(1 => 'COLOMBIA', 2 => 'ECUADOR', 3 => 'PERÚ', 4 => 'CHILE'); ?>
 	          <?php
 	              $this->widget('ext.select2.ESelect2',array(
-	                  'name'=>'FichaItem[Pais]',
-	                  'id'=>'FichaItem_Pais',
+	                  'name'=>'Actividad[Pais]',
+	                  'id'=>'Actividad_Pais',
 	                  'data'=>$paises,
 	                  'value' => $model->Pais,
 	                  'htmlOptions'=>array(
@@ -232,6 +232,7 @@
 	function resetfields(){
 		$('#Actividad_Id').val('');
 		$('#Actividad_Fecha').val('');
+		$('#Actividad_Pais').val('').trigger('change');
 		$('#Actividad_Actividad').val('');
 		$('#Actividad_Id_Grupo').val('').trigger('change');
 		$('#Actividad_user_enc').val('').trigger('change');
