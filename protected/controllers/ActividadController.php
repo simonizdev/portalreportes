@@ -66,12 +66,7 @@ class ActividadController extends Controller
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Creacion = date('Y-m-d H:i:s');
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
-
-			if($model->Estado == 3){
-				$model->Id_Usuario_Deleg = $_POST['Actividad']['Id_Usuario_Deleg'];
-			}else{
-				$model->Id_Usuario_Deleg = null;
-			}
+			$model->Estado = 1;
 
 			if($model->save())	
 				$this->redirect(array('admin'));

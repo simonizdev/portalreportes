@@ -139,7 +139,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Estado'); ?>
-			    <?php $estados = array(0 => 'PENDIENTES', 1 => 'ABIERTA', 2 => 'CERRADA', 3 => 'EN ESPERA', 4 => 'EN PROCESO', 5 => 'ANULADA'); ?>
+			    <?php $estados = array(0 => 'PENDIENTES', 1 => 'RECIBIDO', 2 => 'COMPLETADO', 3 => 'EN ESPERA', 4 => 'EVALUADO', 5 => 'ANULADA', 6 => 'RECHAZADO', 7 => 'APROBADO'); ?>
             	<?php
             		$this->widget('ext.select2.ESelect2',array(
 						'name'=>'Actividad[Estado]',

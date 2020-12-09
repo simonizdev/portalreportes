@@ -59,7 +59,7 @@ $(function() {
 
       }
 
-      if(estado == 1 || estado == 4 || estado == 5){   
+      if(estado == 1 || estado == 4 || estado == 5 || $model->Estado == 6 || $model->Estado == 7){   
         $valid = 1;
       }
 
@@ -146,7 +146,7 @@ $(function() {
         $('#Actividad_Id_Usuario_Deleg').val('');
 
         if(value == 2){
-           //CERRADA
+           //COMPLETADA
           $('#user_deleg').hide();
           $('#fecha_cierre').show();
           $('#hora_cierre').show();
@@ -160,8 +160,8 @@ $(function() {
           $('#hora_cierre').hide();
         }
 
-        if(value == 1 || value == 4 || value == 5){
-          //EN PROCESO, ABIERTA, ANULADA
+        if(value == 1 || value == 4 || value == 5 || value == 6 || value == 7){
+          //RECIBIDO, EVALUADO, ANULADO, RECHAZADO, APROBADO
           $('#user_deleg').hide();
           $('#fecha_cierre').hide();
           $('#hora_cierre').hide();

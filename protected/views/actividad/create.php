@@ -23,25 +23,6 @@ $(function() {
       var form = $("#actividad-form");
       var settings = form.data('settings') ;
 
-      var estado = $("#Actividad_Estado").val();
-      var usuario_deleg = $("#Actividad_Id_Usuario_Deleg").val();
-
-      $valid = 0;
-
-      if(estado == 3){   
-
-        if(usuario_deleg != ""){
-            $valid = 1;
-        }else{
-            $valid = 0;
-        }
-
-      }
-
-      if(estado == 1 || estado == 2 || estado == 4){   
-        $valid = 1;
-      }
-
       settings.submitting = true ;
       $.fn.yiiactiveform.validate(form, function(messages) {
           if($.isEmptyObject(messages)) {
@@ -49,19 +30,11 @@ $(function() {
                 $.fn.yiiactiveform.updateInput(this,messages,form); 
             });
                 
-            if($valid == 1){
-                //se envia el form
-                form.submit();
-                loadershow();
-            }else{
-              if(estado == 3){   
-
-                if(usuario_deleg == ""){
-                    $('#Actividad_Id_Usuario_Deleg_em_').html('Cedido a es requerido.');
-                    $('#Actividad_Id_Usuario_Deleg_em_').show(); 
-                } 
-              }
-            }
+            
+            //se envia el form
+            form.submit();
+            loadershow();
+            
              
           } else {
               settings = form.data('settings'),
@@ -69,44 +42,8 @@ $(function() {
                  $.fn.yiiactiveform.updateInput(this,messages,form); 
               });
               settings.submitting = false ;
-
-              if(estado == 3){   
-
-                if(usuario_deleg == ""){
-                    $('#Actividad_Id_Usuario_Deleg_em_').html('Cedido a es requerido.');
-                    $('#Actividad_Id_Usuario_Deleg_em_').show(); 
-                }
-                 
-              }
           }
       });
-    });
-
-    $('#Actividad_Estado').change(function() {
-      
-      var value = $(this).val();
-        
-      if(value != ""){
-
-        $('#Actividad_Id_Usuario_Deleg_em_').html('');
-        $('#Actividad_Id_Usuario_Deleg').val('');
-
-        if(value == 3){
-          //EN ESPERA
-          $('#user_deleg').show();
-          $('#fecha_cierre').hide();
-          $('#hora_cierre').hide();
-        }
-
-        if(value == 1 || value == 4){
-          //EN PROCESO, ABIERTA
-          $('#user_deleg').hide();
-        }
-
-      }else{
-        $("#user_deleg").hide();
-      }
-     
     });
 
     $("#Actividad_Id_Grupo").change(function () {
@@ -131,26 +68,6 @@ $(function() {
         $("#Actividad_Id_Tipo").val('');
         $("#div_tipo").hide();
       }
-    });
-
-    $('#Actividad_Id_Usuario_Deleg').change(function() {
-        var estado = $("#Actividad_Estado").val();
-        var val = $('#Actividad_Id_Usuario_Deleg').val();
-        if(estado == 3){   
-            if(val == ""){
-                $('#Actividad_Id_Usuario_Deleg_em_').html('Cedido a es requerido.');
-                $('#Actividad_Id_Usuario_Deleg_em_').show(); 
-            }else{
-                $('#Actividad_Id_Usuario_Deleg_em_').html('');
-                $('#Actividad_Id_Usuario_Deleg_em_').hide(); 
-            }
-
-        }else{
-            $('#Actividad_Id_Usuario_Deleg_em_').html('');
-            $('#Actividad_Id_Usuario_Deleg_em_').hide(); 
-        
-        }
-      
     });
 
 });

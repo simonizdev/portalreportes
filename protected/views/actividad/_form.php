@@ -168,29 +168,6 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-4">
-        <div class="form-group">
-            <?php echo $form->label($model,'Estado', array('class' => 'control-label')); ?>
-            <?php echo $form->error($model,'Estado', array('class' => 'badge badge-warning float-right')); ?>
-            <?php $estados = array(1 => 'ABIERTA', 3 => 'EN ESPERA', 4 => 'EN PROCESO'); ?>
-            <?php
-                $this->widget('ext.select2.ESelect2',array(
-                    'name'=>'Actividad[Estado]',
-                    'id'=>'Actividad_Estado',
-                    'data'=>$estados,
-                    'value' => $model->Estado,
-                    'htmlOptions'=>array(),
-                    'options'=>array(
-                        'placeholder'=>'Seleccione...',
-                        'width'=> '100%',
-                        'allowClear'=>true,
-                    ),
-                ));
-            ?>
-        </div>
-    </div>
-</div>
 
 <div class="row mb-2">
     <div class="col-sm-6">  

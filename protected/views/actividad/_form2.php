@@ -19,7 +19,7 @@
 
 ?>
 
-<?php if($model->Estado == 2 || $model->Estado == 5){ ?>
+<?php if($model->Estado == 2 || $model->Estado == 5 || $model->Estado == 6){ ?>
 
 <div class="row">
     <div class="col-sm-4">
@@ -247,7 +247,8 @@
         <div class="form-group">
             <?php echo $form->label($model,'Estado', array('class' => 'control-label')); ?>
             <?php echo $form->error($model,'Estado', array('class' => 'badge badge-warning float-right')); ?>
-            <?php $estados = array(1 => 'ABIERTA', 2 => 'CERRADA', 3 => 'EN ESPERA', 4 => 'EN PROCESO', 5 => 'ANULADA'); ?>
+            <?php $estados = array(1 => 'RECIBIDO', 2 => 'COMPLETADO', 3 => 'EN ESPERA', 4 => 'EVALUADO', 5 => 'ANULADA', 6 => 'RECHAZADO', 7 => 'APROBADO'); ?>
+            <?php //$estados = array(1 => 'ABIERTA', 2 => 'CERRADA', 3 => 'EN ESPERA', 4 => 'EN PROCESO', 5 => 'ANULADA'); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'Actividad[Estado]',

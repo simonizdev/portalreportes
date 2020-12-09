@@ -47,7 +47,7 @@ class Actividad extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Fecha, Hora, Pais, Id_Usuario, Actividad, Id_Tipo, Id_Grupo, Prioridad, Estado', 'required','on'=>'create'),
+			array('Fecha, Hora, Pais, Id_Usuario, Actividad, Id_Tipo, Id_Grupo, Prioridad', 'required','on'=>'create'),
 			array('Actividad, Estado, Id_Tipo, Id_Grupo, Prioridad','required','on'=>'update'),
 			array('Id_Usuario, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion, Id_Tipo, Id_Grupo', 'numerical', 'integerOnly'=>true),
 			array('Actividad', 'length', 'max'=>5000),
@@ -121,19 +121,25 @@ class Actividad extends CActiveRecord
 
 		switch ($estado) {
 		    case 1:
-		        $texto_estado = 'ABIERTA';
+		        $texto_estado = 'RECIBIDO';
 		        break;
 		    case 2:
-		        $texto_estado = 'CERRADA';
+		        $texto_estado = 'COMPLETADO';
 		        break;
 		    case 3:
 		        $texto_estado = 'EN ESPERA';
 		        break;
 		    case 4:
-		        $texto_estado = 'EN PROCESO';
+		        $texto_estado = 'EVALUADO';
 		        break;
 		    case 5:
-		        $texto_estado = 'ANULADA';
+		        $texto_estado = 'ANULADO';
+		        break;
+		    case 6:
+		        $texto_estado = 'RECHAZADO';
+		        break;
+		    case 7:
+		        $texto_estado = 'APROBADO';
 		        break;
 		    
 		}
@@ -233,10 +239,10 @@ class Actividad extends CActiveRecord
 	    }
 
 		if($this->Estado == ""){
-			$criteria->AddCondition("t.Estado != 2 AND t.Estado != 5"); 
+			$criteria->AddCondition("t.Estado != 2 AND t.Estado != 5 AND t.Estado != 6"); 
 	    }else{
 	    	if($this->Estado == 0){
-	    		$criteria->AddCondition("t.Estado IN (1,3,4)"); 	
+	    		$criteria->AddCondition("t.Estado IN (1,3,4,7)"); 	
 	    	}else{
 	    		$criteria->compare('t.Estado',$this->Estado);
 	    	}
