@@ -59,7 +59,7 @@ $(function() {
 
       }
 
-      if(estado == 1 || estado == 4 || estado == 5 || $model->Estado == 6 || $model->Estado == 7){   
+      if(estado == 1 || estado == 4 || estado == 5 || estado == 6 || estado == 7){   
         $valid = 1;
       }
 
