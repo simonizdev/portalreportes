@@ -51,17 +51,24 @@ class TipoActController extends Controller
 
 		$grupos=Dominio::model()->findAll(array('order'=>'Dominio', 'condition'=>'Estado=:estado AND Id_Padre = '.Yii::app()->params->grupos_act, 'params'=>array(':estado'=>1)));
 
+		$usuarios=Usuario::model()->findAll(array('order'=>'Nombres', 'condition'=>'Estado=1 AND Id_Usuario != 1'));
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['TipoAct']))
 		{
 			$model->attributes=$_POST['TipoAct'];
+			if($_POST['TipoAct']['Fecha_Inicio']  != ""){$model->Fecha_Inicio = $_POST['TipoAct']['Fecha_Inicio'];}else{$model->Fecha_Inicio = null;}
+			if($_POST['TipoAct']['Fecha_Fin']  != ""){$model->Fecha_Fin = $_POST['TipoAct']['Fecha_Fin'];}else{$model->Fecha_Fin = null;}
+			//$model->Usuarios = implode(",", $_POST['TipoAct']['Usuarios']);
 			$model->Id_Usuario_Creacion = Yii::app()->user->getState('id_user');
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Creacion = date('Y-m-d H:i:s');
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
 			if($model->save()){
+				//se administran los usuarios relacionadas al tipo
+				UtilidadesUsuario::admintipactusuario($model->Id_Tipo, $model->Usuarios);
 				$this->redirect(array('admin'));
 			}
 		}
@@ -69,6 +76,7 @@ class TipoActController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 			'grupos'=>$grupos,
+			'usuarios'=>$usuarios,
 		));
 	}
 
@@ -85,6 +93,17 @@ class TipoActController extends Controller
 
 		$opciones_p=TipoAct::model()->findAll(array('order'=>'Tipo', 'condition'=>'Estado=:estado', 'params'=>array(':estado'=>1)));
 
+		$usuarios=Usuario::model()->findAll(array('order'=>'Nombres', 'condition'=>'Estado=1 AND Id_Usuario != 1'));
+
+		//opciones activas en el combo usuarios
+		$json_usuarios_tipact_activos = UtilidadesUsuario::usuariostipactactivos($id);
+ 
+		if($model->Padre != ""){
+			$p = $model->Padre;
+		}else{
+			$p = 0;
+		}
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -93,9 +112,12 @@ class TipoActController extends Controller
 			$model->attributes=$_POST['TipoAct'];
 			if($_POST['TipoAct']['Fecha_Inicio']  != ""){$model->Fecha_Inicio = $_POST['TipoAct']['Fecha_Inicio'];}else{$model->Fecha_Inicio = null;}
 			if($_POST['TipoAct']['Fecha_Fin']  != ""){$model->Fecha_Fin = $_POST['TipoAct']['Fecha_Fin'];}else{$model->Fecha_Fin = null;}
+			//$model->Usuarios = implode(",", $_POST['TipoAct']['Usuarios']);
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
 			if($model->save()){
+				//se administran los usuarios relacionadas al tipo
+				UtilidadesUsuario::admintipactusuario($model->Id_Tipo, $model->Usuarios);
 				$this->redirect(array('admin'));
 			}
 		}
@@ -103,6 +125,9 @@ class TipoActController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 			'grupos'=>$grupos,
+			'usuarios'=>$usuarios,
+			'json_usuarios_tipact_activos'=>$json_usuarios_tipact_activos,
+			'p'=>$p,
 		));
 	}
 
@@ -170,7 +195,7 @@ class TipoActController extends Controller
 		}
  
 
-		$q_opc = Yii::app()->db->createCommand("SELECT Id_Tipo, Tipo FROM TH_TIPO_ACT WHERE  Id_Grupo = ".$grupo." AND Estado = 1 ".$condicion." ORDER BY Tipo")->queryAll();
+		$q_opc = Yii::app()->db->createCommand("SELECT Id_Tipo, Tipo FROM TH_TIPO_ACT WHERE  Id_Grupo = ".$grupo." AND Estado = 1 ".$condicion." AND Padre IS NULL ORDER BY Tipo")->queryAll();
 
 		$i = 0;
 		$array_opc = array();

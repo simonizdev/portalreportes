@@ -27,6 +27,7 @@
  */
 class TipoAct extends CActiveRecord
 {
+	public $Usuarios;
 	public $orderby;
 
 	/**
@@ -45,7 +46,7 @@ class TipoAct extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_Grupo, Tipo, Estado, Cantidad, Ind_Alto, Ind_Medio, Ind_Bajo, Id_Usuario_Creacion', 'required'),
+			array('Id_Grupo, Tipo, Usuarios, Estado, Cantidad, Ind_Alto, Ind_Medio, Ind_Bajo, Id_Usuario_Creacion', 'required'),
 			array('Id_Tipo, Id_Grupo, Cantidad, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
 			array('Tipo', 'length', 'max'=>100),
 			array('Padre', 'safe'),
@@ -91,6 +92,7 @@ class TipoAct extends CActiveRecord
 			'Id_Usuario_Actualizacion' => 'Ultimo usuario que actualizó',
 			'Fecha_Creacion' => 'Fecha de creación',
 			'Fecha_Actualizacion' => 'Ultima fecha de actualización ',
+			'Usuarios' => 'Usuarios',
 			'orderby' => 'Orden de resultados',
 		);
 	}

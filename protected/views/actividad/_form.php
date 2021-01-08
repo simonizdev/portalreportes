@@ -97,7 +97,7 @@
     </div>
 </div>  
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-6" id="div_usuario" style="display: none;">
         <div class="form-group">
             <?php echo $form->label($model,'Id_Usuario', array('class' => 'control-label')); ?>
             <?php echo $form->error($model,'Id_Usuario', array('class' => 'badge badge-warning float-right')); ?>
@@ -105,8 +105,7 @@
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'Actividad[Id_Usuario]',
                     'id'=>'Actividad_Id_Usuario',
-                    'data'=>$lista_usuarios,
-                    'value' => $model->Estado,
+                    'value' => $model->Id_Usuario,
                     'htmlOptions'=>array(),
                     'options'=>array(
                         'placeholder'=>'Seleccione...',
@@ -125,7 +124,7 @@
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'Actividad[Id_Usuario_Deleg]',
                     'id'=>'Actividad_Id_Usuario_Deleg',
-                    'data'=>$lista_usuarios,
+                    //'data'=>$lista_usuarios,
                     'value' => $model->Id_Usuario_Deleg,
                     'htmlOptions'=>array(),
                     'options'=>array(
@@ -165,6 +164,15 @@
                     ),
                 ));
             ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
+            <?php echo $form->error($model,'Fecha_Finalizacion', array('class' => 'badge badge-warning float-right')); ?>
+            <?php echo $form->label($model,'Fecha_Finalizacion'); ?>
+            <?php echo $form->textField($model,'Fecha_Finalizacion', array('class' => 'form-control form-control-sm datepicker', 'readonly' => true)); ?>
         </div>
     </div>
 </div>

@@ -21,6 +21,7 @@
  * @property integer $Id_Usuario_Deleg
  * @property integer $Prioridad
  * @property string $Pais
+ * @property string $Fecha_Finalizacion
  *
  * The followings are the available model relations:
  * @property THUSUARIOS $idUsuarioCreacion
@@ -48,10 +49,10 @@ class Actividad extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Fecha, Hora, Pais, Id_Usuario, Actividad, Id_Tipo, Id_Grupo, Prioridad', 'required','on'=>'create'),
-			array('Actividad, Estado, Id_Tipo, Id_Grupo, Prioridad','required','on'=>'update'),
+			array('Actividad, Estado, Prioridad','required','on'=>'update'),
 			array('Id_Usuario, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion, Id_Tipo, Id_Grupo', 'numerical', 'integerOnly'=>true),
 			array('Actividad', 'length', 'max'=>5000),
-			array('Fecha_Cierre', 'safe'),
+			array('Fecha_Cierre, Fecha_Finalizacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('Id, Fecha, Hora, Pais, user_enc, Actividad, Estado, Fecha_Cierre, Hora_Cierre, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, Id_Tipo, Id_Grupo, Prioridad, orderby', 'safe', 'on'=>'search'),
@@ -193,6 +194,7 @@ class Actividad extends CActiveRecord
 			'user_enc' => 'Responsable / Cedido a',
 			'Prioridad' => 'Prioridad',
 			'Pais' => 'País',
+			'Fecha_Finalizacion' => 'Fecha de finalización',
 		);
 	}
 
@@ -214,50 +216,67 @@ class Actividad extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$user = Yii::app()->user->getState('id_user');
+
 		$criteria->together  =  true;
 	   	$criteria->with=array('idusuariocre','idusuarioact','idgrupo','idtipo','idusuariodeleg');
 
-		$criteria->compare('t.Id',$this->Id);
-		$criteria->compare('t.Fecha',$this->Fecha,true);
-		$criteria->compare('t.Actividad',$this->Actividad,true);
-		$criteria->compare('t.Id_Grupo',$this->Id_Grupo);
-		$criteria->compare('t.Id_Tipo',$this->Id_Tipo);
-		$criteria->compare('t.Prioridad',$this->Prioridad);
+		$q_grupos=TipoActUsuario::model()->findAll(array('condition'=>'Estado=:estado AND Id_Usuario ='.$user, 'params'=>array(':estado'=>1)));
 
-		if($this->Pais != ""){
+		if(!empty($q_grupos)){
 
-			$array_paises = $this->Pais;
+			//el usuario cuenta con grupos y tipos
+			
+			$criteria->compare('t.Id',$this->Id);
+			$criteria->compare('t.Fecha',$this->Fecha,true);
+			$criteria->compare('t.Actividad',$this->Actividad,true);
+			$criteria->compare('t.Id_Grupo',$this->Id_Grupo);
+			$criteria->compare('t.Id_Tipo',$this->Id_Tipo);
+			$criteria->compare('t.Prioridad',$this->Prioridad);
 
-			foreach ($array_paises as $key => $value) {
-				
-				$criteria->AddCondition("t.Pais LIKE ('%".$value."%')", "OR");
-			}
-	    }
-		
-		if($this->user_enc != ""){
-			$criteria->AddCondition("t.Id_Usuario = ".$this->user_enc." OR t.Id_Usuario_Deleg = ".$this->user_enc); 
-	    }
+			if($this->user_enc == ""){
+				$criteria->AddCondition("t.Id_Usuario = ".$user." OR t.Id_Usuario_Deleg = ".$user); 
+		    }else{
+		    	$criteria->AddCondition("t.Id_Usuario = ".$this->user_enc." OR t.Id_Usuario_Deleg = ".$this->user_enc); 
+		    }
 
-		if($this->Estado == ""){
-			$criteria->AddCondition("t.Estado != 2 AND t.Estado != 5 AND t.Estado != 6"); 
-	    }else{
-	    	if($this->Estado == 0){
-	    		$criteria->AddCondition("t.Estado IN (1,3,4,7)"); 	
-	    	}else{
-	    		$criteria->compare('t.Estado',$this->Estado);
+			if($this->Pais != ""){
+
+				$array_paises = $this->Pais;
+
+				foreach ($array_paises as $key => $value) {
+					
+					$criteria->AddCondition("t.Pais LIKE ('%".$value."%')", "OR");
+				}
+		    }
+
+			if($this->Estado == ""){
+				$criteria->AddCondition("t.Estado != 2 AND t.Estado != 5 AND t.Estado != 6"); 
+		    }else{
+		    	if($this->Estado == 0){
+		    		$criteria->AddCondition("t.Estado IN (1,3,4,7)"); 	
+		    	}else{
+		    		$criteria->compare('t.Estado',$this->Estado);
+		    	}
+		    }
+
+		    if($this->Id_Usuario_Creacion != ""){
+				$criteria->AddCondition("t.Id_Usuario_Creacion = ".$this->Id_Usuario_Creacion); 
+		    }
+
+			if($this->Fecha_Creacion != ""){
+	      		$fci = $this->Fecha_Creacion." 00:00:00";
+	      		$fcf = $this->Fecha_Creacion." 23:59:59";
+
+	      		$criteria->addBetweenCondition('t.Fecha_Creacion', $fci, $fcf);
 	    	}
-	    }
 
-		if($this->Fecha_Creacion != ""){
-      		$fci = $this->Fecha_Creacion." 00:00:00";
-      		$fcf = $this->Fecha_Creacion." 23:59:59";
+		}else{
+			//no se muestran actividades
+			$criteria->AddCondition("t.Id = 0"); 
 
-      		$criteria->addBetweenCondition('t.Fecha_Creacion', $fci, $fcf);
-    	}
 
-		if($this->Id_Usuario_Creacion != ""){
-			$criteria->AddCondition("t.Id_Usuario_Creacion = ".$this->Id_Usuario_Creacion); 
-	    }
+		}
 
 	    if(empty($this->orderby)){
 			$criteria->order = 't.Id DESC'; 	

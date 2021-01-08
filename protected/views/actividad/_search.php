@@ -96,14 +96,13 @@
 	    </div>
 	</div>
 	<div class="row">
-	    <div class="col-sm-9">
+	    <div class="col-sm-9" id="div_usuario" style="display: none;">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'user_enc'); ?>
             	<?php
             		$this->widget('ext.select2.ESelect2',array(
 						'name'=>'Actividad[user_enc]',
 						'id'=>'Actividad_user_enc',
-						'data'=>$lista_usuarios1,
 						'htmlOptions'=>array(),
 					  	'options'=>array(
     						'placeholder'=>'Seleccione...',
@@ -225,6 +224,30 @@
 	      }else{
 	        $("#Actividad_Id_Tipo").val('');
 	        $("#div_tipo").hide();
+	      }
+	    });
+
+	    $("#Actividad_Id_Tipo").change(function () {
+	      vlr = $("#Actividad_Id_Tipo").val();
+	      if(vlr != ""){
+	        var data = {tipo: vlr}
+	        $.ajax({ 
+	          type: "POST", 
+	          url: "<?php echo Yii::app()->createUrl('actividad/getusuarios'); ?>",
+	          data: data,
+	          dataType: 'json',
+	          success: function(data){ 
+	            $("#Actividad_user_enc").html('');
+	            $("#Actividad_user_enc").append('<option value=""></option>');
+	            $.each(data, function(i,item){
+	                $("#Actividad_user_enc").append('<option value="'+data[i].id+'">'+data[i].text+'</option>');
+	            });
+	            $("#div_usuario").show();
+	          }
+	        });
+	      }else{
+	        $("#Actividad_user_enc").val('');
+	        $("#div_usuario").hide();
 	      }
 	    });
     });

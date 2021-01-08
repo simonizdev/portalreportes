@@ -5,11 +5,17 @@
 //para combos de grupos
 $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
 
+//para combos de usuarios
+$lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
+
 ?>
 
 <script>
 
 $(function() {
+
+  $('#TipoAct_Usuarios').val(<?php echo $json_usuarios_tipact_activos ?>).trigger('change');
+  
   $("#div_padre").show();
   loadopc(<?php echo $model->Id_Grupo; ?>);
   
@@ -85,6 +91,8 @@ $(function() {
 });
 
 function loadopc(grupo){
+    //debugger;
+    var p = <?php echo $p ?>;
   
     var data = {grupo: grupo, id: <?php echo $model->Id_Tipo; ?>}
     $.ajax({ 
@@ -103,10 +111,10 @@ function loadopc(grupo){
 
         $("#div_padre").show();
 
-        var padre = <?php echo $model->Padre; ?>;
-
-        if(padre != ""){
-          $('#TipoAct_Padre').val(<?php echo $model->Padre; ?>).trigger('change');
+        var p = <?php echo $p ?>;
+  
+        if(p != 0){
+          $('#TipoAct_Padre').val(p).trigger('change');
         }
 
       }  
@@ -117,4 +125,4 @@ function loadopc(grupo){
 
 <h4>Actualización tipo de actividad</h4>
 
-<?php $this->renderPartial('_form', array('model'=>$model, 'lista_grupos' => $lista_grupos)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model, 'lista_grupos' => $lista_grupos, 'lista_usuarios' => $lista_usuarios)); ?>

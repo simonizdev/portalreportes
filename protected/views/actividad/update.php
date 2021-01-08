@@ -2,14 +2,14 @@
 /* @var $this ActividadController */
 /* @var $model Actividad */
 
-//para combos de usuarios
-$lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
-
 //para combos de grupos
-$lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
+$lista_grupos = $grupos;
 
 //para combos de tipos
 $lista_tipos = $tipos;
+
+//para combos de usuarios
+$lista_usuarios = $usuarios;
 
 ?>
 
@@ -289,4 +289,4 @@ $(function() {
 
 <h4>Resumen de actividad</h4>
 
-<?php $this->renderPartial('_form2', array('model'=>$model, 'hist'=>$hist, 'lista_usuarios'=>$lista_usuarios, 'lista_grupos'=>$lista_grupos, 'lista_tipos'=>$lista_tipos)); ?>
+<?php $this->renderPartial('_form2', array('model'=>$model, 'hist'=>$hist, 'lista_grupos'=>$lista_grupos, 'lista_tipos'=>$lista_tipos, 'lista_usuarios'=>$lista_usuarios)); ?>

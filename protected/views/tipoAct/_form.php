@@ -65,6 +65,29 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+          <?php echo $form->label($model,'Usuarios'); ?>
+          <?php echo $form->error($model,'Usuarios', array('class' => 'badge badge-warning float-right')); ?>
+          <?php
+              $this->widget('ext.select2.ESelect2',array(
+                  'name'=>'TipoAct[Usuarios]',
+                  'id'=>'TipoAct_Usuarios',
+                  'data'=>$lista_usuarios,
+                  'htmlOptions'=>array(
+                      'multiple'=>'multiple',
+                  ),
+                  'options'=>array(
+                      'placeholder'=>'Seleccione...',
+                      'width'=> '100%',
+                      'allowClear'=>true,
+                  ),
+              ));
+          ?>
+      </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->label($model,'Cantidad'); ?>

@@ -5,6 +5,9 @@
 //para combos de grupos
 $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
 
+//para combos de usuarios
+$lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
+
 ?>
 
 <script>
@@ -12,27 +15,30 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
 $(function() {
 
 	$("#valida_form").click(function() {
+
     	var form = $("#tipo-act-form");
     	var settings = form.data('settings') ;
 
-      	settings.submitting = true ;
-      	$.fn.yiiactiveform.validate(form, function(messages) {
-          	if($.isEmptyObject(messages)) {
-              	$.each(settings.attributes, function () {
-                 	$.fn.yiiactiveform.updateInput(this,messages,form); 
-             	});
-                 
-				form.submit();
-				loadershow();
-      
-          	} else {
-              	settings = form.data('settings'),
-              	$.each(settings.attributes, function () {
-                 	$.fn.yiiactiveform.updateInput(this,messages,form); 
-              	});
-              	settings.submitting = false ;
-          	}
-      	});
+    	settings.submitting = true ;
+    	$.fn.yiiactiveform.validate(form, function(messages) {
+        	if($.isEmptyObject(messages)) {
+            	$.each(settings.attributes, function () {
+               	$.fn.yiiactiveform.updateInput(this,messages,form); 
+           	});
+                
+            //se envia el form
+            form.submit();
+            loadershow();
+            
+        	} else {
+            	settings = form.data('settings'),
+            	$.each(settings.attributes, function () {
+               	$.fn.yiiactiveform.updateInput(this,messages,form); 
+            	});
+
+            	settings.submitting = false ;
+        	}
+    	});
     });
 
     //variables para el lenguaje del datepicker
@@ -111,4 +117,4 @@ function loadopc(grupo){
 
 <h4>Creación tipo de actividad</h4>
 
-<?php $this->renderPartial('_form', array('model'=>$model, 'lista_grupos' => $lista_grupos)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model, 'lista_grupos' => $lista_grupos, 'lista_usuarios' => $lista_usuarios)); ?>

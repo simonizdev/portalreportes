@@ -16,15 +16,17 @@ $('.search-form form').submit(function(){
 });
 ");
 
-$lista_usuarios1 = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
+/*$lista_usuarios1 = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
 
 //para combos de usuarios
-$lista_usuarios2 = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario'); 
+$lista_usuarios2 = CHtml::listData($usuarios, 'Id_Usuario', 'Usuario'); */
 
 //para combos de grupos
-$lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
+$lista_grupos = $grupos;
 
 ?>
+
+<?php if($a === 1) { ?>
 
 <div class="row mb-2">
   <div class="col-sm-6">
@@ -38,24 +40,24 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
 
 <div class="search-form" style="display:none;">
 <?php $this->renderPartial('_search',array(
-	'model'=>$model,
-    'lista_usuarios1' => $lista_usuarios1,
-    'lista_usuarios2' => $lista_usuarios2,
+    'model'=>$model,
+    //'lista_usuarios1' => $lista_usuarios1,
+    //'lista_usuarios2' => $lista_usuarios2,
     'lista_grupos' => $lista_grupos,
 )); ?>
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'actividad-grid',
-	'dataProvider'=>$model->search(),
+    'id'=>'actividad-grid',
+    'dataProvider'=>$model->search(),
     //'filter'=>$model,
     'pager'=>array(
         'cssFile'=>Yii::app()->getBaseUrl(true).'/css/pager.css',
     ),
     'enableSorting' => false,
-	'columns'=>array(
-		'Id',
-		array(
+    'columns'=>array(
+        'Id',
+        array(
             'name' => 'Fecha',
             'value' => 'UtilidadesVarias::textofecha($data->Fecha)',
         ),
@@ -83,17 +85,17 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
             'name'=>'Id_Usuario_Deleg',
             'value' => '($data->Id_Usuario_Deleg == "") ? "-" : $data->idusuariodeleg->Nombres',
         ),
-		'Actividad',
+        'Actividad',
         array(
             'name' => 'Prioridad',
             'value' => '$data->DescPrioridad($data->Prioridad)',
         ),
-		array(
+        array(
             'name' => 'Estado',
             'value' => '$data->DescEstado($data->Estado)',
         ),
-		array(
-			'class'=>'CButtonColumn',
+        array(
+            'class'=>'CButtonColumn',
             'template'=>'{update}',
             'buttons'=>array(
                 'update'=>array(
@@ -103,6 +105,28 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
                     'visible'=> '(Yii::app()->user->getState("permiso_act") == true)',
                 ),
             )
-		),
-	),
-)); ?>
+        ),
+    ),
+)); ?>  
+
+<?php }else{ ?>
+
+<div class="row mb-2">
+  <div class="col-sm-6">
+    <h4>Administración de Actividades</h4>
+  </div>
+  <div class="col-sm-6 text-right">  
+  </div>
+</div>
+
+<div class="alert alert-warning alert-dismissible">
+    <h5><i class="icon fas fa-info-circle"></i>Info</h5>
+    Este usuario no tiene tipos de actividades asociadas.
+</div> 
+
+<?php } ?>
+
+
+
+
+

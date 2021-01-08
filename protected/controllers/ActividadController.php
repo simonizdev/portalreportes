@@ -28,7 +28,7 @@ class ActividadController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','gettipos'),
+				'actions'=>array('create','update','gettipos','getusuarios'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -50,9 +50,12 @@ class ActividadController extends Controller
 		$model=new Actividad;
 		$model->scenario = 'create';
 
-		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario', 'condition'=>'Estado=1'));
+		$q_grupos=TipoActUsuario::model()->findAll(array('condition'=>'Estado=:estado AND Id_Usuario ='.Yii::app()->user->getState('id_user'), 'params'=>array(':estado'=>1)));
 
-		$grupos=Dominio::model()->findAll(array('order'=>'Dominio', 'condition'=>'Estado=:estado AND Id_Padre = '.Yii::app()->params->grupos_act, 'params'=>array(':estado'=>1)));
+		$grupos = array();
+		foreach ($q_grupos as $g) {
+			$grupos[$g->idtipoact->idgrupo->Id_Dominio] = $g->idtipoact->idgrupo->Dominio;	
+	    }
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -62,6 +65,7 @@ class ActividadController extends Controller
 			$model->attributes=$_POST['Actividad'];
 			$model->Pais = implode(",", $_POST['Actividad']['Pais']);
 			$model->Hora = date('H:i:s', strtotime($model->Hora));
+			if($_POST['Actividad']['Fecha_Finalizacion'] != ""){$model->Fecha_Finalizacion = $_POST['Actividad']['Fecha_Finalizacion']; }else{$model->Fecha_Finalizacion = NULL; }
 			$model->Id_Usuario_Creacion = Yii::app()->user->getState('id_user');
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Creacion = date('Y-m-d H:i:s');
@@ -74,7 +78,6 @@ class ActividadController extends Controller
 
 		$this->render('create',array(
 			'model'=>$model,
-			'usuarios'=>$usuarios,
 			'grupos'=>$grupos,
 		));
 	}
@@ -94,21 +97,35 @@ class ActividadController extends Controller
 		$hist->unsetAttributes();  // clear any default values
 		$hist->Id_Actividad = $id;
 
-		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario', 'condition'=>'Estado=1'));
+		//$usuarios=Usuario::model()->findAll(array('order'=>'Usuario', 'condition'=>'Estado=1'));
 
-		$grupos=Dominio::model()->findAll(array('order'=>'Dominio', 'condition'=>'Estado=:estado AND Id_Padre = '.Yii::app()->params->grupos_act, 'params'=>array(':estado'=>1)));
+		$q_grupos=TipoActUsuario::model()->findAll(array('condition'=>'Estado=:estado AND Id_Usuario ='.Yii::app()->user->getState('id_user'), 'params'=>array(':estado'=>1)));
 
-		$q_tipos = Yii::app()->db->createCommand("SELECT TA.Id_Tipo, TA.Tipo FROM TH_TIPO_ACT TA WHERE TA.Estado = 1 AND TA.Id_Grupo = ".$model->Id_Grupo." AND (SELECT COUNT (*) FROM TH_TIPO_ACT C WHERE C.Padre = TA.Id_Tipo) = 0")->queryAll();
+		$grupos = array();
+		foreach ($q_grupos as $g) {
+			$grupos[$g->idtipoact->idgrupo->Id_Dominio] = $g->idtipoact->idgrupo->Dominio;	
+	    }
+
+		$q_tipos = Yii::app()->db->createCommand("SELECT TA.Id_Tipo, TA.Tipo FROM TH_TIPO_ACT TA 
+		LEFT JOIN TH_TIPO_ACT_USUARIO TAU ON TAU.Id_Tipo = TA.Id_Tipo AND TAU.Estado = 1
+		WHERE TA.Estado = 1 AND TA.Id_Grupo = ".$model->Id_Grupo." AND TAU.Id_Usuario = ".Yii::app()->user->getState('id_user')." AND (SELECT COUNT (*) FROM TH_TIPO_ACT C WHERE C.Padre = TA.Id_Tipo) = 0 ORDER BY 2")->queryAll();
 
 		$tipos = array();
 		foreach ($q_tipos as $t) {
 			$tipos[$t['Id_Tipo']] = $t['Tipo'];	
 	    }
 
-		$id_grupo_actual = $model->Id_Grupo;
-		$grupo_actual = $model->idgrupo->Dominio;
-		$id_tipo_actual = $model->Id_Tipo;
-		$tipo_actual = $model->idtipo->Tipo;	
+	    $q_usuarios = Yii::app()->db->createCommand("
+		SELECT TAU.Id_Usuario, U.Nombres FROM TH_TIPO_ACT_USUARIO TAU 
+		LEFT JOIN TH_USUARIOS U ON TAU.Id_Usuario = U.Id_Usuario AND U.Estado = 1
+		WHERE TAU.Estado = 1 AND TAU.Id_Tipo = ".$model->Id_Tipo." AND TAU.Id_Usuario != ".$model->Id_Usuario." ORDER BY 2
+		")->queryAll();
+
+		$usuarios = array();
+		foreach ($q_usuarios as $u) {
+			$usuarios[$u['Id_Usuario']] = $u['Nombres'];	
+	    }
+	
 		$actividad_actual = $model->Actividad;
 		$prioridad_actual = $model->Prioridad;
 		$estado_actual = $model->Estado;
@@ -125,10 +142,6 @@ class ActividadController extends Controller
 
 		if(isset($_POST['Actividad']))
 		{
-			$id_grupo_nuevo = $_POST['Actividad']['Id_Grupo'];
-			$grupo_nuevo = Dominio::model()->findByPk($_POST['Actividad']['Id_Grupo'])->Dominio;
-			$id_tipo_nuevo = $_POST['Actividad']['Id_Tipo'];
-			$tipo_nuevo = TipoAct::model()->findByPk($_POST['Actividad']['Id_Tipo'])->Tipo;
 			$actividad_nueva = $_POST['Actividad']['Actividad'];
 			$prioridad_nueva = $_POST['Actividad']['Prioridad'];
 			$estado_nuevo = $_POST['Actividad']['Estado'];
@@ -169,18 +182,6 @@ class ActividadController extends Controller
 			$texto_novedad = "";
 			$flag = 0;
 
-			//grupo
-			if($id_grupo_actual != $id_grupo_nuevo){
-				$flag = 1;
-				$texto_novedad .= "Grupo: ".$grupo_actual." / ".$grupo_nuevo.", ";
-			}
-
-			//tipo
-			if($id_tipo_actual != $id_tipo_nuevo){
-				$flag = 1;
-				$texto_novedad .= "Tipo: ".$tipo_actual." / ".$tipo_nuevo.", ";
-			}
-
 			//usuario al que cede
 			if($id_usuario_deleg_actual != $id_usuario_deleg_nuevo){
 				$flag = 1;
@@ -205,7 +206,7 @@ class ActividadController extends Controller
 				$texto_novedad .= "Estado: ".$model->DescEstado($estado_actual)." / ".$model->DescEstado($estado_nuevo).", ";
 			}
 
-			//área
+			//Estado completado
 			if($model->Estado == 2){
 				$flag = 1;
 				$texto_novedad .= "Fecha de cierre: ".$fecha_cierre_nueva.", Hora de cierre: ".$hora_cierre_nueva.", ";
@@ -240,17 +241,35 @@ class ActividadController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Actividad('search');
-		$usuarios=Usuario::model()->findAll(array('order'=>'Usuario'));
-		$grupos=Dominio::model()->findAll(array('order'=>'Dominio', 'condition'=>'Id_Padre = '.Yii::app()->params->grupos_act));
+		
 
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Actividad']))
-			$model->attributes=$_GET['Actividad'];
+		$q_grupos=TipoActUsuario::model()->findAll(array('condition'=>'Estado=:estado AND Id_Usuario ='.Yii::app()->user->getState('id_user'), 'params'=>array(':estado'=>1)));
+
+		if(!empty($q_grupos)){
+
+			$model=new Actividad('search');
+			$a = 1;
+			$grupos = array();
+			foreach ($q_grupos as $g) {
+				$grupos[$g->idtipoact->idgrupo->Id_Dominio] = $g->idtipoact->idgrupo->Dominio;	
+		    }
+
+		    $model->unsetAttributes();  // clear any default values
+			if(isset($_GET['Actividad'])){
+				$model->attributes=$_GET['Actividad'];
+			}
+
+		}else{
+
+			$model=new Actividad('search');
+			$a = 0;
+			$grupos = array();
+
+		}
 
 		$this->render('admin',array(
 			'model'=>$model,
-			'usuarios'=>$usuarios,
+			'a'=>$a,
 			'grupos'=>$grupos,
 		));
 	}
@@ -287,7 +306,11 @@ class ActividadController extends Controller
 	{	
 		$grupo = $_POST['grupo'];
 
-		$tipos = Yii::app()->db->createCommand("SELECT TA.Id_Tipo, TA.Tipo FROM TH_TIPO_ACT TA WHERE TA.Estado = 1 AND TA.Id_Grupo = ".$grupo." AND (SELECT COUNT (*) FROM TH_TIPO_ACT C WHERE C.Padre = TA.Id_Tipo) = 0")->queryAll();
+		$tipos = Yii::app()->db->createCommand("
+		SELECT TA.Id_Tipo, TA.Tipo FROM TH_TIPO_ACT TA 
+		LEFT JOIN TH_TIPO_ACT_USUARIO TAU ON TAU.Id_Tipo = TA.Id_Tipo AND TAU.Estado = 1
+		WHERE TA.Estado = 1 AND TA.Id_Grupo = ".$grupo." AND TAU.Id_Usuario = ".Yii::app()->user->getState('id_user')." AND (SELECT COUNT (*) FROM TH_TIPO_ACT C WHERE C.Padre = TA.Id_Tipo) = 0 ORDER BY 2
+		")->queryAll();
 
 		$i = 0;
 		$array_tipos = array();
@@ -298,6 +321,28 @@ class ActividadController extends Controller
 
 		//se retorna un json con las opciones
 		echo json_encode($array_tipos);
+
+	}
+
+	public function actionGetUsuarios()
+	{	
+		$tipo = $_POST['tipo'];
+
+		$q_user = Yii::app()->db->createCommand("
+		SELECT TAU.Id_Usuario, U.Nombres FROM TH_TIPO_ACT_USUARIO TAU 
+		LEFT JOIN TH_USUARIOS U ON TAU.Id_Usuario = U.Id_Usuario AND U.Estado = 1
+		WHERE TAU.Estado = 1 AND TAU.Id_Tipo = ".$tipo." ORDER BY 2
+		")->queryAll();
+
+		$i = 0;
+		$array_u = array();
+		foreach ($q_user as $u) {
+			$array_u[$i] = array('id' => $u['Id_Usuario'],  'text' => $u['Nombres']);	
+    		$i++; 
+	    }
+
+		//se retorna un json con las opciones
+		echo json_encode($array_u);
 
 	}
 }
