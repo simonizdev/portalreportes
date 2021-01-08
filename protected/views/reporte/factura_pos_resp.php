@@ -147,8 +147,9 @@ if($n_items > 0){
             $vlr_dsto = $info['Vlr_Dsto'];
             $vlr_iva = $info['Vlr_Iva'];
             $vlr_total = $info['Vlr_Total'];
+            $tipo_venta = $info['Tipo_Venta'];
 
-            $array_data[$cons][] = array($desc, $ref, $cant, $um, $vlr_uni, $vlr_bruto, $vlr_dsto, $vlr_iva, $vlr_total);
+            $array_data[$cons][] = array($desc, $ref, $cant, $um, $vlr_uni, $vlr_bruto, $vlr_dsto, $vlr_iva, $vlr_total, $tipo_venta);
         }
 
         //formas de pago
@@ -307,7 +308,10 @@ class PDF extends FPDF{
             $this->Ln();
             $this->MultiCell(60,3,'----------------------------------------------------------------------',0,'C');
 
-            $venta = 0;
+            //$venta = 0;
+            $gravada = 0;
+            $s_iva = 0;
+            $exc = 0;
             $descuentos = 0;
             $iva = 0;
             $total = 0;
@@ -320,15 +324,37 @@ class PDF extends FPDF{
                 $this->Cell(8,3,$info_item[3],0,0,'L');
                 $this->Cell(14,3,'$'.number_format(floatval($info_item[4]),0,".",","),0,0,'R');
                 $this->Cell(14,3,'$'.number_format(floatval($info_item[8]),0,".",","),0,0,'R');
-                $venta = $venta + $info_item[5];
+                
+                $tipo_venta = $info_item[9];
+
+                if ($tipo_venta == 'G') {
+                    $gravada = $gravada + $info_item[5];
+                }
+
+                if ($tipo_venta == 'S') {
+                    $s_iva = $s_iva + $info_item[5];
+                }
+
+                if ($tipo_venta == 'D') {
+                    $exc = $exc + $info_item[5];
+                }
+
+                //$venta = $venta + $info_item[5];
                 $descuentos = $descuentos + $info_item[6];
                 $iva = $iva + $info_item[7];
                 $total = $total + $info_item[8];
                 $this->Ln();
             }
+
             $this->MultiCell(60,3,'-----------------[DETALLE DE VALORES]------------------',0,'C');
-            $this->Cell(46,3,'VENTA',0,0,'L');
-            $this->Cell(14,3,'$'.number_format(floatval($venta),0,".",","),0,0,'R');
+            $this->Cell(46,3,'GRAVADA',0,0,'L');
+            $this->Cell(14,3,'$'.number_format(floatval($gravada),0,".",","),0,0,'R');
+            $this->Ln();
+            $this->Cell(46,3,'SIN IVA',0,0,'L');
+            $this->Cell(14,3,'$'.number_format(floatval($s_iva),0,".",","),0,0,'R');
+            $this->Ln();
+            $this->Cell(46,3,'EXCLUIDAS',0,0,'L');
+            $this->Cell(14,3,'$'.number_format(floatval($exc),0,".",","),0,0,'R');
             $this->Ln();
             $this->Cell(46,3,'DESCUENTO',0,0,'L');
             $this->Cell(14,3,'$'.number_format(floatval($descuentos),0,".",","),0,0,'R');
@@ -399,7 +425,7 @@ class PDF extends FPDF{
 
             $n_r = $n_items + $n_fp;
 
-            if($n_r > 11){
+            if($n_r > 9){
                 $this->AddPage();
             }else{
                 $pagesize = array(297, 80);

@@ -27,7 +27,7 @@
             $this->widget('ext.select2.ESelect2',array(
                 'name'=>'Reporte[tipo]',
                 'id'=>'Reporte_tipo',
-                'data'=> array('VE1' => 'VE1', 'VF1' => 'VF1', 'VF4' => 'VF4', 'VF7' => 'VF7', 'X30' => 'X30', 'X50' => 'X50'),
+                'data'=> array('VE1' => 'VE1', 'VF1' => 'VF1', 'VF4' => 'VF4', 'VF6' => 'VF6', 'VF7' => 'VF7', 'X30' => 'X30', 'X50' => 'X50'),
                 'htmlOptions'=>array(),
                 'options'=>array(
                   'placeholder'=>'Seleccione...',
