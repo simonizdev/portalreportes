@@ -48,36 +48,29 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
     'enableSorting' => false,
 	'columns'=>array(
 		'Id_Dic_Com',
+        array(
+            'name' => 'Pais',
+            'value' => 'UtilidadesVarias::descpaises($data->Pais)',
+        ),
+        array(
+            'name' => 'Tipo',
+            'value' => '$data->desctipo($data->Tipo)',
+        ),
 		array(
-            'name'=>'Fecha_Inicio',
-            'value'=>'UtilidadesVarias::textofecha($data->Fecha_Inicio)',
+            'name'=>'Id_Usuario_Creacion',
+            'value'=>'$data->idusuariocre->Usuario',
         ),
         array(
-            'name'=>'Fecha_Fin',
-            'value'=>'UtilidadesVarias::textofecha($data->Fecha_Fin)',
+            'name'=>'Fecha_Creacion',
+            'value'=>'UtilidadesVarias::textofechahora($data->Fecha_Creacion)',
         ),
         array(
-            'name'=>'Id_Plan_Cliente',
-            'value'=>'UtilidadesVarias::descplancliente($data->Id_Plan_Cliente)',
+            'name'=>'Id_Usuario_Actualizacion',
+            'value'=>'$data->idusuarioact->Usuario',
         ),
         array(
-            'name'=>'Id_Criterio_Cliente',
-            'value'=>'UtilidadesVarias::desccricliente($data->Id_Plan_Cliente, $data->Id_Criterio_Cliente)',
-        ),
-        array(
-            'name'=>'Id_Plan_Item',
-            'value'=>'UtilidadesVarias::descplanitem($data->Id_Plan_Item)',
-        ),
-        array(
-            'name'=>'Id_Criterio_Item',
-            'value'=>'UtilidadesVarias::desccriitem($data->Id_Plan_Item, $data->Id_Criterio_Item)',
-        ),
-        array(
-            'name'=>'Porc',
-            'value'=>function($data){
-                return number_format($data->Porc, 2);
-            },
-            'htmlOptions'=>array('style' => 'text-align: right;'),
+            'name'=>'Fecha_Actualizacion',
+            'value'=>'UtilidadesVarias::textofechahora($data->Fecha_Actualizacion)',
         ),
 		array(
             'name' => 'Estado',
@@ -85,13 +78,8 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
         ),
 		array(
 			'class'=>'CButtonColumn',
-            'template'=>'{view}{update}',
+            'template'=>'{update}',
             'buttons'=>array(
-                'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
-                    'imageUrl'=>false,
-                    'options'=>array('title'=>'Visualizar'),
-                ),
                 'update'=>array(
                     'label'=>'<i class="fa fa-pen actions text-dark"></i>',
                     'imageUrl'=>false,

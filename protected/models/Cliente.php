@@ -95,6 +95,13 @@ class Cliente extends CActiveRecord
         
  	}
 
+ 	public function DescCliente($id_cliente) {
+        
+        $q = Yii::app()->db->createCommand("SELECT C_ROWID_CLIENTE, C_NIT_CLIENTE,C_NOMBRE_CLIENTE FROM TH_CLIENTES WHERE C_CIA = 2 AND C_ROWID_CLIENTE = '".$id_cliente."'")->queryRow();
+        return $q['C_NIT_CLIENTE'].' - '.$q['C_NOMBRE_CLIENTE'];
+        
+ 	}
+
  	public function searchByClienteCart($filtro) {
         
         $resp = Yii::app()->db->createCommand("SELECT DISTINCT TOP 10 t2001.f200_razon_social AS CLIENTE FROM UnoEE1.dbo.t201_mm_clientes WITH (NOLOCK) INNER JOIN UnoEE1.dbo.t200_mm_terceros AS t2001 WITH (NOLOCK) ON t2001.f200_rowid = f201_rowid_tercero WHERE f200_id_cia = 2 AND t2001.f200_razon_social LIKE '%".$filtro."%' order by CLIENTE

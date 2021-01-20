@@ -40,7 +40,7 @@
       <div class="form-group">
           <?php echo $form->label($model,'Pais'); ?>
           <?php echo $form->error($model,'Pais', array('class' => 'badge badge-warning float-right')); ?>
-          <p><?php echo $model->DescPais($model->Pais); ?></p>
+          <p><?php echo UtilidadesVarias::descpaises($model->Pais); ?></p>
       </div>
     </div>
 </div>
@@ -137,7 +137,7 @@
       <div class="form-group">
           <?php echo $form->label($model,'Pais'); ?>
           <?php echo $form->error($model,'Pais', array('class' => 'badge badge-warning float-right')); ?>
-          <p><?php echo $model->DescPais($model->Pais); ?></p>
+          <p><?php echo UtilidadesVarias::descpaises($model->Pais); ?></p>
       </div>
     </div>
 </div>

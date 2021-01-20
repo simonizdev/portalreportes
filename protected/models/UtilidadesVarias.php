@@ -507,4 +507,39 @@ class UtilidadesVarias {
 	
 	}
 
+	public static function listapaises(){
+		return array(1 => 'COLOMBIA', 2 => 'ECUADOR', 3 => 'PERÚ', 4 => 'CHILE');
+	}
+
+	public static function descpaises($paises){
+
+		$array_paises = explode(",", $paises);
+
+		$texto_pais = "";
+
+		foreach ($array_paises as $key => $value) {
+			
+			switch ($value) {
+			    case 1:
+			        $pais = 'COLOMBIA';
+			        break;
+			    case 2:
+			        $pais = 'ECUADOR';
+			        break;
+			    case 3:
+			        $pais = 'PERÚ';
+			        break;
+			    case 4:
+			        $pais = 'CHILE';
+			        break;
+			}
+
+			$texto_pais .= $pais.", ";
+		}
+
+		$texto = substr ($texto_pais, 0, -2);
+		return $texto;
+
+	}
+
 }

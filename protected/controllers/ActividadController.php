@@ -169,7 +169,7 @@ class ActividadController extends Controller
 				$usuario_deleg_nuevo = Usuario::model()->findByPk($_POST['Actividad']['Id_Usuario_Deleg'])->Nombres;
 			}
 
-			if($model->Estado == 1 || $model->Estado == 4 ||  $model->Estado == 5){
+			if($model->Estado == 1 || $model->Estado == 4 ||  $model->Estado == 5 ||  $model->Estado == 6 ||  $model->Estado == 7){
 				$model->Fecha_Cierre = null;
 				$model->Hora_Cierre = null;
 				$fecha_cierre_nueva = null;

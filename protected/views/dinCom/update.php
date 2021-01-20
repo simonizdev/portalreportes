@@ -4,139 +4,708 @@
 
 ?>
 
-<script>
+<script type="text/javascript">
 
 $(function() {
 
-	$('#DinCom_Id_Plan_Cliente').val(<?php echo $model->Id_Plan_Cliente; ?>).trigger('change');
-	$('#DinCom_Id_Plan_Item').val(<?php echo $model->Id_Plan_Item; ?>).trigger('change');
 
-	var data = {plan: <?php echo $model->Id_Plan_Cliente; ?>}
-	$.ajax({
-		type: "POST", 
-		url: "<?php echo Yii::app()->createUrl('DinCom/GetCriteriosPlanCliente'); ?>",
-		data: data,
-		dataType: 'json',
-		success: function(data){
-			$('#DinCom_Id_Criterio_Cliente').val('').trigger('change');
-		   	$("#DinCom_Id_Criterio_Cliente").html('');
-		  	$.each(data, function(i,item){
-	      		$("#DinCom_Id_Criterio_Cliente").append('<option value="'+data[i].id+'">'+data[i].text+'</option>');
-		  	});
-		  	$("#div_cri_cli").show();
-		  	$("#DinCom_Id_Criterio_Cliente").val(<?php echo $json_criterio_cliente ?>).trigger('change');
-			
-		}
-	});
+	viewfieldsxtipo(<?php echo $model->Tipo ?>);
 
-	var data = {plan: <?php echo $model->Id_Plan_Item; ?>}
-	$.ajax({ 
-		type: "POST", 
-		url: "<?php echo Yii::app()->createUrl('DinCom/GetCriteriosPlanItem'); ?>",
-		data: data,
-		dataType: 'json',
-		success: function(data){
-			$('#DinCom_Id_Criterio_Item').val('').trigger('change');
-		   	$("#DinCom_Id_Criterio_Item").html('');
-		  	$.each(data, function(i,item){
-	      		$("#DinCom_Id_Criterio_Item").append('<option value="'+data[i].id+'">'+data[i].text+'</option>');
-		  	});
-		  	$("#div_cri_item").show();
-		  	$("#DinCom_Id_Criterio_Item").val(<?php echo $json_criterio_item ?>).trigger('change');
+	$("#valida_form").click(function() {
+    	
+		var form = $("#din-com-form");
+		var settings = form.data('settings');
 
-		}
-	});
+		var tipo = $('#DinCom_Tipo').val();
 
+      	settings.submitting = true ;
+      	$.fn.yiiactiveform.validate(form, function(messages) {
+          	if($.isEmptyObject(messages)) {
+              	$.each(settings.attributes, function () {
+                 	$.fn.yiiactiveform.updateInput(this,messages,form); 
+             	});
 
+	     		form.submit();
+				loadershow();
+             	
+          	} else {
+              	settings = form.data('settings'),
+              	$.each(settings.attributes, function () {
+                 	$.fn.yiiactiveform.updateInput(this,messages,form); 
+              	});
+              	settings.submitting = false ;
 
-	//variables para el lenguaje del datepicker
-	$.fn.datepicker.dates['es'] = {
-	  days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-	  daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-	  daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"],
-	  months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-	  monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-	  today: "Hoy",
-	  clear: "Limpiar",
-	  format: "yyyy-mm-dd",
-	  titleFormat: "MM yyyy",
-	  weekStart: 1
-	};
+              	show_errors(tipo);
+          	}
+      	});
 
-	$("#DinCom_Fecha_Inicio").datepicker({
-	  language: 'es',
-	  autoclose: true,
-	  orientation: "right bottom",
-	}).on('changeDate', function (selected) {
-	var minDate = new Date(selected.date.valueOf());
-	$('#DinCom_Fecha_Fin').datepicker('setStartDate', minDate);
-	});
+  	});
 
-	$("#DinCom_Fecha_Fin").datepicker({
-	  language: 'es',
-	  autoclose: true,
-	  orientation: "right bottom",
-	}).on('changeDate', function (selected) {
-	var maxDate = new Date(selected.date.valueOf());
-	$('#DinCom_Fecha_Inicio').datepicker('setEndDate', maxDate);
-	});
-	
-    $("#DinCom_Id_Plan_Cliente").change(function() {
-  		var plan = $(this).val();
-	  	if(plan != ""){
-  			var data = {plan: plan}
-			$.ajax({ 
-				type: "POST", 
-				url: "<?php echo Yii::app()->createUrl('DinCom/GetCriteriosPlanCliente'); ?>",
-				data: data,
-				dataType: 'json',
-				success: function(data){
-					$('#DinCom_Id_Criterio_Cliente').val('').trigger('change');
-				   	$("#DinCom_Id_Criterio_Cliente").html('');
-				  	$.each(data, function(i,item){
-			      		$("#DinCom_Id_Criterio_Cliente").append('<option value="'+data[i].id+'">'+data[i].text+'</option>');
-				  	});
-				  	$("#div_cri_cli").show();	
-				}
-			});
-	 	}else{
-      		$('#DinCom_Id_Criterio_Cliente').val('').trigger('change');
-      		$("#div_cri_cli").hide();    
-	 	}
-
-	});
-
-	$("#DinCom_Id_Plan_Item").change(function() {
-  		var plan = $(this).val();
-	  	if(plan != ""){
-  			var data = {plan: plan}
-			$.ajax({ 
-				type: "POST", 
-				url: "<?php echo Yii::app()->createUrl('DinCom/GetCriteriosPlanItem'); ?>",
-				data: data,
-				dataType: 'json',
-				success: function(data){
-					$('#DinCom_Id_Criterio_Item').val('').trigger('change');
-				   	$("#DinCom_Id_Criterio_Item").html('');
-				  	$.each(data, function(i,item){
-			      		$("#DinCom_Id_Criterio_Item").append('<option value="'+data[i].id+'">'+data[i].text+'</option>');
-				  	});
-				  	$("#div_cri_item").show();
-				}
-			});
-	 	}else{
-      		$('#DinCom_Id_Criterio_Item').val('').trigger('change');
-      		$("#div_cri_item").hide();    
-	 	}
-
-	});
-
-	
-	
 });
+
+function viewfieldsxtipo(value){
+
+	if(value == 1){
+		//ITEM
+
+		//manejo de divs
+		$('#div_item').show();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').hide();
+		$('#div_co').hide();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_CO').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+
+	if(value == 2){
+		//CLIENTE
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').show();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').hide();
+		$('#div_co').hide();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_CO').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+
+	if(value == 3){
+		//CRITERIO CLIENTE
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').show();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').hide();
+		$('#div_co').hide();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_CO').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+
+	if(value == 4){
+		//CRITERIO ITEM
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').show();
+		$('#div_l_precios').hide();
+		$('#div_co').hide();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_CO').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+	}
+
+	if(value == 5){
+		//OBSEQUIO
+
+		//manejo de divs
+		$('#div_item').show();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').hide();
+		$('#div_co').hide();
+		$('#div_cant_min').hide();
+		$('#div_cant_max').hide();
+		$('#div_cant_ped').show();
+		$('#div_cant_obs').show();
+		$('#div_vlr_min').hide();
+		$('#div_vlr_max').hide();
+		$('#div_desc').hide();
+
+		//limpieza de campos
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_CO').val('').trigger('change');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+	}
+
+	if(value == 6){
+		//LISTA PRECIOS
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').show();
+		$('#div_co').hide();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_CO').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+
+	if(value == 7){
+		//CO
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').hide();
+		$('#div_co').show();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+
+	if(value == 8){
+		//ITEM / CLIENTE
+
+		//manejo de divs
+		$('#div_item').show();
+		$('#div_cliente').show();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').hide();
+		$('#div_co').hide();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_CO').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+
+	if(value == 9){
+		//ITEM / CRITERIO CLIENTE
+
+		//manejo de divs
+		$('#div_item').show();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').show();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').hide();
+		$('#div_co').hide();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_CO').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+
+	if(value == 10){
+		//ITEM / LISTA DE PRECIOS
+
+		//manejo de divs
+		$('#div_item').show();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').show();
+		$('#div_co').hide();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_CO').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+
+	if(value == 11){
+		//ITEM / CO
+
+		//manejo de divs
+		$('#div_item').show();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').hide();
+		$('#div_co').show();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+
+	if(value == 12){
+		//CRITERIO ITEM / CRITERIO CLIENTE
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').show();
+		$('#div_p_cri_item').show();
+		$('#div_l_precios').hide();
+		$('#div_co').hide();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_CO').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+	}
+
+	if(value == 13){
+		//CRITERIO ITEM / CLIENTE
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').show();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').show();
+		$('#div_l_precios').hide();
+		$('#div_co').hide();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_CO').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+	}
+
+	if(value == 14){
+		//CRITERIO ITEM / LISTA DE PRECIOS
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').show();
+		$('#div_l_precios').show();
+		$('#div_co').hide();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_CO').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+	}
+
+	if(value == 15){
+		//CRITERIO ITEM / CO
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').show();
+		$('#div_l_precios').hide();
+		$('#div_co').show();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+	}
+
+	if(value == 16){
+		//CRITERIO CLIENTE / LISTA DE PRECIOS
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').show();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').show();
+		$('#div_co').hide();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_CO').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+
+	if(value == 17){
+		//CRITERIO CLIENTE / CO
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').show();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').hide();
+		$('#div_co').show();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+
+	if(value == 18){
+		//CLIENTE / LISTA DE PRECIOS
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').show();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').show();
+		$('#div_co').hide();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_req').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_CO').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+
+	if(value == 19){
+		//CLIENTE / CO
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').show();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').hide();
+		$('#div_co').show();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_Lista_Precios').val('').trigger('change');
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+
+	if(value == 20){
+		//LISTA DE PRECIOS / CO
+
+		//manejo de divs
+		$('#div_item').hide();
+		$('#div_cliente').hide();
+		$('#div_p_cri_cliente').hide();
+		$('#div_p_cri_item').hide();
+		$('#div_l_precios').show();
+		$('#div_co').show();
+		$('#div_cant_min').show();
+		$('#div_cant_max').show();
+		$('#div_cant_ped').hide();
+		$('#div_cant_obs').hide();
+		$('#div_vlr_min').show();
+		$('#div_vlr_max').show();
+		$('#div_desc').show();
+
+		//limpieza de campos
+		$('#DinCom_Item').val('').trigger('change');
+    	$('#s2id_DinCom_Item span').html("");
+    	$('#DinCom_Cliente').val('').trigger('change');
+    	$('#s2id_DinCom_Cliente span').html("");
+    	$('#DinCom_Cant_Ped').val('');
+    	$('#DinCom_Cant_Obs').val('');
+		$('#DinCom_Id_Plan_Cliente').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Cliente').val('');
+		$('#DinCom_Cad_Criterio_Cliente').val('');
+		$('#contenido_criterios_cliente').html('');
+		$('#DinCom_Id_Plan_Item').val('').trigger('change');
+		$('#DinCom_Cad_Plan_Item').val('');
+		$('#DinCom_Cad_Criterio_Item').val('');
+		$('#contenido_criterios_item').html('');
+	}
+} 
 
 </script>
 
 <h4>Actualización de dinamica comercial</h4>
 
-<?php $this->renderPartial('_form2', array('model'=>$model,'json_criterio_cliente'=>$json_criterio_cliente)); ?>
+<?php $this->renderPartial('_form2', array('model'=>$model, 'criterio_cliente'=>$criterio_cliente, 'criterio_item'=>$criterio_item)); ?>

@@ -59,37 +59,6 @@ class Actividad extends CActiveRecord
 		);
 	}
 
-	public function DescPais($paises){
-
-		$array_paises = explode(",", $paises);
-
-		$texto_pais = "";
-
-		foreach ($array_paises as $key => $value) {
-			
-			switch ($value) {
-			    case 1:
-			        $pais = 'COLOMBIA';
-			        break;
-			    case 2:
-			        $pais = 'ECUADOR';
-			        break;
-			    case 3:
-			        $pais = 'PERÚ';
-			        break;
-			    case 4:
-			        $pais = 'CHILE';
-			        break;
-			}
-
-			$texto_pais .= $pais.", ";
-		}
-
-		$texto = substr ($texto_pais, 0, -2);
-		return $texto;
-
-	}
-
 	public function HoraAmPm($hora) {
 
 		if($hora != ""){

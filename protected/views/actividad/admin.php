@@ -67,7 +67,7 @@ $lista_grupos = $grupos;
         ),
         array(
             'name' => 'Pais',
-            'value' => '$data->DescPais($data->Pais)',
+            'value' => 'UtilidadesVarias::descpaises($data->Pais)',
         ),
         array(
             'name' => 'Grupo',

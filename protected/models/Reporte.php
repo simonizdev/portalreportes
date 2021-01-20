@@ -218,6 +218,22 @@ class Reporte extends CFormModel
 
     }
 
+    public function DescItem($id_item) {
+        
+        $q = Yii::app()->db->createCommand("
+            SELECT  
+            f120_id AS ID,
+            CONCAT(f120_id,' - ',f120_descripcion) AS DESCR
+            FROM UnoEE1..t120_mc_items
+            INNER JOIN UnoEE1..t121_mc_items_extensiones ON f120_rowid = f121_rowid_item
+            WHERE f120_id_cia = 2 AND f120_id = '".$id_item."' 
+        ")->queryRow();
+        
+        return $q['DESCR'];
+        
+    }
+
+
     /**
      * Declares attribute labels.
      */
