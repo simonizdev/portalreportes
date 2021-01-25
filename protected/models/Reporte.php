@@ -66,7 +66,8 @@ class Reporte extends CFormModel
     public $ev_inicial;
     public $ev_final;
     public $n_oc;
-    
+    public $anio;
+
     public function rules() {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
@@ -187,6 +188,7 @@ class Reporte extends CFormModel
             array('fecha, opcion_exp', 'required','on'=>'error_transf'),
             array('n_oc, opcion_exp', 'required','on'=>'log_crossdocking'),
             array('opcion', 'required','on'=>'cuadro_compras_pt2'),
+            array('anio, ruta', 'required','on'=>'seguimiento_rutas'),
         );  
     }
 
@@ -292,6 +294,7 @@ class Reporte extends CFormModel
             'ev_inicial' => 'Est. de venta inicial',
             'ev_final' => 'Est. de venta final',
             'n_oc' => '# Orden(es) de compra',
+            'anio' => 'Año',
         );
     }
 
