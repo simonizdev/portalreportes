@@ -24,7 +24,7 @@ $estados2 = Yii::app()->params->estados2;
       <div class="card-header" id="info_1">
         <h5 class="mb-0">
         <a class="btn-link text-secondary" id="link_collapse_1" data-toggle="collapse" href="#collapse_1" role="button" aria-expanded="false" aria-controls="collapse_1"><i id="img_info_1" class="fas fa-clock"></i>
-        Desarrollo / Innovación
+        Desarrollo - Innovación / Mercadeo
         </a>
         </h5>
       </div>
@@ -1128,6 +1128,15 @@ $estados2 = Yii::app()->params->estados2;
                       <?php echo $form->numberField($model,'Stock_Minimo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'min' => '0', 'step' => '1', 'disabled' => true)); ?>
                   </div>
               </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                  <?php echo $form->label($model,'Posicion_Arancelar'); ?>
+                  <?php echo $form->error($model,'Posicion_Arancelar', array('class' => 'badge badge-warning float-right')); ?>
+                  <?php echo $form->textField($model,'Posicion_Arancelar', array('class' => 'form-control form-control-sm', 'maxlength' => '10', 'autocomplete' => 'off', 'onkeypress' => 'return soloNumeros(event);', 'onkeyup' => 'convert_may(this)', 'disabled' => true)); ?>
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-sm-12">

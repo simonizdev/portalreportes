@@ -78,6 +78,7 @@
  * @property integer $Estado_Solicitud
  * @property integer $Step
  * @property integer $Step_Rev
+ * @property string $Posicion_Arancelar
  *
  * The followings are the available model relations:
  * @property THUSUARIOS $idUsuarioSolicitud
@@ -114,9 +115,9 @@ class FichaItem extends CActiveRecord
 
 			array('Un_Medida, Un_Cant, Un_Peso, Un_Largo, Un_Ancho, Un_Alto', 'required','on'=>'ingenieria, v_ingenieria'),			
 
-			array('Codigo_Item, Referencia, Maneja_Lote, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Instalaciones, Bodegas, Un_Gtin, Ep_Gtin, Cad_Gtin', 'required','on'=>'dat_maestros_pt_prom, v_dat_maestros_pt_prom'),
+			array('Codigo_Item, Referencia, Maneja_Lote, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Posicion_Arancelar, Instalaciones, Bodegas, Un_Gtin, Ep_Gtin, Cad_Gtin', 'required','on'=>'dat_maestros_pt_prom, v_dat_maestros_pt_prom'),
 			
-			array('Codigo_Item, Referencia, Maneja_Lote, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Instalaciones, Bodegas', 'required','on'=>'dat_maestros, v_dat_maestros'),
+			array('Codigo_Item, Referencia, Maneja_Lote, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Posicion_Arancelar, Instalaciones, Bodegas', 'required','on'=>'dat_maestros, v_dat_maestros'),
 
 			array('Codigo_Item, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Clase, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Subfamilia, Crit_Linea, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle', 'required','on'=>'create2'),
 
@@ -244,7 +245,7 @@ class FichaItem extends CActiveRecord
 
 		switch ($step) {
 		    case 2:
-		        $texto_step = 'Verificación Desarrollo / Innovación';
+		        $texto_step = 'Verificación Desarrollo - Innovación / Mercadeo';
 		        break;
 		    case 3:
 		        $texto_step = 'Finanzas / Contabilidad';
@@ -386,6 +387,8 @@ class FichaItem extends CActiveRecord
 			'Step_Rev' => 'Proceso que solicita reversión',
 			'Pais' => 'País',
 			'comp' => 'Componente',
+			'cant' => 'Cant.',
+			'Posicion_Arancelar' => 'Posición arancelaria',
 		);
 	}
 

@@ -105,7 +105,7 @@ $(function() {
 <div class="row mb-4">
     <div class="col-sm-6"> 
         <?php if($model->Tipo == 1){ ?>
-        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/update&id='.$model->Id.'&s=9'; ?>';"><i class="fa fa-reply"></i> Volver</button>
+        <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/update&id='.$model->Id.'&s='.$model->Step; ?>';"><i class="fa fa-reply"></i> Volver</button>
         <?php }else{ ?>
         <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitem/update2&id='.$model->Id.'&s=9'; ?>';"><i class="fa fa-reply"></i> Volver</button>
         <?php } ?>

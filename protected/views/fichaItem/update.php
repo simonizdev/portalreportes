@@ -700,6 +700,7 @@ function div_step(step, e){
 				$('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
 				$('#FichaItem_Cant_Moq').removeAttr('disabled');
 				$('#FichaItem_Stock_Minimo').removeAttr('disabled');
+				$('#FichaItem_Posicion_Arancelar').removeAttr('disabled');
 				$('#FichaItem_Instalaciones').removeAttr('disabled');
 				$('#FichaItem_Bodegas').removeAttr('disabled');
 				$('#FichaItem_Un_Gtin').removeAttr('disabled');
@@ -723,6 +724,7 @@ function div_step(step, e){
 					$('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
 					$('#FichaItem_Cant_Moq').removeAttr('disabled');
 					$('#FichaItem_Stock_Minimo').removeAttr('disabled');
+					$('#FichaItem_Posicion_Arancelar').removeAttr('disabled');
 					$('#FichaItem_Instalaciones').removeAttr('disabled');
 					$('#FichaItem_Bodegas').removeAttr('disabled');
 					$("#buttons_5").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-check-circle"></i> Aprobar</button>');
@@ -741,6 +743,7 @@ function div_step(step, e){
 					$('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
 					$('#FichaItem_Cant_Moq').removeAttr('disabled');
 					$('#FichaItem_Stock_Minimo').removeAttr('disabled');
+					$('#FichaItem_Posicion_Arancelar').removeAttr('disabled');
 					$('#FichaItem_Instalaciones').removeAttr('disabled');
 					$('#FichaItem_Bodegas').removeAttr('disabled');
 					$("#buttons_5").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-check-circle"></i> Aprobar</button>');
