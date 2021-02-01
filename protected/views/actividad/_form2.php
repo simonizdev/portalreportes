@@ -228,7 +228,7 @@
         <div class="form-group">
             <?php echo $form->label($model,'Estado', array('class' => 'control-label')); ?>
             <?php echo $form->error($model,'Estado', array('class' => 'badge badge-warning float-right')); ?>
-            <?php $estados = array(1 => 'RECIBIDO', 2 => 'COMPLETADO', 3 => 'EN ESPERA', 4 => 'EVALUADO', 5 => 'ANULADA', 6 => 'RECHAZADO', 7 => 'APROBADO'); ?>
+            <?php $estados = array(1 => 'RECIBIDO', 2 => 'COMPLETADO', 3 => 'EN ESPERA', 4 => 'EVALUADO', 5 => 'ANULADA', 6 => 'RECHAZADO', 7 => 'EN PROCESO / APROBADO'); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'Actividad[Estado]',

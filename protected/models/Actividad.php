@@ -109,7 +109,7 @@ class Actividad extends CActiveRecord
 		        $texto_estado = 'RECHAZADO';
 		        break;
 		    case 7:
-		        $texto_estado = 'APROBADO';
+		        $texto_estado = 'EN PROCESO / APROBADO';
 		        break;
 		    
 		}
@@ -215,7 +215,7 @@ class Actividad extends CActiveRecord
 
 				foreach ($array_paises as $key => $value) {
 					
-					$criteria->AddCondition("t.Pais LIKE ('%".$value."%')", "OR");
+					$criteria->AddCondition("t.Pais LIKE ('%".$value."%')", "AND");
 				}
 		    }
 

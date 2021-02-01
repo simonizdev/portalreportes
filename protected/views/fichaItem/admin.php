@@ -25,7 +25,7 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
 
 <div class="row mb-2">
   <div class="col-sm-6">
-    <h4>Solicitudes creación / actualización de productos</h4>
+    <h4>Solicitudes creación / actualización de ítems</h4>
   </div>
   <div class="col-sm-6 text-right"> 
     <?php if(in_array(Yii::app()->user->getState('id_user'), $usuarios_desarrollo)){ ?>

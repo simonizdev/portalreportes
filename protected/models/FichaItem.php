@@ -168,10 +168,10 @@ class FichaItem extends CActiveRecord
 
 		switch ($tipo_producto) {
 		    case 1:
-		        $texto_tipo_producto = 'TERMINADO';
+		        $texto_tipo_producto = 'PRODUCTO TERMINADO';
 		        break;
 		    case 2:
-		        $texto_tipo_producto = 'EN PROCESO';
+		        $texto_tipo_producto = 'PRODUCTO EN PROCESO';
 		        break;
 		    case 3:
 		        $texto_tipo_producto = 'POP';
@@ -315,7 +315,7 @@ class FichaItem extends CActiveRecord
 		return array(
 			'Id' => 'ID',
 			'Tipo' => 'Solicitud',
-			'Tipo_Producto' => 'Tipo Producto',
+			'Tipo_Producto' => 'Tipo de ítem',
 			'Codigo_Item' => 'Código',
 			'Referencia' => 'Referencia',
 			'Descripcion_Corta' => 'Descripción corta',

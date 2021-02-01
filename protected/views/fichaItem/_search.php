@@ -65,7 +65,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Tipo_Producto'); ?>
-	          	<?php $tipos_p = array(1 => 'TERMINADO', 2 => 'EN PROCESO', 3 => 'POP' , 4 => 'MATERIA PRIMA', 5 => 'PROMOCIÓN'); ?>
+	          	<?php $tipos_p = array(1 => 'PRODUCTO TERMINADO', 2 => 'PRODUCTO EN PROCESO', 3 => 'POP' , 4 => 'MATERIA PRIMA', 5 => 'PROMOCIÓN'); ?>
             	<?php
             		$this->widget('ext.select2.ESelect2',array(
 						'name'=>'FichaItem[Tipo_Producto]',

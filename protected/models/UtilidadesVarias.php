@@ -351,42 +351,42 @@ class UtilidadesVarias {
 		
 		if($step == 10){
 			if($modelo_fi->Tipo == 1){
-				$asunto = "Se ha creado el producto ".$modelo_fi->Codigo_Item;
+				$asunto = "Se ha creado el ítem ".$modelo_fi->Codigo_Item;
 				$mensaje = $mensaje_hora."<br><br>
-				Se ha creado el producto (".$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto)." / ".$modelo_fi->Codigo_Item." - ".$modelo_fi->Descripcion_Corta.").<br><br>";
+				Se ha creado el ítem (".$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto)." / ".$modelo_fi->Codigo_Item." - ".$modelo_fi->Descripcion_Corta.").<br><br>";
 			}else{
-				$asunto = "Se ha actualizado el producto ".$modelo_fi->Codigo_Item;
+				$asunto = "Se ha actualizado el ítem ".$modelo_fi->Codigo_Item;
 				$mensaje = $mensaje_hora."<br><br>
-				Se ha actualizado el producto con Código ".$modelo_fi->Codigo_Item.".<br><br>";
+				Se ha actualizado el ítem con Código ".$modelo_fi->Codigo_Item.".<br><br>";
 			}
 		}else{
 			if($modelo_fi->Tipo == 1){
 				if($tipo == 0){
-					$asunto = 'Solicitud revisión de datos para creación de producto';
+					$asunto = 'Solicitud revisión de datos para creación de ítem';
 					$mensaje = $mensaje_hora.'<br><br>
-					Se ha solicitado una revisión de los datos registrados para la creación del producto ('.$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto).' / '.$modelo_fi->Descripcion_Corta.').<br><br>
+					Se ha solicitado una revisión de los datos registrados para la creación del ítem ('.$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto).' / '.$modelo_fi->Descripcion_Corta.').<br><br>
 					Observaciones: '.$obs.'<br><br>
 					Pulse <a href="'.$url.'/update&id='.$id.'&s='.$step.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
 					Usuario que solicita: '.$modelo_fi->idusuarioact->Nombres.'.';
 				}else{
-					$asunto = 'Solicitud de información para creación de producto';
+					$asunto = 'Solicitud de información para creación de ítem';
 					$mensaje = $mensaje_hora.'<br><br>
-					Se ha solicitado que registre / revise los datos correpondientes a la creación del producto ('.$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto).' / '.$modelo_fi->Descripcion_Corta.').<br><br>
+					Se ha solicitado que registre / revise los datos correpondientes a la creación del ítem ('.$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto).' / '.$modelo_fi->Descripcion_Corta.').<br><br>
 					Pulse <a href="'.$url.'/update&id='.$id.'&s='.$step.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
 					Usuario que solicita: '.$modelo_fi->idusuarioact->Nombres.'.';
 				}
 			}else{
 				if($tipo == 0){
-					$asunto = 'Solicitud revisión de datos para actualización de producto';
+					$asunto = 'Solicitud revisión de datos para actualización de ítem';
 					$mensaje = $mensaje_hora.'<br><br>
-					Se ha solicitado una revisión de los datos registrados para la actualización del producto con Código '.$modelo_fi->Codigo_Item.'.<br><br>
+					Se ha solicitado una revisión de los datos registrados para la actualización del ítem con Código '.$modelo_fi->Codigo_Item.'.<br><br>
 					Observaciones: '.$obs.'<br><br>
 					Pulse <a href="'.$url.'/update2&id='.$id.'&s='.$step.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
 					Usuario que solicita: '.$modelo_fi->idusuarioact->Nombres.'.';
 				}else{
-					$asunto = 'Solicitud revisión de datos para actualización de producto';
+					$asunto = 'Solicitud revisión de datos para actualización de ítem';
 					$mensaje = $mensaje_hora.'<br><br>
-					Se ha solicitado que registre / revise los datos correpondientes a la actualización del producto con Código '.$modelo_fi->Codigo_Item.'.<br><br>
+					Se ha solicitado que registre / revise los datos correpondientes a la actualización del ítem con Código '.$modelo_fi->Codigo_Item.'.<br><br>
 					Pulse <a href="'.$url.'/update2&id='.$id.'&s='.$step.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
 					Usuario que solicita: '.$modelo_fi->idusuarioact->Nombres.'.';
 				}
