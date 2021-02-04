@@ -203,11 +203,15 @@ class UtilidadesReportes {
                 <th>Nit</th>
                 <th>Vendedor</th>
                 <th>Código</th>
+                <th>Estado vendedor</th>
                 <th>Celular</th>
+                <th>Correo</th>
                 <th>Recibo</th>
                 <th>Ruta</th>
                 <th>Nombre ruta</th>
+                <th>Estado ruta</th>
                 <th>Portafolio</th>
+                <th>Coordinador</th>
                 </tr>
               </thead>
           <tbody>';
@@ -222,11 +226,15 @@ class UtilidadesReportes {
         $nit              = $reg1 ['Nit_Vendedor']; 
         $nombre_vendedor  = $reg1 ['Nombre_Vendedor']; 
         $codigo           = $reg1 ['Codigo'];
+        $estado_vendedor  = $reg1 ['Estado_Vendedor'];
         $celular          = $reg1 ['Celular'];
+        $correo           = $reg1 ['Correo'];
         $recibo           = $reg1 ['Recibo'];
         $ruta             = $reg1 ['Ruta'];
         $nombre_ruta      = $reg1 ['Nombre_Ruta'];
+        $estado_ruta      = $reg1 ['Estado_Ruta'];
         $portafolio       = $reg1 ['Portafolio'];
+        $coordinador      = $reg1 ['Coordinador'];
 
         if ($i % 2 == 0){
           $clase = 'odd'; 
@@ -239,11 +247,15 @@ class UtilidadesReportes {
               <td>'.$nit.'</td>
               <td>'.$nombre_vendedor.'</td>
               <td>'.$codigo.'</td>
+              <td>'.$estado_vendedor.'</td>
               <td>'.$celular.'</td>
+              <td>'.$correo.'</td>
               <td>'.$recibo.'</td>
               <td>'.$ruta.'</td>
               <td>'.$nombre_ruta.'</td>
+              <td>'.$estado_ruta.'</td>
               <td>'.$portafolio.'</td>
+              <td>'.$coordinador.'</td>
           </tr>';
 
         $i++; 
@@ -251,7 +263,7 @@ class UtilidadesReportes {
       }
     }else{
       $tabla .= ' 
-        <tr><td colspan="8" class="empty"><span class="empty">No se encontraron resultados.</span></td></tr>
+        <tr><td colspan="12" class="empty"><span class="empty">No se encontraron resultados.</span></td></tr>
       ';
     }
 
