@@ -189,6 +189,7 @@ class Reporte extends CFormModel
             array('n_oc, opcion_exp', 'required','on'=>'log_crossdocking'),
             array('opcion', 'required','on'=>'cuadro_compras_pt2'),
             array('anio, ruta', 'required','on'=>'seguimiento_rutas'),
+            array('fecha_inicial, fecha_final', 'required','on'=>'calidad_pqrs'),
         );  
     }
 
