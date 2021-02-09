@@ -22,7 +22,7 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 
 <div class="row mb-2">
   <div class="col-sm-6">
-    <h4>Administración de vendedores</h4>
+    <h4>Administración tel. / ciudad de vendedores</h4>
   </div>
   <div class="col-sm-6 text-right">  
       <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=vendedor/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
@@ -50,20 +50,14 @@ $lista_usuarios = CHtml::listData($usuarios, 'Usuario', 'Usuario');
 		'Cedula',
 		'Celular',
 		'Ciudad',
-		/*'Id_Usuario_Creacion',
-		'Id_Usuario_Actualizacion',
-		'Fecha_Creacion',
-		'Fecha_Actualizacion',
-		*/
+        array(
+            'name' => 'Estado',
+            'value' => 'UtilidadesVarias::textoestado1($data->Estado)',
+        ),
 		array(
             'class'=>'CButtonColumn',
-            'template'=>'{view}{update}',
+            'template'=>'{update}',
             'buttons'=>array(
-                'view'=>array(
-                    'label'=>'<i class="fa fa-eye actions text-dark"></i>',
-                    'imageUrl'=>false,
-                    'options'=>array('title'=>'Visualizar'),
-                ),
                 'update'=>array(
                     'label'=>'<i class="fa fa-pen actions text-dark"></i>',
                     'imageUrl'=>false,

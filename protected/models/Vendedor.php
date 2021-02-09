@@ -12,6 +12,7 @@
  * @property integer $Id_Usuario_Actualizacion
  * @property string $Fecha_Creacion
  * @property string $Fecha_Actualizacion
+ * @property integer $Estado
  *
  * The followings are the available model relations:
  * @property THUSUARIOS $idUsuarioCreacion
@@ -40,30 +41,18 @@ class Vendedor extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Cedula, Celular, Ciudad', 'required'),
+			array('Cedula, Ciudad', 'required','on'=>'create'),
+			array('Cedula, Ciudad, Estado', 'required','on'=>'update'),
 			array('Cedula','unique','on'=>'create'),
-			array('Cedula', 'uniqueCedula','on'=>'update'),
-			array('Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
+			array('Cedula', 'unique','on'=>'update'),
+			array('Id_Usuario_Creacion, Id_Usuario_Actualizacion, Estado', 'numerical', 'integerOnly'=>true),
 			array('Cedula, Celular, Ciudad', 'length', 'max'=>50),
 			array('Fecha_Creacion, Fecha_Actualizacion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Rowid, Cedula, Celular, Ciudad, Id_Usuario_Creacion, Id_Usuario_Actualizacion, Fecha_Creacion, Fecha_Actualizacion, usuario_creacion, usuario_actualizacion, orderby', 'safe', 'on'=>'search'),
+			array('Rowid, Cedula, Celular, Ciudad, Id_Usuario_Creacion, Id_Usuario_Actualizacion, Fecha_Creacion, Fecha_Actualizacion, Estado, usuario_creacion, usuario_actualizacion, orderby', 'safe', 'on'=>'search'),
 		);
 	}
-
-	public function uniqueCedula($attribute,$params){
-        
-  		//se busca el mismo nombre de usuario con id diferente al registro afectado
-        $criteria=new CDbCriteria;
-		$criteria->condition='Cedula=:Cedula AND Rowid!=:Rowid';
-		$criteria->params=array(':Cedula'=>$this->Cedula,':Rowid'=>$this->Rowid);
-		$modelo_vendedor=Vendedor::model()->find($criteria);
-
-        if(!is_null($modelo_vendedor)){
-        	$this->addError($attribute, 'Esta cédula ya esta registrada.');
-        }      
-    }
 
 	/**
 	 * @return array relational rules.
@@ -92,6 +81,7 @@ class Vendedor extends CActiveRecord
 			'Id_Usuario_Actualizacion' => 'Usuario que actualizó',
 			'Fecha_Creacion' => 'Fecha de creación',
 			'Fecha_Actualizacion' => 'Fecha de actualización',
+			'Estado' => 'Estado', 
 			'usuario_creacion' => 'Usuario que creo',
 			'usuario_actualizacion' => 'Usuario que actualizó',
 			'orderby' => 'Orden de resultados',
@@ -123,6 +113,7 @@ class Vendedor extends CActiveRecord
 		$criteria->compare('t.Cedula',$this->Cedula,true);
 		$criteria->compare('t.Celular',$this->Celular,true);
 		$criteria->compare('t.Ciudad',$this->Ciudad,true);
+		$criteria->compare('t.Estado',$this->Estado,true);
 
 		if($this->Fecha_Creacion != ""){
       		$fci = $this->Fecha_Creacion." 00:00:00";

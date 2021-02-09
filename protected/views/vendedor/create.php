@@ -4,6 +4,6 @@
 
 ?>
 
-<h4>Creación de vendedor</h4>
+<h4>Registro de datos</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
