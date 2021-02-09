@@ -206,9 +206,7 @@ class Actividad extends CActiveRecord
 			if($this->Id_Grupo == ""){
 		    	$criteria->AddCondition("t.Id_Usuario = ".$user." OR t.Id_Usuario_Deleg = ".$user);  
 		    }else{
-		    	if($this->user_enc == ""){
-					$criteria->AddCondition("t.Id_Usuario = ".$user." OR t.Id_Usuario_Deleg = ".$user); 
-		    	}else{
+		  		if($this->user_enc != ""){
 		    		$criteria->AddCondition("t.Id_Usuario = ".$this->user_enc." OR t.Id_Usuario_Deleg = ".$this->user_enc); 
 		    	}	
 		    }
