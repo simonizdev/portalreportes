@@ -203,20 +203,28 @@ class Actividad extends CActiveRecord
 			$criteria->compare('t.Id_Tipo',$this->Id_Tipo);
 			$criteria->compare('t.Prioridad',$this->Prioridad);
 
-			if($this->user_enc == ""){
-				$criteria->AddCondition("t.Id_Usuario = ".$user." OR t.Id_Usuario_Deleg = ".$user); 
+			if($this->Id_Grupo == ""){
+		    	$criteria->AddCondition("t.Id_Usuario = ".$user." OR t.Id_Usuario_Deleg = ".$user);  
 		    }else{
-		    	$criteria->AddCondition("t.Id_Usuario = ".$this->user_enc." OR t.Id_Usuario_Deleg = ".$this->user_enc); 
+		    	if($this->user_enc == ""){
+					$criteria->AddCondition("t.Id_Usuario = ".$user." OR t.Id_Usuario_Deleg = ".$user); 
+		    	}else{
+		    		$criteria->AddCondition("t.Id_Usuario = ".$this->user_enc." OR t.Id_Usuario_Deleg = ".$this->user_enc); 
+		    	}	
 		    }
 
 			if($this->Pais != ""){
 
 				$array_paises = $this->Pais;
 
+				$cond_pais_t = "";
+
 				foreach ($array_paises as $key => $value) {
-					
-					$criteria->AddCondition("t.Pais LIKE ('%".$value."%')", "AND");
+					$cond_pais_t .= "t.Pais LIKE ('%".$value."%') OR ";
 				}
+
+				$cond = substr($cond_pais_t, 0, -3);
+				$criteria->AddCondition($cond);
 		    }
 
 			if($this->Estado == ""){
@@ -243,8 +251,6 @@ class Actividad extends CActiveRecord
 		}else{
 			//no se muestran actividades
 			$criteria->AddCondition("t.Id = 0"); 
-
-
 		}
 
 	    if(empty($this->orderby)){

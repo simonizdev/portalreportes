@@ -237,10 +237,14 @@ class DinCom extends CActiveRecord
 
 			$array_paises = $this->Pais;
 
+			$cond_pais_t = "";
+
 			foreach ($array_paises as $key => $value) {
-				
-				$criteria->AddCondition("t.Pais LIKE ('%".$value."%')", "OR");
+				$cond_pais_t .= "t.Pais LIKE ('%".$value."%') OR ";
 			}
+
+			$cond = substr($cond_pais_t, 0, -3);
+			$criteria->AddCondition($cond);
 	    }
 
 		if($this->Fecha_Creacion != ""){
