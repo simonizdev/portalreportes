@@ -267,6 +267,7 @@ function div_step(step, e){
             //campos habilitados
             $('#FichaItem_Pais').removeAttr('disabled');
             $('#FichaItem_Tipo_Producto').removeAttr('disabled');
+            $('#FichaItem_Origen').removeAttr('disabled');
             $('#FichaItem_Nombre_Funcional').removeAttr('disabled');
             $('#FichaItem_Marca_Producto').removeAttr('disabled');
             $('#FichaItem_Caracteristicas').removeAttr('disabled');

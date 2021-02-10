@@ -414,6 +414,7 @@ function div_step(step, e){
 	    	//campos habilitados
 	    	$('#FichaItem_Pais').removeAttr('disabled');
             $('#FichaItem_Tipo_Producto').removeAttr('disabled');
+            $('#FichaItem_Origen').removeAttr('disabled');
             $('#FichaItem_Nombre_Funcional').removeAttr('disabled');
             $('#FichaItem_Marca_Producto').removeAttr('disabled');
             $('#FichaItem_Caracteristicas').removeAttr('disabled');
@@ -686,7 +687,7 @@ function div_step(step, e){
     if(step == 9){
         //datos maestros
 
-        if(tipo_producto == 1){
+        if(tipo_producto == 1 || tipo_producto == 5){
 			$('#log_ep').show();
 			$('#log_se_cad').show();
 			$('#un_gtin').show();
@@ -709,48 +710,38 @@ function div_step(step, e){
 				$("#buttons_5").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-check-circle"></i> Aprobar</button>');
 		  	}
 		}else{
-
-			if(tipo_producto == 5){
-				$('#log_ep').show();
-				$('#log_se_cad').show();
-				$('#un_gtin').hide();
-				$('#ep_gtin').hide();
-				$('#cad_gtin').hide();
-				if(e == 1){
-			  		//campos habilitados
-			  		$('#FichaItem_Codigo_Item').removeAttr('disabled');
-					$('#FichaItem_Referencia').removeAttr('disabled');
-					$('#FichaItem_Maneja_Lote').removeAttr('disabled');
-					$('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
-					$('#FichaItem_Cant_Moq').removeAttr('disabled');
-					$('#FichaItem_Stock_Minimo').removeAttr('disabled');
-					$('#FichaItem_Posicion_Arancelar').removeAttr('disabled');
-					$('#FichaItem_Instalaciones').removeAttr('disabled');
-					$('#FichaItem_Bodegas').removeAttr('disabled');
-					$("#buttons_5").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-check-circle"></i> Aprobar</button>');
-			  	}
-			}else{
-				$('#log_ep').hide();
-				$('#log_se_cad').hide();
-				$('#un_gtin').hide();
-				$('#ep_gtin').hide();
-				$('#cad_gtin').hide();
-				if(e == 1){
-			  		//campos habilitados
-			  		$('#FichaItem_Codigo_Item').removeAttr('disabled');
-					$('#FichaItem_Referencia').removeAttr('disabled');
-					$('#FichaItem_Maneja_Lote').removeAttr('disabled');
-					$('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
-					$('#FichaItem_Cant_Moq').removeAttr('disabled');
-					$('#FichaItem_Stock_Minimo').removeAttr('disabled');
-					$('#FichaItem_Posicion_Arancelar').removeAttr('disabled');
-					$('#FichaItem_Instalaciones').removeAttr('disabled');
-					$('#FichaItem_Bodegas').removeAttr('disabled');
-					$("#buttons_5").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-check-circle"></i> Aprobar</button>');
-			  	}	
-			}
 		
+			$('#log_ep').hide();
+			$('#log_se_cad').hide();
+			$('#un_gtin').hide();
+			$('#ep_gtin').hide();
+			$('#cad_gtin').hide();
+			if(e == 1){
+		  		//campos habilitados
+		  		$('#FichaItem_Codigo_Item').removeAttr('disabled');
+				$('#FichaItem_Referencia').removeAttr('disabled');
+				$('#FichaItem_Maneja_Lote').removeAttr('disabled');
+				$('#FichaItem_Tiempo_Reposicion').removeAttr('disabled');
+				$('#FichaItem_Cant_Moq').removeAttr('disabled');
+				$('#FichaItem_Stock_Minimo').removeAttr('disabled');
+				$('#FichaItem_Posicion_Arancelar').removeAttr('disabled');
+				$('#FichaItem_Instalaciones').removeAttr('disabled');
+				$('#FichaItem_Bodegas').removeAttr('disabled');
+				$("#buttons_5").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-check-circle"></i> Aprobar</button>');
+		  	}	
+	
 		}
+
+		var un_med = '<?php echo $desc_un_med; ?>';
+		var ep_med = '<?php echo $desc_ep_med; ?>';
+		var cad_med = '<?php echo $desc_cad_med; ?>';
+
+		
+		$('label[for="FichaItem_Un_Gtin"]').text('EAN 13 / '+un_med);
+
+		$('label[for="FichaItem_Ep_Gtin"]').text('EAN 14 / '+ep_med);
+
+		$('label[for="FichaItem_Cad_Gtin"]').text('EAN 14 - 1 / '+cad_med);
 
         $('#link_collapse_1').addClass('text-success').removeClass('text-secondary');
         $('#link_collapse_2').addClass('text-success').removeClass('text-secondary');
@@ -767,7 +758,7 @@ function div_step(step, e){
 
     if(step == 10){
 
-    	if(tipo_producto == 1){
+    	if(tipo_producto == 1 || tipo_producto == 5){
 			$('#log_ep').show();
 			$('#log_se_cad').show();
 			$('#un_gtin').show();
@@ -775,21 +766,23 @@ function div_step(step, e){
 			$('#cad_gtin').show();
 			
 		}else{
-			if(tipo_producto == 5){
-				$('#log_ep').show();
-				$('#log_se_cad').show();
-				$('#un_gtin').hide();
-				$('#ep_gtin').hide();
-				$('#cad_gtin').hide();
-			}else{
-				$('#log_ep').hide();
-				$('#log_se_cad').hide();
-				$('#un_gtin').hide();
-				$('#ep_gtin').hide();
-				$('#cad_gtin').hide();
-			}
-			
+			$('#log_ep').hide();
+			$('#log_se_cad').hide();
+			$('#un_gtin').hide();
+			$('#ep_gtin').hide();
+			$('#cad_gtin').hide();
 		}
+
+		var un_med = '<?php echo $desc_un_med; ?>';
+		var ep_med = '<?php echo $desc_ep_med; ?>';
+		var cad_med = '<?php echo $desc_cad_med; ?>';
+
+		
+		$('label[for="FichaItem_Un_Gtin"]').text('EAN 13 / '+un_med);
+
+		$('label[for="FichaItem_Ep_Gtin"]').text('EAN 14 / '+ep_med);
+
+		$('label[for="FichaItem_Cad_Gtin"]').text('EAN 14 - 1 / '+cad_med);
 
         //proceso completo
         $("#buttons_1").html('');

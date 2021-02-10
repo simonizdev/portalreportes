@@ -79,6 +79,7 @@
  * @property integer $Step
  * @property integer $Step_Rev
  * @property string $Posicion_Arancelar
+ * @property integer $Origen
  *
  * The followings are the available model relations:
  * @property THUSUARIOS $idUsuarioSolicitud
@@ -105,7 +106,7 @@ class FichaItem extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Pais, Tipo_Producto, Nombre_Funcional, Marca_Producto, Caracteristicas, Descripcion_Larga, Unidad_Medida_Inv, Unidad_Medida_Compra, Ind_Compra, Ind_Manufactura, Ind_Venta, Un_Medida', 'required','on'=>'desarrollo, v_desarrollo'),
+			array('Pais, Tipo_Producto, Origen, Nombre_Funcional, Marca_Producto, Caracteristicas, Descripcion_Larga, Unidad_Medida_Inv, Unidad_Medida_Compra, Ind_Compra, Ind_Manufactura, Ind_Venta, Un_Medida', 'required','on'=>'desarrollo, v_desarrollo'),
 
 			array('Tipo_Inventario, Grupo_Impositivo, Exento_Impuesto', 'required','on'=>'finanzas, v_finanzas'),
 
@@ -145,7 +146,7 @@ class FichaItem extends CActiveRecord
 			array('Instalaciones, Bodegas, Fecha_Hora_Solicitud', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('Id, Pais, Tipo, Tipo_Producto, Codigo_Item, Referencia, Descripcion_Corta, Nombre_Funcional, Marca_Producto, Caracteristicas, Unidad_Medida_Inv, Unidad_Medida_Compra, Tipo_Inventario, Grupo_Impositivo, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Medida, Un_Cant, Un_Peso, Un_Largo, Un_Ancho, Un_Alto, Un_Volumen, Un_Gtin, Ep_Medida, Ep_Cant, Ep_Peso, Ep_Largo, Ep_Ancho, Ep_Alto, Ep_Volumen, Ep_Gtin, Cad_Medida, Cad_Cant, Cad_Peso, Cad_Largo, Cad_Ancho, Cad_Alto, Cad_Volumen, Cad_Gtin, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Clase, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Linea, Crit_Subfamilia, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle, Descripcion_Larga, Instalaciones, Bodegas, Id_Usuario_Solicitud, Fecha_Hora_Solicitud, Estado_Solicitud', 'safe', 'on'=>'search'),
+			array('Id, Pais, Tipo, Tipo_Producto, Origen, Codigo_Item, Referencia, Descripcion_Corta, Nombre_Funcional, Marca_Producto, Caracteristicas, Unidad_Medida_Inv, Unidad_Medida_Compra, Tipo_Inventario, Grupo_Impositivo, Ind_Compra, Ind_Manufactura, Ind_Venta, Maneja_Lote, Exento_Impuesto, Tiempo_Reposicion, Cant_Moq, Stock_Minimo, Un_Medida, Un_Cant, Un_Peso, Un_Largo, Un_Ancho, Un_Alto, Un_Volumen, Un_Gtin, Ep_Medida, Ep_Cant, Ep_Peso, Ep_Largo, Ep_Ancho, Ep_Alto, Ep_Volumen, Ep_Gtin, Cad_Medida, Cad_Cant, Cad_Peso, Cad_Largo, Cad_Ancho, Cad_Alto, Cad_Volumen, Cad_Gtin, Crit_Origen, Crit_Tipo, Crit_Clasificacion, Crit_Clase, Crit_Marca, Crit_Submarca, Crit_Segmento, Crit_Familia, Crit_Linea, Crit_Subfamilia, Crit_Sublinea, Crit_Grupo, Crit_UN, Crit_Fabrica, Crit_Cat_Oracle, Descripcion_Larga, Instalaciones, Bodegas, Id_Usuario_Solicitud, Fecha_Hora_Solicitud, Estado_Solicitud', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -222,6 +223,21 @@ class FichaItem extends CActiveRecord
 
 	}
 
+	public function DescOrigen($origen){
+
+		switch ($origen) {
+		    case 1:
+		        $texto_origen = 'NACIONAL';
+		        break;
+		    case 2:
+		        $texto_origen = 'IMPORTADO';
+		        break;    
+		}
+
+		return $texto_origen;
+
+	}
+
 	public function DescEstado($estado){
 
 		switch ($estado) {
@@ -274,6 +290,16 @@ class FichaItem extends CActiveRecord
 		}
 
 		return $texto_step;
+
+	}
+
+	public function DescUnidad($un){
+
+		$unidad = Yii::app()->db->createCommand("SELECT f101_id, f101_descripcion FROM UnoEE1..t101_mc_unidades_medida WHERE f101_id_cia = 2 AND f101_id = '".$un."'")->queryRow();
+
+		$desc = $unidad['f101_id'].' - '.$unidad['f101_descripcion'];
+
+		return $desc;
 
 	}
 
@@ -389,6 +415,7 @@ class FichaItem extends CActiveRecord
 			'comp' => 'Componente',
 			'cant' => 'Cant.',
 			'Posicion_Arancelar' => 'Posición arancelaria',
+			'Origen' => 'Origen',
 		);
 	}
 

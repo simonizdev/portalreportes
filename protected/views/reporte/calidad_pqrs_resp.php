@@ -125,12 +125,31 @@ foreach ($resp as $reg) {
   }else{
     //echo $referencia.' no es numero.<br>';
     $array_ref = json_decode($referencia);
-    
-    foreach ($array_ref as $key => $val) {
 
+    if(!empty($array_ref)){
+      foreach ($array_ref as $key => $val) {
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, $consecutivo);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, $estado_pqrs);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, $val);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, $cantidad);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $tipificacion);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $numero_reclamacion);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $area_empresa);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $tipo_pqrs);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, $tipo_solucion);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, $descripcion_caso);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $fecha_pqrs);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $fecha_auditoria);
+        $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$Fila, $estado_auditoria);
+
+        $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':M'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+        
+        $Fila = $Fila + 1;
+      }
+    }else{
       $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, $consecutivo);
       $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, $estado_pqrs);
-      $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, $val);
+      $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, '');
       $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, $cantidad);
       $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $tipificacion);
       $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $numero_reclamacion);
@@ -145,7 +164,7 @@ foreach ($resp as $reg) {
       $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':M'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
       
       $Fila = $Fila + 1;
-    }
+    } 
   }
  
 }

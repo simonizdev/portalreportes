@@ -547,7 +547,7 @@ class FichaItemController extends Controller
 		        }
 		        break;
 		    case 9:
-		        if($model->Tipo_Producto == 1){
+		        if($model->Tipo_Producto == 1 || $model->Tipo_Producto == 5){
 					$model->Scenario = 'dat_maestros_pt_prom';	
 				}else{
 					$model->Scenario = 'dat_maestros';
@@ -559,6 +559,32 @@ class FichaItemController extends Controller
 		    case 10:
 		        $model->Scenario  = 'ficha_completa'; 
 		        break; 
+		}
+
+		if($s == 9 || $s == 10){
+
+			if($model->Un_Medida != null){
+				$desc_un_med = $model->DescUnidad($model->Un_Medida);
+			}else{
+				$desc_un_med = "";
+			}
+
+			if($model->Ep_Medida != null){
+				$desc_ep_med = $model->DescUnidad($model->Ep_Medida);
+			}else{
+				$desc_ep_med = "";
+			}
+
+			if($model->Cad_Medida != null){
+				$desc_cad_med = $model->DescUnidad($model->Cad_Medida);
+			}else{
+				$desc_cad_med = "";
+			}
+
+		}else{
+			$desc_un_med = "";
+			$desc_ep_med = "";
+			$desc_cad_med = "";
 		}
 
 		$unidad = Yii::app()->db->createCommand("SELECT f101_id, f101_descripcion FROM UnoEE1..t101_mc_unidades_medida WHERE f101_id_cia = 2 ORDER BY 2")->queryAll();
@@ -1134,6 +1160,9 @@ class FichaItemController extends Controller
 			'paises_activos'=>$paises_activos,
 			'instalaciones_activas'=>$instalaciones_activas,
 			'bodegas_activas'=>$bodegas_activas,
+			'desc_un_med'=>$desc_un_med,
+			'desc_ep_med'=>$desc_ep_med,
+			'desc_cad_med'=>$desc_cad_med,
 		));
 	}
 
