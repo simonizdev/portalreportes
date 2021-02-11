@@ -28,14 +28,18 @@ $objPHPExcel->setActiveSheetIndex();
 $objPHPExcel->setActiveSheetIndex()->setCellValue('A1', 'Nit');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B1', 'Vendedor');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('C1', 'Código');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('D1', 'Celular');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('E1', 'Recibo');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('F1', 'Ruta');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('G1', 'Nombre ruta');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('H1', 'Portafolio');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('D1', 'Estado vendedor');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('E1', 'Celular');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('F1', 'Correo');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('G1', 'Recibo');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('H1', 'Ruta');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('I1', 'Nombre ruta');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('J1', 'Estado ruta');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('K1', 'Portafolio');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('L1', 'Coordinador');
 
-$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('A1:L1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+$objPHPExcel->getActiveSheet()->getStyle('A1:L1')->getFont()->setBold(true);
 
 /*Inicio contenido tabla*/
     
@@ -49,22 +53,30 @@ if(!empty($q1)){
     $nit              = $reg1 ['Nit_Vendedor']; 
     $nombre_vendedor  = $reg1 ['Nombre_Vendedor']; 
     $codigo           = $reg1 ['Codigo'];
+    $estado_vendedor  = $reg1 ['Estado_Vendedor'];
     $celular          = $reg1 ['Celular'];
+    $correo           = $reg1 ['Correo'];
     $recibo           = $reg1 ['Recibo'];
     $ruta             = $reg1 ['Ruta'];
     $nombre_ruta      = $reg1 ['Nombre_Ruta'];
+    $estado_ruta      = $reg1 ['Estado_Ruta'];
     $portafolio       = $reg1 ['Portafolio'];
+    $coordinador      = $reg1 ['Coordinador'];
 
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$Fila, $nit);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$Fila, $nombre_vendedor);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$Fila, $codigo);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, $celular);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $recibo);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $ruta);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $nombre_ruta);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $portafolio);
-        
-    $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':H'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$Fila, $estado_vendedor);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$Fila, $celular);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$Fila, $correo);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$Fila, $recibo);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$Fila, $ruta);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$Fila, $nombre_ruta);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$Fila, $estado_ruta);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$Fila, $portafolio);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('L'.$Fila, $coordinador);
+
+    $objPHPExcel->getActiveSheet()->getStyle('A'.$Fila.':L'.$Fila)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
     $Fila = $Fila + 1; 
       
