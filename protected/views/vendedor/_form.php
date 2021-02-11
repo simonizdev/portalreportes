@@ -64,29 +64,6 @@
         </div>
     </div>
  </div>
- <div class="row">
-    <div class="col-sm-4">
-        <div class="form-group">
-            <?php echo $form->label($model,'Estado', array('class' => 'control-label')); ?>
-            <?php echo $form->error($model,'Estado', array('class' => 'badge badge-warning float-right')); ?>
-            <?php $estados = Yii::app()->params->estados; ?>
-            <?php
-                $this->widget('ext.select2.ESelect2',array(
-                    'name'=>'Vendedor[Estado]',
-                    'id'=>'Vendedor_Estado',
-                    'data'=>$estados,
-                    'value' => $model->Estado,
-                    'htmlOptions'=>array(),
-                    'options'=>array(
-                        'placeholder'=>'Seleccione...',
-                        'width'=> '100%',
-                        'allowClear'=>true,
-                    ),
-                ));
-            ?>
-        </div>
-    </div>
- </div>
 <?php } ?>
 
 <div class="row mb-2">
