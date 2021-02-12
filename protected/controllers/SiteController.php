@@ -99,8 +99,18 @@ class SiteController extends Controller
 			{
 				$model->attributes=$_POST['LoginForm'];
 				// validate user input and redirect to the previous page if valid
-				if($model->validate() && $model->login())
+				if($model->validate() && $model->login()){
+
+					//LOG
+					$log = New Log;
+			        $log->Tipo = 1;
+			        $log->Accion = 'LOGIN';
+			        $log->Id_Usuario = Yii::app()->user->getState('id_user');
+			        $log->Fecha_Hora = date('Y-m-d H:i:s');
+			        $log->save();
+
 					$this->redirect(Yii::app()->user->returnUrl);
+				}
 			}
 			// display the login form
 			$this->render('login',array('model'=>$model));		
@@ -113,6 +123,14 @@ class SiteController extends Controller
 	 */
 	public function actionLogout()
 	{
+		//LOG
+		$log = New Log;
+        $log->Tipo = 1;
+        $log->Accion = 'LOGOUT';
+        $log->Id_Usuario = Yii::app()->user->getState('id_user');
+        $log->Fecha_Hora = date('Y-m-d H:i:s');
+        $log->save();
+
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
@@ -121,6 +139,25 @@ class SiteController extends Controller
 	{
 		if(!Yii::app()->user->isGuest) {
 			$this->render('info');		
+		}else{
+			$this->redirect(array('site/login'));		
+		}	
+	}
+
+	public function actionLog()
+	{
+		if(!Yii::app()->user->isGuest) {
+			
+			$id_menu = $_POST['id_menu'];
+
+			//LOG
+			$log = New Log;
+			$log->Tipo = 2;
+			$log->Id_Menu = $id_menu;
+			$log->Id_Usuario = Yii::app()->user->getState('id_user');
+			$log->Fecha_Hora = date('Y-m-d H:i:s');
+			$log->save();
+
 		}else{
 			$this->redirect(array('site/login'));		
 		}	

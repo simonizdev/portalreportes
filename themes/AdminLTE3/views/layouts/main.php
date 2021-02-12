@@ -76,7 +76,11 @@ $(function() {
 
             if(long_text0 != null && long_text0 != ""){ tag_title0 = 'title="'+long_text0+'"'; }else{ tag_title0 = ''; }
 
-            if(dd0 == '1'){ tag_onclick0 = 'onclick="loadershow()"'; }else{ tag_onclick0 = '';}
+            if(link0 == '#'){
+              tag_onclick0 = '';
+            }else{
+              if(dd0 == '1'){ tag_onclick0 = 'onclick="loadershow();log('+id0+')"'; }else{ tag_onclick0 = 'onclick="log('+id0+')"';}
+            }
 
             $("#sidebar-menu").append('<li id="me_li_'+id0+'"><a href="'+link0+'" id="me_a_'+id0+'" class="nav-link menu" '+tag_title0+' '+tag_onclick0+'><i class="nav-icon '+icon0+'"></i> <p id="p_'+id0+'">'+text0+'</p></a></li>');
             if (children0.length > 0) {
@@ -95,7 +99,11 @@ $(function() {
 
                 if(long_text1 != null & long_text1 != ""){ tag_title1 = 'title="'+long_text1+'"'; }else{ tag_title1 = ''; }
 
-                if(dd1 == '1'){ tag_onclick1 = 'onclick="loadershow()"'; }else{ tag_onclick1 = '';}
+                if(link1 == '#'){
+                  tag_onclick1 = '';
+                }else{
+                  if(dd1 == '1'){ tag_onclick1 = 'onclick="loadershow();log('+id1+')"'; }else{ tag_onclick1 = 'onclick="log('+id1+')"';}
+                }
 
                 $("#me_ul_"+id0+"").append('<li id="me_li_'+id1+'"><a href="'+link1+'" id="me_a_'+id1+'" class="nav-link menu" '+tag_title1+' '+tag_onclick1+'><i class="nav-icon '+icon1+'"></i> <p id="p_'+id1+'">'+text1+'</p></a></li>');
                 if (children1.length > 0) {
@@ -114,7 +122,11 @@ $(function() {
 
                     if(long_text2 != null && long_text2 != ""){ tag_title2 = 'title="'+long_text2+'"'; }else{ tag_title2 = ''; }
 
-                    if(dd2 == '1'){ tag_onclick2 = 'onclick="loadershow()"'; }else{ tag_onclick2 = '';}
+                    if(link2 == '#'){
+                      tag_onclick2 = '';
+                    }else{
+                      if(dd2 == '1'){ tag_onclick2 = 'onclick="loadershow();log('+id2+')"'; }else{ tag_onclick2 = 'onclick="log('+id2+')"';}
+                    }
 
                     $("#me_ul_"+id1+"").append('<li id="me_li_'+id2+'" class="nav-item"><a href="'+link2+'" id="me_a_'+id2+'" class="nav-link menu" '+tag_title2+' '+tag_onclick2+'><i class="nav-icon '+icon2+'"></i> <p>'+text2+'</p></a></li>'); 
                   });
@@ -641,6 +653,16 @@ function renderPDF(url, canvasContainer, options) {
 function loadershow(){
   $(".ajax-loader").fadeIn('fast');
   setTimeout(function(){$(".ajax-loader").fadeOut('fast');}, 10000);
+}
+
+function log(id_menu){
+  //registro de log por opcion de menu / usuario
+  var data = {id_menu: id_menu}
+  $.ajax({ 
+      type: "POST", 
+      url: "<?php echo Yii::app()->createUrl('site/log'); ?>",
+      data: data,
+  });
 }
 
 </script>
