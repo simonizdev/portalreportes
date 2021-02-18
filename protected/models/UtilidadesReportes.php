@@ -194,7 +194,7 @@ class UtilidadesReportes {
 
   public static function vendedorespantalla() {
 
-    $query ="EXEC [dbo].[COM_CONS_VENDEDORES]";
+    $query ="SET NOCOUNT ON EXEC [dbo].[COM_CONS_VENDEDORES]";
 
     $tabla = '
       <table class="table table-sm table-hover">

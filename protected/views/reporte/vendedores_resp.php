@@ -8,7 +8,7 @@ set_time_limit(0);
 
 //EXCEL
 
-$query ="EXEC [dbo].[COM_CONS_VENDEDORES]";
+$query ="SET NOCOUNT ON EXEC [dbo].[COM_CONS_VENDEDORES]";
 
 // Se inactiva el autoloader de yii
 spl_autoload_unregister(array('YiiBase','autoload'));   
