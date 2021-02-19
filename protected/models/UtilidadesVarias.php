@@ -542,4 +542,78 @@ class UtilidadesVarias {
 
 	}
 
+	public static function envioemailpedido($id, $array_emails) {
+
+
+		$url = Yii::app()->getBaseUrl(true).'/index.php?r=pedCom';
+
+		$modelo_pedido = PedCom::model()->findByPk($id);
+
+		$hora = date('H');
+
+	    if($hora >= 0 && $hora <= 12){
+	        $mensaje_hora = "Buenos días,";
+	    }
+
+	    if($hora >= 13 && $hora <= 16){
+	        $mensaje_hora = "Buenas tardes,";
+	    }
+
+	    if($hora >= 17 && $hora <= 23){
+	        $mensaje_hora = "Buenas noches,";
+	    }
+		
+		$asunto = 'Se ha cargado un pedido';
+		$mensaje = $mensaje_hora.'<br><br>
+		El vendedor '.$modelo_pedido->idusuario->Nombres.' ha solicitado la revisión del pedido '.$id.'.<br><br>
+		Pulse <a href="'.$url.'/update2&id='.$id.'"/>aqui</a> para ver la solicitud.';
+		set_time_limit(0); 
+
+		// Se inactiva el autoloader de yii
+		spl_autoload_unregister(array('YiiBase','autoload'));  
+
+		//require_once(Yii::app()->basePath . '\extensions\PHPMailer\class.phpmailer.php');
+		//require_once(Yii::app()->basePath . '\extensions\PHPMailer\class.smtp.php');
+
+		require_once(Yii::app()->basePath . '\extensions\PHPMailer\src\PHPMailer.php');
+		require_once(Yii::app()->basePath . '\extensions\PHPMailer\src\SMTP.php');
+
+		//cuando se termina la accion relacionada con la libreria se activa el autoloader de yii
+		spl_autoload_register(array('YiiBase','autoload'));
+
+		$cuenta = Yii::app()->params->email_send_emails;
+		$password = Yii::app()->params->psw_send_emails;
+		$de = Yii::app()->params->email_send_emails;
+		$de_nombre = Yii::app()->params->name_send_emails_com;
+
+		$mail = new PHPMailer\PHPMailer\PHPMailer;
+		$mail->IsSMTP();
+		$mail->CharSet = 'UTF-8';
+		$mail->Host = "secure.emailsrvr.com";
+		$mail->SMTPAuth= true;
+		$mail->Port = 465;
+	 	$mail->Username= $cuenta;
+		$mail->Password= $password;
+		$mail->SMTPSecure = 'ssl';
+		$mail->From = $de;
+ 		$mail->FromName= $de_nombre;
+		$mail->isHTML(true);
+		$mail->Subject = $asunto;
+		$mail->Body = $mensaje;
+
+		$num_notif = 0;
+
+		foreach ($array_emails as $llave => $email) {
+            $mail->addAddress($email);
+            $num_notif++;
+        }
+
+		if(!$mail->send()){
+			return 0;
+		}else{
+		 	return $num_notif;
+		}
+	
+	}
+
 }

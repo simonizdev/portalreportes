@@ -67,6 +67,8 @@ class Reporte extends CFormModel
     public $ev_final;
     public $n_oc;
     public $anio;
+    public $un;
+    public $coordinador;
 
     public function rules() {
         // NOTE: you should only define rules for those attributes that
@@ -190,6 +192,8 @@ class Reporte extends CFormModel
             array('opcion', 'required','on'=>'cuadro_compras_pt2'),
             array('anio, ruta', 'required','on'=>'seguimiento_rutas'),
             array('fecha_inicial, fecha_final', 'required','on'=>'calidad_pqrs'),
+            array('fecha_inicial, fecha_final, un', 'required','on'=>'consolidado_un'),
+            array('anio, coordinador, marca', 'required','on'=>'seg_rutas_marca_coord'),
         );  
     }
 
@@ -296,6 +300,8 @@ class Reporte extends CFormModel
             'ev_final' => 'Est. de venta final',
             'n_oc' => '# Orden(es) de compra',
             'anio' => 'Año',
+            'un' => 'Unidad de negocio',
+            'coordinador' => 'Coordinador',
         );
     }
 
