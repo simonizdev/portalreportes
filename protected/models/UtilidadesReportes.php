@@ -1137,7 +1137,7 @@ class UtilidadesReportes {
     inner JOIN Repositorio_Datos..tbl_OUT_Transf_28 AS t2 ON t1.Rowid_Movto=t2.Rowid_Movto
     INNER JOIN UnoEE1..t350_co_docto_contable as t350 on t350.f350_id_co=t1.Centro_Operacion and t350.f350_id_tipo_docto=t1.Tipo_Docto and t350.f350_consec_docto=t1.Consec_Docto and t350.f350_ind_estado=1
     INNER JOIN UnoEE1..t120_mc_items on f120_id_cia=t1.Compania and f120_id=t1.Item
-    INNER JOIN UnoEE1..t121_mc_items_extensiones on f121_rowid_item=f120_rowid
+    INNER JOIN UnoEE1..t121_mc_items_extensiones on f121_rowid_item=f120_rowid and f121_ind_estado=1
     INNER JOIN UnoEE1..t406_cm_movto_transito on f406_rowid_item_ext=f121_rowid and t1.Rowid_Movto=f406_rowid_movto_sal and f406_cant_base_pendiente>=t1.Cantidad
     WHERE t1.integrado_pangea NOT IN (0,2)
     ";
