@@ -122,7 +122,6 @@ class PedComController extends Controller
 						Yii::app()->user->setFlash('success', "Se actualizo el pedido ".$model->Id_Ped_Com." correctamente, no se enviaron notificaciones.");
 						$this->redirect(array('admin'));
 					}
-
 					
 				}
 			}

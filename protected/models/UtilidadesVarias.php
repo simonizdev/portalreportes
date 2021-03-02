@@ -331,7 +331,7 @@ class UtilidadesVarias {
 		//tipo -  0 revision, 1 avance en proceso
 		//steps -  al proceso que se va a enviar el correo
 
-		$url = Yii::app()->getBaseUrl(true).'/index.php?r=fichaItem';
+		$url = Yii::app()->getBaseUrl(true).'/index.php?r=fichaItem/redirect&id='.$id;
 
 		$modelo_fi = FichaItem::model()->findByPk($id);
 
@@ -366,13 +366,13 @@ class UtilidadesVarias {
 					$mensaje = $mensaje_hora.'<br><br>
 					Se ha solicitado una revisión de los datos registrados para la creación del ítem ('.$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto).' / '.$modelo_fi->Descripcion_Corta.').<br><br>
 					Observaciones: '.$obs.'<br><br>
-					Pulse <a href="'.$url.'/update&id='.$id.'&s='.$step.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
+					Pulse <a href="'.$url.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
 					Usuario que solicita: '.$modelo_fi->idusuarioact->Nombres.'.';
 				}else{
 					$asunto = 'Solicitud de información para creación de ítem';
 					$mensaje = $mensaje_hora.'<br><br>
 					Se ha solicitado que registre / revise los datos correpondientes a la creación del ítem ('.$modelo_fi->DescTipoProducto($modelo_fi->Tipo_Producto).' / '.$modelo_fi->Descripcion_Corta.').<br><br>
-					Pulse <a href="'.$url.'/update&id='.$id.'&s='.$step.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
+					Pulse <a href="'.$url.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
 					Usuario que solicita: '.$modelo_fi->idusuarioact->Nombres.'.';
 				}
 			}else{
@@ -381,13 +381,13 @@ class UtilidadesVarias {
 					$mensaje = $mensaje_hora.'<br><br>
 					Se ha solicitado una revisión de los datos registrados para la actualización del ítem con Código '.$modelo_fi->Codigo_Item.'.<br><br>
 					Observaciones: '.$obs.'<br><br>
-					Pulse <a href="'.$url.'/update2&id='.$id.'&s='.$step.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
+					Pulse <a href="'.$url.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
 					Usuario que solicita: '.$modelo_fi->idusuarioact->Nombres.'.';
 				}else{
 					$asunto = 'Solicitud revisión de datos para actualización de ítem';
 					$mensaje = $mensaje_hora.'<br><br>
 					Se ha solicitado que registre / revise los datos correpondientes a la actualización del ítem con Código '.$modelo_fi->Codigo_Item.'.<br><br>
-					Pulse <a href="'.$url.'/update2&id='.$id.'&s='.$step.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
+					Pulse <a href="'.$url.'"/>aqui</a> para ver el estado de la solicitud.<br><br>
 					Usuario que solicita: '.$modelo_fi->idusuarioact->Nombres.'.';
 				}
 			}
@@ -567,6 +567,144 @@ class UtilidadesVarias {
 		$mensaje = $mensaje_hora.'<br><br>
 		El vendedor '.$modelo_pedido->idusuario->Nombres.' ha solicitado la revisión del pedido '.$id.'.<br><br>
 		Pulse <a href="'.$url.'/update2&id='.$id.'"/>aqui</a> para ver la solicitud.';
+		set_time_limit(0); 
+
+		// Se inactiva el autoloader de yii
+		spl_autoload_unregister(array('YiiBase','autoload'));  
+
+		//require_once(Yii::app()->basePath . '\extensions\PHPMailer\class.phpmailer.php');
+		//require_once(Yii::app()->basePath . '\extensions\PHPMailer\class.smtp.php');
+
+		require_once(Yii::app()->basePath . '\extensions\PHPMailer\src\PHPMailer.php');
+		require_once(Yii::app()->basePath . '\extensions\PHPMailer\src\SMTP.php');
+
+		//cuando se termina la accion relacionada con la libreria se activa el autoloader de yii
+		spl_autoload_register(array('YiiBase','autoload'));
+
+		$cuenta = Yii::app()->params->email_send_emails;
+		$password = Yii::app()->params->psw_send_emails;
+		$de = Yii::app()->params->email_send_emails;
+		$de_nombre = Yii::app()->params->name_send_emails_com;
+
+		$mail = new PHPMailer\PHPMailer\PHPMailer;
+		$mail->IsSMTP();
+		$mail->CharSet = 'UTF-8';
+		$mail->Host = "secure.emailsrvr.com";
+		$mail->SMTPAuth= true;
+		$mail->Port = 465;
+	 	$mail->Username= $cuenta;
+		$mail->Password= $password;
+		$mail->SMTPSecure = 'ssl';
+		$mail->From = $de;
+ 		$mail->FromName= $de_nombre;
+		$mail->isHTML(true);
+		$mail->Subject = $asunto;
+		$mail->Body = $mensaje;
+
+		$num_notif = 0;
+
+		foreach ($array_emails as $llave => $email) {
+            $mail->addAddress($email);
+            $num_notif++;
+        }
+
+		if(!$mail->send()){
+			return 0;
+		}else{
+		 	return $num_notif;
+		}
+	
+	}
+
+	public static function emailssolprom($step) {
+		switch ($step) {
+		   	case 1:
+		   		$users = SolPromUsuario::model()->findByPk(1)->Id_Users_Notif;
+		        break;
+		    case 2:
+		   		$users = SolPromUsuario::model()->findByPk(2)->Id_Users_Notif;
+		        break;
+		    case 3:
+		        $users = SolPromUsuario::model()->findByPk(3)->Id_Users_Notif;
+		        break;
+		    case 4:
+		        $users = SolPromUsuario::model()->findByPk(4)->Id_Users_Notif;
+		        break;
+		    case 5:
+				$users = SolPromUsuario::model()->findByPk(5)->Id_Users_Notif;
+		        break;
+		}
+
+		$q_emails = Yii::app()->db->createCommand("SELECT Correo FROM TH_USUARIOS WHERE Id_Usuario IN (".$users.")")->queryAll();
+
+		$lista_email = array();
+		foreach ($q_emails as $e) {
+			$lista_email[] = $e['Correo'];
+		}
+
+		return $lista_email;
+	
+	}
+
+	public static function usuariossolprom($step) {
+		switch ($step) {
+		   	case 1:
+		   		$users = SolPromUsuario::model()->findByPk(1)->Id_Users_Reg;
+		        break;
+		    case 2:
+		   		$users = SolPromUsuario::model()->findByPk(2)->Id_Users_Reg;
+		        break;
+		    case 3:
+		        $users = SolPromUsuario::model()->findByPk(3)->Id_Users_Reg;
+		        break;
+		    case 4:
+		        $users = SolPromUsuario::model()->findByPk(4)->Id_Users_Reg;
+		        break;
+		   	case 5:
+		        $users = SolPromUsuario::model()->findByPk(5)->Id_Users_Reg;
+		        break; 
+		}
+
+		return explode(",", $users);
+	
+	}
+
+	public static function envioemailsolprom($id, $array_emails) {
+
+		$modelo_sol = SolProm::model()->findByPk($id);
+
+		$url = Yii::app()->getBaseUrl(true).'/index.php?r=solProm/redirect&id='.$id;
+
+		$hora = date('H');
+
+	    if($hora >= 0 && $hora <= 12){
+	        $mensaje_hora = "Buenos días,";
+	    }
+
+	    if($hora >= 13 && $hora <= 16){
+	        $mensaje_hora = "Buenas tardes,";
+	    }
+
+	    if($hora >= 17 && $hora <= 23){
+	        $mensaje_hora = "Buenas noches,";
+	    }
+
+	    if($modelo_sol->Estado == 4){
+			
+			$asunto = "Se ha completado la solicitud";
+			$mensaje = $mensaje_hora."<br><br>
+			Ha finalizado el proceso.<br><br>";
+			
+		}else{
+
+			$asunto = 'Tiene una nueva solicitud para revisión de kit';
+			$mensaje = $mensaje_hora.'<br><br>
+			'.$modelo_sol->idusuarioact->Nombres.' ha solicitado la revisión del número de promoción '.$modelo_sol->Num_Sol.'.<br><br>
+			Pulse <a href="'.$url.'"/>aqui</a> para ver la solicitud.';	
+
+		}
+		
+		
 		set_time_limit(0); 
 
 		// Se inactiva el autoloader de yii

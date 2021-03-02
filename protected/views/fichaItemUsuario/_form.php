@@ -102,7 +102,7 @@
 </div>
 <?php } ?>
 
-<div class="row mb-4" id="buttons_1">
+<div class="row mb-4">
     <div class="col-sm-6">  
         <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=fichaitemusuario/admin'; ?>';"><i class="fa fa-reply"></i> Volver</button>
         <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>

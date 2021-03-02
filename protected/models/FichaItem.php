@@ -80,6 +80,7 @@
  * @property integer $Step_Rev
  * @property string $Posicion_Arancelar
  * @property integer $Origen
+ * @property string $Envase
  *
  * The followings are the available model relations:
  * @property THUSUARIOS $idUsuarioSolicitud
@@ -143,6 +144,7 @@ class FichaItem extends CActiveRecord
 			array('Un_Peso, Un_Largo, Un_Ancho, Un_Alto, Un_Volumen, Ep_Peso, Ep_Largo, Ep_Ancho, Ep_Alto, Ep_Volumen, Cad_Peso, Cad_Largo, Cad_Ancho, Cad_Alto, Cad_Volumen', 'length', 'max'=>20),
 			array('Un_Gtin, Ep_Gtin, Cad_Gtin', 'length', 'max'=>14),
 			array('Descripcion_Larga', 'length', 'max'=>140),
+			array('Envase', 'length', 'max'=>100),
 			array('Instalaciones, Bodegas, Fecha_Hora_Solicitud', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -416,6 +418,7 @@ class FichaItem extends CActiveRecord
 			'cant' => 'Cant.',
 			'Posicion_Arancelar' => 'Posición arancelaria',
 			'Origen' => 'Origen',
+			'Envase' => 'Envase',
 		);
 	}
 
@@ -446,10 +449,14 @@ class FichaItem extends CActiveRecord
 
 			$array_paises = $this->Pais;
 
+			$cond_pais_t = "";
+
 			foreach ($array_paises as $key => $value) {
-				
-				$criteria->AddCondition("t.Pais LIKE ('%".$value."%')", "OR");
+				$cond_pais_t .= "t.Pais LIKE ('%".$value."%') OR ";
 			}
+
+			$cond = substr($cond_pais_t, 0, -3);
+			$criteria->AddCondition($cond);
 	    }
 
 		$criteria->compare('t.Tipo',$this->Tipo);

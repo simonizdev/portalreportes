@@ -32,7 +32,7 @@ class FichaItemController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','notas'),
+				'actions'=>array('admin','notas','redirect'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -209,6 +209,7 @@ class FichaItemController extends Controller
 			
 			if($model->Tipo_Producto != 1){
 				$model->Presentacion = null;
+				$model->Envase = null;
 				$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
 			}else{
 				$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas." ".$model->Presentacion;
@@ -813,6 +814,7 @@ class FichaItemController extends Controller
 
 						if($model->Tipo_Producto != 1){
 							$model->Presentacion = null;
+							$model->Envase = null;
 							$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
 						}else{
 							$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas." ".$model->Presentacion;
@@ -832,6 +834,7 @@ class FichaItemController extends Controller
 
 						if($model->Tipo_Producto != 1){
 							$model->Presentacion = null;
+							$model->Envase = null;
 							$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas;
 						}else{
 							$model->Descripcion_Corta = $model->Nombre_Funcional." ".$model->Marca_Producto." ".$model->Caracteristicas." ".$model->Presentacion;
@@ -1503,6 +1506,18 @@ class FichaItemController extends Controller
 			'model'=>$model,
 			't'=>$model->Tipo,
 		));
+	}
+
+	public function actionRedirect($id)
+	{
+		$model=$this->loadModel($id);
+
+		if($model->Tipo == 1){
+			$this->redirect(array('fichaItem/update','id'=>$id, 's'=>$model->Step));	
+		}else{
+			$this->redirect(array('fichaItem/update2','id'=>$id, 's'=>$model->Step));		
+		}
+
 	}
 
 }

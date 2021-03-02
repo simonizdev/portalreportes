@@ -17,18 +17,21 @@ $(function() {
 
     if(tipo_producto == 1){
         $('#pres').show();
+        $('#env').show();
         $('#und_ep').show();
         $('#und_cad').show();
     }
 
     if(tipo_producto == 5){
         $('#pres').hide();
+        $('#env').hide();
         $('#und_ep').show();
         $('#und_cad').show();
     }
 
     if(tipo_producto == 2 || tipo_producto == 3 || tipo_producto == 4){
         $('#pres').hide();
+        $('#env').hide();
         $('#und_ep').hide();
         $('#und_cad').hide();
     }
@@ -46,6 +49,7 @@ $(function() {
 		var tipo_producto = $("#FichaItem_Tipo_Producto").val();
 
 		var pres = $("#FichaItem_Presentacion").val();
+		var env = $("#FichaItem_Envase").val();
       	var und_ep = $("#FichaItem_Ep_Medida").val();
       	var und_cad = $("#FichaItem_Cad_Medida").val();
 
@@ -53,12 +57,17 @@ $(function() {
 
 			if(tipo_producto == 1){   
 		        //producto terminado
-		        if(pres != "" && und_ep != "" && und_cad != ""){
+		        if(pres != "" && env != "" && und_ep != "" && und_cad != ""){
 		            $valid = 1;
 		        }else{
 		            if(pres == ""){
 		                $('#FichaItem_Presentacion_em_').html('Presentación es requerido.');
 		                $('#FichaItem_Presentacion_em_').show(); 
+		            }
+
+		            if(env == ""){
+		                $('#FichaItem_Envase_em_').html('Envase es requerido.');
+		                $('#FichaItem_Envase_em_').show(); 
 		            }
 
 		            if(und_ep == ""){
@@ -129,6 +138,11 @@ $(function() {
 				                $('#FichaItem_Presentacion_em_').show(); 
 				            }
 
+				            if(env == ""){
+				                $('#FichaItem_Envase_em_').html('Envase es requerido.');
+				                $('#FichaItem_Envase_em_').show(); 
+				            }
+
 				            if(und_ep == ""){
 				                $('#FichaItem_Ep_Medida_em_').html('Und. medida emp. principal es requerido.');
 				                $('#FichaItem_Ep_Medida_em_').show(); 
@@ -174,6 +188,11 @@ $(function() {
 				            if(pres == ""){
 				                $('#FichaItem_Presentacion_em_').html('Presentación es requerido.');
 				                $('#FichaItem_Presentacion_em_').show(); 
+				            }
+
+				            if(env == ""){
+				                $('#FichaItem_Envase_em_').html('Envase es requerido.');
+				                $('#FichaItem_Envase_em_').show(); 
 				            }
 
 				            if(und_ep == ""){
@@ -274,6 +293,7 @@ $(function() {
 
         if(value == 1){
             $('#pres').show();
+            $('#env').show();
             $('#comp').hide();
             $('#und_ep').show();
             $('#und_cad').show();
@@ -281,6 +301,7 @@ $(function() {
 
         if(value == 5){
             $('#pres').hide();
+            $('#env').hide();
             $('#comp').show();
             $('#und_ep').show();
             $('#und_cad').show();
@@ -288,6 +309,7 @@ $(function() {
 
         if(value == 2 || value == 3 || value == 4){
             $('#pres').hide();
+            $('#env').hide();
             $('#comp').hide();
             $('#und_ep').hide();
             $('#und_cad').hide();
@@ -429,6 +451,7 @@ function div_step(step, e){
             $("#FichaItem_Cad_Medida").removeAttr('disabled');
             $("#FichaItem_cant").removeAttr('disabled');
             $('#FichaItem_Presentacion').removeAttr('disabled');
+            $('#FichaItem_Envase').removeAttr('disabled');
 	  		$("#buttons_1").html('<button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button>');
 	  	}
 

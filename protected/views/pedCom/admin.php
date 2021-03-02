@@ -71,7 +71,7 @@ $('.search-form form').submit(function(){
             'name' => 'Fecha',
             'value' => '($data->Fecha == "") ? "-" : UtilidadesVarias::textofecha($data->Fecha)',
         ),
-		array(
+		    array(
           'name' => 'Cliente',
           'value' => '$data->DescCliente($data->Cliente)',
       	),

@@ -49,7 +49,6 @@ $('.search-form form').submit(function(){
     ),
     'enableSorting' => false,
 	'columns'=>array(
-		//'Id',
 		'Proceso',
         array(
             'name' => 'Id_Users_Reg',

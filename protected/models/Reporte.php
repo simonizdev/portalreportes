@@ -69,6 +69,7 @@ class Reporte extends CFormModel
     public $anio;
     public $un;
     public $coordinador;
+    public $periodo;
 
     public function rules() {
         // NOTE: you should only define rules for those attributes that
@@ -193,7 +194,7 @@ class Reporte extends CFormModel
             array('anio, ruta', 'required','on'=>'seguimiento_rutas'),
             array('fecha_inicial, fecha_final', 'required','on'=>'calidad_pqrs'),
             array('fecha_inicial, fecha_final, un', 'required','on'=>'consolidado_un'),
-            array('anio, coordinador, marca', 'required','on'=>'seg_rutas_marca_coord'),
+            array('periodo, coordinador, marca', 'required','on'=>'seg_rutas_marca_coord'),
         );  
     }
 
@@ -302,6 +303,7 @@ class Reporte extends CFormModel
             'anio' => 'Año',
             'un' => 'Unidad de negocio',
             'coordinador' => 'Coordinador',
+            'periodo' => 'Periodo',
         );
     }
 

@@ -4795,5 +4795,5 @@ class ReporteController extends Controller
 			'lista_coord'=>$lista_coord,
 		));
 	}
-
+	
 }

@@ -133,6 +133,13 @@ $estados2 = Yii::app()->params->estados2;
                       <?php echo $form->textField($model,'Presentacion', array('class' => 'form-control form-control-sm', 'maxlength' => '10', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'onchange' => 'desc_corta()', 'disabled' => true)); ?>
                   </div>
               </div>
+              <div class="col-sm-4">
+                  <div class="form-group" id="env" style="display: none;">
+                      <?php echo $form->label($model,'Envase'); ?>
+                      <?php echo $form->error($model,'Envase', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php echo $form->textField($model,'Envase', array('class' => 'form-control form-control-sm', 'maxlength' => '100', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'disabled' => true)); ?>
+                  </div>
+              </div>
           </div>
           <div class="row" id="comp" style="display: none;">
             <div class="col-sm-8">
@@ -184,6 +191,7 @@ $estados2 = Yii::app()->params->estados2;
                 </div>
             </div>          
           </div>
+          <?php if($s != 10){ ?>
           <div class="row">  
               <div class="col-sm-6">
                   <div class="form-group">
@@ -200,6 +208,7 @@ $estados2 = Yii::app()->params->estados2;
                   </div>
               </div>
           </div>
+          <?php } ?>
           <div class="row">
               <div class="col-sm-4">
                   <div class="form-group">
@@ -1129,6 +1138,24 @@ $estados2 = Yii::app()->params->estados2;
                 </div>
             </div>
           </div>
+          <?php if($s == 10){ ?>
+          <div class="row">  
+              <div class="col-sm-6">
+                  <div class="form-group">
+                      <?php echo $form->label($model,'Descripcion_Corta'); ?>
+                      <?php echo $form->error($model,'Descripcion_Corta', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php echo $form->textField($model,'Descripcion_Corta', array('class' => 'form-control form-control-sm', 'maxlength' => '75', 'autocomplete' => 'off', 'onkeyup' => 'convert_may(this)', 'disabled' => true)); ?>
+                  </div>
+              </div>
+              <div class="col-sm-6">
+                  <div class="form-group">
+                      <?php echo $form->label($model,'Descripcion_Larga', array('class' => 'control-label')); ?>
+                      <?php echo $form->error($model,'Descripcion_Larga', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php echo $form->textArea($model,'Descripcion_Larga',array('class' => 'form-control form-control-sm', 'rows'=>2, 'cols'=>50, 'maxlength'=>140, 'onkeyup' => 'convert_may(this)', 'disabled' => true)); ?>
+                  </div>
+              </div>
+          </div>
+        <?php } ?>
           <div class="row">
               <div class="col-sm-4">
                   <div class="form-group">

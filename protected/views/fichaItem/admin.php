@@ -124,7 +124,6 @@ $lista_usuarios = CHtml::listData($usuarios, 'Id_Usuario', 'Nombres');
             'class'=>'CButtonColumn',
             'template'=>'{update}{update2}',
             'buttons'=>array(
-                
                 'update'=>array(
                     'label'=>'<i class="fa fa-pen actions text-dark"></i>',
                     'imageUrl'=>false,

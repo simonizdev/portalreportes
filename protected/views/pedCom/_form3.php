@@ -83,7 +83,7 @@
     </div>
 </div>
 
-<div class="row mb-12 mb-4">
+<div class="row mb-4">
     <div class="col-sm-12">  
         <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=PedCom/control'; ?>';"><i class="fa fa-reply"></i> Volver</button>
         <?php if($model->Estado == 2){ ?>
@@ -96,8 +96,6 @@
 <?php $this->endWidget(); ?>
 
 <script>
-
-
 
 $(function() {
 
