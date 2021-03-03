@@ -3156,7 +3156,15 @@ class ReporteController extends Controller
 		$model=new Reporte;
 		$model->scenario = 'rec_x_web_service';
 
-		$this->renderPartial('rec_x_web_service_resp');
+		if(isset($_POST['Reporte']))
+		{
+			$model->attributes=$_POST['Reporte'];
+			$this->renderPartial('rec_x_web_service_resp',array('model' => $model));	
+		}
+
+		$this->render('rec_x_web_service',array(
+			'model'=>$model,		
+		));
 	}
 
 	public function actionFacturaTitan()
