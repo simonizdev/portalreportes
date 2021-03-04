@@ -50,7 +50,7 @@ $query ="
     FROM Pagos_Inteligentes..T_PSE AS tp
     INNER JOIN UnoEE1..t357_co_ingresos_caja ON f357_notas=Referencia AND f357_referencia=Cus
     INNER JOIN Repositorio_Datos..T_IN_Recibos_Caja AS t1 ON t1.F350_NOTAS=Referencia AND t1.F357_REFERENCIA=Cus
-    left join UnoEE1..t350_co_docto_contable AS t350 ON t350.f350_notas=Referencia
+    left join UnoEE1..t350_co_docto_contable AS t350 ON t350.f350_notas=Referencia AND f350_ind_estado=1
     WHERE convert(nvarchar,FECHA_REG,112) BETWEEN '".$FechaM1."' AND '".$FechaM2."'
     ORDER BY 3,4,2
 ";
