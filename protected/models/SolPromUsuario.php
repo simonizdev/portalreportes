@@ -37,7 +37,7 @@ class SolPromUsuario extends CActiveRecord
 		return array(
 			array('Id_Users_Reg, Id_Users_Notif', 'required'),
 			array('Proceso', 'length', 'max'=>100),
-			array('Proceso, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
+			array('Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('Id, Proceso, Id_Users_Reg, Id_Users_Notif, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion', 'safe', 'on'=>'search'),
