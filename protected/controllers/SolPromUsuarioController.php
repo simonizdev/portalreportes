@@ -1,6 +1,6 @@
 <?php
 
-class PedComEnvioController extends Controller
+class SolPromUsuarioController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -28,49 +28,17 @@ class PedComEnvioController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','Validemailsadic'),
+				'actions'=>array('admin'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
-	}
-
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
-	public function actionCreate()
-	{
-		$model=new PedComEnvio;
-
-		$usuarios=Usuario::model()->findAll(array('order'=>'Nombres', 'condition'=>'Id_usuario != 1 AND Estado = 1'));
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['PedComEnvio']))
-		{
-			$model->attributes=$_POST['PedComEnvio'];
-			$model->Id_Usuario_Creacion = Yii::app()->user->getState('id_user');
-			$model->Fecha_Creacion = date('Y-m-d H:i:s');
-			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
-			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
-			if($model->save()){
-				Yii::app()->user->setFlash('success', "Se registro la configuración correctamente.");
-				$this->redirect(array('admin'));
-			}
-		}
-
-		$this->render('create',array(
-			'model'=>$model,
-			'usuarios'=>$usuarios,
-		));
 	}
 
 	/**
@@ -84,16 +52,35 @@ class PedComEnvioController extends Controller
 
 		$usuarios=Usuario::model()->findAll(array('order'=>'Nombres', 'condition'=>'Id_usuario != 1 AND Estado = 1'));
 
+		$array_user_reg = array();
+		//opciones activas en el combo usuarios de registro
+		$a_user_reg =  explode(",", $model->Id_Users_Reg);
+		foreach ($a_user_reg as $ur => $id) {
+			array_push($array_user_reg, $id);
+		}
+
+		$user_reg = json_encode($array_user_reg);
+
+		$array_user_not = array();
+		//opciones activas en el combo usuarios de notif.
+		$a_user_not =  explode(",", $model->Id_Users_Notif);
+		foreach ($a_user_not as $un => $id) {
+			array_push($array_user_not, $id);
+		}
+
+		$user_not = json_encode($array_user_not);
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['PedComEnvio']))
+		if(isset($_POST['SolPromUsuario']))
 		{
-			$model->attributes=$_POST['PedComEnvio'];
+			$model->attributes=$_POST['SolPromUsuario'];
+			$model->Id_Users_Reg = implode(",", $_POST['SolPromUsuario']['Id_Users_Reg']);
+			$model->Id_Users_Notif = implode(",", $_POST['SolPromUsuario']['Id_Users_Notif']);
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
 			if($model->save()){
-				Yii::app()->user->setFlash('success', "Se actualizo la configuración correctamente.");
 				$this->redirect(array('admin'));
 			}
 		}
@@ -101,6 +88,8 @@ class PedComEnvioController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 			'usuarios'=>$usuarios,
+			'user_reg'=>$user_reg,
+			'user_not'=>$user_not,
 		));
 	}
 
@@ -109,17 +98,14 @@ class PedComEnvioController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new PedComEnvio('search');
-
-		$usuarios=Usuario::model()->findAll(array('order'=>'Nombres', 'condition'=>'Id_usuario != 1'));
+		$model=new SolPromUsuario('search');
 
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['PedComEnvio']))
-			$model->attributes=$_GET['PedComEnvio'];
+		if(isset($_GET['SolPromUsuario']))
+			$model->attributes=$_GET['SolPromUsuario'];
 
 		$this->render('admin',array(
 			'model'=>$model,
-			'usuarios'=>$usuarios,
 		));
 	}
 
@@ -127,12 +113,12 @@ class PedComEnvioController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return PedComEnvio the loaded model
+	 * @return SolPromUsuario the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=PedComEnvio::model()->findByPk($id);
+		$model=SolPromUsuario::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -140,33 +126,14 @@ class PedComEnvioController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param PedComEnvio $model the model to be validated
+	 * @param SolPromUsuario $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='ped-com-envio-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='sol-prom-usuario-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
-	}
-
-	public function actionValidEmailsAdic()
-	{
-
-		$cad_emails_adic = $_POST['cad_emails_adic'];
-
-		$validos = 0;
-
-		$analizar = explode(',', $cad_emails_adic);
-    	for($i = 0; $i < sizeof($analizar); $i++){
-        	if(preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $cad_emails_adic)) $validos++;
-    	}
-
-    	if( $validos != sizeof($analizar) ){
-        	echo 0;
-        }else{
-        	echo 1;
-        }
 	}
 }
