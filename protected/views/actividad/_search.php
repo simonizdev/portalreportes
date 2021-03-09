@@ -205,7 +205,7 @@
 		$("#Actividad_Id_Grupo").change(function () {
 	      vlr = $("#Actividad_Id_Grupo").val();
 	      if(vlr != ""){
-	        var data = {grupo: vlr}
+	        var data = {grupo: vlr, clasificacion: 0}
 	        $.ajax({ 
 	          type: "POST", 
 	          url: "<?php echo Yii::app()->createUrl('actividad/gettipos'); ?>",

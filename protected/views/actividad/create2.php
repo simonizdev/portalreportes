@@ -24,14 +24,6 @@ $(function() {
       var settings = form.data('settings');
 
       var val_form = 1;
-
-      /*$('#ParPedEsp_cad_item').val('');
-      $('#ParPedEsp_cad_vu').val('');
-      $('#ParPedEsp_cad_cant').val('');
-      $('#ParPedEsp_cad_iva').val('');
-      $('#ParPedEsp_cad_not').val('');
-      $('#ParPedEsp_desc_sucursal').val('');
-      $('#ParPedEsp_desc_punto_envio').val('');*/
           
       var dias_selected = '';
       var horas_selected = ''; 

@@ -130,6 +130,7 @@ class ActividadController extends Controller
 				$nuevo_nov->Actividad  = $array_obs[$i];
 				$nuevo_nov->Estado = 2;
 				$nuevo_nov->Fecha_Cierre = date('Y-m-d', mktime(0,0,0, $month, $array_dias[$i], $year));
+				$nuevo_nov->Fecha_Finalizacion = date('Y-m-d', mktime(0,0,0, $month, $array_dias[$i], $year));
 				if($array_horas[$i] == 24){
 					$nuevo_nov->Hora_Cierre = '23:59:59';
 
@@ -425,11 +426,21 @@ class ActividadController extends Controller
 		$grupo = $_POST['grupo'];
 		$clasificacion = $_POST['clasificacion'];
 
-		$tipos = Yii::app()->db->createCommand("
-		SELECT TA.Id_Tipo, TA.Tipo FROM TH_TIPO_ACT TA 
-		LEFT JOIN TH_TIPO_ACT_USUARIO TAU ON TAU.Id_Tipo = TA.Id_Tipo AND TAU.Estado = 1
-		WHERE TA.Estado = 1 AND TA.Clasificacion = ".$clasificacion." AND TA.Id_Grupo = ".$grupo." AND TAU.Id_Usuario = ".Yii::app()->user->getState('id_user')." AND (SELECT COUNT (*) FROM TH_TIPO_ACT C WHERE C.Padre = TA.Id_Tipo) = 0 ORDER BY 2
-		")->queryAll();
+		if($clasificacion == 0){
+			$tipos = Yii::app()->db->createCommand("
+			SELECT TA.Id_Tipo, TA.Tipo FROM TH_TIPO_ACT TA 
+			LEFT JOIN TH_TIPO_ACT_USUARIO TAU ON TAU.Id_Tipo = TA.Id_Tipo AND TAU.Estado = 1
+			WHERE TA.Estado = 1 AND TA.Id_Grupo = ".$grupo." AND TAU.Id_Usuario = ".Yii::app()->user->getState('id_user')." AND (SELECT COUNT (*) FROM TH_TIPO_ACT C WHERE C.Padre = TA.Id_Tipo) = 0 ORDER BY 2
+			")->queryAll();
+		}else{
+			$tipos = Yii::app()->db->createCommand("
+			SELECT TA.Id_Tipo, TA.Tipo FROM TH_TIPO_ACT TA 
+			LEFT JOIN TH_TIPO_ACT_USUARIO TAU ON TAU.Id_Tipo = TA.Id_Tipo AND TAU.Estado = 1
+			WHERE TA.Estado = 1 AND TA.Clasificacion = ".$clasificacion." AND TA.Id_Grupo = ".$grupo." AND TAU.Id_Usuario = ".Yii::app()->user->getState('id_user')." AND (SELECT COUNT (*) FROM TH_TIPO_ACT C WHERE C.Padre = TA.Id_Tipo) = 0 ORDER BY 2
+			")->queryAll();
+		}
+
+		
 
 		$i = 0;
 		$array_tipos = array();
