@@ -154,12 +154,16 @@
         </div>
     </div>
 </div>
+
+
+<?php if(!$model->isNewRecord){ ?>
+
 <div class="row">
     <div class="col-sm-4">
         <div class="form-group">
             <?php echo $form->label($model,'Estado'); ?>
             <?php echo $form->error($model,'Estado', array('class' => 'badge badge-warning float-right')); ?>
-            <?php $estados = Yii::app()->params->estados; ?>
+            <?php $estados = array(0 => "INACTIVO", 1 => "EN CURSO", 2 => "FINALIZADO", 3 => "POSPUESTO"); ?>
             <?php
                 $this->widget('ext.select2.ESelect2',array(
                     'name'=>'TipoAct[Estado]',
@@ -177,9 +181,6 @@
         </div>
     </div> 
 </div>
-
-<?php if(!$model->isNewRecord){ ?>
-
 <div class="row">
     <div class="col-sm-3">
         <div class="form-group">

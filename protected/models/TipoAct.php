@@ -47,7 +47,8 @@ class TipoAct extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Clasificacion, Id_Grupo, Tipo, Usuarios, Estado, Cantidad, Ind_Alto, Ind_Medio, Ind_Bajo, Id_Usuario_Creacion', 'required'),
+			array('Clasificacion, Id_Grupo, Tipo, Usuarios, Cantidad, Ind_Alto, Ind_Medio, Ind_Bajo, Id_Usuario_Creacion', 'required','on'=>'create'),
+			array('Clasificacion, Id_Grupo, Tipo, Usuarios, Estado, Cantidad, Ind_Alto, Ind_Medio, Ind_Bajo, Id_Usuario_Creacion', 'required','on'=>'update'),
 			array('Id_Tipo, Id_Grupo, Cantidad, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
 			array('Tipo', 'length', 'max'=>100),
 			array('Padre', 'safe'),
@@ -55,6 +56,27 @@ class TipoAct extends CActiveRecord
 			// @todo Please remove those attributes that should not be searched.
 			array('Id_Tipo, Id_Grupo, Padre, Tipo, Cantidad, Estado, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, orderby', 'safe', 'on'=>'search'),
 		);
+	}
+
+	public function DescEstado($estado){
+
+		switch ($estado) {
+		    case 0:
+		        $texto_estado = 'INACTIVO';
+		        break;
+		    case 1:
+		        $texto_estado = 'EN CURSO';
+		        break;
+		    case 2:
+		        $texto_estado = 'FINALIZADO';
+		        break;
+		    case 3:
+		        $texto_estado = 'POSPUESTO';
+		        break;		    
+		}
+
+		return $texto_estado;
+
 	}
 
 	public function DescClasif($clasificacion){
@@ -211,12 +233,6 @@ class TipoAct extends CActiveRecord
 			        break;
 			    case 14:
 			        $criteria->order = 't.Fecha_Actualizacion DESC'; 
-			        break;
-			    case 15:
-			        $criteria->order = 't.Estado DESC'; 
-			        break;
-			    case 16:
-			        $criteria->order = 't.Estado ASC'; 
 			        break;
 			}
 		}

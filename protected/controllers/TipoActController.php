@@ -49,6 +49,8 @@ class TipoActController extends Controller
 	{
 		$model=new TipoAct;
 
+		$model->Scenario = 'create';
+
 		$grupos=Dominio::model()->findAll(array('order'=>'Dominio', 'condition'=>'Estado=:estado AND Id_Padre = '.Yii::app()->params->grupos_act, 'params'=>array(':estado'=>1)));
 
 		$usuarios=Usuario::model()->findAll(array('order'=>'Nombres', 'condition'=>'Estado=1 AND Id_Usuario != 1'));
@@ -61,11 +63,11 @@ class TipoActController extends Controller
 			$model->attributes=$_POST['TipoAct'];
 			if($_POST['TipoAct']['Fecha_Inicio']  != ""){$model->Fecha_Inicio = $_POST['TipoAct']['Fecha_Inicio'];}else{$model->Fecha_Inicio = null;}
 			if($_POST['TipoAct']['Fecha_Fin']  != ""){$model->Fecha_Fin = $_POST['TipoAct']['Fecha_Fin'];}else{$model->Fecha_Fin = null;}
-			//$model->Usuarios = implode(",", $_POST['TipoAct']['Usuarios']);
 			$model->Id_Usuario_Creacion = Yii::app()->user->getState('id_user');
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Creacion = date('Y-m-d H:i:s');
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
+			$model->Estado = 1;
 			if($model->save()){
 				//se administran los usuarios relacionadas al tipo
 				UtilidadesUsuario::admintipactusuario($model->Id_Tipo, $model->Usuarios);
@@ -88,6 +90,8 @@ class TipoActController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+
+		$model->Scenario = 'update';
 
 		$grupos=Dominio::model()->findAll(array('order'=>'Dominio', 'condition'=>'Estado=:estado AND Id_Padre = '.Yii::app()->params->grupos_act, 'params'=>array(':estado'=>1)));
 
@@ -112,7 +116,6 @@ class TipoActController extends Controller
 			$model->attributes=$_POST['TipoAct'];
 			if($_POST['TipoAct']['Fecha_Inicio']  != ""){$model->Fecha_Inicio = $_POST['TipoAct']['Fecha_Inicio'];}else{$model->Fecha_Inicio = null;}
 			if($_POST['TipoAct']['Fecha_Fin']  != ""){$model->Fecha_Fin = $_POST['TipoAct']['Fecha_Fin'];}else{$model->Fecha_Fin = null;}
-			//$model->Usuarios = implode(",", $_POST['TipoAct']['Usuarios']);
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
 			$model->Fecha_Actualizacion = date('Y-m-d H:i:s');
 			if($model->save()){

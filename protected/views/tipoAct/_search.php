@@ -166,7 +166,7 @@
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Estado'); ?>
-			    <?php $estados = Yii::app()->params->estados; ?>
+			    <?php $estados = array(0 => "INACTIVO", 1 => "EN CURSO", 2 => "FINALIZADO", 3 => "POSPUESTO"); ?>
             	<?php
             		$this->widget('ext.select2.ESelect2',array(
 						'name'=>'TipoAct[Estado]',
@@ -186,7 +186,7 @@
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'orderby'); ?>
 			    <?php 
-                	$array_orden = array(1 => 'ID ASC', 2 => 'ID DESC', 3 => 'Grupo ASC', 4 => 'Grupo DESC', 5 => 'Tipo ASC', 6 => 'Tipo DESC', 7 => 'Usuario que creo ASC', 8 => 'Usuario que creo DESC', 9 => 'Fecha de creación ASC', 10 => 'Fecha de creación DESC', 11 => 'Usuario que actualizó ASC', 12 => 'Usuario que actualizó DESC', 13 => 'Fecha de actualización ASC', 14 => 'Fecha de actualización DESC', 15 => 'Estado ASC', 16 => 'Estado DESC',
+                	$array_orden = array(1 => 'ID ASC', 2 => 'ID DESC', 3 => 'Grupo ASC', 4 => 'Grupo DESC', 5 => 'Tipo ASC', 6 => 'Tipo DESC', 7 => 'Usuario que creo ASC', 8 => 'Usuario que creo DESC', 9 => 'Fecha de creación ASC', 10 => 'Fecha de creación DESC', 11 => 'Usuario que actualizó ASC', 12 => 'Usuario que actualizó DESC', 13 => 'Fecha de actualización ASC', 14 => 'Fecha de actualización DESC'
 					);
             	?>
             	<?php

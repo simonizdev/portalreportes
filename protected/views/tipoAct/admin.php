@@ -89,8 +89,8 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
             'value' => '($data->Ind_Bajo == "") ? "-" : number_format($data->Ind_Bajo, 2)',
         ),
 		array(
-            'name' => 'Estado',
-            'value' => 'UtilidadesVarias::textoestado1($data->Estado)',
+            'name'=>'Estado',
+            'value' => '$data->DescEstado($data->Estado)',
         ),
         array(
             'class'=>'CButtonColumn',
