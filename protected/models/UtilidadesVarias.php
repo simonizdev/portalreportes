@@ -669,7 +669,7 @@ class UtilidadesVarias {
 	
 	}
 
-	public static function envioemailsolprom($id, $array_emails) {
+	public static function envioemailsolprom($id, $array_emails, $obs) {
 
 		$modelo_sol = SolProm::model()->findByPk($id);
 
@@ -693,14 +693,24 @@ class UtilidadesVarias {
 			
 			$asunto = "Se ha completado la solicitud";
 			$mensaje = $mensaje_hora."<br><br>
-			Ha finalizado el proceso.<br><br>";
+			la promoción número ".$modelo_sol->Num_Sol." ha cambiado a estado: EN ENSAMBLE.<br><br>";
 			
 		}else{
+			if($modelo_sol->Estado == 2 && $modelo_sol->Estado_Rechazo == 3){
+				$asunto = 'Tiene una nueva solicitud para revisión de kit';
+				$mensaje = $mensaje_hora.'<br><br>
+				'.$modelo_sol->idusuarioact->Nombres.' ha solicitado la revisión del número de promoción '.$modelo_sol->Num_Sol.'.<br><br>
+				Observaciones: '.$obs.'.<br><br>
+				Pulse <a href="'.$url.'"/>aqui</a> para ver la solicitud.';	
 
-			$asunto = 'Tiene una nueva solicitud para revisión de kit';
-			$mensaje = $mensaje_hora.'<br><br>
-			'.$modelo_sol->idusuarioact->Nombres.' ha solicitado la revisión del número de promoción '.$modelo_sol->Num_Sol.'.<br><br>
-			Pulse <a href="'.$url.'"/>aqui</a> para ver la solicitud.';	
+				$modelo_sol->Estado_Rechazo = null;
+				$modelo_sol->save();
+			}else{
+				$asunto = 'Tiene una nueva solicitud para revisión de kit';
+				$mensaje = $mensaje_hora.'<br><br>
+				'.$modelo_sol->idusuarioact->Nombres.' ha solicitado la revisión del número de promoción '.$modelo_sol->Num_Sol.'.<br><br>
+				Pulse <a href="'.$url.'"/>aqui</a> para ver la solicitud.';	
+			}
 
 		}
 		

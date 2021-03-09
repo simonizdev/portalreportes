@@ -28,7 +28,7 @@ class ActividadController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','gettipos','getusuarios'),
+				'actions'=>array('create','create2','update','gettipos','getusuarios','getcalendar'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -54,7 +54,9 @@ class ActividadController extends Controller
 
 		$grupos = array();
 		foreach ($q_grupos as $g) {
-			$grupos[$g->idtipoact->idgrupo->Id_Dominio] = $g->idtipoact->idgrupo->Dominio;	
+			if($g->idtipoact->Clasificacion == 1){
+				$grupos[$g->idtipoact->idgrupo->Id_Dominio] = $g->idtipoact->idgrupo->Dominio;	
+	    	}
 	    }
 
 		// Uncomment the following line if AJAX validation is needed
@@ -81,6 +83,101 @@ class ActividadController extends Controller
 			'grupos'=>$grupos,
 		));
 	}
+
+
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionCreate2()
+	{
+		$model=new Actividad;
+		$model->scenario = 'create2';
+
+		$q_grupos=TipoActUsuario::model()->findAll(array('condition'=>'Estado=:estado AND Id_Usuario ='.Yii::app()->user->getState('id_user'), 'params'=>array(':estado'=>1)));
+
+		$grupos = array();
+		foreach ($q_grupos as $g) {
+			$grupos[$g->idtipoact->idgrupo->Id_Dominio] = $g->idtipoact->idgrupo->Dominio;	
+	    }
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Actividad']))
+		{
+			$model->attributes=$_POST['Actividad'];
+			
+			$array_dias = explode("|", $_POST['Actividad']['cad_dias']);
+			$array_horas = explode("|", $_POST['Actividad']['cad_horas']);
+			$array_obs = explode("|", $_POST['Actividad']['cad_obs']);
+
+			$num_reg = count($array_dias);
+
+			for ($i = 0; $i < $num_reg; $i++) {
+
+				$month = date('m');
+      			$year = date('Y');
+
+      			$d=mktime(0, 0, 0, $month, $array_dias[$i], $year);
+				$hora = date("H:i:s", $d);
+
+				$nuevo_nov = new Actividad;
+				$nuevo_nov->Pais = implode(",", $_POST['Actividad']['Pais']);
+				$nuevo_nov->Fecha = date('Y-m-d', mktime(0,0,0, $month, $array_dias[$i], $year));
+				$nuevo_nov->Hora = '00:00:01';
+				$nuevo_nov->Id_Usuario = $model->Id_Usuario;
+				$nuevo_nov->Actividad  = $array_obs[$i];
+				$nuevo_nov->Estado = 2;
+				$nuevo_nov->Fecha_Cierre = date('Y-m-d', mktime(0,0,0, $month, $array_dias[$i], $year));
+				if($array_horas[$i] == 24){
+					$nuevo_nov->Hora_Cierre = '23:59:59';
+
+					echo $array_horas[$i].' - '.$nuevo_nov->Hora_Cierre .' a<br>';
+
+				}else{
+					if(strpos($array_horas[$i], '.') === false){
+						//hora cerrada
+						$hora = strtotime('+'.$array_horas[$i].' hour' , strtotime ($hora)); 
+						$hora = date ( 'H:i:s' , $hora);
+						$nuevo_nov->Hora_Cierre = $hora;
+
+						echo $array_horas[$i].' - '.$nuevo_nov->Hora_Cierre .' b<br>';
+
+					}else{
+						//hora partida
+						$v_hora = round($array_horas[$i], 0, PHP_ROUND_HALF_DOWN);
+						$hora = strtotime('+'.$v_hora.' hour' , strtotime ($hora)) ; 
+						$hora = strtotime('+30 minute' , $hora); 
+						$hora = date ( 'H:i:s' , $hora);
+						$nuevo_nov->Hora_Cierre = $hora;
+
+						echo $array_horas[$i].' - '.$nuevo_nov->Hora_Cierre .' c<br>';
+					}
+				}
+
+				
+
+				$nuevo_nov->Id_Usuario_Creacion = Yii::app()->user->getState('id_user');
+				$nuevo_nov->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
+				$nuevo_nov->Fecha_Creacion = date('Y-m-d H:i:s');
+				$nuevo_nov->Fecha_Actualizacion = date('Y-m-d H:i:s');
+				$nuevo_nov->Id_Tipo = $model->Id_Tipo;
+				$nuevo_nov->Id_Grupo = $model->Id_Grupo;
+				$nuevo_nov->Prioridad = 1;
+				$nuevo_nov->save();
+
+			}
+
+			$this->redirect(array('admin'));
+		}
+
+		$this->render('create2',array(
+			'model'=>$model,
+			'grupos'=>$grupos,
+		));
+	}
+
 
 	/**
 	 * Updates a particular model.
@@ -236,6 +333,27 @@ class ActividadController extends Controller
 		));
 	}
 
+	public function actionGetCalendar(){
+
+  
+    	$month = date('m');
+      	$year = date('Y');
+      	$day = date("d", mktime(0,0,0, $month+1, 0, $year));
+ 
+      	$ult_dia = date('d', mktime(0,0,0, $month, $day, $year));
+
+      	$array_dias = array();
+
+		for ($i=1; $i <= $ult_dia ; $i++) { 
+
+			$array_dias[$i] = array('fecha' => date('Y-m-d', mktime(0,0,0, $month, $i, $year)) , 'text_fecha' => UtilidadesVarias::textofecha($year.'-'.$month.'-'.$i));
+		}
+
+		//se retorna un json con las opciones
+		echo json_encode($array_dias);
+
+ 	}
+
 	/**
 	 * Manages all models.
 	 */
@@ -305,11 +423,12 @@ class ActividadController extends Controller
 	public function actionGetTipos()
 	{	
 		$grupo = $_POST['grupo'];
+		$clasificacion = $_POST['clasificacion'];
 
 		$tipos = Yii::app()->db->createCommand("
 		SELECT TA.Id_Tipo, TA.Tipo FROM TH_TIPO_ACT TA 
 		LEFT JOIN TH_TIPO_ACT_USUARIO TAU ON TAU.Id_Tipo = TA.Id_Tipo AND TAU.Estado = 1
-		WHERE TA.Estado = 1 AND TA.Id_Grupo = ".$grupo." AND TAU.Id_Usuario = ".Yii::app()->user->getState('id_user')." AND (SELECT COUNT (*) FROM TH_TIPO_ACT C WHERE C.Padre = TA.Id_Tipo) = 0 ORDER BY 2
+		WHERE TA.Estado = 1 AND TA.Clasificacion = ".$clasificacion." AND TA.Id_Grupo = ".$grupo." AND TAU.Id_Usuario = ".Yii::app()->user->getState('id_user')." AND (SELECT COUNT (*) FROM TH_TIPO_ACT C WHERE C.Padre = TA.Id_Tipo) = 0 ORDER BY 2
 		")->queryAll();
 
 		$i = 0;

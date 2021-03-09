@@ -67,6 +67,16 @@ $(function() {
         
     });
 
+    $("#revision_form").click(function() {
+
+        var opcion = confirm("¿ Esta seguro de solicitar una revisión de la solicitud ? ");
+        if (opcion == true) {
+            loadershow();
+            location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=solProm/rev&id='.$model->Id_Sol_Prom; ?>';
+        } 
+        
+    });
+
 	$("#valida_form").click(function() {
 
       	var form = $("#sol-prom-form");
@@ -194,6 +204,7 @@ function div_step(step, e){
 	        var fecha_t_entrega = '<?php echo date("Y-m-d",strtotime(date('Y-m-d')." + 20 days")); ?>';
 	        $('#SolProm_Fecha').val(fecha);
 	  		$('#SolProm_Fecha_T_Entrega').val(fecha_t_entrega);
+            $('#SolProm_Observaciones_Ger').removeAttr('disabled');
   			$("#buttons_2").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-times-circle"></i> Rechazar</button> <button type="button" class="btn btn-success btn-sm" id="aprobar_g_form"><i class="fas fa-check-circle"></i> Aprobar</button>');
 	  	}
 
@@ -217,6 +228,7 @@ function div_step(step, e){
 	    	$('#SolProm_Val_Compra').removeAttr('disabled');
   			$('#SolProm_Val_Prod').removeAttr('disabled');
   			$('#SolProm_Val_MT').removeAttr('disabled');
+            $('#SolProm_Observaciones_Pla').removeAttr('disabled');
   			$("#buttons_3").html('<button type="button" class="btn btn-success btn-sm" id="rechazar_form"><i class="fas fa-times-circle"></i> Rechazar</button> <button type="button" class="btn btn-success btn-sm" id="valida_form"><i class="fas fa-save"></i> Guardar</button> <button type="button" class="btn btn-success btn-sm" id="aprobar_p_form" style="display: none;"><i class="fas fa-check-circle"></i> Aprobar</button>');
 
   			validaprob(); 
@@ -254,7 +266,7 @@ function div_step(step, e){
 
 	    	$('#SolProm_Comp_Disp').removeAttr('disabled');
   			$('#SolProm_Observaciones').removeAttr('disabled');
-  			$("#buttons_4").html('<button type="button" class="btn btn-success btn-sm" onclick="location.href = \''+url+'\'"><i class="fas fa-file-pdf"></i> Descargar PDF</button> <button type="button" class="btn btn-success btn-sm" id="valida_l_form" style="display: none;"><i class="fas fa-save"></i> Guardar</button>');
+  			$("#buttons_4").html('<button type="button" class="btn btn-success btn-sm" id="revision_form"><i class="fas fa-exclamation-circle"></i> Solicitar revisión</button> <button type="button" class="btn btn-success btn-sm" onclick="location.href = \''+url+'\'"><i class="fas fa-file-pdf"></i> Descargar PDF</button> <button type="button" class="btn btn-success btn-sm" id="valida_l_form" style="display: none;"><i class="fas fa-save"></i> Guardar</button>');
 
 	  	}
 

@@ -30,7 +30,7 @@
   <div class="col-sm-12">
     <div class="form-group">
           <?php echo $form->label($model,'Id_Users_Reg'); ?>
-      <?php echo $form->error($model,'Id_Users_Reg', array('class' => 'badge badge-warning float-right')); ?>
+          <?php echo $form->error($model,'Id_Users_Reg', array('class' => 'badge badge-warning float-right')); ?>
           <?php
               $this->widget('ext.select2.ESelect2',array(
                   'name'=>'SolPromUsuario[Id_Users_Reg]',

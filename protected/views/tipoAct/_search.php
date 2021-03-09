@@ -17,6 +17,27 @@
 			    <?php echo $form->numberField($model,'Id_Tipo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number')); ?>
 	        </div>
 	    </div>
+	</div>
+	<div class="row">
+	    <div class="col-sm-3">
+	        <div class="form-group">
+	            <?php echo $form->label($model,'Clasificacion', array('class' => 'control-label')); ?>
+	            <?php $clasif = array(1 => 'GENERAL', 2 => 'DISPONIBILIDAD'); ?>
+	            <?php
+	                $this->widget('ext.select2.ESelect2',array(
+	                    'name'=>'TipoAct[Clasificacion]',
+	                    'id'=>'TipoAct_Clasificacion',
+	                    'data'=>$clasif,
+	                    'htmlOptions'=>array(),
+	                    'options'=>array(
+	                        'placeholder'=>'Seleccione...',
+	                        'width'=> '100%',
+	                        'allowClear'=>true,
+	                    ),
+	                ));
+	            ?>
+	        </div>
+	    </div>
 	    <div class="col-sm-3">
 	    	<div class="form-group">
 	          	<?php echo $form->label($model,'Id_Grupo'); ?>
@@ -226,6 +247,7 @@
 
 	function resetfields(){
 		$('#TipoAct_Id_Tipo').val('');
+		$('#TipoAct_Clasificacion').val('').trigger('change');
 		$('#TipoAct_Id_Grupo').val('').trigger('change');
 		$('#TipoAct_Tipo').val('');
 		$('#TipoAct_Ind_Alto').val('');

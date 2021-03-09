@@ -15,7 +15,11 @@
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
-)); ?>
+)); 
+
+echo $form->errorSummary($model); 
+
+?>
 
 <div id="accordion">
   <div class="card">
@@ -134,12 +138,12 @@
                         </div>
                     </div>
                     <div class="col-sm-8">
-                          <div class="form-group">
-                              <?php echo $form->error($model,'Observaciones', array('class' => 'badge badge-warning float-right')); ?>
-                              <?php echo $form->label($model,'Observaciones'); ?>
-                              <?php echo $form->textArea($model,'Observaciones',array('class' => 'form-control form-control-sm', 'rows'=>3, 'cols'=>50, 'onkeyup' => 'convert_may(this)', 'maxlength' => '200', 'disabled' =>true)); ?>
-                          </div>
-                      </div> 
+                        <div class="form-group">
+                            <?php echo $form->error($model,'Observaciones', array('class' => 'badge badge-warning float-right')); ?>
+                            <?php echo $form->label($model,'Observaciones'); ?>
+                            <?php echo $form->textArea($model,'Observaciones',array('class' => 'form-control form-control-sm', 'rows'=>3, 'cols'=>50, 'onkeyup' => 'convert_may(this)', 'maxlength' => '300', 'disabled' =>true)); ?>
+                        </div>
+                    </div> 
                   </div>
 
             <?php }else{ ?>
@@ -260,19 +264,26 @@
         <div class="card-body"> 
             <div class="row">
                 <div class="col-sm-3">
-                    <div class="form-group">
-                        <?php echo $form->error($model,'Fecha', array('class' => 'badge badge-warning float-right')); ?>
-                        <?php echo $form->label($model,'Fecha'); ?>
-                        <?php echo $form->textField($model,'Fecha', array('class' => 'form-control form-control-sm', 'disabled' => true)); ?>
-                    </div>
+                  <div class="form-group">
+                      <?php echo $form->error($model,'Fecha', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php echo $form->label($model,'Fecha'); ?>
+                      <?php echo $form->textField($model,'Fecha', array('class' => 'form-control form-control-sm', 'disabled' => true)); ?>
+                  </div>
                 </div>         
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <?php echo $form->error($model,'Fecha_T_Entrega', array('class' => 'badge badge-warning float-right')); ?>
-                        <?php echo $form->label($model,'Fecha_T_Entrega'); ?>
-                        <?php echo $form->textField($model,'Fecha_T_Entrega', array('class' => 'form-control form-control-sm', 'disabled' => true)); ?>
+                      <?php echo $form->error($model,'Fecha_T_Entrega', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php echo $form->label($model,'Fecha_T_Entrega'); ?>
+                      <?php echo $form->textField($model,'Fecha_T_Entrega', array('class' => 'form-control form-control-sm', 'disabled' => true)); ?>
                     </div>
                 </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                      <?php echo $form->error($model,'Observaciones_Ger', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php echo $form->label($model,'Observaciones_Ger'); ?>
+                      <?php echo $form->textArea($model,'Observaciones_Ger',array('class' => 'form-control form-control-sm', 'rows'=>3, 'cols'=>50, 'onkeyup' => 'convert_may(this)', 'maxlength' => '300', 'disabled' =>true)); ?>
+                  </div>
+                </div>  
             </div>
             <div class="row mb-2">
                 <div class="col-sm-6" id="buttons_2">  
@@ -292,7 +303,7 @@
       <div id="collapse_3" class="collapse" aria-labelledby="info_3" data-parent="#accordion">
         <div class="card-body">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <?php echo $form->label($model,'Val_Compra', array('class' => 'control-label')); ?>
                         <div class="form-check">
@@ -300,7 +311,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <?php echo $form->label($model,'Val_Prod', array('class' => 'control-label')); ?>
                         <div class="form-check">
@@ -308,7 +319,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <?php echo $form->label($model,'Val_MT', array('class' => 'control-label')); ?>
                         <div class="form-check">
@@ -316,8 +327,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                      <?php echo $form->error($model,'Observaciones_Pla', array('class' => 'badge badge-warning float-right')); ?>
+                      <?php echo $form->label($model,'Observaciones_Pla'); ?>
+                      <?php echo $form->textArea($model,'Observaciones_Pla',array('class' => 'form-control form-control-sm', 'rows'=>3, 'cols'=>50, 'onkeyup' => 'convert_may(this)', 'maxlength' => '300', 'disabled' =>true)); ?>
+                    </div>
+                </div>  
             </div>
-            <br>   
             <div class="row mb-2">
                 <div class="col-sm-6" id="buttons_3"> 
                 </div>

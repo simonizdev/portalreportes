@@ -33,7 +33,8 @@ $lista_grupos = $grupos;
     <h4>Administración de Actividades</h4>
   </div>
   <div class="col-sm-6 text-right">  
-      <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=actividad/create'; ?>';"><i class="fa fa-plus"></i> Nuevo registro</button>
+      <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=actividad/create'; ?>';"><i class="fa fa-plus"></i> Nueva actividad</button>
+      <button type="button" class="btn btn-success btn-sm" onclick="location.href = '<?php echo Yii::app()->getBaseUrl(true).'/index.php?r=actividad/create2'; ?>';"><i class="fa fa-plus"></i> Nueva novedad disponibilidad</button>
     <button type="button" class="btn btn-success btn-sm search-button"><i class="fa fa-filter"></i> Busqueda avanzada</button>
   </div>
 </div>

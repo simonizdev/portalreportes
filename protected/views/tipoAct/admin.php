@@ -52,6 +52,10 @@ $lista_grupos = CHtml::listData($grupos, 'Id_Dominio', 'Dominio');
 	'columns'=>array(
 		'Id_Tipo',
         array(
+            'name'=>'Clasificacion',
+            'value' => '$data->DescClasif($data->Clasificacion)',
+        ),
+        array(
             'name'=>'Grupo',
             'value'=>'$data->idgrupo->Dominio',
         ),

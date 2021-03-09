@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'TH_TIPO_ACT':
  * @property integer $Id_Tipo
+ * @property integer $Clasificacion
  * @property integer $Padre
  * @property integer $Id_Grupo
  * @property string $Tipo
@@ -46,7 +47,7 @@ class TipoAct extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Id_Grupo, Tipo, Usuarios, Estado, Cantidad, Ind_Alto, Ind_Medio, Ind_Bajo, Id_Usuario_Creacion', 'required'),
+			array('Clasificacion, Id_Grupo, Tipo, Usuarios, Estado, Cantidad, Ind_Alto, Ind_Medio, Ind_Bajo, Id_Usuario_Creacion', 'required'),
 			array('Id_Tipo, Id_Grupo, Cantidad, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion', 'numerical', 'integerOnly'=>true),
 			array('Tipo', 'length', 'max'=>100),
 			array('Padre', 'safe'),
@@ -54,6 +55,21 @@ class TipoAct extends CActiveRecord
 			// @todo Please remove those attributes that should not be searched.
 			array('Id_Tipo, Id_Grupo, Padre, Tipo, Cantidad, Estado, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, orderby', 'safe', 'on'=>'search'),
 		);
+	}
+
+	public function DescClasif($clasificacion){
+
+		switch ($clasificacion) {
+		    case 1:
+		        $texto_clasif = 'GENERAL';
+		        break;
+		    case 2:
+		        $texto_clasif = 'DISPONIBILIDAD';
+		        break;		    
+		}
+
+		return $texto_clasif;
+
 	}
 
 	/**
@@ -78,6 +94,7 @@ class TipoAct extends CActiveRecord
 	{
 		return array(
 			'Id_Tipo' => 'ID',
+			'Clasificacion' => 'Clasificación',
 			'Padre' => 'Padre',
 			'Id_Grupo' => 'Grupo',
 			'Tipo' => 'Tipo',

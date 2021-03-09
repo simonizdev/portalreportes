@@ -19,12 +19,15 @@
  * @property integer $Id_Usuario_Actualizacion
  * @property string $Fecha_Actualizacion
  * @property integer $Estado
- * @property string $Observaciones
  * @property integer $Val_Compra
  * @property integer $Val_Prod
  * @property integer $Val_MT
  * @property integer $Comp_Disp
  * @property integer $Estado_Rechazo
+ * @property string $Observaciones
+ * @property string $Observaciones_Ger
+ * @property string $Observaciones_Pla
+ * @property string $Observaciones_Log
  *
  * The followings are the available model relations:
  * @property THUSUARIOS $idUsuarioCreacion
@@ -32,10 +35,6 @@
  */
 class SolProm extends CActiveRecord
 {
-	/*public $item;
-	public $cant;
-	public $cad_item;
-	public $cad_cant;*/
 
 	/**
 	 * @return string the associated database table name
@@ -60,7 +59,8 @@ class SolProm extends CActiveRecord
 			array('Num_Sol, Cliente', 'length', 'max'=>50),
 			array('Tipo', 'length', 'max'=>10),
 			array('Responsable', 'length', 'max'=>200),
-			array('Observaciones, Val_Compra, Val_Prod, Val_MT, Comp_Disp', 'safe'),
+			array('Observaciones_Log', 'required','on'=>'rev_plan'),
+			array('Observaciones, Observaciones_Ger, Observaciones_Pla, Val_Compra, Val_Prod, Val_MT, Comp_Disp', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('Id_Sol_Prom, Num_Sol, Tipo, Cliente, Fecha, Fecha_T_Entrega, Fecha_Entrega, Responsable, Id_Usuario_Creacion, Fecha_Creacion, Id_Usuario_Actualizacion, Fecha_Actualizacion, Estado, Observaciones', 'safe', 'on'=>'search'),
@@ -222,12 +222,14 @@ class SolProm extends CActiveRecord
 			'Id_Usuario_Actualizacion' => 'Ultimo usuario que actualizo',
 			'Fecha_Actualizacion' => 'Ultima fecha de actualización',
 			'Estado' => 'Estado',
-			/*'item' => 'Item',
-			'cant' => 'Cant.',*/
 			'Val_Compra' => 'Validación compra',
 			'Val_Prod' => 'Validación producción',
 			'Val_MT' => 'Validación materia prima',
 			'Comp_Disp' => 'Componentes disponibles',
+			'Observaciones'=>'Observaciones',
+			'Observaciones_Ger'=>'Observaciones',
+			'Observaciones_Pla'=>'Observaciones',
+			'Observaciones_Log'=>'Observaciones',
 		);
 	}
 

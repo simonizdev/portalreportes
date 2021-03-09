@@ -19,6 +19,27 @@
 <div class="row">
     <div class="col-sm-4">
         <div class="form-group">
+            <?php echo $form->label($model,'Clasificacion', array('class' => 'control-label')); ?>
+            <?php echo $form->error($model,'Clasificacion', array('class' => 'badge badge-warning float-right')); ?>
+            <?php $clasif = array(1 => 'GENERAL', 2 => 'DISPONIBILIDAD'); ?>
+            <?php
+                $this->widget('ext.select2.ESelect2',array(
+                    'name'=>'TipoAct[Clasificacion]',
+                    'id'=>'TipoAct_Clasificacion',
+                    'data'=>$clasif,
+                    'value' => $model->Clasificacion,
+                    'htmlOptions'=>array(),
+                    'options'=>array(
+                        'placeholder'=>'Seleccione...',
+                        'width'=> '100%',
+                        'allowClear'=>true,
+                    ),
+                ));
+            ?>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
             <?php echo $form->label($model,'Id_Grupo', array('class' => 'control-label')); ?>
             <?php echo $form->error($model,'Id_Grupo', array('class' => 'badge badge-warning float-right')); ?>
             <?php
