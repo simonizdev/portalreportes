@@ -21,6 +21,16 @@
 
 <div class="row">
     <div class="col-sm-4">
+        <div class="form-group">
+          <input type="hidden" id="periodo_min" value="<?php echo date('Y-m', strtotime('-2 month', strtotime(date('Y-m')))); ?>">
+          <input type="hidden" id="periodo_max" value="<?php echo date('Y-m'); ?>">
+          <?php echo $form->error($model,'periodo', array('class' => 'badge badge-warning float-right')); ?>
+          <?php echo $form->label($model,'periodo'); ?>
+          <?php echo $form->textField($model,'periodo', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
+          <?php echo $form->hiddenField($model,'mes', array('class' => 'form-control form-control-sm', 'readonly' => true)); ?>
+        </div>
+    </div>
+    <div class="col-sm-4">
       <div class="form-group">
           <?php echo $form->hiddenField($model,'cad_dias'); ?>
           <?php echo $form->hiddenField($model,'cad_horas'); ?>

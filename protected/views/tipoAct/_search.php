@@ -96,19 +96,19 @@
 	    <div class="col-sm-2">
 	        <div class="form-group">
 	            <?php echo $form->label($model,'Ind_Alto'); ?>
-	            <?php echo $form->numberField($model,'Ind_Alto', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
+	            <?php echo $form->numberField($model,'Ind_Alto', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.01')); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-2">
 	        <div class="form-group">
 	            <?php echo $form->label($model,'Ind_Medio'); ?>
-	            <?php echo $form->numberField($model,'Ind_Medio', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
+	            <?php echo $form->numberField($model,'Ind_Medio', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.01')); ?>
 	        </div>
 	    </div>
 	    <div class="col-sm-2">
 	        <div class="form-group">
 	            <?php echo $form->label($model,'Ind_Bajo'); ?>
-	            <?php echo $form->numberField($model,'Ind_Bajo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.1')); ?>
+	            <?php echo $form->numberField($model,'Ind_Bajo', array('class' => 'form-control form-control-sm', 'autocomplete' => 'off', 'type' => 'number', 'min' => '0', 'max' => '100', 'step' => '0.01')); ?>
 	        </div>
 	    </div>
 	</div>

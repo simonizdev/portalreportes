@@ -34,6 +34,8 @@ class Actividad extends CActiveRecord
 	public $cad_dias;
 	public $cad_horas;
 	public $cad_obs;
+	public $periodo;
+	public $mes;
 
 	/**
 	 * @return string the associated database table name
@@ -53,7 +55,7 @@ class Actividad extends CActiveRecord
 		return array(
 			array('Fecha, Hora, Pais, Id_Usuario, Actividad, Id_Tipo, Id_Grupo, Prioridad', 'required','on'=>'create'),
 			array('Actividad, Estado, Prioridad','required','on'=>'update'),
-			array('Pais, Id_Usuario, Id_Tipo, Id_Grupo', 'required','on'=>'create2'),
+			array('Pais, Id_Usuario, Id_Tipo, Id_Grupo, periodo', 'required','on'=>'create2'),
 			array('Id_Usuario, Estado, Id_Usuario_Creacion, Id_Usuario_Actualizacion, Id_Tipo, Id_Grupo', 'numerical', 'integerOnly'=>true),
 			array('Actividad', 'length', 'max'=>5000),
 			array('Fecha_Cierre, Fecha_Finalizacion', 'safe'),
@@ -168,6 +170,8 @@ class Actividad extends CActiveRecord
 			'Prioridad' => 'Prioridad',
 			'Pais' => 'País',
 			'Fecha_Finalizacion' => 'Fecha de finalización',
+			'periodo' => 'Periodo',
+			'mes' => 'Mes',
 		);
 	}
 

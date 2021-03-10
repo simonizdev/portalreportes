@@ -2,9 +2,6 @@
 /* @var $this ActividadController */
 /* @var $model Actividad */
 
-$fecha_act = date("Y-m-d");
-$fecha = date("Y-m-d",strtotime($fecha_act."- 1 days")); 
-
 //para combos de grupos
 $lista_grupos = $grupos;
 
@@ -13,8 +10,6 @@ $lista_grupos = $grupos;
 <script>
 
 $(function() {
-
-    calendardisp();
 
     $("#valida_form").click(function() {
 
@@ -157,32 +152,28 @@ $(function() {
         monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
         today: "Hoy",
         clear: "Limpiar",
-        format: "yyyy-mm-dd",
+        format : 'yyyy-mm',
         titleFormat: "MM yyyy",
-        weekStart: 1
     };
 
-    $("#Actividad_Fecha").datepicker({
+    $("#Actividad_periodo").datepicker({
         language: 'es',
         autoclose: true,
         orientation: "right bottom",
+        format: "yyyy-mm",
+        startView: "year", 
+        minViewMode: "months",
+        startDate: $("#periodo_min").val(),
+        endDate: $("#periodo_max").val(),
     }).on('changeDate', function (selected) {
-      var minDate = new Date(selected.date.valueOf());
-      $('#Actividad_Fecha_Finalizacion').datepicker('setStartDate', minDate);
-    });
-
-    $("#Actividad_Fecha_Finalizacion").datepicker({
-        language: 'es',
-        autoclose: true,
-        orientation: "right bottom",
-    }).on('changeDate', function (selected) {
-      var maxDate = new Date(selected.date.valueOf());
-      $('#Actividad_Fecha').datepicker('setEndDate', maxDate);
+      var m = new Date(selected.date.valueOf()).getMonth() + 1;
+      calendardisp(m);
+      $("#Actividad_mes").val(m);
     });
 
 });
 
-function calendardisp(){
+function calendardisp(m){
 
   limp_div_msg();
 
@@ -190,12 +181,14 @@ function calendardisp(){
 
   var div_contenido = $('#contenido');
 
-  div_contenido.append('<table id="table_items" class="table table-sm table-hover"><thead><tr><th>Fecha</th><th>Horas</th><th>Observaciones</th></tr></thead><tbody></tbody></table>');
+  div_contenido.html('');
 
+  div_contenido.append('<table id="table_items" class="table table-sm table-hover"><thead><tr><th>Fecha</th><th>Horas</th><th>Observaciones</th></tr></thead><tbody></tbody></table>');
+  var data = {m: m}
   $.ajax({ 
       type: "POST", 
       url: "<?php echo Yii::app()->createUrl('actividad/getcalendar'); ?>",
-      //data: data,
+      data: data,
       dataType: 'json',
       success: function(data){
 

@@ -116,7 +116,7 @@ class ActividadController extends Controller
 
 			for ($i = 0; $i < $num_reg; $i++) {
 
-				$month = date('m');
+				$month = $_POST['Actividad']['mes'];
       			$year = date('Y');
 
       			$d=mktime(0, 0, 0, $month, $array_dias[$i], $year);
@@ -133,18 +133,12 @@ class ActividadController extends Controller
 				$nuevo_nov->Fecha_Finalizacion = date('Y-m-d', mktime(0,0,0, $month, $array_dias[$i], $year));
 				if($array_horas[$i] == 24){
 					$nuevo_nov->Hora_Cierre = '23:59:59';
-
-					echo $array_horas[$i].' - '.$nuevo_nov->Hora_Cierre .' a<br>';
-
 				}else{
 					if(strpos($array_horas[$i], '.') === false){
 						//hora cerrada
 						$hora = strtotime('+'.$array_horas[$i].' hour' , strtotime ($hora)); 
 						$hora = date ( 'H:i:s' , $hora);
 						$nuevo_nov->Hora_Cierre = $hora;
-
-						echo $array_horas[$i].' - '.$nuevo_nov->Hora_Cierre .' b<br>';
-
 					}else{
 						//hora partida
 						$v_hora = round($array_horas[$i], 0, PHP_ROUND_HALF_DOWN);
@@ -152,8 +146,6 @@ class ActividadController extends Controller
 						$hora = strtotime('+30 minute' , $hora); 
 						$hora = date ( 'H:i:s' , $hora);
 						$nuevo_nov->Hora_Cierre = $hora;
-
-						echo $array_horas[$i].' - '.$nuevo_nov->Hora_Cierre .' c<br>';
 					}
 				}
 
@@ -337,7 +329,7 @@ class ActividadController extends Controller
 	public function actionGetCalendar(){
 
   
-    	$month = date('m');
+    	$month =  $_POST['m'];
       	$year = date('Y');
       	$day = date("d", mktime(0,0,0, $month+1, 0, $year));
  
