@@ -157,9 +157,9 @@ class SolPromController extends Controller
 				$det->save();
 			}
 
-				$emails_envio = UtilidadesVarias::emailssolprom(2);
+				$emails_envio = UtilidadesMail::emailssolprom(2);
 				if(!empty($emails_envio)){
-					$resp = UtilidadesVarias::envioemailsolprom($model->Id_Sol_Prom, $emails_envio, '');	
+					$resp = UtilidadesMail::enviosolprom($model->Id_Sol_Prom, $emails_envio, '');	
 				}
 				Yii::app()->user->setFlash('success', "Solicitud ".$model->Num_Sol." creada correctamente.");
 				$this->redirect(array('admin'));
@@ -250,7 +250,7 @@ class SolPromController extends Controller
 			    	if($est_act != $model->Estado){
 			    		$model->Fecha = date('Y-m-d H:i:s');
 						$model->Fecha_T_Entrega = date("Y-m-d",strtotime(date('Y-m-d')." + 20 days"));
-						$emails_envio = UtilidadesVarias::emailssolprom(3);
+						$emails_envio = UtilidadesMail::emailssolprom(3);
 			    	}else{
 			    		if(isset($_POST['SolProm']['Val_Compra'])){ $model->Val_Compra = 1; }else{ $model->Val_Compra = 0; }
 			    		if(isset($_POST['SolProm']['Val_Prod'])){ $model->Val_Prod = 1; }else{ $model->Val_Prod = 0; }
@@ -260,17 +260,17 @@ class SolPromController extends Controller
 			    	break;
 		    	case 3:
 		    		$model->Estado_Rechazo = null;
-		    		$emails_envio = UtilidadesVarias::emailssolprom(4);
+		    		$emails_envio = UtilidadesMail::emailssolprom(4);
 			    	break;
 			   	case 4:
-			    	$emails_envio = UtilidadesVarias::emailssolprom(5);
+			    	$emails_envio = UtilidadesMail::emailssolprom(5);
 			    	break;
 			}
 
 			if($model->save()){
 				if($model->Estado != 0){
 					if(!empty($emails_envio)){
-						$resp = UtilidadesVarias::envioemailsolprom($model->Id_Sol_Prom, $emails_envio, '');
+						$resp = UtilidadesMail::enviosolprom($model->Id_Sol_Prom, $emails_envio, '');
 					}
 				}
 				Yii::app()->user->setFlash('success', "Solicitud actualizada correctamente.");
@@ -410,7 +410,6 @@ class SolPromController extends Controller
 		if(isset($_POST['SolProm']))
 		{
 			$model->attributes=$_POST['SolProm'];
-			//print_r($_POST['SolProm']);die;
 			$model->Estado_Rechazo = 3;
 			$model->Estado= 2;
 			$model->Id_Usuario_Actualizacion = Yii::app()->user->getState('id_user');
@@ -419,9 +418,9 @@ class SolPromController extends Controller
 
 			if($model->save())	{
 				$model->Observaciones_Log = null;
-				$emails_envio = UtilidadesVarias::emailssolprom($model->Estado);
+				$emails_envio = UtilidadesMail::emailssolprom($model->Estado);
 			    if(!empty($emails_envio)){
-					$resp = UtilidadesVarias::envioemailsolprom($id, $emails_envio, $obs);	
+					$resp = UtilidadesMail::enviosolprom($id, $emails_envio, $obs);	
 				}
 				$model->update();
 				Yii::app()->user->setFlash('success', "Solicitud actualizada correctamente.");

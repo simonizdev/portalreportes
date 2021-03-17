@@ -15,11 +15,7 @@
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
-)); 
-
-echo $form->errorSummary($model); 
-
-?>
+)); ?>
 
 <div id="accordion">
   <div class="card">

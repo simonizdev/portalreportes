@@ -229,7 +229,7 @@ if($cadena_emails_adic != ""){
         $array_emails = explode(",", $cadena_emails_adic);
 
         foreach ($array_emails as $llave => $email) {
-            $resp = UtilidadesVarias::envioemailwip($id ,$email, $nombre_archivo_gen);
+            $resp = UtilidadesMail::enviowip($id ,$email, $nombre_archivo_gen);
             $num_notif = $num_notif + intval($resp);
         }
 

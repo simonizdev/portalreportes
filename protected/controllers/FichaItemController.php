@@ -276,9 +276,9 @@ class FichaItemController extends Controller
 			$model->Cad_Gtin = null;
 			
 			if($model->save()){
-				$emails_envio = UtilidadesVarias::emailsfichaitem($model->Step);
+				$emails_envio = Utilidadesmail::emailsfichaitem($model->Step);
 				if(!empty($emails_envio)){
-					$resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');	
+					$resp = UtilidadesMail::enviofichaitem($model->Id, 1, $model->Step, $emails_envio, '');	
 				}
 				Yii::app()->user->setFlash('success', "Solicitud creada correctamente.");
 				$this->redirect(array('admin'));
@@ -451,9 +451,9 @@ class FichaItemController extends Controller
 			$model->Fecha_Hora_Actualizacion = date('Y-m-d H:i:s');
 
 			if($model->save())	{
-				$emails_envio = UtilidadesVarias::emailsfichaitem($model->Step);
+				$emails_envio = Utilidadesmail::emailsfichaitem($model->Step);
 				if(!empty($emails_envio)){
-					$resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');	
+					$resp = UtilidadesMail::enviofichaitem($model->Id, 1, $model->Step, $emails_envio, '');	
 				}
 				Yii::app()->user->setFlash('success', "Solicitud creada correctamente.");
 				$this->redirect(array('admin'));
@@ -1127,9 +1127,9 @@ class FichaItemController extends Controller
 			}
 
 			if($model->save()){
-				$emails_envio = UtilidadesVarias::emailsfichaitem($model->Step);
+				$emails_envio = Utilidadesmail::emailsfichaitem($model->Step);
 				if(!empty($emails_envio)){
-					$resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');	
+					$resp = UtilidadesMail::enviofichaitem($model->Id, 1, $model->Step, $emails_envio, '');	
 				}
 				Yii::app()->user->setFlash('success', "Solicitud actualizada correctamente.");
 				$this->redirect(array('admin'));	
@@ -1322,9 +1322,9 @@ class FichaItemController extends Controller
 			}
 						
 			if($model->save()){
-				$emails_envio = UtilidadesVarias::emailsfichaitem($model->Step);
+				$emails_envio = Utilidadesmail::emailsfichaitem($model->Step);
 			    if(!empty($emails_envio)){
-					$resp = UtilidadesVarias::envioemailfichaitem($model->Id, 1, $model->Step, $emails_envio, '');	
+					$resp = UtilidadesMail::enviofichaitem($model->Id, 1, $model->Step, $emails_envio, '');	
 				}
 				Yii::app()->user->setFlash('success', "Solicitud actualizada correctamente.");
 				$this->redirect(array('admin'));	
@@ -1491,9 +1491,9 @@ class FichaItemController extends Controller
 			}
 		
 			if($model->save())	{
-				$emails_envio = UtilidadesVarias::emailsfichaitem($model->Step);
+				$emails_envio = Utilidadesmail::emailsfichaitem($model->Step);
 			    if(!empty($emails_envio)){
-					$resp = UtilidadesVarias::envioemailfichaitem($id, 0, $model->Step, $emails_envio, $model->Observaciones);	
+					$resp = UtilidadesMail::enviofichaitem($id, 0, $model->Step, $emails_envio, $model->Observaciones);	
 				}
 				$model->Observaciones = null;
 				$model->update();

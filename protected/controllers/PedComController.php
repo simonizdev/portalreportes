@@ -107,7 +107,7 @@ class PedComController extends Controller
 					if(!empty($modelo_envio)){
 
 			        	$array_emails = explode(",", $modelo_envio->Emails);
-			            $resp = UtilidadesVarias::envioemailpedido($id ,$array_emails);
+			            $resp = UtilidadesMail::enviopedidocom($id ,$array_emails);
 			            $num_notif = intval($resp);
 			       		
 			            if($num_notif > 1){

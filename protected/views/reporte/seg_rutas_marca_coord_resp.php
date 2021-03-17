@@ -496,22 +496,12 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 $n = 'Seguimiento_rutas_coord_marca_'.date('Y_m_d_H_i_s');
 
-
 header('Content-Type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="'.$n.'.xlsx"');
 header('Cache-Control: max-age=0');
 $objWriter = new Xlsx($objPHPExcel);
 ob_end_clean();
 $objWriter->save('php://output');
-exit;
-
-
-
-
-/*$writer->save($n.'.xlsx');
-// Redireccionamos para que descargue el archivo generado
-header('Cache-Control: max-age=0');
-header("Location: ".$n.".xlsx");*/
 exit;
 
 ?>
