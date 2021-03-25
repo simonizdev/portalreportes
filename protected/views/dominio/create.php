@@ -12,28 +12,28 @@ $lista_opciones_p = CHtml::listData($opciones_p, 'Id_Dominio', 'Dominio');
 $(function() {
 
 	$("#valida_form").click(function() {
-    	var form = $("#dominio-form");
-    	var settings = form.data('settings') ;
+  	var form = $("#dominio-form");
+  	var settings = form.data('settings') ;
 
-      	settings.submitting = true ;
-      	$.fn.yiiactiveform.validate(form, function(messages) {
-          	if($.isEmptyObject(messages)) {
-              	$.each(settings.attributes, function () {
-                 	$.fn.yiiactiveform.updateInput(this,messages,form); 
-             	});
-                 
-				form.submit();
-				loadershow();
-      
-          	} else {
-              	settings = form.data('settings'),
-              	$.each(settings.attributes, function () {
-                 	$.fn.yiiactiveform.updateInput(this,messages,form); 
-              	});
-              	settings.submitting = false ;
-          	}
-      	});
-    });
+    	settings.submitting = true ;
+    	$.fn.yiiactiveform.validate(form, function(messages) {
+        	if($.isEmptyObject(messages)) {
+            	$.each(settings.attributes, function () {
+               	$.fn.yiiactiveform.updateInput(this,messages,form); 
+           	});
+               
+			form.submit();
+			loadershow();
+    
+        	} else {
+            	settings = form.data('settings'),
+            	$.each(settings.attributes, function () {
+               	$.fn.yiiactiveform.updateInput(this,messages,form); 
+            	});
+            	settings.submitting = false ;
+        	}
+    	});
+  });
 
 });
    	

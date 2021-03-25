@@ -196,6 +196,7 @@ class Reporte extends CFormModel
             array('fecha_inicial, fecha_final, un', 'required','on'=>'consolidado_un'),
             array('periodo, coordinador, marca', 'required','on'=>'seg_rutas_marca_coord'),
             array('fecha_inicial, fecha_final', 'required','on'=>'rec_x_web_service'),
+            array('tipo, cons_inicial, cons_final', 'required','on'=>'comp_inc'),
         );  
     }
 

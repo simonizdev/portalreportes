@@ -2114,4 +2114,80 @@ class UtilidadesReportes {
     return $tabla;
   }
 
+  public static function compincpantalla($tipo, $cons_inicial, $cons_final) {
+
+    $query ="
+
+    SELECT
+    CONCAT(f430_id_cia    ,f430_id_co    ,f430_id_tipo_docto    ,f430_consec_docto) as Pedido
+    ,f120_id as Item
+    ,CAST(f431_cant1_pedida as int) as Cant_Pedida
+    ,CAST(f431_cant1_comprometida as int) as Cant_Comprometida
+    ,CAST((f400_cant_existencia_1-f400_cant_comprometida_1) as int) as Cant_Existencia
+    --select *
+    from UnoEE1..t430_cm_pv_docto
+    inner join UnoEE1..t431_cm_pv_movto on f430_rowid=f431_rowid_pv_docto
+    inner join UnoEE1..t120_mc_items on f120_rowid=f431_rowid_item_ext
+    LEFT join UnoEE1..t400_cm_existencia on f400_rowid_bodega=f431_rowid_bodega and f400_rowid_item_ext=f431_rowid_item_ext
+    where f430_ind_remisionado=0 and f430_ind_estado in (2,3) and f431_ind_estado in (2,3)
+    and (f431_cant1_pedida>f431_cant1_comprometida and (f400_cant_existencia_1-f400_cant_comprometida_1)>f431_cant1_comprometida)
+    and f430_id_tipo_docto = '".$tipo."'
+    and f430_consec_docto between ".$cons_inicial." and ".$cons_final;
+
+    $tabla = '
+      <table class="table table-sm table-hover">
+              <thead>
+                <tr>
+                <th>Pedido</th>
+                <th>Item</th>
+                <th>Cant. pedida</th>
+                <th>Cant. comprometida</th>
+                <th>Cant. existencia</th>
+                </tr>
+              </thead>
+          <tbody>';
+
+    $q1 = Yii::app()->db->createCommand($query)->queryAll();
+
+    $i = 1; 
+
+    if(!empty($q1)){
+      foreach ($q1 as $reg1) {
+
+        $Pedido             = $reg1 ['Pedido']; 
+        $Item               = $reg1 ['Item'];
+        $Cant_Pedida        = $reg1 ['Cant_Pedida'];
+        $Cant_Comprometida  = $reg1 ['Cant_Comprometida'];
+        $Cant_Existencia    = $reg1 ['Cant_Existencia']; 
+
+        if ($i % 2 == 0){
+          $clase = 'odd'; 
+        }else{
+          $clase = 'even'; 
+        }
+
+        $tabla .= '    
+        <tr class="'.$clase.'">
+              <td>'.$Pedido.'</td>
+              <td>'.$Item.'</td>
+              <td align="right">'.$Cant_Pedida.'</td>
+              <td align="right">'.$Cant_Comprometida.'</td>
+              <td align="right">'.$Cant_Existencia.'</td>
+          </tr>';
+
+        $i++; 
+
+      }
+    }else{
+      $tabla .= ' 
+        <tr><td colspan="5" class="empty"><span class="empty">No se encontraron resultados.</span></td></tr>
+      ';
+    }
+
+    $tabla .= '  </tbody>
+        </table>';
+
+    return $tabla;
+  }
+
 }
