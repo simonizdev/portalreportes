@@ -39,7 +39,7 @@ $(function() {
           horas_selected += horas+'|'; 
           obs_selected += obs+'|';
 
-          if(horas == "" || horas < 1 || horas > 24 || obs == ""){
+          if(horas == "" || horas < 0.5 || horas > 24 || obs == ""){
             val_form = 2;
           }
     
